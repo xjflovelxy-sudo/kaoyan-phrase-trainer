@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（句子校正版）</title>
+  <title>考研英语词组记忆器（全作文逐句批改版）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -2370,13 +2370,292 @@
       }
     }
 
+  
+    /* 修正原淡黄色区域：深色文字＋清晰边框 */
+    .hint-panel {
+      background: #fff1bd !important;
+      border: 1px solid #c89418 !important;
+      color: #372600 !important;
+      opacity: 1 !important;
+      text-shadow: none !important;
+      font-weight: 600;
+    }
+
+    .hint-panel *,
+    .imitation-side .hint-panel *,
+    .correction-warning * {
+      color: inherit !important;
+      opacity: 1 !important;
+      text-shadow: none !important;
+    }
+
+    .hint-panel strong {
+      color: #211600 !important;
+      font-weight: 850;
+    }
+
+    .training-prompt {
+      background: #edf3ff !important;
+      border-color: #b9c9ef !important;
+      color: #182846 !important;
+      opacity: 1 !important;
+      text-shadow: none !important;
+    }
+
+    .training-prompt * {
+      color: inherit !important;
+    }
+
+    .sentence-work-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 15px;
+    }
+
+    .sentence-work-card {
+      border: 1px solid #dce3ef;
+      border-radius: 15px;
+      background: #fff;
+      padding: 16px;
+      box-shadow: 0 4px 14px rgba(30, 44, 75, .045);
+    }
+
+    .sentence-work-card.completed {
+      border-color: #9dcfad;
+      box-shadow: 0 4px 14px rgba(22, 128, 59, .07);
+    }
+
+    .sentence-work-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .sentence-work-number {
+      display: inline-grid;
+      place-items: center;
+      min-width: 31px;
+      height: 31px;
+      padding: 0 8px;
+      border-radius: 10px;
+      background: #3559e0;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .sentence-work-status {
+      border-radius: 999px;
+      padding: 5px 9px;
+      background: #f0f3f8;
+      color: #657086;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .sentence-work-status.done {
+      background: #e8f7ed;
+      color: #167238;
+    }
+
+    .chinese-writing-prompt {
+      padding: 13px 14px;
+      border-radius: 11px;
+      background: #edf3ff;
+      border: 1px solid #b8c8ec;
+      color: #172746;
+      line-height: 1.75;
+      font-size: 15px;
+      font-weight: 720;
+    }
+
+    .sentence-writing-input {
+      width: 100%;
+      min-height: 94px;
+      margin-top: 10px;
+      resize: vertical;
+      line-height: 1.75;
+      font-family: inherit;
+      font-size: 15px;
+      border: 1px solid #cfd7e6;
+      border-radius: 11px;
+      padding: 11px 12px;
+      color: #172033;
+      background: #fff;
+    }
+
+    .sentence-writing-input:focus {
+      outline: 2px solid rgba(53, 89, 224, .18);
+      border-color: #3559e0;
+    }
+
+    .paragraph-work-section {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #fafbfe;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .paragraph-work-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid #e5e9f1;
+    }
+
+    .correction-overview {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .correction-overview-item {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #e1e6ee;
+      background: #fafbfe;
+    }
+
+    .correction-overview-item strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    .correction-overview-item span {
+      color: #6b7588;
+      font-size: 11px;
+    }
+
+    .correction-positive {
+      background: #edf8f1;
+      border: 1px solid #acd8bb;
+      color: #145f2c;
+    }
+
+    .correction-negative {
+      background: #fff0f0;
+      border: 1px solid #e8b4b4;
+      color: #8e2424;
+    }
+
+    .correction-neutral {
+      background: #eef3ff;
+      border: 1px solid #b9c9ef;
+      color: #203b79;
+    }
+
+    .correction-detail-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .correction-detail-item {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      padding: 9px 10px;
+      border-radius: 9px;
+      line-height: 1.65;
+      font-size: 12px;
+    }
+
+    .correction-detail-item.good {
+      background: #edf8f1;
+      color: #145f2c;
+    }
+
+    .correction-detail-item.bad {
+      background: #fff0f0;
+      color: #922626;
+    }
+
+    .correction-detail-item.info {
+      background: #eef3ff;
+      color: #23427e;
+    }
+
+    .correction-phrase-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .correction-phrase {
+      padding: 5px 8px;
+      border-radius: 8px;
+      background: #def3e5;
+      color: #125d2a;
+      font-size: 12px;
+      font-weight: 730;
+    }
+
+    .correction-word-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .correction-word {
+      padding: 4px 7px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 720;
+    }
+
+    .correction-word.missing {
+      background: #dff3e5;
+      color: #125d2a;
+    }
+
+    .correction-word.extra {
+      background: #ffe0e0;
+      color: #922222;
+      text-decoration: line-through;
+    }
+
+    .correction-word.spelling {
+      background: #fff0c7;
+      color: #775100;
+    }
+
+    .all-writing-notice {
+      border: 1px solid #b8c8ec;
+      border-radius: 13px;
+      padding: 13px 14px;
+      background: #edf3ff;
+      color: #1d315b;
+      line-height: 1.75;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 760px) {
+      .sentence-work-head,
+      .paragraph-work-title {
+        display: grid;
+      }
+
+      .correction-overview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
   </style>
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>考研英语词组记忆器·句子仿写校正版</h1>
+      <h1>考研英语词组记忆器·全作文逐句批改版</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -3369,6 +3648,8 @@
   const WHOLE_IMITATION_TASKS = [{"id":"whole-1","sourceEssayId":"big-essay-elderly-robots","title":"智能医疗设备接受度","prompt":"某调查显示公众对智能医疗设备的接受程度及其主要顾虑。请仿照“养老机器人”完成三段式大作文。","outline":{"第一段":["描述接受比例","描述安全、隐私、价格等关注点","概括总体态度"],"第二段":["分析医疗需求","分析技术进步","说明顾虑对使用意愿的影响"],"第三段":["制造商改进质量","政府建立标准","消费者理性认识","共同努力总结"]}},{"id":"whole-2","sourceEssayId":"big-essay-appliances","title":"新能源汽车拥有量","prompt":"图表显示2019—2025年三类新能源汽车拥有量持续增加。请仿照“家用电器拥有量变化”完成三段式大作文。","outline":{"第一段":["描述三类数据","指出增长最快的一类","总结趋势"],"第二段":["生活水平与环保意识","技术与政策支持","不同类别增长差异"],"第三段":["企业、政府和消费者分别提出建议","共同努力总结"]}},{"id":"whole-3","sourceEssayId":"big-essay-parks","title":"社区公共图书馆","prompt":"图画中居民正在新建的社区图书馆阅读，图表显示公共图书馆数量持续增加。请仿照“城市公园”完成作文。","outline":{"第一段":["描述图画","描述数量变化","总结公共服务改善"],"第二段":["对个人学习的帮助","对社区交流的帮助","反映政府关注需求","总结意义"],"第三段":["政府合理建设","部门加强管理","居民爱护设施","共同努力总结"]}},{"id":"whole-4","sourceEssayId":"big-essay-dragon-boat","title":"传统戏曲进校园","prompt":"图画显示越来越多学生观看并参与传统戏曲活动。请仿照“龙舟赛”完成作文。","outline":{"第一段":["描述活动现场","引用人物观点","概括传统文化受关注"],"第二段":["文化理解与认同","交流与娱乐","年轻人参与和传承","总结意义"],"第三段":["部门保护支持","组织者保障活动","年轻人积极参与","共同努力总结"]}},{"id":"whole-5","sourceEssayId":"big-essay-campus-lecture","title":"跨专业选修课","prompt":"两名学生对是否参加与本专业无直接关系的选修课持有不同态度。请仿照“校园讲座”完成作文。","outline":{"第一段":["描述两种态度","概括面对专业外知识的差异","指出拓宽视野的重要性"],"第二段":["专业知识与其他领域知识","学科之间的联系","交流机会","开放对待新知识"],"第三段":["学生合理选择","学校提供课程","思考内容并结合实践","only when总结"]}}];
 
   const BIG_ESSAY_PATTERNS = [{"id":"pattern-as-shown","structure":"As is shown in the chart/picture, ...","meaning":"第一段开头：描述图表或图画","position":"第一段","examples":["As is shown in the chart, the ownership of three types of household appliances increased from 2014 to 2023.","As is shown in the picture, several residents are resting and exercising in a newly built park."]},{"id":"pattern-chart-shows","structure":"The chart shows that + 完整句子","meaning":"说明图表呈现的数据变化","position":"第一段","examples":["The chart shows that the number of parks in the city increased continuously from 2020 to 2022."]},{"id":"pattern-overall","structure":"Overall/In general, ...","meaning":"概括图表趋势、图画寓意或段落观点","position":"第一段或第二段","examples":["Overall, all three types of household appliances showed an upward trend, which reflects an improvement in people’s living conditions.","In general, this picture shows that traditional customs are becoming more and more popular."]},{"id":"pattern-two-sides","structure":"On the one hand, ... On the other hand, ...","meaning":"从两个方面分析原因、影响或意义","position":"第二段","examples":["On the one hand, population aging has increased the demand for elderly care.","On the other hand, advances in technology have made these robots more intelligent and convenient."]},{"id":"pattern-beneficial-to","structure":"It is beneficial to do A and do B.","meaning":"说明某种行为的好处","position":"第二段","examples":["It is beneficial to broaden our horizons and enrich our knowledge."]},{"id":"pattern-significant-that","structure":"It is significant that + 完整句子","meaning":"强调某种现象或行为的重要意义","position":"第一段总结或第二段总起","examples":["In general, it is significant that the dragon boat race has become more popular.","All things considered, it is significant that we take part in lectures in different fields."]},{"id":"pattern-not-only","structure":"A not only does B but also does C.","meaning":"并列说明两种作用或结果","position":"第二段总结","examples":["This change not only improves the urban environment but also increases residents’ sense of happiness.","The activity of traditional customs not only enriches people’s lives but also promotes the development of traditional culture."]},{"id":"pattern-which","structure":"主句, which + 谓语...","meaning":"补充说明前面的情况或结果","position":"第一段总结或第二段分析","examples":["People may still worry about safety, privacy, and price, which directly influence their willingness to use such products."]},{"id":"pattern-whether","structure":"whether + 完整句子 + or not","meaning":"表达“是否……”","position":"第二段","examples":["Students should not just pay attention to whether a lecture is beneficial to their majors or not."]},{"id":"pattern-only-when","structure":"Only when + 完整句子 + can + 主语 + 动词原形","meaning":"第三段结尾：强调共同努力或必要条件","position":"第三段结尾","examples":["Only when manufacturers, the government, and consumers work together can elderly-care robots play a greater role in society.","Only when the government and residents work together can urban parks play a greater role and bring more benefits to individuals, families, and society."]},{"id":"pattern-only-when-end","structure":"主语 + can + 动词 ... only when + 完整句子","meaning":"把only when条件放在句尾，不使用倒装","position":"第三段结尾","examples":["Students can improve themselves continuously and prepare for future development only when they keep their curiosity and study actively."]},{"id":"pattern-provide-with","structure":"A provides B with chances/places for C.","meaning":"说明某事物为某人提供机会或场所","position":"第二段","examples":["Campus lectures also provide students with chances for communication with teachers and other students.","More parks can provide residents with places for exercise, walking, and rest."]}];
+
+  const PATTERN_PRACTICE_TASKS = [{"patternId":"pattern-as-shown","prompt":"如图表所示，2018年至2025年该市公共图书馆的数量持续增加。","reference":"As is shown in the chart, the number of public libraries in the city increased from 2018 to 2025.","frame":"As is shown in the chart/picture, ...","keywords":["as is shown in the chart","the number of","increased from"]},{"patternId":"pattern-chart-shows","prompt":"图表显示，社区健身中心的数量从2020年至2025年持续增加。","reference":"The chart shows that the number of community fitness centers increased continuously from 2020 to 2025.","frame":"The chart shows that + 完整句子.","keywords":["the chart shows that","the number of","increased continuously"]},{"patternId":"pattern-overall","prompt":"总体而言，三类公共文化设施都呈上升趋势，这反映了城市公共服务的改善。","reference":"Overall, all three types of public cultural facilities showed an upward trend, which reflects an improvement in urban public services.","frame":"Overall/In general, ...","keywords":["overall","showed an upward trend","which reflects"]},{"patternId":"pattern-two-sides","prompt":"一方面，社区图书馆能提供学习场所；另一方面，它们也能促进居民交流。","reference":"On the one hand, community libraries can provide places for study. On the other hand, they can also promote communication among residents.","frame":"On the one hand, ... On the other hand, ...","keywords":["on the one hand","on the other hand"]},{"patternId":"pattern-beneficial-to","prompt":"参加志愿活动有助于增强责任感并提高沟通能力。","reference":"It is beneficial to take part in volunteer activities, strengthen our sense of responsibility, and improve our communication skills.","frame":"It is beneficial to do A and do B.","keywords":["it is beneficial to","strengthen","improve"]},{"patternId":"pattern-significant-that","prompt":"越来越多的年轻人参加传统文化活动具有重要意义。","reference":"It is significant that more and more young people are taking part in traditional cultural activities.","frame":"It is significant that + 完整句子.","keywords":["it is significant that","more and more","take part in"]},{"patternId":"pattern-not-only","prompt":"社区图书馆不仅丰富居民的文化生活，也促进社区交流。","reference":"Community libraries not only enrich residents’ cultural lives but also promote communication within the community.","frame":"A not only does B but also does C.","keywords":["not only","but also"]},{"patternId":"pattern-which","prompt":"人们仍可能担心数据安全和隐私，而这些问题会直接影响他们使用智能设备的意愿。","reference":"People may still worry about data security and privacy, which directly influence their willingness to use smart devices.","frame":"主句, which + 谓语...","keywords":[", which","directly influence","willingness to use"]},{"patternId":"pattern-whether","prompt":"学生不应只关注一门课程是否与自己的专业直接相关。","reference":"Students should not just pay attention to whether a course is directly related to their majors or not.","frame":"whether + 完整句子 + or not.","keywords":["whether","or not","pay attention to"]},{"patternId":"pattern-only-when","prompt":"只有学校、教师和学生共同努力，校园讲座才能发挥更大的作用。","reference":"Only when schools, teachers, and students work together can campus lectures play a greater role.","frame":"Only when + 完整句子 + can + 主语 + 动词原形.","keywords":["only when","work together","can","play a greater role"]},{"patternId":"pattern-only-when-end","prompt":"只有保持开放的态度并积极学习，学生才能不断提高自己。","reference":"Students can improve themselves continuously only when they keep an open mind and study actively.","frame":"主语 + can + 动词 ... only when + 完整句子.","keywords":["can","only when","keep an open mind","study actively"]},{"patternId":"pattern-provide-with","prompt":"校园讲座为学生提供了与教师和其他学生交流的机会。","reference":"Campus lectures provide students with chances for communication with teachers and other students.","frame":"A provides B with chances/places for C.","keywords":["provide students with","chances for","communication"]}];
 
   const defaultSettings = {
     dailyNew: 10,
@@ -4490,21 +4771,548 @@
     </div>`;
   }
 
+  function safeWritingDomId(value) {
+    return String(value || "").replace(/[^A-Za-z0-9_-]/g, "_");
+  }
+
+  function writingInputId(kind, id) {
+    return `writing-input-${safeWritingDomId(`${kind}-${id}`)}`;
+  }
+
+  function writingFeedbackId(kind, id) {
+    return `writing-feedback-${safeWritingDomId(`${kind}-${id}`)}`;
+  }
+
+  function splitReferenceSentences(text) {
+    return (String(text || "").match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [])
+      .map(item => item.trim())
+      .filter(Boolean);
+  }
+
+  function deriveReferenceKeywords(reference) {
+    const lower = String(reference || "").toLowerCase();
+    const candidates = [
+      "as is shown in the chart",
+      "as is shown in the picture",
+      "as is vividly displayed",
+      "the chart shows that",
+      "in general",
+      "overall",
+      "on the one hand",
+      "on the other hand",
+      "in addition",
+      "therefore",
+      "however",
+      "in my opinion",
+      "it is beneficial",
+      "it is significant",
+      "not only",
+      "but also",
+      "only when",
+      "whether",
+      "or not",
+      "which",
+      "provide",
+      "pay attention to",
+      "work together",
+      "be passed down from generation to generation"
+    ];
+    return candidates.filter(item => lower.includes(item));
+  }
+
+  function inlineImitationTask(sentenceId) {
+    const task = SENTENCE_IMITATION_TASKS.find(item => item.sourceSentenceId === sentenceId);
+    if (task) return task;
+    const ref = allEssaySentenceRefs().find(item => item.sentence.id === sentenceId);
+    if (!ref) return null;
+    return {
+      id: `inline-${sentenceId}`,
+      prompt: ref.sentence.chinesePrompt,
+      reference: ref.sentence.text,
+      frame: "",
+      pattern: ref.sentence.type,
+      keywords: deriveReferenceKeywords(ref.sentence.text),
+      sourceSentenceId: sentenceId
+    };
+  }
+
+  function patternPracticeTask(patternId) {
+    return PATTERN_PRACTICE_TASKS.find(item => item.patternId === patternId) || null;
+  }
+
+  function paragraphImitationSentenceSet(task) {
+    const references = splitReferenceSentences(task.reference);
+    const size = Math.max(references.length, task.outline.length);
+    return Array.from({length: size}, (_, index) => ({
+      id: `${task.id}-s${index + 1}`,
+      prompt: task.outline[index] || `按照段落逻辑完成第${index + 1}句。`,
+      reference: references[index] || "",
+      frame: "",
+      pattern: task.required?.join(" · ") || "",
+      keywords: deriveReferenceKeywords(references[index] || "")
+    })).filter(item => item.reference);
+  }
+
+  function wholeImitationSentenceSet(task) {
+    return SENTENCE_IMITATION_TASKS
+      .filter(item => item.sourceEssayId === task.sourceEssayId)
+      .slice(0, 12)
+      .map((item, index) => ({
+        ...item,
+        id: `${task.id}-${item.id}`,
+        sourceTaskId: item.id,
+        paragraph: Number((item.sourceSentenceId.match(/-p([123])-s/) || [])[1] || (index < 4 ? 1 : index < 8 ? 2 : 3))
+      }));
+  }
+
+  function dictationSentenceSet(essay, paragraph) {
+    return paragraph.sentences.map((sentence, index) => ({
+      id: `${essay.id}-p${paragraph.number}-s${index + 1}`,
+      sentenceId: sentence.id,
+      prompt: sentence.chinesePrompt,
+      reference: sentence.text,
+      frame: "",
+      pattern: sentence.type,
+      keywords: deriveReferenceKeywords(sentence.text)
+    }));
+  }
+
+  function resolveWritingContext(kind, id) {
+    if (kind === "sentence300") {
+      const task = SENTENCE_IMITATION_TASKS.find(item => item.id === id);
+      if (!task) return null;
+      return {
+        ...task,
+        kind,
+        storageCategory: "sentenceImitation",
+        storageId: task.id,
+        referenceLabel: "网页辅助参考答案",
+        inputId: "sentenceImitationAnswer",
+        feedbackId: "sentenceImitationFeedback"
+      };
+    }
+
+    if (kind === "inline") {
+      const task = inlineImitationTask(id);
+      if (!task) return null;
+      return {
+        ...task,
+        kind,
+        storageCategory: "sentenceImitation",
+        storageId: `inline-${id}`,
+        referenceLabel: "本题辅助修正版",
+        inputId: writingInputId(kind, id),
+        feedbackId: writingFeedbackId(kind, id)
+      };
+    }
+
+    if (kind === "pattern") {
+      const task = patternPracticeTask(id);
+      if (!task) return null;
+      return {
+        ...task,
+        id,
+        kind,
+        pattern: task.frame,
+        storageCategory: "patternImitation",
+        storageId: id,
+        referenceLabel: "句型仿写修正版",
+        inputId: writingInputId(kind, id),
+        feedbackId: writingFeedbackId(kind, id)
+      };
+    }
+
+    if (kind === "paragraph") {
+      const [taskId, position] = String(id).split("::");
+      const task = PARAGRAPH_IMITATION_TASKS.find(item => item.id === taskId);
+      const sentence = task ? paragraphImitationSentenceSet(task)[Number(position)] : null;
+      if (!task || !sentence) return null;
+      return {
+        ...sentence,
+        kind,
+        storageCategory: "paragraphImitation",
+        storageId: sentence.id,
+        referenceLabel: "本句辅助修正版",
+        inputId: writingInputId(kind, id),
+        feedbackId: writingFeedbackId(kind, id)
+      };
+    }
+
+    if (kind === "whole") {
+      const splitAt = String(id).indexOf("::");
+      const taskId = String(id).slice(0, splitAt);
+      const sentenceId = String(id).slice(splitAt + 2);
+      const task = WHOLE_IMITATION_TASKS.find(item => item.id === taskId);
+      const sentence = task ? wholeImitationSentenceSet(task).find(item => item.id === sentenceId) : null;
+      if (!task || !sentence) return null;
+      return {
+        ...sentence,
+        kind,
+        storageCategory: "wholeImitation",
+        storageId: sentence.id,
+        referenceLabel: "本句辅助修正版",
+        inputId: writingInputId(kind, id),
+        feedbackId: writingFeedbackId(kind, id)
+      };
+    }
+
+    if (kind === "dictation") {
+      const [essayId, paragraphNumber, position] = String(id).split("::");
+      const essay = getBigEssayById(essayId);
+      const paragraph = essay?.paragraphs[Number(paragraphNumber) - 1];
+      const sentence = paragraph ? dictationSentenceSet(essay, paragraph)[Number(position)] : null;
+      if (!sentence) return null;
+      return {
+        ...sentence,
+        kind,
+        storageCategory: "dictation",
+        storageId: sentence.id,
+        referenceLabel: "确认原句",
+        inputId: writingInputId(kind, id),
+        feedbackId: writingFeedbackId(kind, id)
+      };
+    }
+
+    if (kind === "study") {
+      const ref = allEssaySentenceRefs().find(item => item.sentence.id === id);
+      if (!ref) return null;
+      return {
+        id,
+        kind,
+        prompt: ref.sentence.chinesePrompt,
+        reference: ref.sentence.text,
+        frame: "",
+        pattern: ref.sentence.type,
+        keywords: deriveReferenceKeywords(ref.sentence.text),
+        storageCategory: "dictation",
+        storageId: `study-${id}`,
+        referenceLabel: "确认英文",
+        inputId: "essayStudyDraftInput",
+        feedbackId: writingFeedbackId(kind, id)
+      };
+    }
+
+    return null;
+  }
+
+  function levenshteinDistance(a, b) {
+    const x = String(a || "").toLowerCase();
+    const y = String(b || "").toLowerCase();
+    const rows = Array.from({length: x.length + 1}, () => Array(y.length + 1).fill(0));
+    for (let i = 0; i <= x.length; i += 1) rows[i][0] = i;
+    for (let j = 0; j <= y.length; j += 1) rows[0][j] = j;
+    for (let i = 1; i <= x.length; i += 1) {
+      for (let j = 1; j <= y.length; j += 1) {
+        rows[i][j] = Math.min(
+          rows[i - 1][j] + 1,
+          rows[i][j - 1] + 1,
+          rows[i - 1][j - 1] + (x[i - 1] === y[j - 1] ? 0 : 1)
+        );
+      }
+    }
+    return rows[x.length][y.length];
+  }
+
+  function correctionDiffDetails(answer, reference) {
+    const diff = tokenDiff(answer, reference);
+    const additions = diff.filter(item => item.type === "add").map(item => item.token);
+    const removals = diff.filter(item => item.type === "remove").map(item => item.token);
+    const spelling = [];
+    const usedAdd = new Set();
+    const usedRemove = new Set();
+
+    removals.forEach((wrong, rIndex) => {
+      if (!/^[A-Za-z][A-Za-z'-]{2,}$/.test(wrong)) return;
+      let best = null;
+      additions.forEach((correct, aIndex) => {
+        if (usedAdd.has(aIndex) || !/^[A-Za-z][A-Za-z'-]{2,}$/.test(correct)) return;
+        const distance = levenshteinDistance(wrong, correct);
+        const limit = Math.max(wrong.length, correct.length) >= 7 ? 2 : 1;
+        if (distance <= limit && (!best || distance < best.distance)) {
+          best = {wrong, correct, distance, aIndex};
+        }
+      });
+      if (best) {
+        spelling.push(best);
+        usedAdd.add(best.aIndex);
+        usedRemove.add(rIndex);
+      }
+    });
+
+    const remainingAdditions = additions.filter((_, index) => !usedAdd.has(index));
+    const remainingRemovals = removals.filter((_, index) => !usedRemove.has(index));
+
+    const orderWords = [];
+    const missing = [...remainingAdditions];
+    const extra = [...remainingRemovals];
+
+    for (let i = extra.length - 1; i >= 0; i -= 1) {
+      const found = missing.findIndex(item => item.toLowerCase() === extra[i].toLowerCase());
+      if (found >= 0 && /^[A-Za-z]/.test(extra[i])) {
+        orderWords.push(extra[i]);
+        extra.splice(i, 1);
+        missing.splice(found, 1);
+      }
+    }
+
+    const correctPhrases = [];
+    let chunk = [];
+    diff.forEach(item => {
+      if (item.type === "same" && /^[A-Za-z0-9'%’-]+$/.test(item.token)) {
+        chunk.push(item.token);
+      } else {
+        if (chunk.length >= 2) correctPhrases.push(chunk.join(" "));
+        chunk = [];
+      }
+    });
+    if (chunk.length >= 2) correctPhrases.push(chunk.join(" "));
+
+    return {
+      diff,
+      spelling,
+      missing,
+      extra,
+      orderWords,
+      correctPhrases: [...new Set(correctPhrases)].slice(0, 8)
+    };
+  }
+
+  function writingCorrectionAnalysis(answer, context) {
+    const score = essayTextCoverage(answer, context.reference);
+    const formatChecks = sentenceFormatChecks(answer);
+    const structureChecks = sentenceStructureChecks(answer, context);
+    const keywordChecks = keywordCorrectionChecks(answer, {
+      keywords: context.keywords || deriveReferenceKeywords(context.reference)
+    });
+    const details = correctionDiffDetails(answer, context.reference);
+    const checks = [...formatChecks, ...structureChecks, ...keywordChecks];
+    const failed = checks.filter(item => !item.ok);
+    const passed = checks.filter(item => item.ok);
+    const level = score >= 92 && failed.length === 0
+      ? "正确"
+      : score >= 78 && failed.length <= 2
+        ? "基本正确"
+        : score >= 55
+          ? "错误较多"
+          : "需要重写";
+    return {score, checks, failed, passed, details, level};
+  }
+
+  function renderDetailedWritingReport(context, answer, analysis) {
+    const details = analysis.details;
+    const problemCount = (
+      analysis.failed.length +
+      details.spelling.length +
+      details.missing.length +
+      details.extra.length +
+      details.orderWords.length
+    );
+
+    return `
+      <div class="correction-report">
+        <div class="correction-head">
+          <strong>本句详细批改</strong>
+          <span class="correction-level">${escapeHtml(analysis.level)} · 覆盖度${analysis.score}%</span>
+        </div>
+
+        <div class="correction-section">
+          <div class="correction-title">一、总体情况</div>
+          <div class="correction-overview">
+            <div class="correction-overview-item correction-positive">
+              <strong>${analysis.passed.length}</strong><span>检查正确项</span>
+            </div>
+            <div class="correction-overview-item correction-negative">
+              <strong>${problemCount}</strong><span>需要修改项</span>
+            </div>
+            <div class="correction-overview-item correction-neutral">
+              <strong>${details.missing.length}</strong><span>缺少词语</span>
+            </div>
+            <div class="correction-overview-item correction-neutral">
+              <strong>${details.spelling.length}</strong><span>疑似拼写错误</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="correction-section">
+          <div class="correction-title">二、你写对的地方</div>
+          <div class="correction-detail-list">
+            ${analysis.passed.length
+              ? analysis.passed.map(item => `
+                <div class="correction-detail-item good">
+                  <span>✓</span><div><strong>${escapeHtml(item.label)}</strong><br>${escapeHtml(item.detail)}</div>
+                </div>`).join("")
+              : '<div class="correction-detail-item info"><span>i</span><div>暂时没有通过预设结构检查的项目，请先按照修正版重写。</div></div>'}
+          </div>
+          ${details.correctPhrases.length ? `
+            <div style="margin-top:10px;">
+              <div class="training-label">与参考答案一致的词组</div>
+              <div class="correction-phrase-list">
+                ${details.correctPhrases.map(item => `<span class="correction-phrase">${escapeHtml(item)}</span>`).join("")}
+              </div>
+            </div>` : ""}
+        </div>
+
+        <div class="correction-section">
+          <div class="correction-title">三、需要修改的地方</div>
+          <div class="correction-detail-list">
+            ${analysis.failed.map(item => `
+              <div class="correction-detail-item bad">
+                <span>!</span><div><strong>${escapeHtml(item.label)}</strong><br>${escapeHtml(item.detail)}</div>
+              </div>`).join("")}
+
+            ${details.spelling.map(item => `
+              <div class="correction-detail-item bad">
+                <span>拼</span><div><strong>疑似拼写错误</strong><br>
+                <span class="correction-word spelling">${escapeHtml(item.wrong)} → ${escapeHtml(item.correct)}</span>
+                </div>
+              </div>`).join("")}
+
+            ${details.orderWords.length ? `
+              <div class="correction-detail-item bad">
+                <span>序</span><div><strong>词序可能不正确</strong><br>
+                这些词在参考答案中也出现，但位置不同：
+                <div class="correction-word-list">${details.orderWords.map(item => `<span class="correction-word spelling">${escapeHtml(item)}</span>`).join("")}</div>
+                </div>
+              </div>` : ""}
+
+            ${details.missing.length ? `
+              <div class="correction-detail-item bad">
+                <span>缺</span><div><strong>参考答案中有、你的句子中缺少</strong>
+                <div class="correction-word-list">${details.missing.map(item => `<span class="correction-word missing">${escapeHtml(item)}</span>`).join("")}</div>
+                </div>
+              </div>` : ""}
+
+            ${details.extra.length ? `
+              <div class="correction-detail-item bad">
+                <span>多</span><div><strong>你的句子中多出或需要替换</strong>
+                <div class="correction-word-list">${details.extra.map(item => `<span class="correction-word extra">${escapeHtml(item)}</span>`).join("")}</div>
+                </div>
+              </div>` : ""}
+
+            ${problemCount === 0
+              ? '<div class="correction-detail-item good"><span>✓</span><div><strong>未发现预设问题</strong><br>句子与本题参考答案高度一致。</div></div>'
+              : ""}
+          </div>
+        </div>
+
+        <div class="correction-section">
+          <div class="correction-title">四、逐词对照</div>
+          <div class="correction-diff">${renderCorrectionDiff(answer, context.reference)}</div>
+          <div class="correction-legend">
+            <span><span class="diff-remove">红色删除线</span>：多出、位置不对或建议替换</span>
+            <span><span class="diff-add">绿色</span>：需要补充</span>
+            <span>普通文字：已经写对</span>
+          </div>
+        </div>
+
+        <div class="correction-section">
+          <div class="correction-title">五、${escapeHtml(context.referenceLabel || "建议修正版")}</div>
+          <div class="correction-fixed">${escapeHtml(context.reference)}</div>
+          <div class="button-row" style="margin-top:11px;">
+            <button class="primary-btn"
+              data-big-essay-action="adopt-writing-correction"
+              data-writing-kind="${escapeHtml(context.kind)}"
+              data-writing-id="${escapeHtml(context.id)}">应用修正版并重新批改</button>
+          </div>
+          <div class="correction-warning">
+            这里按照本题的确认答案或辅助参考答案逐句批改。
+            它能明确检查拼写、缺词、多词、词序、标点、关键词和指定句型；
+            使用完全不同但仍然正确的自由表达时，仍需人工确认。
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function saveWritingCorrection(context, answer, analysis) {
+    const bucket = state.bigEssayPractice[context.storageCategory]
+      || (state.bigEssayPractice[context.storageCategory] = {});
+    const old = bucket[context.storageId] || {};
+    const changed = old.answer !== answer;
+
+    bucket[context.storageId] = {
+      ...old,
+      answer,
+      score: analysis.score,
+      correction: {
+        level: analysis.level,
+        failedChecks: analysis.failed.map(item => item.label),
+        missing: analysis.details.missing,
+        extra: analysis.details.extra,
+        spelling: analysis.details.spelling,
+        checkedAt: new Date().toISOString()
+      },
+      attempts: Math.max(0, Number(old.attempts) || 0) + (changed ? 1 : 0),
+      lastAt: new Date().toISOString()
+    };
+
+    if (changed) {
+      recordDailyStudy(analysis.score >= 75 ? 2 : 1, false, "essay");
+    }
+    saveState();
+    renderDashboard();
+  }
+
+  function runWritingCorrection(kind, id) {
+    const context = resolveWritingContext(kind, id);
+    if (!context) return showToast("没有找到本句的批改信息");
+    const input = $(context.inputId);
+    const feedback = $(context.feedbackId);
+    const answer = input?.value.trim() || "";
+
+    if (!answer) return showToast("请先写出英文句子");
+
+    const analysis = writingCorrectionAnalysis(answer, context);
+    saveWritingCorrection(context, answer, analysis);
+    if (feedback) {
+      feedback.innerHTML = renderDetailedWritingReport(context, answer, analysis);
+      feedback.scrollIntoView({behavior: "smooth", block: "nearest"});
+    }
+    return analysis;
+  }
+
+  function adoptWritingCorrection(kind, id) {
+    const context = resolveWritingContext(kind, id);
+    if (!context) return;
+    const input = $(context.inputId);
+    if (!input) return;
+
+    input.value = context.reference;
+    if (kind === "study") essayStudyDraft = context.reference;
+    runWritingCorrection(kind, id);
+    input.focus();
+    showToast("修正版已放入输入框，并重新完成批改");
+  }
+
+  function runVisibleSentenceCorrections(containerId) {
+    const container = $(containerId);
+    if (!container) return;
+    let count = 0;
+    container.querySelectorAll('[data-big-essay-action="check-writing"]').forEach(button => {
+      const context = resolveWritingContext(button.dataset.writingKind, button.dataset.writingId);
+      const input = context ? $(context.inputId) : null;
+      if (input?.value.trim()) {
+        runWritingCorrection(button.dataset.writingKind, button.dataset.writingId);
+        count += 1;
+      }
+    });
+    showToast(count ? `已批改${count}个已填写句子` : "当前还没有填写任何句子");
+  }
+
   function renderEssayReading() {
     const essay = getBigEssayById(currentEssayId);
     return `<div>
       <div class="essay-quick-actions">
         <button class="essay-quick-card" data-big-essay-action="open-study" data-id="${escapeHtml(essay.id)}">
-          <strong>① 逐句写译</strong>
-          <span class="muted">看中文，在输入框里写出确认英文。</span>
+          <strong>① 逐句写译＋批改</strong>
+          <span class="muted">看中文、写英文、逐项检查哪里正确和哪里错误。</span>
         </button>
         <button class="essay-quick-card" data-big-essay-action="open-imitation" data-id="${escapeHtml(essay.id)}">
           <strong>② 本篇60道句子仿写</strong>
-          <span class="muted">只练当前作文对应的仿写题。</span>
+          <span class="muted">每题都有中文任务和详细改错。</span>
         </button>
         <button class="essay-quick-card" data-big-essay-action="open-whole-imitation" data-id="${escapeHtml(essay.id)}">
-          <strong>③ 整篇仿写</strong>
-          <span class="muted">根据新主题完成三段式作文。</span>
+          <strong>③ 整篇逐句仿写</strong>
+          <span class="muted">不再使用一个大文本框，改为一句中文对应一个英文输入框。</span>
         </button>
       </div>
 
@@ -4517,8 +5325,9 @@
               <span class="essay-chip">${escapeHtml(essay.theme)}</span>
               <span class="essay-chip confirmed">${escapeHtml(essay.version)}</span>
             </div>
-            <div class="muted" style="margin-top:8px;line-height:1.7;font-size:12px;">
-              每一句下面都有“仿写这句”。你的内容会保存到云端。
+            <div class="all-writing-notice">
+              原文用于阅读。每一个原句下面另给一条<strong>新的中文仿写任务</strong>；
+              你写完英文后点击“批改本句”，系统会说明正确部分、拼写、缺词、多词、词序、结构和修正版。
             </div>
           </div>
           <div class="button-row">
@@ -4542,9 +5351,12 @@
                   ${["描述图画／图表并总结", "分析原因、影响或意义", "提出建议并总结"][paragraph.number - 1]}
                 </span>
               </div>
+
               ${paragraph.sentences.map((sentence, index) => {
-                const inlineKey = `inline-${sentence.id}`;
-                const saved = state.bigEssayPractice.sentenceImitation?.[inlineKey]?.answer || "";
+                const task = inlineImitationTask(sentence.id);
+                const contextId = sentence.id;
+                const context = resolveWritingContext("inline", contextId);
+                const saved = state.bigEssayPractice.sentenceImitation?.[`inline-${sentence.id}`]?.answer || "";
                 return `
                 <div class="essay-sentence">
                   <div class="essay-sentence-number">${index + 1}</div>
@@ -4555,14 +5367,25 @@
                     </div>
                     ${essayShowNotes && sentence.note
                       ? `<div class="sentence-note">${formatEssayNote(sentence.note)}</div>` : ""}
+
                     <div class="inline-imitation">
-                      <div class="training-label">仿写这句：保留结构，换一个主题或内容</div>
-                      <textarea data-inline-imitation-input="${escapeHtml(sentence.id)}" placeholder="在这里写你的仿写句子……">${escapeHtml(saved)}</textarea>
+                      <div class="training-label">中文仿写任务</div>
+                      <div class="chinese-writing-prompt">${escapeHtml(task?.prompt || sentence.chinesePrompt)}</div>
+                      <textarea class="sentence-writing-input"
+                        id="${escapeHtml(context.inputId)}"
+                        spellcheck="true"
+                        placeholder="根据上面的中文写出英文……">${escapeHtml(saved)}</textarea>
                       <div class="button-row" style="margin-top:8px;">
-                        <button class="secondary-btn" data-big-essay-action="save-inline-imitation" data-id="${escapeHtml(sentence.id)}">保存仿写</button>
-                        <button class="ghost-btn" data-big-essay-action="copy-inline-frame" data-id="${escapeHtml(sentence.id)}">把原句作为框架</button>
+                        <button class="primary-btn"
+                          data-big-essay-action="check-writing"
+                          data-writing-kind="inline"
+                          data-writing-id="${escapeHtml(contextId)}">批改本句</button>
+                        <button class="secondary-btn"
+                          data-big-essay-action="adopt-writing-correction"
+                          data-writing-kind="inline"
+                          data-writing-id="${escapeHtml(contextId)}">直接使用修正版</button>
                       </div>
-                      <div id="inline-feedback-${escapeHtml(sentence.id)}"></div>
+                      <div id="${escapeHtml(context.feedbackId)}"></div>
                     </div>
                   </div>
                 </div>`;
@@ -4657,14 +5480,10 @@
       const due = essayDueCount(essay.id);
       const mastered = essayMasteredCount(essay.id);
       return `<div class="essay-training-card">
-        <h3 class="section-title">逐句写译 · ${escapeHtml(essay.title)}</h3>
-        <div class="muted" style="line-height:1.8;">
-          这里不再要求你只在心里回忆。开始后必须在输入框中写英文，再显示确认答案并评分。
-        </div>
-        <div class="study-stepbar" style="margin-top:15px;">
-          <div class="study-step active">1. 看中文</div>
-          <div class="study-step">2. 写英文</div>
-          <div class="study-step">3. 对照并评分</div>
+        <h3 class="section-title">逐句写译＋详细批改 · ${escapeHtml(essay.title)}</h3>
+        <div class="all-writing-notice">
+          训练流程：看中文 → 在输入框写英文 → 点击“批改本句” →
+          查看正确部分、错误类型和修正版 → 最后按真实情况评分。
         </div>
         <div class="essay-metrics" style="margin-top:16px;">
           <div class="essay-metric"><strong>${total}</strong><span>本篇总句数</span></div>
@@ -4681,15 +5500,16 @@
     }
 
     const progress = essaySentenceProgress(ref.sentence.id);
-    const score = essayStudyRevealed && essayStudyDraft
-      ? essayTextCoverage(essayStudyDraft, ref.sentence.text)
-      : 0;
+    const context = resolveWritingContext("study", ref.sentence.id);
+    const analysis = essayStudyRevealed && essayStudyDraft
+      ? writingCorrectionAnalysis(essayStudyDraft, context)
+      : null;
 
     return `<div class="essay-training-card">
       <div class="study-stepbar">
         <div class="study-step active">1. 看中文</div>
         <div class="study-step active">2. 写英文</div>
-        <div class="study-step ${essayStudyRevealed ? "active" : ""}">3. 对照并评分</div>
+        <div class="study-step ${essayStudyRevealed ? "active" : ""}">3. 详细批改并评分</div>
       </div>
 
       <div class="essay-reading-header">
@@ -4701,21 +5521,19 @@
       </div>
 
       <div class="training-label">中文提示</div>
-      <div class="training-prompt">${escapeHtml(ref.sentence.chinesePrompt)}</div>
+      <div class="chinese-writing-prompt">${escapeHtml(ref.sentence.chinesePrompt)}</div>
 
       <div class="field" style="margin-top:14px;">
         <label>请写出英文</label>
-        <textarea class="essay-textarea" id="essayStudyDraftInput" placeholder="必须先动笔写，再对照答案。">${escapeHtml(essayStudyDraft)}</textarea>
+        <textarea class="essay-textarea"
+          id="essayStudyDraftInput"
+          spellcheck="true"
+          placeholder="先独立写完整句子，再点击批改。">${escapeHtml(essayStudyDraft)}</textarea>
       </div>
 
       ${essayStudyRevealed ? `
-        <div class="comparison-panel">
-          <div class="comparison-box"><strong>你的答案</strong><br>${escapeHtml(essayStudyDraft || "未填写")}</div>
-          <div class="comparison-box"><strong>确认英文</strong><br>${escapeHtml(ref.sentence.text)}</div>
-        </div>
-        <div class="hint-panel">
-          <span class="similarity-score">原文词语覆盖度 ${score}%</span>
-          <div class="muted" style="margin-top:7px;">覆盖度不是语法分数，请检查主谓、介词、单复数、语序和拼写。</div>
+        <div id="${escapeHtml(context.feedbackId)}">
+          ${renderDetailedWritingReport(context, essayStudyDraft, analysis)}
         </div>
         <div class="pill-row" style="margin-top:10px;">
           <span class="sentence-type">${escapeHtml(ref.sentence.type)}</span>
@@ -4731,7 +5549,7 @@
         </div>
       ` : `
         <div class="button-row" style="margin-top:12px;">
-          <button class="primary-btn" data-big-essay-action="submit-study-draft">提交并显示确认英文</button>
+          <button class="primary-btn" data-big-essay-action="submit-study-draft">批改本句</button>
           <button class="secondary-btn" data-big-essay-action="stop-study">结束本轮</button>
         </div>
       `}
@@ -5186,75 +6004,22 @@
 
   function submitSentenceImitation() {
     const task = SENTENCE_IMITATION_TASKS.find(item => item.id === currentSentenceImitationId);
-    const answer = $("sentenceImitationAnswer").value.trim();
-    if (!answer) return showToast("请先写出你的仿写句子");
-
-    const score = essayTextCoverage(answer, task.reference);
-    const checks = [
-      ...sentenceFormatChecks(answer),
-      ...sentenceStructureChecks(answer, task),
-      ...keywordCorrectionChecks(answer, task)
-    ];
-    const failed = checks.filter(item => !item.ok);
-    const level = correctionLevel(score, failed.length);
-
-    saveEssayPractice("sentenceImitation", task.id, answer, score);
-    saveCorrectionSnapshot(task, answer, score, checks);
-
-    $("sentenceImitationFeedback").innerHTML = `
-      <div class="correction-report">
-        <div class="correction-head">
-          <strong>句子校正报告</strong>
-          <span class="correction-level">${escapeHtml(level)}</span>
-        </div>
-
-        <div class="correction-section">
-          <div class="correction-title">一、逐项检查</div>
-          <div class="correction-checks">
-            ${checks.map(item => `
-              <div class="correction-check ${item.ok ? "ok" : "error"}">
-                <span>${item.ok ? "✓" : "!"}</span>
-                <div><strong>${escapeHtml(item.label)}</strong><br>${escapeHtml(item.detail)}</div>
-              </div>
-            `).join("")}
-          </div>
-        </div>
-
-        <div class="correction-section">
-          <div class="correction-title">二、逐词修改路径</div>
-          <div class="correction-diff">${renderCorrectionDiff(answer, task.reference)}</div>
-          <div class="correction-legend">
-            <span><span class="diff-remove">红色删除线</span>：与参考答案相比建议删除或替换</span>
-            <span><span class="diff-add">绿色</span>：参考答案中需要补充</span>
-          </div>
-        </div>
-
-        <div class="correction-section">
-          <div class="correction-title">三、建议修正版</div>
-          <div class="correction-fixed">${escapeHtml(task.reference)}</div>
-          <div class="button-row" style="margin-top:11px;">
-            <button class="primary-btn" data-big-essay-action="adopt-sentence-correction">把修正版放回输入框</button>
-            <button class="secondary-btn" data-big-essay-action="next-sentence-imitation">修改完成，进入下一题</button>
-          </div>
-          <div id="sentenceCorrectionAdoptStatus"></div>
-          <div class="correction-warning">
-            当前网页是<strong>按本题参考答案进行本地校正</strong>。如果你使用了另一种完全正确的表达，
-            网页也可能把它标成差异；它不能代替开放式AI语法审阅。
-          </div>
-        </div>
-      </div>`;
+    if (!task) return;
+    runWritingCorrection("sentence300", task.id);
   }
 
   function renderParagraphImitation() {
     const task = PARAGRAPH_IMITATION_TASKS.find(item => item.id === currentParagraphImitationId)
       || PARAGRAPH_IMITATION_TASKS[0];
     const sourceEssay = getBigEssayById(task.sourceEssayId);
-    const sourceParagraph = sourceEssay.paragraphs[task.sourceParagraph - 1];
-    const saved = state.bigEssayPractice.paragraphImitation[task.id] || {};
+    const sentences = paragraphImitationSentenceSet(task);
+    const completed = sentences.filter(item =>
+      state.bigEssayPractice.paragraphImitation?.[item.id]?.answer
+    ).length;
 
     return `<div class="imitation-layout">
       <aside class="imitation-side">
-        <h3 class="section-title">段落仿写</h3>
+        <h3 class="section-title">段落逐句仿写＋批改</h3>
         <div class="field">
           <label>选择任务</label>
           <select data-essay-select="paragraph-imitation">
@@ -5265,60 +6030,78 @@
         </div>
         <div class="hint-panel">
           <strong>母版：</strong>${escapeHtml(sourceEssay.title)}第${task.sourceParagraph}段<br>
-          <strong>要求结构：</strong>${task.required.map(escapeHtml).join(" · ")}
+          <strong>要求结构：</strong>${task.required.map(escapeHtml).join(" · ")}<br>
+          <strong>完成进度：</strong>${completed}/${sentences.length}句
         </div>
       </aside>
 
-      <main class="imitation-main">
+      <main class="imitation-main" id="paragraphSentenceWork">
         <div class="training-label">新的仿写主题</div>
         <div class="training-prompt" style="font-size:18px;">${escapeHtml(task.topic)}</div>
-        <div class="outline-list">
-          ${task.outline.map((item, index) => `<div class="outline-item"><b>${index + 1}</b><span>${escapeHtml(item)}</span></div>`).join("")}
+        <div class="all-writing-notice">
+          已改为一句一句写。每条中文对应一个英文输入框，每一句都可以单独批改和应用修正版。
         </div>
 
-        <div class="field">
-          <label>你的仿写段落</label>
-          <textarea class="essay-textarea" id="paragraphImitationAnswer">${escapeHtml(saved.answer || "")}</textarea>
+        <div class="sentence-work-list">
+          ${sentences.map((sentence, index) => {
+            const contextId = `${task.id}::${index}`;
+            const context = resolveWritingContext("paragraph", contextId);
+            const saved = state.bigEssayPractice.paragraphImitation?.[sentence.id]?.answer || "";
+            return `
+            <div class="sentence-work-card ${saved ? "completed" : ""}">
+              <div class="sentence-work-head">
+                <span class="sentence-work-number">第${index + 1}句</span>
+                <span class="sentence-work-status ${saved ? "done" : ""}">${saved ? "已填写" : "待填写"}</span>
+              </div>
+              <div class="chinese-writing-prompt">${escapeHtml(sentence.prompt)}</div>
+              <textarea class="sentence-writing-input"
+                id="${escapeHtml(context.inputId)}"
+                spellcheck="true"
+                placeholder="根据中文写出这一句英文……">${escapeHtml(saved)}</textarea>
+              <div class="button-row" style="margin-top:8px;">
+                <button class="primary-btn"
+                  data-big-essay-action="check-writing"
+                  data-writing-kind="paragraph"
+                  data-writing-id="${escapeHtml(contextId)}">批改第${index + 1}句</button>
+                <button class="secondary-btn"
+                  data-big-essay-action="adopt-writing-correction"
+                  data-writing-kind="paragraph"
+                  data-writing-id="${escapeHtml(contextId)}">应用修正版</button>
+              </div>
+              <div id="${escapeHtml(context.feedbackId)}"></div>
+            </div>`;
+          }).join("")}
         </div>
-        <div class="button-row">
-          <button class="primary-btn" data-big-essay-action="submit-paragraph-imitation">保存并对照</button>
-          <button class="secondary-btn" data-big-essay-action="show-source-paragraph">查看母版原段</button>
-          <button class="ghost-btn" data-big-essay-action="show-paragraph-reference">查看辅助参考段</button>
+
+        <div class="button-row" style="margin-top:14px;">
+          <button class="primary-btn"
+            data-big-essay-action="check-visible-writing"
+            data-writing-container="paragraphSentenceWork">批改全部已填写句子</button>
         </div>
-        <div id="paragraphImitationFeedback"></div>
       </main>
     </div>`;
   }
 
   function submitParagraphImitation(showReference = false) {
-    const task = PARAGRAPH_IMITATION_TASKS.find(item => item.id === currentParagraphImitationId);
-    const answer = $("paragraphImitationAnswer").value.trim();
-    if (!answer && !showReference) return showToast("请先完成段落仿写");
-    if (answer) {
-      const score = essayTextCoverage(answer, task.reference);
-      saveEssayPractice("paragraphImitation", task.id, answer, score);
+    if (showReference) {
+      const task = PARAGRAPH_IMITATION_TASKS.find(item => item.id === currentParagraphImitationId);
+      const sentences = paragraphImitationSentenceSet(task);
+      showToast(`本段共有${sentences.length}个辅助参考句，请逐句点击“应用修正版”查看并使用。`);
     }
-    const sourceEssay = getBigEssayById(task.sourceEssayId);
-    const sourceParagraph = essayParagraphText(sourceEssay.paragraphs[task.sourceParagraph - 1]);
-    $("paragraphImitationFeedback").innerHTML = `
-      ${showReference ? `<div class="training-answer"><strong>网页辅助参考段：</strong><br>${escapeHtml(task.reference)}</div>` : ""}
-      <div class="comparison-panel">
-        <div class="comparison-box"><strong>母版原段</strong><br>${escapeHtml(sourceParagraph)}</div>
-        <div class="comparison-box"><strong>结构检查</strong><br>
-          ${task.outline.map((item, index) => `${index + 1}. ${escapeHtml(item)}`).join("<br>")}
-        </div>
-      </div>`;
   }
 
   function renderWholeImitation() {
     const task = WHOLE_IMITATION_TASKS.find(item => item.id === currentWholeImitationId)
       || WHOLE_IMITATION_TASKS[0];
     const sourceEssay = getBigEssayById(task.sourceEssayId);
-    const saved = state.bigEssayPractice.wholeImitation[task.id] || {};
+    const sentences = wholeImitationSentenceSet(task);
+    const completed = sentences.filter(item =>
+      state.bigEssayPractice.wholeImitation?.[item.id]?.answer
+    ).length;
 
     return `<div class="imitation-layout">
       <aside class="imitation-side">
-        <h3 class="section-title">整篇仿写</h3>
+        <h3 class="section-title">整篇逐句仿写＋批改</h3>
         <div class="field">
           <label>选择题目</label>
           <select data-essay-select="whole-imitation">
@@ -5329,63 +6112,85 @@
         </div>
         <div class="hint-panel">
           <strong>母版作文：</strong>${escapeHtml(sourceEssay.title)}<br>
-          本功能先保存你的仿写并提供结构核对，不冒充AI语法批改。
+          <strong>本篇进度：</strong>${completed}/${sentences.length}句<br><br>
+          整篇仿写不再使用一个大文本框。现在每一句独立输入、独立批改。
         </div>
       </aside>
 
-      <main class="imitation-main">
+      <main class="imitation-main" id="wholeSentenceWork">
         <div class="training-label">仿写题目</div>
         <div class="training-prompt" style="font-size:18px;">${escapeHtml(task.prompt)}</div>
-        ${Object.entries(task.outline).map(([paragraph, items]) => `
-          <div style="margin-top:14px;">
-            <strong>${escapeHtml(paragraph)}</strong>
-            <div class="outline-list">
-              ${items.map((item, index) => `<div class="outline-item"><b>${index + 1}</b><span>${escapeHtml(item)}</span></div>`).join("")}
-            </div>
-          </div>
-        `).join("")}
 
-        <div class="field">
-          <label>你的整篇仿写</label>
-          <textarea class="essay-textarea whole" id="wholeImitationAnswer" placeholder="按三段完成作文。">${escapeHtml(saved.answer || "")}</textarea>
+        ${[1, 2, 3].map(paragraphNumber => {
+          const paragraphSentences = sentences.filter(item => item.paragraph === paragraphNumber);
+          return `
+          <section class="paragraph-work-section">
+            <div class="paragraph-work-title">
+              <strong>第${paragraphNumber}段</strong>
+              <span class="muted">${["描述题目并总结", "分析原因、影响或意义", "提出建议并总结"][paragraphNumber - 1]}</span>
+            </div>
+            <div class="sentence-work-list">
+              ${paragraphSentences.map((sentence, localIndex) => {
+                const globalIndex = sentences.findIndex(item => item.id === sentence.id);
+                const contextId = `${task.id}::${sentence.id}`;
+                const context = resolveWritingContext("whole", contextId);
+                const saved = state.bigEssayPractice.wholeImitation?.[sentence.id]?.answer || "";
+                return `
+                <div class="sentence-work-card ${saved ? "completed" : ""}">
+                  <div class="sentence-work-head">
+                    <span class="sentence-work-number">第${globalIndex + 1}句</span>
+                    <span class="sentence-work-status ${saved ? "done" : ""}">${saved ? "已填写" : "待填写"}</span>
+                  </div>
+                  <div class="chinese-writing-prompt">${escapeHtml(sentence.prompt)}</div>
+                  <textarea class="sentence-writing-input"
+                    id="${escapeHtml(context.inputId)}"
+                    spellcheck="true"
+                    placeholder="根据中文完成这一句英文……">${escapeHtml(saved)}</textarea>
+                  <div class="button-row" style="margin-top:8px;">
+                    <button class="primary-btn"
+                      data-big-essay-action="check-writing"
+                      data-writing-kind="whole"
+                      data-writing-id="${escapeHtml(contextId)}">批改本句</button>
+                    <button class="secondary-btn"
+                      data-big-essay-action="adopt-writing-correction"
+                      data-writing-kind="whole"
+                      data-writing-id="${escapeHtml(contextId)}">应用修正版</button>
+                  </div>
+                  <div id="${escapeHtml(context.feedbackId)}"></div>
+                </div>`;
+              }).join("")}
+            </div>
+          </section>`;
+        }).join("")}
+
+        <div class="button-row" style="margin-top:14px;">
+          <button class="primary-btn"
+            data-big-essay-action="check-visible-writing"
+            data-writing-container="wholeSentenceWork">批改整篇所有已填写句子</button>
         </div>
-        <div class="button-row">
-          <button class="primary-btn" data-big-essay-action="save-whole-imitation">保存本次仿写</button>
-          <button class="secondary-btn" data-big-essay-action="show-whole-source">完成后查看母版</button>
-        </div>
-        <div id="wholeImitationFeedback"></div>
       </main>
     </div>`;
   }
 
   function saveWholeImitation(showSource = false) {
-    const task = WHOLE_IMITATION_TASKS.find(item => item.id === currentWholeImitationId);
-    const answer = $("wholeImitationAnswer").value.trim();
-    if (!answer && !showSource) return showToast("请先完成整篇仿写");
-    if (answer) saveEssayPractice("wholeImitation", task.id, answer, null);
     if (showSource) {
-      const essay = getBigEssayById(task.sourceEssayId);
-      $("wholeImitationFeedback").innerHTML = `<div class="training-answer">
-        <strong>母版作文：${escapeHtml(essay.title)}</strong><br><br>
-        ${essay.paragraphs.map(paragraph => escapeHtml(essayParagraphText(paragraph))).join("<br><br>")}
-      </div>`;
-    } else {
-      $("wholeImitationFeedback").innerHTML = `<div class="hint-panel">
-        已保存。本次整篇仿写已计入今日打卡。建议按三项自查：
-        <strong>三段结构是否完整、核心句型是否准确、主谓和单复数是否正确。</strong>
-      </div>`;
+      const task = WHOLE_IMITATION_TASKS.find(item => item.id === currentWholeImitationId);
+      const sentences = wholeImitationSentenceSet(task);
+      showToast(`整篇已拆为${sentences.length}句，请逐句批改或应用修正版。`);
     }
   }
 
   function renderEssayDictation() {
     const essay = getBigEssayById(currentEssayId);
     const paragraph = essay.paragraphs[currentDictationParagraph - 1] || essay.paragraphs[0];
-    const key = `${essay.id}-p${paragraph.number}`;
-    const saved = state.bigEssayPractice.dictation[key] || {};
+    const sentences = dictationSentenceSet(essay, paragraph);
+    const completed = sentences.filter(item =>
+      state.bigEssayPractice.dictation?.[item.id]?.answer
+    ).length;
 
     return `<div class="imitation-layout">
       <aside class="imitation-side">
-        <h3 class="section-title">分段默写</h3>
+        <h3 class="section-title">分段默写 · 逐句批改</h3>
         <div class="field">
           <label>选择段落</label>
           <select data-essay-select="dictation-paragraph">
@@ -5394,61 +6199,76 @@
             ).join("")}
           </select>
         </div>
-        <div class="muted" style="line-height:1.8;">
-          根据中文要点默写确认英文。系统只计算词语覆盖度，不自动判定语法正确。
+        <div class="hint-panel">
+          <strong>${escapeHtml(essay.title)} · 第${paragraph.number}段</strong><br>
+          已完成${completed}/${sentences.length}句。<br><br>
+          每一句都分开默写，批改会分别说明：
+          正确结构、拼写错误、缺少词语、多余词语、词序和确认原句。
         </div>
       </aside>
 
-      <main class="imitation-main">
-        <div class="training-label">${escapeHtml(essay.title)} · 第${paragraph.number}段中文要点</div>
-        <div class="outline-list">
-          ${paragraph.outline.map((item, index) => `<div class="outline-item"><b>${index + 1}</b><span>${escapeHtml(item)}</span></div>`).join("")}
+      <main class="imitation-main" id="dictationSentenceWork">
+        <div class="training-label">按句默写</div>
+        <div class="sentence-work-list">
+          ${sentences.map((sentence, index) => {
+            const contextId = `${essay.id}::${paragraph.number}::${index}`;
+            const context = resolveWritingContext("dictation", contextId);
+            const saved = state.bigEssayPractice.dictation?.[sentence.id]?.answer || "";
+            return `
+            <div class="sentence-work-card ${saved ? "completed" : ""}">
+              <div class="sentence-work-head">
+                <span class="sentence-work-number">第${index + 1}句</span>
+                <span class="sentence-work-status ${saved ? "done" : ""}">${saved ? "已默写" : "待默写"}</span>
+              </div>
+              <div class="chinese-writing-prompt">${escapeHtml(sentence.prompt)}</div>
+              <textarea class="sentence-writing-input"
+                id="${escapeHtml(context.inputId)}"
+                spellcheck="true"
+                placeholder="根据中文默写确认英文……">${escapeHtml(saved)}</textarea>
+              <div class="button-row" style="margin-top:8px;">
+                <button class="primary-btn"
+                  data-big-essay-action="check-writing"
+                  data-writing-kind="dictation"
+                  data-writing-id="${escapeHtml(contextId)}">批改本句</button>
+                <button class="secondary-btn"
+                  data-big-essay-action="adopt-writing-correction"
+                  data-writing-kind="dictation"
+                  data-writing-id="${escapeHtml(contextId)}">应用确认原句</button>
+              </div>
+              <div id="${escapeHtml(context.feedbackId)}"></div>
+            </div>`;
+          }).join("")}
         </div>
-        <div class="field">
-          <label>默写内容</label>
-          <textarea class="essay-textarea" id="dictationAnswer">${escapeHtml(saved.answer || "")}</textarea>
+        <div class="button-row" style="margin-top:14px;">
+          <button class="primary-btn"
+            data-big-essay-action="check-visible-writing"
+            data-writing-container="dictationSentenceWork">批改本段所有已填写句子</button>
         </div>
-        <div class="button-row">
-          <button class="primary-btn" data-big-essay-action="submit-dictation">提交并核对</button>
-          <button class="secondary-btn" data-big-essay-action="show-dictation-source">直接显示原段</button>
-        </div>
-        <div id="dictationFeedback"></div>
       </main>
     </div>`;
   }
 
   function submitEssayDictation(showSource = false) {
-    const essay = getBigEssayById(currentEssayId);
-    const paragraph = essay.paragraphs[currentDictationParagraph - 1] || essay.paragraphs[0];
-    const reference = essayParagraphText(paragraph);
-    const key = `${essay.id}-p${paragraph.number}`;
-    const answer = $("dictationAnswer").value.trim();
-    if (!answer && !showSource) return showToast("请先完成段落默写");
-    const score = answer ? essayTextCoverage(answer, reference) : 0;
-    if (answer) saveEssayPractice("dictation", key, answer, score);
-    $("dictationFeedback").innerHTML = `
-      <div class="comparison-panel">
-        <div class="comparison-box"><strong>你的默写</strong><br>${escapeHtml(answer || "尚未填写")}</div>
-        <div class="comparison-box"><strong>确认原段</strong><br>${escapeHtml(reference)}</div>
-      </div>
-      ${answer ? `<div class="hint-panel"><span class="similarity-score">原文词语覆盖度 ${score}%</span>
-        <div class="muted" style="margin-top:7px;">请继续人工核对句型、语序、介词、单复数和拼写。</div>
-      </div>` : ""}`;
+    showToast("分段默写已经改为逐句批改，请在每一句下面点击“批改本句”。");
   }
 
   function renderEssayPatterns() {
     return `<div class="card">
       <div class="essay-reading-header">
         <div>
-          <h3 class="section-title">我的大作文句型仿写库</h3>
-          <div class="muted">
-            每个句型都必须练。先看结构和原句，然后在下面的输入框里写一个新句子并保存。
+          <h3 class="section-title">我的大作文句型仿写库＋逐句批改</h3>
+          <div class="all-writing-notice">
+            每个句型都提供一条中文仿写任务。写完后必须点击“批改本句”，
+            系统会说明哪里正确、哪里错误，并给出可以应用的修正版。
           </div>
         </div>
         <input id="essayPatternSearch" placeholder="搜索：only when / 第二段 / which" style="max-width:320px;">
       </div>
+
       <div class="pattern-grid" id="essayPatternGrid">
         ${BIG_ESSAY_PATTERNS.map(pattern => {
+          const practice = patternPracticeTask(pattern.id);
+          const context = resolveWritingContext("pattern", pattern.id);
           const saved = state.bigEssayPractice.patternImitation?.[pattern.id]?.answer || "";
           return `
           <article class="pattern-card" data-pattern-search="${escapeHtml(
@@ -5462,13 +6282,23 @@
             ${pattern.examples.map(example => `<div class="pattern-example">${escapeHtml(example)}</div>`).join("")}
 
             <div class="pattern-practice">
-              <div class="training-label">使用这个句型仿写一个新句子</div>
-              <textarea data-pattern-imitation-input="${escapeHtml(pattern.id)}" placeholder="不要照抄原句，替换主题和内容……">${escapeHtml(saved)}</textarea>
+              <div class="training-label">中文仿写任务</div>
+              <div class="chinese-writing-prompt">${escapeHtml(practice?.prompt || "使用这个句型仿写一个新句子。")}</div>
+              <textarea class="sentence-writing-input"
+                id="${escapeHtml(context.inputId)}"
+                spellcheck="true"
+                placeholder="根据中文，并使用上面的句型写英文……">${escapeHtml(saved)}</textarea>
               <div class="button-row" style="margin-top:8px;">
-                <button class="primary-btn" data-big-essay-action="save-pattern-imitation" data-id="${escapeHtml(pattern.id)}">保存句型仿写</button>
-                <button class="secondary-btn" data-big-essay-action="use-pattern-example" data-id="${escapeHtml(pattern.id)}">复制结构到输入框</button>
+                <button class="primary-btn"
+                  data-big-essay-action="check-writing"
+                  data-writing-kind="pattern"
+                  data-writing-id="${escapeHtml(pattern.id)}">批改本句</button>
+                <button class="secondary-btn"
+                  data-big-essay-action="adopt-writing-correction"
+                  data-writing-kind="pattern"
+                  data-writing-id="${escapeHtml(pattern.id)}">应用句型修正版</button>
               </div>
-              <div id="pattern-feedback-${escapeHtml(pattern.id)}"></div>
+              <div id="${escapeHtml(context.feedbackId)}"></div>
             </div>
           </article>`;
         }).join("")}
@@ -7211,6 +8041,12 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
           showToast("请先在输入框中写出英文");
         } else {
           essayStudyRevealed = true;
+          const ref = currentEssayStudyRef();
+          if (ref) {
+            const context = resolveWritingContext("study", ref.sentence.id);
+            const analysis = writingCorrectionAnalysis(essayStudyDraft, context);
+            saveWritingCorrection(context, essayStudyDraft, analysis);
+          }
           renderBigEssay();
         }
       }
@@ -7225,50 +8061,14 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
         renderBigEssay();
       }
       if (action === "grade-study") gradeEssayStudy(Number(button.dataset.grade));
-      if (action === "save-inline-imitation") {
-        const sentenceId = button.dataset.id;
-        const input = document.querySelector(`[data-inline-imitation-input="${CSS.escape(sentenceId)}"]`);
-        const answer = input?.value.trim() || "";
-        if (!answer) {
-          showToast("请先写出仿写句子");
-        } else {
-          saveEssayPractice("sentenceImitation", `inline-${sentenceId}`, answer, null);
-          const feedback = $(`inline-feedback-${sentenceId}`);
-          if (feedback) feedback.innerHTML = '<div class="inline-imitation-feedback">已保存，并计入今日作文练习。</div>';
-        }
+      if (action === "check-writing") {
+        runWritingCorrection(button.dataset.writingKind, button.dataset.writingId);
       }
-      if (action === "copy-inline-frame") {
-        const sentenceId = button.dataset.id;
-        const ref = allEssaySentenceRefs().find(item => item.sentence.id === sentenceId);
-        const input = document.querySelector(`[data-inline-imitation-input="${CSS.escape(sentenceId)}"]`);
-        if (input && ref) {
-          input.value = ref.sentence.text;
-          input.focus();
-          input.select();
-          showToast("已复制原句，请替换主题和内容后再保存");
-        }
+      if (action === "adopt-writing-correction") {
+        adoptWritingCorrection(button.dataset.writingKind, button.dataset.writingId);
       }
-      if (action === "save-pattern-imitation") {
-        const patternId = button.dataset.id;
-        const input = document.querySelector(`[data-pattern-imitation-input="${CSS.escape(patternId)}"]`);
-        const answer = input?.value.trim() || "";
-        if (!answer) {
-          showToast("请先使用这个句型写一个新句子");
-        } else {
-          saveEssayPractice("patternImitation", patternId, answer, null);
-          const feedback = $(`pattern-feedback-${patternId}`);
-          if (feedback) feedback.innerHTML = '<div class="inline-imitation-feedback">句型仿写已保存。</div>';
-        }
-      }
-      if (action === "use-pattern-example") {
-        const patternId = button.dataset.id;
-        const pattern = BIG_ESSAY_PATTERNS.find(item => item.id === patternId);
-        const input = document.querySelector(`[data-pattern-imitation-input="${CSS.escape(patternId)}"]`);
-        if (input && pattern) {
-          input.value = pattern.structure;
-          input.focus();
-          showToast("已复制句型结构，请补充并替换内容");
-        }
+      if (action === "check-visible-writing") {
+        runVisibleSentenceCorrections(button.dataset.writingContainer);
       }
       if (action === "previous-sentence-imitation") moveSentenceImitationTask(-1);
       if (action === "random-sentence-imitation") randomSentenceImitationTask();

@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（真题补全选择题版）</title>
+  <title>考研英语词组记忆器（打卡与我的标记版）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -547,6 +547,275 @@
       .search-result-head { display: grid; }
       .mark-create-row { grid-template-columns: 1fr 52px; }
       .mark-create-row button { grid-column: 1 / -1; }
+    }
+
+    .checkin-card {
+      display: grid;
+      grid-template-columns: minmax(210px, .72fr) minmax(0, 1.6fr);
+      gap: 18px;
+      background:
+        radial-gradient(circle at top right, rgba(53,89,224,.12), transparent 38%),
+        var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .countdown-box {
+      border-radius: 16px;
+      padding: 20px;
+      background: #10182b;
+      color: white;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .countdown-label {
+      font-size: 13px;
+      color: #b9c4d8;
+      letter-spacing: .4px;
+    }
+
+    .countdown-number {
+      font-size: clamp(54px, 8vw, 82px);
+      font-weight: 850;
+      line-height: 1;
+      margin: 10px 0 6px;
+    }
+
+    .countdown-unit {
+      font-size: 18px;
+      font-weight: 700;
+      margin-left: 5px;
+    }
+
+    .countdown-date {
+      color: #b9c4d8;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .checkin-content {
+      display: grid;
+      align-content: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .checkin-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .checkin-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 750;
+      background: #eef2ff;
+      color: #3559e0;
+      white-space: nowrap;
+    }
+
+    .checkin-status.done {
+      background: #eaf8ef;
+      color: #16803b;
+    }
+
+    .checkin-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .checkin-stat {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafbfe;
+      min-width: 0;
+    }
+
+    .checkin-stat .num {
+      display: block;
+      font-size: 25px;
+      font-weight: 820;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .checkin-stat .txt {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .checkin-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e8edf7;
+      overflow: hidden;
+    }
+
+    .checkin-progress > span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #3559e0, #8b5cf6);
+    }
+
+    .checkin-history {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 3px;
+    }
+
+    .checkin-day {
+      flex: 0 0 24px;
+      text-align: center;
+      font-size: 9px;
+      color: var(--muted);
+    }
+
+    .checkin-day i {
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin: 0 auto 4px;
+      border-radius: 7px;
+      background: #e7ebf3;
+      border: 1px solid #dfe4ee;
+    }
+
+    .checkin-day.active i {
+      background: #3559e0;
+      border-color: #3559e0;
+      box-shadow: 0 3px 9px rgba(53,89,224,.25);
+    }
+
+    .marked-summary-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .marked-layout {
+      display: grid;
+      grid-template-columns: minmax(220px, .36fr) minmax(0, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .mark-browser {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px;
+      align-self: start;
+      position: sticky;
+      top: 16px;
+      max-height: calc(100vh - 80px);
+      overflow: auto;
+    }
+
+    .mark-browser-group + .mark-browser-group {
+      margin-top: 16px;
+    }
+
+    .mark-browser-title {
+      font-weight: 800;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .mark-browser-button {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      border-radius: 9px;
+      cursor: pointer;
+      padding: 8px 9px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      text-align: left;
+      color: #344056;
+    }
+
+    .mark-browser-button:hover,
+    .mark-browser-button.active {
+      background: #eef2ff;
+      color: #3559e0;
+    }
+
+    .marked-card-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .marked-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .marked-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .marked-phrase {
+      font-size: 18px;
+      font-weight: 820;
+      line-height: 1.45;
+    }
+
+    .marked-note {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #fff8e8;
+      border: 1px solid #f5dfaa;
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .my-mark-empty {
+      padding: 34px 18px;
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      line-height: 1.9;
+      background: #fafbfe;
+    }
+
+    @media (max-width: 900px) {
+      .checkin-card { grid-template-columns: 1fr; }
+      .checkin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .marked-layout { grid-template-columns: 1fr; }
+      .mark-browser {
+        position: static;
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .marked-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .checkin-head, .marked-card-head { display: grid; }
     }
 
     .prompt-label {
@@ -1110,7 +1379,7 @@
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>考研英语词组记忆器·真题补全选择题版</h1>
+      <h1>考研英语词组记忆器·打卡标记版</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -1118,6 +1387,7 @@
       <button class="nav-btn" data-view="review">今日复习</button>
       <button class="nav-btn" data-view="quiz">选择题训练</button>
       <button class="nav-btn" data-view="search">全局搜索</button>
+      <button class="nav-btn" data-view="myMarks">我的标记</button>
       <button class="nav-btn" data-view="marks">标记管理</button>
       <button class="nav-btn" data-view="library">词组库</button>
       <button class="nav-btn" data-view="mistakes">错词本</button>
@@ -1145,11 +1415,66 @@
     </div>
 
     <section class="view active" id="dashboardView">
+      <div class="checkin-card">
+        <div class="countdown-box">
+          <div class="countdown-label">考研初试倒计时</div>
+          <div>
+            <span class="countdown-number" id="examCountdown">144</span>
+            <span class="countdown-unit">天</span>
+          </div>
+          <div class="countdown-date" id="examDateText">目标日期：2026年12月21日</div>
+        </div>
+
+        <div class="checkin-content">
+          <div class="checkin-head">
+            <div>
+              <h3 class="section-title" style="margin-bottom:5px;">今日学习打卡</h3>
+              <div class="muted" id="checkinDescription">完成任意一道复习题或选择题后自动打卡。</div>
+            </div>
+            <span class="checkin-status" id="checkinStatus">今日未打卡</span>
+          </div>
+
+          <div class="checkin-stats">
+            <div class="checkin-stat">
+              <span class="num" id="todayReviewedCount">0</span>
+              <span class="txt">今天已复习</span>
+            </div>
+            <div class="checkin-stat">
+              <span class="num" id="todayRemainingCount">0</span>
+              <span class="txt">当前还剩</span>
+            </div>
+            <div class="checkin-stat">
+              <span class="num" id="todayCorrectCount">0</span>
+              <span class="txt">今天答对</span>
+            </div>
+            <div class="checkin-stat">
+              <span class="num" id="checkinStreakCount">0</span>
+              <span class="txt">连续打卡天数</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="muted" id="checkinProgressText" style="font-size:12px;margin-bottom:7px;">今日进度 0%</div>
+            <div class="checkin-progress"><span id="checkinProgressBar" style="width:0%;"></span></div>
+          </div>
+
+          <div>
+            <div class="muted" style="font-size:12px;margin-bottom:7px;">最近14天打卡</div>
+            <div class="checkin-history" id="checkinHistory"></div>
+          </div>
+
+          <div class="button-row">
+            <button class="primary-btn" id="checkinReviewBtn">继续今日复习</button>
+            <button class="secondary-btn" id="checkinMarksBtn">查看我的标记</button>
+          </div>
+        </div>
+      </div>
+
       <div class="grid stats-grid">
         <div class="card metric">
-          <div class="label">今日到期</div>
+          <div class="label">当前待复习</div>
           <div class="value" id="dueMetric">0</div>
-          <div class="sub">优先完成到期卡片</div>
+          <div class="sub">到期卡片＋今日新词额度</div>
         </div>
         <div class="card metric">
           <div class="label">词组总数</div>
@@ -1356,6 +1681,60 @@
           输入英文、中文、年份或标记开始搜索。
         </div>
         <div class="search-results" id="globalSearchResults"></div>
+      </div>
+    </section>
+
+
+    <section class="view" id="myMarksView">
+      <div class="grid marked-summary-grid">
+        <div class="card metric">
+          <div class="label">已标记词组</div>
+          <div class="value" id="markedCardsMetric">0</div>
+          <div class="sub">至少有一个个人标记</div>
+        </div>
+        <div class="card metric">
+          <div class="label">标记使用次数</div>
+          <div class="value" id="markUsesMetric">0</div>
+          <div class="sub">一条词组可有多个标记</div>
+        </div>
+        <div class="card metric">
+          <div class="label">个人备注</div>
+          <div class="value" id="markedNotesMetric">0</div>
+          <div class="sub">写过备注的词组</div>
+        </div>
+        <div class="card metric">
+          <div class="label">已有标记</div>
+          <div class="value" id="customMarksMetric">0</div>
+          <div class="sub">你创建和系统预置的标记</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="checkin-head">
+          <div>
+            <h3 class="section-title">我的标记词组</h3>
+            <div class="muted" style="line-height:1.8;">
+              这里专门显示你已经标记过的词组。“标记管理”只负责创建和修改标记名称。
+            </div>
+          </div>
+          <button class="secondary-btn" id="goMarkManagerBtn">管理标记名称</button>
+        </div>
+
+        <div class="toolbar" style="margin-top:16px;">
+          <input id="myMarksSearch" placeholder="搜索已标记的英文、中文、备注" />
+          <select id="myMarksGroup"><option value="all">全部标记分组</option></select>
+          <select id="myMarksMark"><option value="all">全部标记</option></select>
+          <select id="myMarksYear"><option value="all">全部年份</option></select>
+          <button class="secondary-btn" id="clearMyMarksFilterBtn">清空筛选</button>
+        </div>
+
+        <div class="marked-layout">
+          <div class="mark-browser" id="myMarksNavigator"></div>
+          <div>
+            <div class="search-summary" id="myMarksSummary">尚未标记任何词组。</div>
+            <div class="marked-card-grid" id="myMarksResults"></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1574,6 +1953,10 @@
               <option value="zh-en">中文 → 英文</option>
               <option value="en-zh">英文 → 中文</option>
             </select>
+          </div>
+          <div class="field">
+            <label>考试日期</label>
+            <input id="examDateInput" type="date" value="2026-12-21" />
           </div>
         </div>
         <div class="button-row">
@@ -1855,7 +2238,8 @@
 
   const defaultSettings = {
     dailyNew: 10,
-    defaultMode: "zh-en"
+    defaultMode: "zh-en",
+    examDate: "2026-12-21"
   };
 
   let state = loadState();
@@ -1878,6 +2262,7 @@
     review: $("reviewView"),
     quiz: $("quizView"),
     search: $("searchView"),
+    myMarks: $("myMarksView"),
     marks: $("marksView"),
     library: $("libraryView"),
     mistakes: $("mistakesView"),
@@ -2020,12 +2405,131 @@
     return merged;
   }
 
+  function localDateKey(value = new Date()) {
+    const d = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(d.getTime())) return "";
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
+  }
+
+  function normalizeDailyStudy(value, sessionLog = []) {
+    const result = {};
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      Object.entries(value).forEach(([key, item]) => {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(key)) return;
+        result[key] = {
+          reviewed: Math.max(0, Number(item?.reviewed) || 0),
+          correct: Math.max(0, Number(item?.correct) || 0),
+          wrong: Math.max(0, Number(item?.wrong) || 0),
+          newLearned: Math.max(0, Number(item?.newLearned) || 0)
+        };
+      });
+    }
+
+    if (!Object.keys(result).length && Array.isArray(sessionLog)) {
+      sessionLog.forEach(log => {
+        const key = localDateKey(log?.time);
+        if (!key) return;
+        if (!result[key]) result[key] = { reviewed: 0, correct: 0, wrong: 0, newLearned: 0 };
+        result[key].reviewed += 1;
+        if (Number(log?.grade) >= 2) result[key].correct += 1;
+        else result[key].wrong += 1;
+        if (log?.wasNew) result[key].newLearned += 1;
+      });
+    }
+    return result;
+  }
+
+  function recordDailyStudy(grade, wasNew = false) {
+    const key = localDateKey();
+    if (!state.dailyStudy || typeof state.dailyStudy !== "object") state.dailyStudy = {};
+    if (!state.dailyStudy[key]) {
+      state.dailyStudy[key] = { reviewed: 0, correct: 0, wrong: 0, newLearned: 0 };
+    }
+    const item = state.dailyStudy[key];
+    item.reviewed += 1;
+    if (grade >= 2) item.correct += 1;
+    else item.wrong += 1;
+    if (wasNew) item.newLearned += 1;
+
+    const keys = Object.keys(state.dailyStudy).sort();
+    if (keys.length > 800) {
+      keys.slice(0, keys.length - 800).forEach(oldKey => delete state.dailyStudy[oldKey]);
+    }
+  }
+
+  function todayStudyStats() {
+    const item = state.dailyStudy?.[localDateKey()] || {};
+    return {
+      reviewed: Math.max(0, Number(item.reviewed) || 0),
+      correct: Math.max(0, Number(item.correct) || 0),
+      wrong: Math.max(0, Number(item.wrong) || 0),
+      newLearned: Math.max(0, Number(item.newLearned) || 0)
+    };
+  }
+
+  function calculateCheckinStreak() {
+    const studied = new Set(
+      Object.entries(state.dailyStudy || {})
+        .filter(([, item]) => Number(item?.reviewed) > 0)
+        .map(([key]) => key)
+    );
+    let cursor = new Date();
+    cursor.setHours(0,0,0,0);
+    if (!studied.has(localDateKey(cursor))) cursor.setDate(cursor.getDate() - 1);
+
+    let streak = 0;
+    while (studied.has(localDateKey(cursor))) {
+      streak += 1;
+      cursor.setDate(cursor.getDate() - 1);
+    }
+    return streak;
+  }
+
+  function recentCheckinDays(count = 14) {
+    const result = [];
+    const cursor = new Date();
+    cursor.setHours(0,0,0,0);
+    for (let offset = count - 1; offset >= 0; offset -= 1) {
+      const d = new Date(cursor);
+      d.setDate(cursor.getDate() - offset);
+      const key = localDateKey(d);
+      result.push({
+        key,
+        label: `${d.getMonth() + 1}/${d.getDate()}`,
+        active: Number(state.dailyStudy?.[key]?.reviewed || 0) > 0
+      });
+    }
+    return result;
+  }
+
+  function daysUntilExam() {
+    const raw = state.settings?.examDate || defaultSettings.examDate;
+    const target = new Date(`${raw}T00:00:00`);
+    if (Number.isNaN(target.getTime())) return 0;
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    return Math.max(0, Math.round((target.getTime() - today.getTime()) / DAY));
+  }
+
+  function formatExamDate() {
+    const raw = state.settings?.examDate || defaultSettings.examDate;
+    const target = new Date(`${raw}T00:00:00`);
+    if (Number.isNaN(target.getTime())) return raw;
+    return target.toLocaleDateString("zh-CN", {
+      year: "numeric", month: "long", day: "numeric"
+    });
+  }
+
   function initialState() {
     return {
       cards: SEED_CARDS.map(normalizeCard),
       markGroups: DEFAULT_MARK_GROUPS.map(normalizeMarkGroup),
       customMarks: DEFAULT_CUSTOM_MARKS.map(normalizeCustomMark),
       settings: { ...defaultSettings },
+      dailyStudy: {},
       sessionLog: [],
       updatedAt: "1970-01-01T00:00:00.000Z"
     };
@@ -2037,12 +2541,14 @@
       if (!raw) return initialState();
       const parsed = JSON.parse(raw);
       const markGroups = loadMarkGroups(parsed.markGroups);
+      const sessionLog = Array.isArray(parsed.sessionLog) ? parsed.sessionLog : [];
       return {
         cards: mergeCardsWithSeed(parsed.cards),
         markGroups,
         customMarks: loadCustomMarks(parsed.customMarks, markGroups),
         settings: { ...defaultSettings, ...(parsed.settings || {}) },
-        sessionLog: Array.isArray(parsed.sessionLog) ? parsed.sessionLog : [],
+        dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
+        sessionLog,
         updatedAt: parsed.updatedAt || new Date().toISOString()
       };
     } catch (error) {
@@ -2077,7 +2583,7 @@
   }
 
   function isDue(card) {
-    return !card.suspended && new Date(card.due).getTime() <= startOfToday();
+    return !card.suspended && new Date(card.due).getTime() <= Date.now();
   }
 
   function isNew(card) {
@@ -2399,12 +2905,14 @@
       if (cloudTime > localTime && data.data) {
         suppressCloudSave = true;
         const markGroups = loadMarkGroups(data.data.markGroups);
+        const sessionLog = Array.isArray(data.data.sessionLog) ? data.data.sessionLog : [];
         state = {
           cards: mergeCardsWithSeed(data.data.cards),
           markGroups,
           customMarks: loadCustomMarks(data.data.customMarks, markGroups),
           settings: { ...defaultSettings, ...(data.data.settings || {}) },
-          sessionLog: Array.isArray(data.data.sessionLog) ? data.data.sessionLog : [],
+          dailyStudy: normalizeDailyStudy(data.data.dailyStudy, sessionLog),
+          sessionLog,
           updatedAt: data.data.updatedAt || data.updated_at || new Date().toISOString()
         };
         saveState({ touch: false, sync: false });
@@ -2414,6 +2922,7 @@
         renderDashboard();
         if (currentView === "quiz") renderQuizSetup();
         if (currentView === "search") renderGlobalSearch();
+        if (currentView === "myMarks") renderMyMarks();
         if (currentView === "marks") renderMarkManager();
         if (currentView === "library") renderLibrary();
         if (currentView === "mistakes") renderMistakes();
@@ -2451,6 +2960,7 @@
       review: "今日复习",
       quiz: "选择题训练",
       search: "全局搜索",
+      myMarks: "我的标记",
       marks: "标记管理",
       library: "词组库",
       mistakes: "错词本",
@@ -2462,6 +2972,7 @@
     if (viewName === "dashboard") renderDashboard();
     if (viewName === "quiz") renderQuizSetup();
     if (viewName === "search") renderGlobalSearch();
+    if (viewName === "myMarks") renderMyMarks();
     if (viewName === "marks") renderMarkManager();
     if (viewName === "library") renderLibrary();
     if (viewName === "mistakes") renderMistakes();
@@ -2582,6 +3093,7 @@
     if (currentView === "library") renderLibrary();
     if (currentView === "search") renderGlobalSearch();
     if (currentView === "marks") renderMarkManager();
+    if (currentView === "myMarks") renderMyMarks();
     if (currentView === "review") renderReviewCard();
   }
 
@@ -2670,6 +3182,144 @@
     saveState();
     renderMarkManager();
     showToast("标记已删除");
+  }
+
+  function populateMyMarksFilters() {
+    const groupSelect = $("myMarksGroup");
+    const markSelect = $("myMarksMark");
+    const yearSelect = $("myMarksYear");
+    if (!groupSelect || !markSelect || !yearSelect) return;
+
+    const currentGroup = groupSelect.value || "all";
+    const currentMark = markSelect.value || "all";
+    const currentYear = yearSelect.value || "all";
+
+    groupSelect.innerHTML = '<option value="all">全部标记分组</option>' +
+      state.markGroups.map(group =>
+        `<option value="${escapeHtml(group.id)}">${escapeHtml(group.name)}</option>`
+      ).join("");
+
+    const availableMarks = state.customMarks.filter(mark =>
+      currentGroup === "all" || mark.groupId === currentGroup
+    );
+    markSelect.innerHTML = '<option value="all">全部标记</option>' +
+      availableMarks.map(mark =>
+        `<option value="${escapeHtml(mark.id)}">${escapeHtml(mark.name)}</option>`
+      ).join("");
+
+    const years = [...new Set(
+      state.cards
+        .filter(card => getCardMarks(card).length)
+        .map(card => card.year)
+    )].sort();
+    yearSelect.innerHTML = '<option value="all">全部年份</option>' +
+      years.map(year => `<option value="${year}">${year}年</option>`).join("");
+
+    if ([...groupSelect.options].some(option => option.value === currentGroup)) {
+      groupSelect.value = currentGroup;
+    }
+    if ([...markSelect.options].some(option => option.value === currentMark)) {
+      markSelect.value = currentMark;
+    }
+    if ([...yearSelect.options].some(option => option.value === currentYear)) {
+      yearSelect.value = currentYear;
+    }
+  }
+
+  function renderMyMarks() {
+    populateMyMarksFilters();
+
+    const allMarked = state.cards.filter(card => getCardMarks(card).length > 0);
+    const markUses = allMarked.reduce((sum, card) => sum + getCardMarks(card).length, 0);
+    const notes = allMarked.filter(card => card.userNote).length;
+
+    $("markedCardsMetric").textContent = allMarked.length;
+    $("markUsesMetric").textContent = markUses;
+    $("markedNotesMetric").textContent = notes;
+    $("customMarksMetric").textContent = state.customMarks.length;
+
+    const activeMark = $("myMarksMark").value;
+    const activeGroup = $("myMarksGroup").value;
+
+    $("myMarksNavigator").innerHTML = state.markGroups.length
+      ? state.markGroups.map(group => {
+          const marks = state.customMarks.filter(mark => mark.groupId === group.id);
+          return `<div class="mark-browser-group">
+            <div class="mark-browser-title">${escapeHtml(group.name)}</div>
+            ${marks.length ? marks.map(mark => {
+              const count = allMarked.filter(card => (card.userMarkIds || []).includes(mark.id)).length;
+              return `<button class="mark-browser-button ${activeMark === mark.id ? "active" : ""}"
+                data-my-mark-filter="${escapeHtml(mark.id)}">
+                <span>${escapeHtml(mark.name)}</span><strong>${count}</strong>
+              </button>`;
+            }).join("") : '<div class="empty-mini">暂无具体标记</div>'}
+          </div>`;
+        }).join("")
+      : '<div class="empty-mini">还没有标记分组。</div>';
+
+    const q = normalizeText($("myMarksSearch").value);
+    const year = $("myMarksYear").value;
+    const group = $("myMarksGroup").value;
+    const mark = $("myMarksMark").value;
+
+    const groupMarkIds = group === "all"
+      ? null
+      : new Set(state.customMarks.filter(item => item.groupId === group).map(item => item.id));
+
+    const cards = allMarked
+      .filter(card => !q || normalizeText(cardSearchText(card)).includes(q))
+      .filter(card => year === "all" || String(card.year) === year)
+      .filter(card => !groupMarkIds || (card.userMarkIds || []).some(id => groupMarkIds.has(id)))
+      .filter(card => mark === "all" || (card.userMarkIds || []).includes(mark))
+      .sort((a, b) =>
+        b.year - a.year ||
+        a.section.localeCompare(b.section) ||
+        a.phrase.localeCompare(b.phrase)
+      );
+
+    const filterNames = [];
+    if (group !== "all") filterNames.push(getMarkGroupById(group)?.name || "");
+    if (mark !== "all") filterNames.push(getMarkById(mark)?.name || "");
+    if (year !== "all") filterNames.push(`${year}年`);
+    if (q) filterNames.push(`搜索“${$("myMarksSearch").value.trim()}”`);
+
+    $("myMarksSummary").innerHTML = allMarked.length
+      ? `共标记 <strong>${allMarked.length}</strong> 条词组；当前显示 <strong>${cards.length}</strong> 条`
+        + (filterNames.length ? `（${escapeHtml(filterNames.filter(Boolean).join(" · "))}）` : "。")
+      : "你还没有给任何词组添加个人标记。复习或做选择题时点击“标记”即可。";
+
+    $("myMarksResults").innerHTML = cards.length ? cards.map(card => `
+      <div class="marked-card">
+        <div class="marked-card-head">
+          <div>
+            <div class="marked-phrase">${escapeHtml(card.phrase)}</div>
+            <div style="margin-top:5px;line-height:1.7;">${escapeHtml(card.meaning)}</div>
+          </div>
+          <div class="button-row">
+            <button class="mini-btn" data-my-mark-action="practice" data-id="${escapeHtml(card.id)}">立即练习</button>
+            <button class="mini-btn" data-my-mark-action="edit" data-id="${escapeHtml(card.id)}">修改标记</button>
+          </div>
+        </div>
+        <div class="pill-row">
+          <span class="pill"><strong>${card.year}年</strong></span>
+          <span class="pill">${escapeHtml(card.section)}</span>
+          ${categoryPills(card)}
+        </div>
+        <div class="custom-mark-row">${customMarkPills(card)}</div>
+        ${card.userNote ? `<div class="marked-note"><strong>个人备注：</strong>${escapeHtml(card.userNote)}</div>` : ""}
+        ${card.example ? `<div class="muted" style="font-size:13px;line-height:1.75;">${escapeHtml(card.example)}</div>` : ""}
+      </div>
+    `).join("") : `<div class="my-mark-empty">
+      当前筛选条件下没有词组。<br>
+      清空筛选，或者到“标记管理”中新建标记后再给词组添加。
+    </div>`;
+  }
+
+  function selectMyMark(markId) {
+    $("myMarksGroup").value = "all";
+    populateMyMarksFilters();
+    $("myMarksMark").value = markId;
+    renderMyMarks();
   }
 
   function renderMarkManager() {
@@ -3288,7 +3938,7 @@
   }
 
   function renderDashboard() {
-    const due = state.cards.filter(isDue).length;
+    const due = getReviewQueue(false).length;
     const total = state.cards.length;
     const mastered = state.cards.filter(isMastered).length;
     const errors = state.cards.reduce((sum, c) => sum + c.lapses, 0);
@@ -3297,6 +3947,36 @@
     $("totalMetric").textContent = total;
     $("masteredMetric").textContent = mastered;
     $("errorMetric").textContent = errors;
+
+    const todayStats = todayStudyStats();
+    const remaining = getReviewQueue(false).length;
+    const planned = todayStats.reviewed + remaining;
+    const progress = planned ? Math.min(100, Math.round(todayStats.reviewed / planned * 100)) : 100;
+    const streak = calculateCheckinStreak();
+
+    $("examCountdown").textContent = daysUntilExam();
+    $("examDateText").textContent = `目标日期：${formatExamDate()}（可在设置中修改）`;
+    $("todayReviewedCount").textContent = todayStats.reviewed;
+    $("todayRemainingCount").textContent = remaining;
+    $("todayCorrectCount").textContent = todayStats.correct;
+    $("checkinStreakCount").textContent = streak;
+    $("checkinProgressText").textContent = `今日进度 ${progress}% · 答错 ${todayStats.wrong} 题 · 新学 ${todayStats.newLearned} 条`;
+    $("checkinProgressBar").style.width = `${progress}%`;
+
+    const checkedIn = todayStats.reviewed > 0;
+    $("checkinStatus").textContent = checkedIn
+      ? (remaining === 0 ? "今日任务已完成" : "今日已打卡")
+      : "今日未打卡";
+    $("checkinStatus").classList.toggle("done", checkedIn);
+    $("checkinDescription").textContent = checkedIn
+      ? `今天已经完成 ${todayStats.reviewed} 次答题，当前还有 ${remaining} 条待复习。`
+      : `完成任意一道复习题或选择题后自动打卡，当前还有 ${remaining} 条待复习。`;
+
+    $("checkinHistory").innerHTML = recentCheckinDays(14).map(day => `
+      <span class="checkin-day ${day.active ? "active" : ""}" title="${day.key}${day.active ? " 已打卡" : " 未打卡"}">
+        <i></i>${escapeHtml(day.label)}
+      </span>
+    `).join("");
 
     $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       const count = state.cards.filter(card => hasCategory(card, category)).length;
@@ -3335,16 +4015,19 @@
       .filter(c => isDue(c) && !isNew(c))
       .sort((a,b) => new Date(a.due) - new Date(b.due) || b.lapses - a.lapses);
 
+    const learnedToday = todayStudyStats().newLearned;
+    const newRemaining = Math.max(0, Number(state.settings.dailyNew || 10) - learnedToday);
+
     if (!includeNew) {
       const newDue = state.cards
         .filter(c => isDue(c) && isNew(c))
-        .slice(0, state.settings.dailyNew);
+        .slice(0, newRemaining);
       return [...due, ...newDue];
     }
 
     const newCards = state.cards
       .filter(c => isNew(c) && !c.suspended)
-      .slice(0, state.settings.dailyNew);
+      .slice(0, newRemaining);
     return [...due, ...newCards];
   }
 
@@ -3524,6 +4207,7 @@
   }
 
   function scheduleCard(card, grade) {
+    const wasNew = isNew(card);
     card.attempts += 1;
     card.lastReviewed = new Date().toISOString();
     card.lastResult = ["完全不会", "错误较多", "基本正确", "熟练掌握"][grade];
@@ -3558,11 +4242,13 @@
       card.due = new Date(Date.now() + intervalDays * DAY).toISOString();
     }
 
+    recordDailyStudy(grade, wasNew);
     state.sessionLog.push({
       cardId: card.id,
       year: card.year,
       grade,
       mode: currentMode,
+      wasNew,
       time: new Date().toISOString()
     });
     if (state.sessionLog.length > 3000) state.sessionLog = state.sessionLog.slice(-3000);
@@ -3691,6 +4377,7 @@
   function renderSettings() {
     $("dailyNewInput").value = state.settings.dailyNew;
     $("defaultModeSelect").value = state.settings.defaultMode;
+    $("examDateInput").value = state.settings.examDate || defaultSettings.examDate;
   }
 
   function openCardDialog(card = null) {
@@ -3876,6 +4563,8 @@
     $("dashboardReviewBtn").addEventListener("click", () => startReview(false));
     $("learnNewBtn").addEventListener("click", () => startReview(true));
     $("dashboardQuizBtn").addEventListener("click", () => switchView("quiz"));
+    $("checkinReviewBtn").addEventListener("click", () => startReview(false));
+    $("checkinMarksBtn").addEventListener("click", () => switchView("myMarks"));
 
     $("categoryGrid").addEventListener("click", event => {
       const button = event.target.closest("button[data-category-study]");
@@ -3985,6 +4674,42 @@
       if (action === "practice") practiceOne(id);
     });
 
+    ["myMarksSearch", "myMarksGroup", "myMarksMark", "myMarksYear"].forEach(id => {
+      const eventName = id === "myMarksSearch" ? "input" : "change";
+      $(id).addEventListener(eventName, () => {
+        if (id === "myMarksGroup") {
+          populateMyMarksFilters();
+          $("myMarksMark").value = "all";
+        }
+        renderMyMarks();
+      });
+    });
+
+    $("clearMyMarksFilterBtn").addEventListener("click", () => {
+      $("myMarksSearch").value = "";
+      $("myMarksGroup").value = "all";
+      populateMyMarksFilters();
+      $("myMarksMark").value = "all";
+      $("myMarksYear").value = "all";
+      renderMyMarks();
+    });
+
+    $("goMarkManagerBtn").addEventListener("click", () => switchView("marks"));
+
+    $("myMarksNavigator").addEventListener("click", event => {
+      const button = event.target.closest("button[data-my-mark-filter]");
+      if (!button) return;
+      selectMyMark(button.dataset.myMarkFilter);
+    });
+
+    $("myMarksResults").addEventListener("click", event => {
+      const button = event.target.closest("button[data-my-mark-action]");
+      if (!button) return;
+      const id = button.dataset.id;
+      if (button.dataset.myMarkAction === "practice") practiceOne(id);
+      if (button.dataset.myMarkAction === "edit") openMarkDialog(id);
+    });
+
     $("createMarkGroupBtn").addEventListener("click", createMarkGroup);
 
     $("markGroupsList").addEventListener("click", event => {
@@ -4009,7 +4734,9 @@
     $("saveSettingsBtn").addEventListener("click", () => {
       state.settings.dailyNew = Math.min(50, Math.max(1, Number($("dailyNewInput").value) || 10));
       state.settings.defaultMode = $("defaultModeSelect").value;
+      state.settings.examDate = $("examDateInput").value || defaultSettings.examDate;
       saveState();
+      renderDashboard();
       showToast("设置已保存");
     });
 

@@ -1,0 +1,65 @@
+﻿考研英语词组记忆器——大作文300道句子仿写版
+=========================================
+
+本次核心升级
+------------
+句子仿写从12道增加到300道，不是简单复制同一道题。
+
+题量分布
+--------
+1. 图表描述：100道
+   - As is shown开头
+   - Overall总结趋势
+   - The chart shows that
+   - There were数据列举
+   - 增长最快
+
+2. 原因分析：100道
+   - This change is caused by
+   - As...rises
+   - because解释增速
+   - On the one hand
+   - However + which
+
+3. 影响意义：40道
+   - provide A with places/chances
+   - not only...but also...
+
+4. 建议措施：20道
+   - In my opinion, A should...
+
+5. 结尾总结：40道
+   - Only when倒装
+   - only when放在句尾
+
+句子仿写页面新增
+----------------
+- 按训练类别筛选
+- 按5篇母句作文筛选
+- 显示当前筛选题量
+- 显示全部完成数量
+- 显示当前筛选完成进度
+- 上一题
+- 随机一题
+- 下一题
+- 仍然保留三级提示：
+  1. 句型框架
+  2. 关键词
+  3. 网页辅助参考答案
+
+重要说明
+--------
+- 5篇确认作文的英文原文没有改动。
+- 300道仿写题是基于确认作文中的核心句型扩展的训练素材。
+- 网页显示的覆盖度不是语法评分，仍需人工核对主谓、介词、单复数和语序。
+- 已做过的仿写答案继续保存到Supabase，并计入当天打卡。
+
+更新步骤
+--------
+1. 解压 kaoyan_phrase_trainer_pwa_big_essay_300.zip
+2. 上传压缩包里的全部文件到GitHub并覆盖同名文件
+3. Commit message：
+   Expand sentence imitation to 300 tasks
+4. 等待Actions绿色对勾
+5. 电脑Ctrl+F5
+6. 手机和平板完全关闭PWA后重新打开两次

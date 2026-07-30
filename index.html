@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（大作文完整练习版）</title>
+  <title>考研英语词组记忆器（句子校正版）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -2222,13 +2222,161 @@
       .study-stepbar { grid-template-columns: 1fr; }
     }
 
+  
+    .correction-report {
+      margin-top: 15px;
+      border: 1px solid #dfe5f1;
+      border-radius: 15px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .correction-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 13px 15px;
+      background: #f5f7fc;
+      border-bottom: 1px solid #e4e8f0;
+    }
+
+    .correction-level {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      background: #eef2ff;
+      color: #3559e0;
+    }
+
+    .correction-section {
+      padding: 15px;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .correction-section:last-child {
+      border-bottom: 0;
+    }
+
+    .correction-title {
+      font-size: 13px;
+      font-weight: 820;
+      margin-bottom: 9px;
+      color: #2c374d;
+    }
+
+    .correction-checks {
+      display: grid;
+      gap: 7px;
+    }
+
+    .correction-check {
+      display: grid;
+      grid-template-columns: 20px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      padding: 8px 10px;
+      border-radius: 9px;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .correction-check.ok {
+      background: #edf8f1;
+      color: #176632;
+    }
+
+    .correction-check.warn {
+      background: #fff5e8;
+      color: #8b5700;
+    }
+
+    .correction-check.error {
+      background: #fff0f0;
+      color: #a02727;
+    }
+
+    .correction-diff {
+      line-height: 2.15;
+      padding: 12px;
+      border-radius: 11px;
+      background: #f8f9fc;
+      border: 1px solid #e5e9f0;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .diff-same {
+      margin-right: 4px;
+    }
+
+    .diff-add {
+      display: inline;
+      margin-right: 4px;
+      padding: 2px 4px;
+      border-radius: 5px;
+      background: #dff5e5;
+      color: #166534;
+      text-decoration: none;
+      font-weight: 750;
+    }
+
+    .diff-remove {
+      display: inline;
+      margin-right: 4px;
+      padding: 2px 4px;
+      border-radius: 5px;
+      background: #ffe1e1;
+      color: #a11b1b;
+      text-decoration: line-through;
+    }
+
+    .correction-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .correction-fixed {
+      padding: 14px;
+      border-radius: 11px;
+      background: #eef8f1;
+      border: 1px solid #b9dfc5;
+      color: #165c2d;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .correction-warning {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #fff8e9;
+      border: 1px solid #efddae;
+      color: #755717;
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 620px) {
+      .correction-head {
+        display: grid;
+      }
+    }
+
   </style>
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>考研英语词组记忆器·大作文完整练习版</h1>
+      <h1>考研英语词组记忆器·句子仿写校正版</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -4756,11 +4904,11 @@
 
         <div class="field" style="margin-top:15px;">
           <label>你的英文</label>
-          <textarea class="essay-textarea" id="sentenceImitationAnswer" placeholder="先独立完成，不必和参考答案逐字一致。">${escapeHtml(saved.answer || "")}</textarea>
+          <textarea class="essay-textarea" id="sentenceImitationAnswer" spellcheck="true" placeholder="先独立完成。提交后网页会逐项指出如何修改。">${escapeHtml(saved.answer || "")}</textarea>
         </div>
 
         <div class="button-row">
-          <button class="primary-btn" data-big-essay-action="submit-sentence-imitation">提交并对照</button>
+          <button class="primary-btn" data-big-essay-action="submit-sentence-imitation">检查并改正</button>
           <button class="secondary-btn" data-big-essay-action="show-sentence-frame">提示1：句型框架</button>
           <button class="secondary-btn" data-big-essay-action="show-sentence-keywords">提示2：关键词</button>
           <button class="ghost-btn" data-big-essay-action="show-sentence-reference">参考答案</button>
@@ -4785,24 +4933,315 @@
     }
   }
 
+  function correctionTokens(text) {
+    return String(text || "")
+      .replace(/[’‘]/g, "'")
+      .match(/[A-Za-z0-9]+(?:'[A-Za-z]+)?|%|[.,!?;:()\-]/g) || [];
+  }
+
+  function tokenDiff(userText, referenceText) {
+    const user = correctionTokens(userText);
+    const reference = correctionTokens(referenceText);
+    const m = user.length;
+    const n = reference.length;
+    const dp = Array.from({length: m + 1}, () => Array(n + 1).fill(0));
+
+    for (let i = m - 1; i >= 0; i -= 1) {
+      for (let j = n - 1; j >= 0; j -= 1) {
+        if (user[i].toLowerCase() === reference[j].toLowerCase()) {
+          dp[i][j] = dp[i + 1][j + 1] + 1;
+        } else {
+          dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+        }
+      }
+    }
+
+    const result = [];
+    let i = 0;
+    let j = 0;
+    while (i < m && j < n) {
+      if (user[i].toLowerCase() === reference[j].toLowerCase()) {
+        result.push({type: "same", token: reference[j]});
+        i += 1;
+        j += 1;
+      } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+        result.push({type: "remove", token: user[i]});
+        i += 1;
+      } else {
+        result.push({type: "add", token: reference[j]});
+        j += 1;
+      }
+    }
+    while (i < m) {
+      result.push({type: "remove", token: user[i]});
+      i += 1;
+    }
+    while (j < n) {
+      result.push({type: "add", token: reference[j]});
+      j += 1;
+    }
+    return result;
+  }
+
+  function renderCorrectionDiff(userText, referenceText) {
+    return tokenDiff(userText, referenceText).map(item => {
+      const cls = item.type === "same"
+        ? "diff-same"
+        : item.type === "add"
+          ? "diff-add"
+          : "diff-remove";
+      const title = item.type === "add"
+        ? "参考答案中需要补充"
+        : item.type === "remove"
+          ? "与参考答案相比建议删除或替换"
+          : "";
+      return `<span class="${cls}" title="${escapeHtml(title)}">${escapeHtml(item.token)}</span>`;
+    }).join(" ");
+  }
+
+  function sentenceFormatChecks(answer) {
+    const trimmed = answer.trim();
+    const checks = [];
+
+    checks.push({
+      ok: /^[A-Z]/.test(trimmed),
+      label: "句首大写",
+      detail: /^[A-Z]/.test(trimmed)
+        ? "句首已经使用大写字母。"
+        : "句首应使用大写字母。"
+    });
+
+    checks.push({
+      ok: /[.!?]["']?$/.test(trimmed),
+      label: "句末标点",
+      detail: /[.!?]["']?$/.test(trimmed)
+        ? "句末标点完整。"
+        : "句末需要补充句号、问号或感叹号。"
+    });
+
+    checks.push({
+      ok: !/\s{2,}/.test(trimmed),
+      label: "多余空格",
+      detail: !/\s{2,}/.test(trimmed)
+        ? "没有连续多余空格。"
+        : "句中存在连续空格，需要删除。"
+    });
+
+    checks.push({
+      ok: !/\s+[,.!?;:]/.test(trimmed),
+      label: "标点前空格",
+      detail: !/\s+[,.!?;:]/.test(trimmed)
+        ? "标点前没有多余空格。"
+        : "英文标点前不应留空格。"
+    });
+
+    return checks;
+  }
+
+  function sentenceStructureChecks(answer, task) {
+    const lower = answer.toLowerCase();
+    const frame = String(task.frame || "").toLowerCase();
+    const pattern = String(task.pattern || "").toLowerCase();
+    const checks = [];
+
+    const add = (ok, label, detail) => checks.push({ok, label, detail});
+
+    if (frame.startsWith("only when") || pattern.includes("only when倒装")) {
+      add(/^only when\b/i.test(answer.trim()), "Only when位于句首",
+        "句首使用Only when时，主句需要倒装。");
+      add(/\bcan\b/i.test(answer), "主句含can",
+        "Only when从句之后的主句应使用can＋主语＋动词原形。");
+    }
+
+    if (frame.includes("only when") && !frame.startsWith("only when")) {
+      add(/\bonly when\b/i.test(answer), "only when条件从句",
+        "句尾条件需要保留only when结构。");
+      add(/\bcan\b/i.test(answer), "主句含can",
+        "主句通常使用can＋动词表达结果。");
+    }
+
+    if (frame.includes("not only") || pattern.includes("not only")) {
+      add(/\bnot only\b/i.test(answer), "not only",
+        "需要使用not only引出第一个并列作用。");
+      add(/\bbut also\b/i.test(answer), "but also",
+        "需要使用but also连接第二个并列作用。");
+    }
+
+    if (frame.includes("which") || pattern.includes("which")) {
+      add(/,\s*which\b/i.test(answer), "逗号＋which",
+        "补充说明前面整个情况时，通常写成“, which ...”。");
+    }
+
+    if (frame.startsWith("as is shown") || frame.startsWith("as is clearly shown")) {
+      add(/^as is (clearly )?shown\b/i.test(answer.trim()), "As is shown开头",
+        "该题要求使用As is shown/As is clearly shown开头。");
+    }
+
+    if (frame.startsWith("as is vividly displayed")) {
+      add(/^as is vividly displayed\b/i.test(answer.trim()), "As is vividly displayed开头",
+        "图画描述应保留As is vividly displayed结构。");
+    }
+
+    if (frame.startsWith("the chart shows that")) {
+      add(/^the chart shows that\b/i.test(answer.trim()), "The chart shows that",
+        "该题要求使用The chart shows that引出完整句子。");
+    }
+
+    if (frame.startsWith("there were")) {
+      add(/^there were\b/i.test(answer.trim()), "There were开头",
+        "列举过去的数据时，该题使用There were结构。");
+    }
+
+    if (frame.startsWith("in my opinion")) {
+      add(/^in my opinion\b/i.test(answer.trim()), "In my opinion开头",
+        "建议段需要保留In my opinion开头。");
+    }
+
+    if (frame.startsWith("on the one hand")) {
+      add(/^on the one hand\b/i.test(answer.trim()), "On the one hand开头",
+        "该题要求从一方面展开分析。");
+    }
+
+    if (frame.startsWith("it is beneficial")) {
+      add(/^it is beneficial\b/i.test(answer.trim()), "It is beneficial结构",
+        "该题要求使用It is beneficial to/that结构。");
+    }
+
+    if (frame.startsWith("in general")) {
+      add(/^in general\b/i.test(answer.trim()), "In general开头",
+        "该题要求先用In general概括。");
+    }
+
+    if (frame.startsWith("overall")) {
+      add(/^overall\b/i.test(answer.trim()), "Overall开头",
+        "图表总结句需要使用Overall开头。");
+    }
+
+    if (frame.startsWith("however")) {
+      add(/^however\b/i.test(answer.trim()), "However转折",
+        "该题需要用However引出顾虑或转折。");
+    }
+
+    return checks;
+  }
+
+  function keywordCorrectionChecks(answer, task) {
+    const lower = answer.toLowerCase();
+    return (task.keywords || []).map(keyword => ({
+      ok: lower.includes(String(keyword).toLowerCase()),
+      label: `关键词：${keyword}`,
+      detail: lower.includes(String(keyword).toLowerCase())
+        ? "已经使用。"
+        : "本题建议补充这一核心结构或表达。"
+    }));
+  }
+
+  function correctionLevel(score, failedCount) {
+    if (score >= 90 && failedCount === 0) return "与参考答案高度一致";
+    if (score >= 75 && failedCount <= 2) return "基本接近，需要少量修改";
+    if (score >= 55) return "结构或用词需要进一步调整";
+    return "差异较多，建议按修正版重写";
+  }
+
+  function saveCorrectionSnapshot(task, answer, score, checks) {
+    const bucket = state.bigEssayPractice.sentenceImitation;
+    const current = bucket[task.id] || {};
+    bucket[task.id] = {
+      ...current,
+      answer,
+      score,
+      correction: {
+        originalAnswer: answer,
+        suggestedAnswer: task.reference,
+        failedChecks: checks.filter(item => !item.ok).map(item => item.label),
+        checkedAt: new Date().toISOString()
+      }
+    };
+    saveState();
+  }
+
+  function adoptSentenceCorrection() {
+    const task = SENTENCE_IMITATION_TASKS.find(item => item.id === currentSentenceImitationId);
+    const input = $("sentenceImitationAnswer");
+    if (!task || !input) return;
+    input.value = task.reference;
+    input.focus();
+
+    const bucket = state.bigEssayPractice.sentenceImitation;
+    const current = bucket[task.id] || {};
+    bucket[task.id] = {
+      ...current,
+      answer: task.reference,
+      score: 100,
+      adoptedCorrection: true,
+      adoptedAt: new Date().toISOString()
+    };
+    saveState();
+
+    const status = $("sentenceCorrectionAdoptStatus");
+    if (status) {
+      status.innerHTML = '<div class="inline-imitation-feedback">修正版已放回输入框并保存。你可以继续修改，然后再次点击“检查并改正”。</div>';
+    }
+  }
+
   function submitSentenceImitation() {
     const task = SENTENCE_IMITATION_TASKS.find(item => item.id === currentSentenceImitationId);
     const answer = $("sentenceImitationAnswer").value.trim();
     if (!answer) return showToast("请先写出你的仿写句子");
+
     const score = essayTextCoverage(answer, task.reference);
-    const missing = task.keywords.filter(keyword =>
-      !answer.toLowerCase().includes(keyword.toLowerCase())
-    );
+    const checks = [
+      ...sentenceFormatChecks(answer),
+      ...sentenceStructureChecks(answer, task),
+      ...keywordCorrectionChecks(answer, task)
+    ];
+    const failed = checks.filter(item => !item.ok);
+    const level = correctionLevel(score, failed.length);
+
     saveEssayPractice("sentenceImitation", task.id, answer, score);
+    saveCorrectionSnapshot(task, answer, score, checks);
+
     $("sentenceImitationFeedback").innerHTML = `
-      <div class="comparison-panel">
-        <div class="comparison-box"><strong>你的仿写</strong><br>${escapeHtml(answer)}</div>
-        <div class="comparison-box"><strong>网页辅助参考答案</strong><br>${escapeHtml(task.reference)}</div>
-      </div>
-      <div class="hint-panel">
-        <span class="similarity-score">核心词覆盖度 ${score}%</span>
-        ${missing.length ? `<div style="margin-top:8px;"><strong>建议检查：</strong>${missing.map(escapeHtml).join("、")}</div>` : ""}
-        <div class="muted" style="margin-top:7px;">该比例只检查文本覆盖，不是语法评分；请重点核对句型、主谓、单复数和介词。</div>
+      <div class="correction-report">
+        <div class="correction-head">
+          <strong>句子校正报告</strong>
+          <span class="correction-level">${escapeHtml(level)}</span>
+        </div>
+
+        <div class="correction-section">
+          <div class="correction-title">一、逐项检查</div>
+          <div class="correction-checks">
+            ${checks.map(item => `
+              <div class="correction-check ${item.ok ? "ok" : "error"}">
+                <span>${item.ok ? "✓" : "!"}</span>
+                <div><strong>${escapeHtml(item.label)}</strong><br>${escapeHtml(item.detail)}</div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+
+        <div class="correction-section">
+          <div class="correction-title">二、逐词修改路径</div>
+          <div class="correction-diff">${renderCorrectionDiff(answer, task.reference)}</div>
+          <div class="correction-legend">
+            <span><span class="diff-remove">红色删除线</span>：与参考答案相比建议删除或替换</span>
+            <span><span class="diff-add">绿色</span>：参考答案中需要补充</span>
+          </div>
+        </div>
+
+        <div class="correction-section">
+          <div class="correction-title">三、建议修正版</div>
+          <div class="correction-fixed">${escapeHtml(task.reference)}</div>
+          <div class="button-row" style="margin-top:11px;">
+            <button class="primary-btn" data-big-essay-action="adopt-sentence-correction">把修正版放回输入框</button>
+            <button class="secondary-btn" data-big-essay-action="next-sentence-imitation">修改完成，进入下一题</button>
+          </div>
+          <div id="sentenceCorrectionAdoptStatus"></div>
+          <div class="correction-warning">
+            当前网页是<strong>按本题参考答案进行本地校正</strong>。如果你使用了另一种完全正确的表达，
+            网页也可能把它标成差异；它不能代替开放式AI语法审阅。
+          </div>
+        </div>
       </div>`;
   }
 
@@ -6838,6 +7277,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       if (action === "show-sentence-keywords") showSentenceImitationHint("keywords");
       if (action === "show-sentence-reference") showSentenceImitationHint("reference");
       if (action === "submit-sentence-imitation") submitSentenceImitation();
+      if (action === "adopt-sentence-correction") adoptSentenceCorrection();
       if (action === "submit-paragraph-imitation") submitParagraphImitation(false);
       if (action === "show-paragraph-reference") submitParagraphImitation(true);
       if (action === "show-source-paragraph") {

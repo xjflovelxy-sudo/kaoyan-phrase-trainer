@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（打卡与我的标记版）</title>
+  <title>考研英语词组记忆器（144天打卡版）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -818,6 +818,170 @@
       .checkin-head, .marked-card-head { display: grid; }
     }
 
+    .plan-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .plan-summary-item {
+      padding: 12px;
+      border-radius: 12px;
+      background: #fafbfe;
+      border: 1px solid var(--border);
+      min-width: 0;
+    }
+
+    .plan-summary-item strong {
+      display: block;
+      font-size: 23px;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .plan-summary-item span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .full-checkin-calendar {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .checkin-month-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px;
+    }
+
+    .checkin-month-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .checkin-month-title small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .checkin-week-head,
+    .checkin-month-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 5px;
+    }
+
+    .checkin-week-head span {
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      padding-bottom: 3px;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      min-height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      font-size: 11px;
+      border: 1px solid #e5e9f1;
+      background: #f7f8fb;
+      color: #8791a4;
+    }
+
+    .calendar-day.blank {
+      border-color: transparent;
+      background: transparent;
+    }
+
+    .calendar-day.outside-plan {
+      opacity: .28;
+    }
+
+    .calendar-day.future {
+      background: #f7f8fb;
+      color: #7d8799;
+    }
+
+    .calendar-day.checked {
+      background: #3559e0;
+      border-color: #3559e0;
+      color: white;
+      font-weight: 800;
+      box-shadow: 0 3px 9px rgba(53,89,224,.22);
+    }
+
+    .calendar-day.missed {
+      background: #fff2f2;
+      border-color: #f1b8b8;
+      color: #b42318;
+      font-weight: 750;
+    }
+
+    .calendar-day.today {
+      outline: 2px solid #8b5cf6;
+      outline-offset: 1px;
+    }
+
+    .calendar-day .dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      bottom: 4px;
+      background: currentColor;
+      opacity: .85;
+    }
+
+    .plan-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .plan-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .plan-legend i {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      display: inline-block;
+      border: 1px solid var(--border);
+    }
+
+    .legend-checked { background: #3559e0; border-color: #3559e0 !important; }
+    .legend-missed { background: #fff2f2; border-color: #f1b8b8 !important; }
+    .legend-future { background: #f7f8fb; }
+
+    @media (max-width: 900px) {
+      .plan-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .calendar-day { min-height: 30px; font-size: 10px; border-radius: 7px; }
+      .checkin-week-head, .checkin-month-grid { gap: 4px; }
+    }
+
     .prompt-label {
       margin-top: 28px;
       color: var(--muted);
@@ -1379,7 +1543,7 @@
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>考研英语词组记忆器·打卡标记版</h1>
+      <h1>考研英语词组记忆器·144天打卡版</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -1459,8 +1623,9 @@
           </div>
 
           <div>
-            <div class="muted" style="font-size:12px;margin-bottom:7px;">最近14天打卡</div>
-            <div class="checkin-history" id="checkinHistory"></div>
+            <div class="muted" style="font-size:12px;margin-bottom:7px;">144天打卡计划总进度</div>
+            <div class="checkin-progress"><span id="fullPlanProgressBar" style="width:0%;"></span></div>
+            <div class="muted" id="fullPlanProgressText" style="font-size:12px;margin-top:7px;">已完成0天 / 共144天</div>
           </div>
 
           <div class="button-row">
@@ -1468,6 +1633,49 @@
             <button class="secondary-btn" id="checkinMarksBtn">查看我的标记</button>
           </div>
         </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="checkin-head">
+          <div>
+            <h3 class="section-title" style="margin-bottom:5px;">144天打卡日历</h3>
+            <div class="muted" id="planDateRangeText">
+              从2026年7月30日开始，到考试前一天结束。
+            </div>
+          </div>
+          <span class="checkin-status" id="planOverallStatus">计划进行中</span>
+        </div>
+
+        <div class="plan-summary-grid">
+          <div class="plan-summary-item">
+            <strong id="planTotalDays">144</strong>
+            <span>计划总天数</span>
+          </div>
+          <div class="plan-summary-item">
+            <strong id="planCheckedDays">0</strong>
+            <span>已打卡天数</span>
+          </div>
+          <div class="plan-summary-item">
+            <strong id="planMissedDays">0</strong>
+            <span>漏打卡天数</span>
+          </div>
+          <div class="plan-summary-item">
+            <strong id="planRemainingDays">144</strong>
+            <span>剩余打卡天数</span>
+          </div>
+          <div class="plan-summary-item">
+            <strong id="planLongestStreak">0</strong>
+            <span>最长连续打卡</span>
+          </div>
+        </div>
+
+        <div class="plan-legend">
+          <span><i class="legend-checked"></i>已打卡</span>
+          <span><i class="legend-missed"></i>已过去但未打卡</span>
+          <span><i class="legend-future"></i>未来日期</span>
+        </div>
+
+        <div class="full-checkin-calendar" id="fullCheckinCalendar"></div>
       </div>
 
       <div class="grid stats-grid">
@@ -1958,6 +2166,10 @@
             <label>考试日期</label>
             <input id="examDateInput" type="date" value="2026-12-21" />
           </div>
+          <div class="field">
+            <label>打卡开始日期</label>
+            <input id="checkinStartDateInput" type="date" value="2026-07-30" />
+          </div>
         </div>
         <div class="button-row">
           <button class="primary-btn" id="saveSettingsBtn">保存设置</button>
@@ -2239,7 +2451,8 @@
   const defaultSettings = {
     dailyNew: 10,
     defaultMode: "zh-en",
-    examDate: "2026-12-21"
+    examDate: "2026-12-21",
+    checkinStartDate: "2026-07-30"
   };
 
   let state = loadState();
@@ -2486,6 +2699,160 @@
       cursor.setDate(cursor.getDate() - 1);
     }
     return streak;
+  }
+
+  function dateFromKey(key) {
+    const d = new Date(`${key}T00:00:00`);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+
+  function planStartDate() {
+    return dateFromKey(state.settings?.checkinStartDate || defaultSettings.checkinStartDate)
+      || dateFromKey(defaultSettings.checkinStartDate);
+  }
+
+  function planEndDate() {
+    const exam = dateFromKey(state.settings?.examDate || defaultSettings.examDate)
+      || dateFromKey(defaultSettings.examDate);
+    const end = new Date(exam);
+    end.setDate(end.getDate() - 1);
+    return end;
+  }
+
+  function inclusiveDaysBetween(start, end) {
+    const a = new Date(start); a.setHours(0,0,0,0);
+    const b = new Date(end); b.setHours(0,0,0,0);
+    return Math.max(0, Math.floor((b - a) / DAY) + 1);
+  }
+
+  function checkinPlanStats() {
+    const start = planStartDate();
+    const end = planEndDate();
+    const today = new Date(); today.setHours(0,0,0,0);
+    const effectiveToday = today < start ? new Date(start) : (today > end ? new Date(end) : today);
+    const total = inclusiveDaysBetween(start, end);
+
+    let checked = 0;
+    let missed = 0;
+    let longest = 0;
+    let running = 0;
+
+    const cursor = new Date(start);
+    while (cursor <= end) {
+      const key = localDateKey(cursor);
+      const active = Number(state.dailyStudy?.[key]?.reviewed || 0) > 0;
+      if (active) {
+        checked += 1;
+        running += 1;
+        longest = Math.max(longest, running);
+      } else {
+        running = 0;
+        if (cursor < today) missed += 1;
+      }
+      cursor.setDate(cursor.getDate() + 1);
+    }
+
+    const remaining = Math.max(0, total - checked - missed);
+    const progress = total ? Math.round(checked / total * 100) : 0;
+    return { start, end, today, effectiveToday, total, checked, missed, remaining, longest, progress };
+  }
+
+  function monthKey(date) {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+  }
+
+  function renderFullCheckinCalendar() {
+    const stats = checkinPlanStats();
+    const monthMap = new Map();
+    const cursor = new Date(stats.start);
+
+    while (cursor <= stats.end) {
+      const key = monthKey(cursor);
+      if (!monthMap.has(key)) monthMap.set(key, new Date(cursor.getFullYear(), cursor.getMonth(), 1));
+      cursor.setDate(cursor.getDate() + 1);
+    }
+
+    const html = [...monthMap.values()].map(monthStart => {
+      const year = monthStart.getFullYear();
+      const month = monthStart.getMonth();
+      const firstWeekday = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const cells = [];
+
+      for (let i = 0; i < firstWeekday; i += 1) {
+        cells.push('<span class="calendar-day blank"></span>');
+      }
+
+      let checkedInMonth = 0;
+      for (let day = 1; day <= daysInMonth; day += 1) {
+        const d = new Date(year, month, day);
+        const inPlan = d >= stats.start && d <= stats.end;
+        const key = localDateKey(d);
+        const active = Number(state.dailyStudy?.[key]?.reviewed || 0) > 0;
+        const isToday = key === localDateKey(stats.today);
+        let className = "calendar-day";
+
+        if (!inPlan) className += " outside-plan";
+        else if (active) {
+          className += " checked";
+          checkedInMonth += 1;
+        } else if (d < stats.today) className += " missed";
+        else className += " future";
+
+        if (isToday) className += " today";
+
+        const title = !inPlan
+          ? `${key} 不在打卡计划内`
+          : active
+            ? `${key} 已打卡，完成${state.dailyStudy[key].reviewed}次答题`
+            : d < stats.today
+              ? `${key} 未打卡`
+              : `${key} 等待打卡`;
+
+        cells.push(`<span class="${className}" title="${escapeHtml(title)}">
+          ${day}${inPlan && active ? '<i class="dot"></i>' : ""}
+        </span>`);
+      }
+
+      return `<div class="checkin-month-card">
+        <div class="checkin-month-title">
+          <span>${year}年${month + 1}月</span>
+          <small>本月已打卡 ${checkedInMonth} 天</small>
+        </div>
+        <div class="checkin-week-head">
+          <span>日</span><span>一</span><span>二</span><span>三</span>
+          <span>四</span><span>五</span><span>六</span>
+        </div>
+        <div class="checkin-month-grid">${cells.join("")}</div>
+      </div>`;
+    }).join("");
+
+    $("fullCheckinCalendar").innerHTML = html;
+    $("planDateRangeText").textContent =
+      `从${stats.start.toLocaleDateString("zh-CN")}开始，到${stats.end.toLocaleDateString("zh-CN")}（考试前一天）结束。`;
+    $("planTotalDays").textContent = stats.total;
+    $("planCheckedDays").textContent = stats.checked;
+    $("planMissedDays").textContent = stats.missed;
+    $("planRemainingDays").textContent = stats.remaining;
+    $("planLongestStreak").textContent = stats.longest;
+    $("fullPlanProgressBar").style.width = `${stats.progress}%`;
+    $("fullPlanProgressText").textContent =
+      `已完成${stats.checked}天 / 共${stats.total}天 · 完成率${stats.progress}%`;
+
+    const status = $("planOverallStatus");
+    if (stats.today < stats.start) {
+      status.textContent = "计划尚未开始";
+      status.classList.remove("done");
+    } else if (stats.today > stats.end) {
+      status.textContent = "计划已结束";
+      status.classList.add("done");
+    } else if (stats.missed > 0) {
+      status.textContent = `进行中 · 漏打${stats.missed}天`;
+      status.classList.remove("done");
+    } else {
+      status.textContent = "计划进行中";
+      status.classList.add("done");
+    }
   }
 
   function recentCheckinDays(count = 14) {
@@ -3971,14 +4338,8 @@
     $("checkinDescription").textContent = checkedIn
       ? `今天已经完成 ${todayStats.reviewed} 次答题，当前还有 ${remaining} 条待复习。`
       : `完成任意一道复习题或选择题后自动打卡，当前还有 ${remaining} 条待复习。`;
-
-    $("checkinHistory").innerHTML = recentCheckinDays(14).map(day => `
-      <span class="checkin-day ${day.active ? "active" : ""}" title="${day.key}${day.active ? " 已打卡" : " 未打卡"}">
-        <i></i>${escapeHtml(day.label)}
-      </span>
-    `).join("");
-
-    $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
+    renderFullCheckinCalendar();
+$("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       const count = state.cards.filter(card => hasCategory(card, category)).length;
       return `<div class="category-card">
         <span class="pill ${categoryClass(category)}">${escapeHtml(category)}</span>
@@ -4378,6 +4739,7 @@
     $("dailyNewInput").value = state.settings.dailyNew;
     $("defaultModeSelect").value = state.settings.defaultMode;
     $("examDateInput").value = state.settings.examDate || defaultSettings.examDate;
+    $("checkinStartDateInput").value = state.settings.checkinStartDate || defaultSettings.checkinStartDate;
   }
 
   function openCardDialog(card = null) {
@@ -4735,6 +5097,15 @@
       state.settings.dailyNew = Math.min(50, Math.max(1, Number($("dailyNewInput").value) || 10));
       state.settings.defaultMode = $("defaultModeSelect").value;
       state.settings.examDate = $("examDateInput").value || defaultSettings.examDate;
+      state.settings.checkinStartDate = $("checkinStartDateInput").value || defaultSettings.checkinStartDate;
+
+      const start = dateFromKey(state.settings.checkinStartDate);
+      const exam = dateFromKey(state.settings.examDate);
+      if (!start || !exam || start >= exam) {
+        showToast("打卡开始日期必须早于考试日期");
+        return;
+      }
+
       saveState();
       renderDashboard();
       showToast("设置已保存");

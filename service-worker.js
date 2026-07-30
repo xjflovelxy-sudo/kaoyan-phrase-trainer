@@ -1,4 +1,4 @@
-const CACHE_VERSION = "kaoyan-phrase-pwa-v2";
+const CACHE_VERSION = "kaoyan-phrase-pwa-v5";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -9,7 +9,8 @@ const APP_SHELL = [
   "./icon-64.png",
   "./icon-180.png",
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./完整词组数据_2021-2026_补全选择题版.json"
 ];
 
 self.addEventListener("install", event => {

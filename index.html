@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>考研英语词组记忆器（完整词库账号云同步版）</title>
+  <meta name="theme-color" content="#3559e0" />
+  <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
+  <meta name="application-name" content="考研英语词组记忆器" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="考研词组" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
+  <title>考研英语词组记忆器</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -669,6 +679,7 @@
       </div>
       <div class="button-row" style="align-items:center;">
         <span class="sync-badge" id="syncBadge"><span class="sync-dot"></span><span id="syncText">仅本地保存</span></span>
+        <button class="secondary-btn" id="installAppBtn" style="display:none;">安装应用</button>
         <button class="primary-btn" id="quickStartBtn">开始今日复习</button>
       </div>
     </div>
@@ -867,6 +878,16 @@
 
     <section class="view" id="settingsView">
       <div class="card settings-block">
+        <h3 class="section-title">安装为软件</h3>
+        <div id="pwaInstallStatus" class="muted" style="line-height:1.8;">
+          正在检测当前设备是否支持安装……
+        </div>
+        <div class="button-row" style="margin-top:14px;">
+          <button class="primary-btn" id="settingsInstallBtn">安装应用</button>
+        </div>
+      </div>
+
+      <div class="card settings-block">
         <h3 class="section-title">学习设置</h3>
         <div class="form-grid">
           <div class="field">
@@ -972,6 +993,105 @@
   if (!window.supabase || !window.supabase.createClient) {
     document.write('<script src="https://unpkg.com/@supabase/supabase-js@2"><\\/script>');
   }
+</script>
+<script>
+(() => {
+  let deferredInstallPrompt = null;
+
+  const isStandalone = () =>
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+
+  const isIOS = () =>
+    /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+
+  function setInstallUI() {
+    const topButton = document.getElementById("installAppBtn");
+    const settingsButton = document.getElementById("settingsInstallBtn");
+    const status = document.getElementById("pwaInstallStatus");
+
+    if (isStandalone()) {
+      if (topButton) topButton.style.display = "none";
+      if (settingsButton) settingsButton.style.display = "none";
+      if (status) status.textContent = "应用已经安装，当前正在独立应用模式中运行。";
+      return;
+    }
+
+    if (deferredInstallPrompt) {
+      if (topButton) topButton.style.display = "";
+      if (settingsButton) {
+        settingsButton.style.display = "";
+        settingsButton.disabled = false;
+      }
+      if (status) status.textContent = "当前设备支持直接安装。点击“安装应用”即可添加到桌面或主屏幕。";
+      return;
+    }
+
+    if (isIOS()) {
+      if (topButton) topButton.style.display = "";
+      if (settingsButton) settingsButton.style.display = "";
+      if (status) status.textContent =
+        "iPhone／iPad 请使用 Safari 打开本网站，点击“共享”，再选择“添加到主屏幕”。";
+      return;
+    }
+
+    if (topButton) topButton.style.display = "none";
+    if (settingsButton) settingsButton.style.display = "";
+    if (status) status.textContent =
+      "若浏览器暂未弹出安装选项，可在 Chrome／Edge 地址栏右侧寻找“安装应用”图标，或打开浏览器菜单选择“安装此网站作为应用”。";
+  }
+
+  async function installPWA() {
+    if (isStandalone()) {
+      alert("应用已经安装并正在独立模式中运行。");
+      return;
+    }
+
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      setInstallUI();
+      return;
+    }
+
+    if (isIOS()) {
+      alert("请使用 Safari 打开本网站，点击“共享”按钮，然后选择“添加到主屏幕”。");
+      return;
+    }
+
+    alert("请在 Chrome 或 Edge 地址栏右侧点击“安装应用”图标；也可以打开浏览器菜单，选择“安装此网站作为应用”。");
+  }
+
+  window.addEventListener("beforeinstallprompt", event => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    setInstallUI();
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredInstallPrompt = null;
+    setInstallUI();
+  });
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const topButton = document.getElementById("installAppBtn");
+    const settingsButton = document.getElementById("settingsInstallBtn");
+    if (topButton) topButton.addEventListener("click", installPWA);
+    if (settingsButton) settingsButton.addEventListener("click", installPWA);
+    setInstallUI();
+  });
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", async () => {
+      try {
+        await navigator.serviceWorker.register("./service-worker.js", { scope: "./" });
+      } catch (error) {
+        console.error("Service Worker 注册失败：", error);
+      }
+    });
+  }
+})();
 </script>
 <script>
 (() => {

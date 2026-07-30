@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（144天打卡版）</title>
+  <title>考研英语词组记忆器（向后打卡版）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -982,6 +982,162 @@
       .checkin-week-head, .checkin-month-grid { gap: 4px; }
     }
 
+    .upcoming-plan {
+      margin-top: 2px;
+      border: 1px solid #dfe5f1;
+      border-radius: 16px;
+      padding: 15px;
+      background:
+        linear-gradient(145deg, rgba(53,89,224,.055), rgba(139,92,246,.035)),
+        #fff;
+    }
+
+    .upcoming-plan-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .upcoming-plan-title {
+      font-size: 14px;
+      font-weight: 820;
+      line-height: 1.4;
+    }
+
+    .upcoming-plan-subtitle {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .upcoming-range {
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3559e0;
+      font-size: 11px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .upcoming-days-wrap {
+      overflow-x: auto;
+      padding: 2px 1px 6px;
+      scrollbar-width: thin;
+    }
+
+    .upcoming-days {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(76px, 1fr));
+      gap: 8px;
+      min-width: 610px;
+    }
+
+    .upcoming-day {
+      min-height: 80px;
+      padding: 10px 7px;
+      border-radius: 12px;
+      border: 1px solid #e1e6ef;
+      background: #f8f9fc;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 3px;
+      position: relative;
+      text-align: center;
+    }
+
+    .upcoming-day .week {
+      color: #8993a5;
+      font-size: 10px;
+    }
+
+    .upcoming-day .date {
+      font-size: 15px;
+      font-weight: 820;
+      color: #273249;
+      line-height: 1.3;
+    }
+
+    .upcoming-day .state {
+      font-size: 10px;
+      color: #7e899c;
+      line-height: 1.3;
+    }
+
+    .upcoming-day.today {
+      border: 2px solid #6d55eb;
+      background: #f4f1ff;
+      box-shadow: 0 5px 14px rgba(109,85,235,.12);
+    }
+
+    .upcoming-day.today::before {
+      content: "今天";
+      position: absolute;
+      top: -7px;
+      right: 6px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #6d55eb;
+      color: #fff;
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    .upcoming-day.checked {
+      border-color: #a8d8b8;
+      background: #edf9f1;
+    }
+
+    .upcoming-day.checked .date,
+    .upcoming-day.checked .state {
+      color: #16803b;
+    }
+
+    .upcoming-day.checked::after {
+      content: "✓";
+      position: absolute;
+      top: 5px;
+      left: 7px;
+      font-size: 11px;
+      font-weight: 900;
+      color: #16803b;
+    }
+
+    .upcoming-day.exam-eve {
+      border-color: #f1ca82;
+      background: #fff8e9;
+    }
+
+    .upcoming-day.exam-eve .state {
+      color: #a66000;
+      font-weight: 700;
+    }
+
+    .full-checkin-calendar {
+      grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+      align-items: start;
+    }
+
+    .checkin-month-card {
+      padding: 15px;
+      box-shadow: 0 5px 16px rgba(29,42,68,.045);
+    }
+
+    .checkin-month-title {
+      padding-bottom: 9px;
+      border-bottom: 1px solid #eef1f6;
+    }
+
+    @media (max-width: 720px) {
+      .upcoming-plan-head { display: grid; }
+      .upcoming-range { justify-self: start; }
+      .full-checkin-calendar { grid-template-columns: 1fr; }
+    }
+
     .prompt-label {
       margin-top: 28px;
       color: var(--muted);
@@ -1543,7 +1699,7 @@
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>考研英语词组记忆器·144天打卡版</h1>
+      <h1>考研英语词组记忆器·向后打卡版</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -1622,8 +1778,21 @@
             <div class="checkin-progress"><span id="checkinProgressBar" style="width:0%;"></span></div>
           </div>
 
+          <div class="upcoming-plan">
+            <div class="upcoming-plan-head">
+              <div>
+                <div class="upcoming-plan-title">接下来14天</div>
+                <div class="upcoming-plan-subtitle">从今天向后排列，不显示开始打卡以前的空日期。</div>
+              </div>
+              <span class="upcoming-range" id="upcomingRangeText">7/30—8/12</span>
+            </div>
+            <div class="upcoming-days-wrap">
+              <div class="upcoming-days" id="upcomingCheckinDays"></div>
+            </div>
+          </div>
+
           <div>
-            <div class="muted" style="font-size:12px;margin-bottom:7px;">144天打卡计划总进度</div>
+            <div class="muted" style="font-size:12px;margin-bottom:7px;">从今天到考试前一天的总进度</div>
             <div class="checkin-progress"><span id="fullPlanProgressBar" style="width:0%;"></span></div>
             <div class="muted" id="fullPlanProgressText" style="font-size:12px;margin-top:7px;">已完成0天 / 共144天</div>
           </div>
@@ -1638,7 +1807,7 @@
       <div class="card" style="margin-bottom:16px;">
         <div class="checkin-head">
           <div>
-            <h3 class="section-title" style="margin-bottom:5px;">144天打卡日历</h3>
+            <h3 class="section-title" style="margin-bottom:5px;">完整打卡日历</h3>
             <div class="muted" id="planDateRangeText">
               从2026年7月30日开始，到考试前一天结束。
             </div>
@@ -2759,6 +2928,57 @@
 
   function monthKey(date) {
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+  }
+
+  function renderUpcomingCheckinDays() {
+    const planStart = planStartDate();
+    const planEnd = planEndDate();
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    let first = new Date(today);
+    if (first < planStart) first = new Date(planStart);
+    if (first > planEnd) first = new Date(planEnd);
+
+    const weekdays = ["周日","周一","周二","周三","周四","周五","周六"];
+    const days = [];
+
+    for (let offset = 0; offset < 14; offset += 1) {
+      const d = new Date(first);
+      d.setDate(first.getDate() + offset);
+      if (d > planEnd) break;
+
+      const key = localDateKey(d);
+      const active = Number(state.dailyStudy?.[key]?.reviewed || 0) > 0;
+      const isToday = key === localDateKey(today);
+      const isExamEve = key === localDateKey(planEnd);
+
+      let classes = "upcoming-day";
+      if (active) classes += " checked";
+      if (isToday) classes += " today";
+      if (isExamEve) classes += " exam-eve";
+
+      const stateText = active
+        ? `已打卡 · ${state.dailyStudy[key].reviewed}题`
+        : isToday
+          ? "等待今日打卡"
+          : isExamEve
+            ? "最后打卡日"
+            : "待打卡";
+
+      days.push(`<div class="${classes}" title="${escapeHtml(key)}">
+        <span class="week">${weekdays[d.getDay()]}</span>
+        <strong class="date">${d.getMonth() + 1}/${d.getDate()}</strong>
+        <span class="state">${escapeHtml(stateText)}</span>
+      </div>`);
+    }
+
+    $("upcomingCheckinDays").innerHTML = days.join("");
+
+    const last = new Date(first);
+    last.setDate(first.getDate() + Math.max(0, days.length - 1));
+    $("upcomingRangeText").textContent =
+      `${first.getMonth() + 1}/${first.getDate()}—${last.getMonth() + 1}/${last.getDate()}`;
   }
 
   function renderFullCheckinCalendar() {
@@ -4338,6 +4558,8 @@
     $("checkinDescription").textContent = checkedIn
       ? `今天已经完成 ${todayStats.reviewed} 次答题，当前还有 ${remaining} 条待复习。`
       : `完成任意一道复习题或选择题后自动打卡，当前还有 ${remaining} 条待复习。`;
+    renderUpcomingCheckinDays();
+
     renderFullCheckinCalendar();
 $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       const count = state.cards.filter(card => hasCategory(card, category)).length;

@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器</title>
+  <title>考研英语词组记忆器（密码修正版）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -857,6 +857,27 @@
         </div>
       </div>
 
+      <div class="card" id="changePasswordCard" style="display:none;margin-top:16px;">
+        <h3 class="section-title">设置新密码</h3>
+        <div class="muted" style="line-height:1.8;margin-bottom:14px;">
+          当前设备已经登录，可直接为这个账号设置一个新密码。设置成功后，请在其他浏览器和已安装应用中使用新密码登录。
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>新密码（至少8位）</label>
+            <input id="newPasswordInput" type="password" autocomplete="new-password" placeholder="输入新密码" />
+          </div>
+          <div class="field">
+            <label>再次输入新密码</label>
+            <input id="confirmPasswordInput" type="password" autocomplete="new-password" placeholder="再次输入新密码" />
+          </div>
+        </div>
+        <div class="button-row" style="margin-top:16px;">
+          <button class="primary-btn" id="changePasswordBtn">保存新密码</button>
+        </div>
+        <div id="changePasswordMessage" class="notice" style="display:none;margin-top:14px;"></div>
+      </div>
+
       <div class="card" style="margin-top:16px;">
         <h3 class="section-title">云端服务</h3>
         <div class="notice success-notice">
@@ -1324,12 +1345,16 @@
       $("logoutBtn").style.display = "";
       $("syncNowBtn").style.display = "";
       if (loginCard) loginCard.style.display = "none";
+      const changePasswordCard = $("changePasswordCard");
+      if (changePasswordCard) changePasswordCard.style.display = "";
     } else {
       $("accountStatus").innerHTML =
         "云端服务已内置，当前尚未登录。登录后即可在手机、平板和电脑之间同步学习进度。";
       $("logoutBtn").style.display = "none";
       $("syncNowBtn").style.display = "none";
       if (loginCard) loginCard.style.display = "";
+      const changePasswordCard = $("changePasswordCard");
+      if (changePasswordCard) changePasswordCard.style.display = "none";
       $("loginBtn").disabled = !supabaseClient;
       $("registerBtn").disabled = !supabaseClient;
     }
@@ -1447,6 +1472,60 @@
       return;
     }
     setAuthMessage("登录成功，正在同步学习记录。", true);
+  }
+
+  function setChangePasswordMessage(message, success = false) {
+    const box = $("changePasswordMessage");
+    if (!box) return;
+    if (!message) {
+      box.style.display = "none";
+      box.textContent = "";
+      return;
+    }
+    box.style.display = "block";
+    box.className = success ? "notice success-notice" : "notice";
+    box.textContent = message;
+  }
+
+  async function changeAccountPassword() {
+    if (!supabaseClient || !cloudUser) {
+      setChangePasswordMessage("当前设备没有登录，请先在仍然保持登录状态的设备上操作。");
+      return;
+    }
+
+    const newPassword = $("newPasswordInput").value;
+    const confirmPassword = $("confirmPasswordInput").value;
+
+    if (newPassword.length < 8) {
+      setChangePasswordMessage("新密码至少需要8位。");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setChangePasswordMessage("两次输入的密码不一致。");
+      return;
+    }
+
+    const button = $("changePasswordBtn");
+    button.disabled = true;
+    setChangePasswordMessage("正在保存新密码……", true);
+
+    try {
+      const { error } = await supabaseClient.auth.updateUser({
+        password: newPassword
+      });
+      if (error) throw error;
+
+      $("newPasswordInput").value = "";
+      $("confirmPasswordInput").value = "";
+      setChangePasswordMessage(
+        "新密码已设置成功。请先保持本设备登录，然后在Chrome和安装版中使用新密码登录。",
+        true
+      );
+    } catch (error) {
+      setChangePasswordMessage(`设置失败：${error.message || error}`);
+    } finally {
+      button.disabled = false;
+    }
   }
 
   async function logoutAccount() {
@@ -2180,6 +2259,7 @@
     $("loginBtn").addEventListener("click", loginAccount);
     $("logoutBtn").addEventListener("click", logoutAccount);
     $("syncNowBtn").addEventListener("click", syncFromCloud);
+    $("changePasswordBtn").addEventListener("click", changeAccountPassword);
     $("authPassword").addEventListener("keydown", e => {
       if (e.key === "Enter") loginAccount();
     });

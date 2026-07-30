@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（全作文逐句批改版）</title>
+  <title>考研英语词组记忆器（大小作文完整训练版）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -2650,12 +2650,13 @@
     }
 
   </style>
+  <link rel="stylesheet" href="./small_essay_module.css">
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>考研英语词组记忆器·全作文逐句批改版</h1>
+      <h1>考研英语词组记忆器·大小作文完整训练版</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -3040,14 +3041,13 @@
     </section>
 
     <section class="view" id="smallEssayView">
-      <div class="small-essay-placeholder">
-        <div style="font-size:42px;margin-bottom:12px;">✉️</div>
-        <h3 style="margin:0 0 10px;">小作文模块暂未导入</h3>
-        <p class="muted" style="line-height:1.9;margin:0;">
-          小作文会作为独立模块设计，单独保存题型、正文、称呼、落款和功能句，
-          不会与当前的大作文混在一起。本版本只完成大作文。
-        </p>
+      <div class="essay-hero">
+        <div class="essay-reading-header"><div><h3 class="section-title" style="margin-bottom:5px;">我的小作文</h3><div class="muted" style="line-height:1.8;">已导入14篇确认稿：3篇通知、9篇邮件或书信、1篇会议纪要、1篇公告。小作文与大作文的正文、进度和练习答案完全独立。</div></div><span class="essay-chip confirmed">14篇用户确认稿</span></div>
+        <div class="essay-metrics"><div class="essay-metric"><strong id="smallEssayCountMetric">14</strong><span>小作文数量</span></div><div class="essay-metric"><strong id="smallEssaySentenceMetric">0</strong><span>正文句子总数</span></div><div class="essay-metric"><strong id="smallEssayMasteredMetric">0</strong><span>已掌握句子</span></div><div class="essay-metric"><strong id="smallEssayDueMetric">0</strong><span>当前待复习</span></div></div>
+        <div class="essay-tabbar"><button class="essay-tab active" data-small-tab="library">小作文库</button><button class="essay-tab" data-small-tab="reading">完整作文＋逐句练习</button><button class="essay-tab" data-small-tab="sentenceStudy">逐句写译</button><button class="essay-tab" data-small-tab="sentenceImitation">句子仿写（56题）</button><button class="essay-tab" data-small-tab="wholeImitation">整篇逐句仿写</button><button class="essay-tab" data-small-tab="dictation">分段默写</button><button class="essay-tab" data-small-tab="functions">格式与功能句</button></div>
+        <div class="essay-toolbar"><select id="smallEssaySelect"></select><button class="secondary-btn" id="openSelectedSmallEssayBtn">查看所选小作文</button></div>
       </div>
+      <div class="essay-content" id="smallEssayContent"><div class="small-loading">正在加载14篇小作文……</div></div>
     </section>
 
     <section class="view" id="searchView">
@@ -4220,6 +4220,9 @@
       bigEssays: mergeBigEssaysWithSeed([]),
       bigEssayProgress: {},
       bigEssayPractice: normalizeBigEssayPractice({}),
+      smallEssays: [],
+      smallEssayProgress: {},
+      smallEssayPractice: {},
       sessionLog: [],
       updatedAt: "1970-01-01T00:00:00.000Z"
     };
@@ -4241,6 +4244,9 @@
         bigEssays: mergeBigEssaysWithSeed(parsed.bigEssays),
         bigEssayProgress: normalizeBigEssayProgress(parsed.bigEssayProgress),
         bigEssayPractice: normalizeBigEssayPractice(parsed.bigEssayPractice),
+        smallEssays: Array.isArray(parsed.smallEssays) ? parsed.smallEssays : [],
+        smallEssayProgress: parsed.smallEssayProgress && typeof parsed.smallEssayProgress === "object" ? parsed.smallEssayProgress : {},
+        smallEssayPractice: parsed.smallEssayPractice && typeof parsed.smallEssayPractice === "object" ? parsed.smallEssayPractice : {},
         sessionLog,
         updatedAt: parsed.updatedAt || new Date().toISOString()
       };
@@ -4608,6 +4614,9 @@
           bigEssays: mergeBigEssaysWithSeed(data.data.bigEssays),
           bigEssayProgress: normalizeBigEssayProgress(data.data.bigEssayProgress),
           bigEssayPractice: normalizeBigEssayPractice(data.data.bigEssayPractice),
+          smallEssays: Array.isArray(data.data.smallEssays) ? data.data.smallEssays : [],
+          smallEssayProgress: data.data.smallEssayProgress && typeof data.data.smallEssayProgress === "object" ? data.data.smallEssayProgress : {},
+          smallEssayPractice: data.data.smallEssayPractice && typeof data.data.smallEssayPractice === "object" ? data.data.smallEssayPractice : {},
           sessionLog,
           updatedAt: data.data.updatedAt || data.updated_at || new Date().toISOString()
         };
@@ -7869,6 +7878,9 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
           bigEssays: mergeBigEssaysWithSeed(parsed.bigEssays),
           bigEssayProgress: normalizeBigEssayProgress(parsed.bigEssayProgress),
           bigEssayPractice: normalizeBigEssayPractice(parsed.bigEssayPractice),
+          smallEssays: Array.isArray(parsed.smallEssays) ? parsed.smallEssays : [],
+          smallEssayProgress: parsed.smallEssayProgress && typeof parsed.smallEssayProgress === "object" ? parsed.smallEssayProgress : {},
+          smallEssayPractice: parsed.smallEssayPractice && typeof parsed.smallEssayPractice === "object" ? parsed.smallEssayPractice : {},
           sessionLog,
           updatedAt: parsed.updatedAt || new Date().toISOString()
         };
@@ -7907,6 +7919,8 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     }));
     state.bigEssayProgress = {};
     state.bigEssayPractice = normalizeBigEssayPractice({});
+    state.smallEssayProgress = {};
+    state.smallEssayPractice = {};
     state.sessionLog = [];
     quizQueue = [];
     quizWrongIds = [];
@@ -8316,5 +8330,6 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   init();
 })();
 </script>
+  <script src="./small_essay_module.js"></script>
 </body>
 </html>

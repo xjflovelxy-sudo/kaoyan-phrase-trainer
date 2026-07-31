@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（自动学习计划版V16）</title>
+  <title>考研英语词组记忆器（日历学习计划版V17）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -2706,7 +2706,651 @@
     @media(max-width:900px){ .phase-timeline{grid-template-columns:repeat(2,minmax(0,1fr));}.plan-day-row{grid-template-columns:80px minmax(0,1fr) 70px;}.plan-day-phase{display:none;} }
     @media(max-width:650px){ .auto-plan-head{display:grid;}.auto-plan-summary{grid-template-columns:repeat(2,minmax(0,1fr));}.auto-plan-task{grid-template-columns:32px minmax(0,1fr);}.auto-plan-task>button{grid-column:2;justify-self:start;}.phase-timeline{grid-template-columns:1fr;}.plan-day-row{grid-template-columns:1fr;}.plan-day-status{justify-self:start;} }
 
-</style>
+
+    /* CALENDAR_STUDY_PLAN_V17 */
+    .calendar-plan-hero {
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #cfd9f5;
+      background:
+        radial-gradient(circle at 88% 4%, rgba(91, 115, 232, .14), transparent 32%),
+        linear-gradient(145deg, #f8faff 0%, #ffffff 68%);
+    }
+
+    .calendar-plan-hero::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      right: -90px;
+      bottom: -130px;
+      background: rgba(53, 89, 224, .055);
+      pointer-events: none;
+    }
+
+    .calendar-plan-layout {
+      display: grid;
+      grid-template-columns: minmax(650px, 1.55fr) minmax(330px, .75fr);
+      gap: 16px;
+      align-items: start;
+      margin-top: 16px;
+    }
+
+    .study-calendar-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .study-calendar-toolbar {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      padding: 17px 18px;
+      border-bottom: 1px solid #e2e7f0;
+      background: #fbfcff;
+    }
+
+    .study-calendar-title {
+      text-align: center;
+    }
+
+    .study-calendar-title strong {
+      display: block;
+      font-size: 20px;
+      letter-spacing: .02em;
+    }
+
+    .study-calendar-title span {
+      display: block;
+      margin-top: 3px;
+      color: #6c778c;
+      font-size: 11px;
+    }
+
+    .calendar-nav-group {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .calendar-nav-btn {
+      border: 1px solid #d7deeb;
+      background: #fff;
+      color: #344058;
+      min-width: 38px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .calendar-nav-btn:hover:not(:disabled) {
+      border-color: #3559e0;
+      color: #3559e0;
+      background: #f6f8ff;
+    }
+
+    .calendar-nav-btn:disabled {
+      opacity: .35;
+      cursor: default;
+    }
+
+    .calendar-today-btn {
+      min-width: 62px;
+      padding: 0 10px;
+      color: #3559e0;
+      border-color: #bfcaf0;
+      background: #f3f6ff;
+    }
+
+    .study-calendar-weekdays,
+    .study-calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    .study-calendar-weekdays {
+      padding: 0 12px;
+      border-bottom: 1px solid #edf0f5;
+      background: #fff;
+    }
+
+    .study-calendar-weekdays span {
+      padding: 10px 3px;
+      text-align: center;
+      color: #778197;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .study-calendar-grid {
+      padding: 12px;
+      gap: 7px;
+      background: #f7f9fc;
+    }
+
+    .plan-calendar-cell {
+      appearance: none;
+      position: relative;
+      min-width: 0;
+      min-height: 118px;
+      padding: 9px;
+      border: 1px solid #e0e5ee;
+      border-radius: 12px;
+      background: #fff;
+      color: #263149;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease;
+    }
+
+    .plan-calendar-cell:hover:not(.blank):not(.outside-plan) {
+      transform: translateY(-1px);
+      border-color: #9eb0ea;
+      box-shadow: 0 7px 18px rgba(39, 60, 114, .09);
+    }
+
+    .plan-calendar-cell.blank {
+      border-color: transparent;
+      background: transparent;
+      cursor: default;
+    }
+
+    .plan-calendar-cell.outside-plan {
+      background: #f3f5f8;
+      color: #abb2bf;
+      cursor: default;
+      opacity: .64;
+    }
+
+    .plan-calendar-cell.today {
+      border-color: #3559e0;
+      box-shadow: inset 0 0 0 1px #3559e0;
+    }
+
+    .plan-calendar-cell.selected {
+      border-color: #3559e0;
+      box-shadow: 0 0 0 3px rgba(53, 89, 224, .12);
+    }
+
+    .plan-calendar-cell.complete {
+      border-color: #92c9a5;
+      background: #f1faf4;
+    }
+
+    .plan-calendar-cell.missed {
+      border-color: #e5baba;
+      background: #fff7f7;
+    }
+
+    .calendar-cell-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+      margin-bottom: 7px;
+    }
+
+    .calendar-cell-date {
+      display: inline-grid;
+      place-items: center;
+      width: 27px;
+      height: 27px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .plan-calendar-cell.today .calendar-cell-date {
+      background: #3559e0;
+      color: #fff;
+    }
+
+    .plan-calendar-cell.complete .calendar-cell-date {
+      background: #23854a;
+      color: #fff;
+    }
+
+    .calendar-cell-state {
+      font-size: 9px;
+      font-weight: 800;
+      color: #788298;
+      white-space: nowrap;
+    }
+
+    .plan-calendar-cell.complete .calendar-cell-state {
+      color: #19713a;
+    }
+
+    .plan-calendar-cell.missed .calendar-cell-state {
+      color: #a13a3a;
+    }
+
+    .calendar-cell-focus {
+      min-height: 29px;
+      margin-bottom: 7px;
+      font-size: 10px;
+      line-height: 1.45;
+      font-weight: 780;
+      color: #43506a;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .calendar-mini-badges {
+      display: grid;
+      gap: 4px;
+    }
+
+    .calendar-mini-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      min-width: 0;
+      padding: 3px 5px;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 760;
+      background: #f0f3f8;
+      color: #536078;
+    }
+
+    .calendar-mini-badge.words { background: #edf3ff; color: #31548e; }
+    .calendar-mini-badge.quiz { background: #fff3db; color: #805916; }
+    .calendar-mini-badge.big { background: #f1edff; color: #5b3f9c; }
+    .calendar-mini-badge.small { background: #e8f7ef; color: #26704a; }
+    .calendar-mini-badge.review { background: #fff0f0; color: #8d4141; }
+    .calendar-mini-badge.done { box-shadow: inset 0 0 0 1px currentColor; }
+
+    .calendar-cell-progress {
+      height: 3px;
+      margin-top: 7px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #e9edf3;
+    }
+
+    .calendar-cell-progress span {
+      display: block;
+      height: 100%;
+      background: #5572e8;
+    }
+
+    .plan-day-detail-card {
+      position: sticky;
+      top: 16px;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .plan-day-detail-head {
+      padding: 18px 18px 15px;
+      border-bottom: 1px solid #e3e8f0;
+      background:
+        linear-gradient(145deg, #f5f8ff, #fff);
+    }
+
+    .plan-day-detail-date {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .plan-day-detail-date h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .plan-day-detail-date p {
+      margin: 5px 0 0;
+      color: #69758b;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .plan-day-focus {
+      margin-top: 12px;
+      padding: 10px 11px;
+      border-radius: 11px;
+      border: 1px solid #cbd6f2;
+      background: #eef3ff;
+      color: #253d78;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .plan-day-detail-body {
+      padding: 14px;
+    }
+
+    .plan-detail-task {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 10px;
+      padding: 12px 2px;
+      border-bottom: 1px solid #edf0f4;
+    }
+
+    .plan-detail-task:last-child {
+      border-bottom: 0;
+    }
+
+    .plan-detail-task.done .plan-detail-icon {
+      background: #23854a;
+      border-color: #23854a;
+      color: #fff;
+    }
+
+    .plan-detail-icon {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      border: 1px solid #cfd7e5;
+      background: #f7f9fc;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .plan-detail-title-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .plan-detail-title {
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 850;
+      color: #202b40;
+    }
+
+    .plan-detail-time {
+      padding: 3px 6px;
+      border-radius: 999px;
+      background: #f0f3f8;
+      color: #677187;
+      font-size: 9px;
+      white-space: nowrap;
+    }
+
+    .plan-detail-method {
+      margin-top: 5px;
+      color: #667188;
+      font-size: 10px;
+      line-height: 1.65;
+    }
+
+    .plan-detail-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .plan-detail-progress {
+      flex: 1;
+      height: 5px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #e9edf3;
+    }
+
+    .plan-detail-progress span {
+      display: block;
+      height: 100%;
+      background: #5572e8;
+    }
+
+    .plan-detail-task.done .plan-detail-progress span {
+      background: #23854a;
+    }
+
+    .plan-detail-value {
+      min-width: 55px;
+      text-align: right;
+      color: #5e6980;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .plan-detail-actions {
+      margin-top: 8px;
+    }
+
+    .plan-detail-actions .mini-btn {
+      padding: 6px 10px;
+      font-size: 10px;
+    }
+
+    .calendar-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 11px 15px 14px;
+      border-top: 1px solid #e6eaf1;
+      background: #fff;
+      color: #69758b;
+      font-size: 10px;
+    }
+
+    .calendar-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .calendar-legend i {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      border: 1px solid #d4dae5;
+      background: #fff;
+    }
+
+    .calendar-legend .legend-today { border-color: #3559e0; background: #eaf0ff; }
+    .calendar-legend .legend-done { border-color: #72b68a; background: #eaf7ef; }
+    .calendar-legend .legend-missed { border-color: #dda6a6; background: #fff0f0; }
+    .calendar-legend .legend-future { background: #fff; }
+
+    .week-focus-card {
+      margin-top: 16px;
+    }
+
+    .week-focus-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 13px;
+    }
+
+    .week-focus-summary {
+      color: #657087;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .week-blueprint {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .week-blueprint-day {
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid #e0e5ed;
+      border-radius: 11px;
+      background: #fafbfe;
+    }
+
+    .week-blueprint-day.today {
+      border-color: #3559e0;
+      background: #f3f6ff;
+    }
+
+    .week-blueprint-day strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 11px;
+    }
+
+    .week-blueprint-day span {
+      display: block;
+      color: #68748a;
+      font-size: 9px;
+      line-height: 1.55;
+    }
+
+    .phase-timeline-v17 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 14px;
+    }
+
+    .phase-timeline-v17 .phase-card {
+      min-height: 118px;
+    }
+
+    .phase-timeline-v17 .phase-card em {
+      display: inline-block;
+      margin-top: 7px;
+      padding: 3px 6px;
+      border-radius: 7px;
+      background: #f0f3f8;
+      color: #5d6980;
+      font-size: 9px;
+      font-style: normal;
+    }
+
+    /* 首页任务卡变得更紧凑，并明确大小作文 */
+    .auto-plan-card {
+      border-radius: 18px;
+      border-color: #cfd9f5;
+      box-shadow: 0 10px 26px rgba(31, 51, 103, .07);
+    }
+
+    .auto-plan-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .auto-plan-task {
+      min-height: 96px;
+      align-items: start;
+      grid-template-columns: 32px minmax(0, 1fr) auto;
+      border-radius: 13px;
+    }
+
+    .auto-plan-task-title {
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1180px) {
+      .calendar-plan-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .plan-day-detail-card {
+        position: static;
+      }
+
+      .week-blueprint {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+      .plan-calendar-cell {
+        min-height: 102px;
+        padding: 7px;
+      }
+
+      .calendar-cell-focus {
+        display: none;
+      }
+
+      .calendar-mini-badge {
+        font-size: 8px;
+      }
+
+      .phase-timeline-v17 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .auto-plan-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .study-calendar-toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .calendar-nav-group {
+        justify-content: center;
+      }
+
+      .study-calendar-title {
+        grid-row: 1;
+      }
+
+      .study-calendar-grid {
+        padding: 6px;
+        gap: 3px;
+      }
+
+      .study-calendar-weekdays {
+        padding: 0 6px;
+      }
+
+      .plan-calendar-cell {
+        min-height: 82px;
+        padding: 5px;
+        border-radius: 8px;
+      }
+
+      .calendar-cell-date {
+        width: 23px;
+        height: 23px;
+        border-radius: 7px;
+        font-size: 10px;
+      }
+
+      .calendar-cell-state {
+        display: none;
+      }
+
+      .calendar-mini-badge {
+        padding: 2px 3px;
+        font-size: 7px;
+      }
+
+      .calendar-mini-badge:nth-child(n+4) {
+        display: none;
+      }
+
+      .week-blueprint {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .phase-timeline-v17 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
 </head>
 <body>
 <div class="app">
@@ -2756,10 +3400,10 @@
         <div class="auto-plan-head">
           <div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
-              <h3 class="section-title" style="margin:0;">今日自动学习计划</h3>
+              <h3 class="section-title" style="margin:0;">今天按顺序完成</h3>
               <span class="auto-plan-phase" id="todayPlanPhase">基础积累期</span>
             </div>
-            <div class="auto-plan-meta" id="todayPlanMeta">系统会根据实际答题和作文批改自动打勾，无需手动操作。</div>
+            <div class="auto-plan-meta" id="todayPlanMeta">词组、选择题、大作文和小作文都按实际完成数量自动打勾。</div>
           </div>
           <span class="checkin-status" id="todayAutoPlanStatus">0/0项</span>
         </div>
@@ -2771,7 +3415,7 @@
         </div>
         <div class="auto-plan-list" id="todayAutoPlanTasks"></div>
         <div class="plan-auto-note">只有达到规定数量后才会自动打勾。打开“错词本”“我的标记”或“小作文格式与功能句”这类查看任务时，进入对应页面即可记录。</div>
-        <div class="button-row" style="margin-top:12px;"><button class="secondary-btn" id="openStudyPlanBtn">查看直到12月的完整计划</button></div>
+        <div class="button-row" style="margin-top:12px;"><button class="secondary-btn" id="openStudyPlanBtn">打开月历查看完整计划</button></div>
       </div>
       <div class="checkin-card">
         <div class="countdown-box">
@@ -2934,33 +3578,100 @@
     </section>
 
 
+
     <section class="view" id="studyPlanView">
-      <div class="card">
+      <div class="card calendar-plan-hero">
         <div class="auto-plan-head">
           <div>
-            <h3 class="section-title" style="margin-bottom:5px;">从现在到考试前一天的自动学习计划</h3>
-            <div class="muted" id="studyPlanRangeText">计划会一直排到12月，并根据实际完成情况自动打勾。</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+              <h3 class="section-title" style="margin:0;">考前自动学习日历</h3>
+              <span class="auto-plan-phase" id="studyPlanCurrentPhase">基础积累期</span>
+            </div>
+            <div class="muted" id="studyPlanRangeText" style="margin-top:7px;line-height:1.75;">
+              从现在一直安排到考试前一天。点击日期查看当天的具体任务。
+            </div>
           </div>
           <span class="checkin-status" id="studyPlanOverallStatus">计划进行中</span>
         </div>
+
         <div class="auto-plan-summary">
           <div><strong id="studyPlanTotalDays">0</strong><span>计划天数</span></div>
           <div><strong id="studyPlanCompletedDays">0</strong><span>完整完成天数</span></div>
           <div><strong id="studyPlanCurrentStreak">0</strong><span>当前连续完成</span></div>
           <div><strong id="studyPlanOverallPercent">0%</strong><span>总体完成度</span></div>
         </div>
-        <div class="phase-timeline" id="studyPhaseTimeline"></div>
       </div>
-      <div class="card" style="margin-top:16px;">
-        <h3 class="section-title">今天具体做什么</h3>
-        <div class="auto-plan-list" id="studyPlanTodayTasks"></div>
+
+      <div class="calendar-plan-layout">
+        <div class="card study-calendar-card">
+          <div class="study-calendar-toolbar">
+            <div class="calendar-nav-group">
+              <button class="calendar-nav-btn" id="planPrevMonthBtn" title="上个月">‹</button>
+              <button class="calendar-nav-btn calendar-today-btn" id="planTodayBtn">今天</button>
+            </div>
+            <div class="study-calendar-title">
+              <strong id="planCalendarMonthTitle">2026年7月</strong>
+              <span id="planCalendarMonthSummary">点击某一天查看详细学习步骤</span>
+            </div>
+            <div class="calendar-nav-group" style="justify-content:flex-end;">
+              <button class="calendar-nav-btn" id="planNextMonthBtn" title="下个月">›</button>
+            </div>
+          </div>
+
+          <div class="study-calendar-weekdays">
+            <span>周日</span><span>周一</span><span>周二</span><span>周三</span>
+            <span>周四</span><span>周五</span><span>周六</span>
+          </div>
+          <div class="study-calendar-grid" id="planCalendarGrid"></div>
+
+          <div class="calendar-legend">
+            <span><i class="legend-today"></i>今天</span>
+            <span><i class="legend-done"></i>全部自动完成</span>
+            <span><i class="legend-missed"></i>过去未完成</span>
+            <span><i class="legend-future"></i>未来安排</span>
+          </div>
+        </div>
+
+        <aside class="card plan-day-detail-card">
+          <div class="plan-day-detail-head">
+            <div class="plan-day-detail-date">
+              <div>
+                <h3 id="selectedPlanDate">今天</h3>
+                <p id="selectedPlanPhase">基础积累期</p>
+              </div>
+              <span class="checkin-status" id="selectedPlanStatus">0/0项</span>
+            </div>
+            <div class="plan-day-focus" id="selectedPlanFocus">
+              本周同时安排一篇大作文和一篇小作文。
+            </div>
+          </div>
+          <div class="plan-day-detail-body">
+            <div class="auto-plan-list" id="selectedPlanTasks" style="display:block;margin-top:0;"></div>
+          </div>
+        </aside>
       </div>
+
+      <div class="card week-focus-card">
+        <div class="week-focus-header">
+          <div>
+            <h3 class="section-title" style="margin-bottom:4px;">本周七天怎么练</h3>
+            <div class="week-focus-summary" id="studyWeekFocus">
+              每周同时推进一篇大作文和一篇小作文。
+            </div>
+          </div>
+        </div>
+        <div class="week-blueprint" id="studyWeekBlueprint"></div>
+      </div>
+
       <div class="card" style="margin-top:16px;">
-        <h3 class="section-title">完整日程表</h3>
-        <div class="muted">按月份展开。每天的任务由阶段和星期自动生成；过去未全部完成的日期显示为未完成，未来日期只显示安排。</div>
-        <div class="plan-months" id="studyPlanMonths"></div>
+        <h3 class="section-title">四个阶段</h3>
+        <div class="muted" style="line-height:1.75;">
+          计划会根据日期自动切换强度；越接近考试，新词越少，输出和错题复盘越多。
+        </div>
+        <div class="phase-timeline-v17" id="studyPhaseTimeline"></div>
       </div>
     </section>
+
 
     <section class="view" id="reviewView">
       <div class="review-shell">
@@ -4048,102 +4759,280 @@
   }
 
 
+
   const STUDY_PHASES = [
-    {id:"foundation", name:"基础积累期", start:"2026-07-31", end:"2026-09-15", summary:"清理到期词组，少量新词，建立大小作文逐句输出。"},
-    {id:"transfer", name:"句段迁移期", start:"2026-09-16", end:"2026-10-31", summary:"减少新词，增加句子仿写、段落仿写和默写。"},
-    {id:"output", name:"整篇输出期", start:"2026-11-01", end:"2026-12-07", summary:"以整篇逐句仿写和限量综合训练为主。"},
-    {id:"sprint", name:"考前冲刺期", start:"2026-12-08", end:"2099-12-31", summary:"停止扩张，只练错题、核心句、格式和稳定输出。"}
+    {
+      id:"foundation", name:"基础积累期", start:"2026-07-31", end:"2026-09-15",
+      summary:"清理到期词组，少量新词；每周同步推进一篇大作文和一篇小作文。",
+      result:"目标：能按中文写出核心句，掌握五类小作文格式。"
+    },
+    {
+      id:"transfer", name:"句段迁移期", start:"2026-09-16", end:"2026-10-31",
+      summary:"减少新词，增加大小作文句子仿写、段落仿写和分段默写。",
+      result:"目标：从背母句过渡到更换主题后独立表达。"
+    },
+    {
+      id:"output", name:"整篇输出期", start:"2026-11-01", end:"2026-12-07",
+      summary:"以大作文和小作文整篇逐句输出为主，同时维持错句复习。",
+      result:"目标：逐步形成考场三段式和应用文完整输出能力。"
+    },
+    {
+      id:"sprint", name:"考前冲刺期", start:"2026-12-08", end:"2099-12-31",
+      summary:"停止扩张，只练到期内容、错题、核心句、格式和稳定输出。",
+      result:"目标：减少新错误，确保常用结构写得准、写得快。"
+    }
+  ];
+
+  const BIG_PLAN_FOCUS = [
+    {id:"big-essay-parks", title:"城市公园"},
+    {id:"big-essay-campus-lecture", title:"校园讲座"},
+    {id:"big-essay-dragon-boat", title:"龙舟赛"},
+    {id:"big-essay-appliances", title:"家用电器拥有量变化"},
+    {id:"big-essay-elderly-robots", title:"养老机器人"}
+  ];
+
+  const SMALL_PLAN_FOCUS = [
+    {id:"small-01-singing-contest", title:"歌唱比赛通知", type:"通知"},
+    {id:"small-02-job-advice", title:"求职建议信", type:"建议信"},
+    {id:"small-03-innovation-invitation", title:"创新竞赛邀请信", type:"邀请信"},
+    {id:"small-04-sports-assistant", title:"研究助理招聘通知", type:"招聘通知"},
+    {id:"small-05-scientist-report", title:"科学家报告回复信", type:"回复建议信"},
+    {id:"small-06-craft-show", title:"手工艺展示回复信", type:"回复信"},
+    {id:"small-07-handwritten-letters", title:"手写信件介绍回复", type:"回复介绍信"},
+    {id:"small-08-plastic-bags", title:"白色污染问题建议信", type:"问题建议信"},
+    {id:"small-09-movie-recommendation", title:"电影推荐信", type:"推荐信"},
+    {id:"small-10-welcome-students", title:"国际学生欢迎信", type:"欢迎信"},
+    {id:"small-11-book-recommendation", title:"图书推荐信", type:"推荐信"},
+    {id:"small-12-library-notice", title:"图书馆通知", type:"服务通知"},
+    {id:"small-13-meeting-minutes", title:"校园读书节会议纪要", type:"会议纪要"},
+    {id:"small-14-cleanup-announcement", title:"校园清洁日公告", type:"公告"}
   ];
 
   const PLAN_ACTIVITY_META = {
-    review:{label:"到期词组复习", unit:"题", view:"review", minutes:20, description:"复习旧词组；若今天到期旧词已清空，也会自动完成。"},
-    quiz:{label:"选择题训练", unit:"题", view:"quiz", minutes:12, description:"每答完一道选择题自动累计。"},
-    newWords:{label:"学习新词组", unit:"条", view:"review", action:"new", minutes:10, description:"只统计在“今日复习”中真正学习的新卡。"},
-    bigSentence:{label:"大作文逐句写译", unit:"句", view:"bigEssay", tab:"sentenceStudy", minutes:20, description:"提交并批改一个句子后累计。"},
-    bigImitation:{label:"大作文句子仿写", unit:"句", view:"bigEssay", tab:"sentenceImitation", minutes:20, description:"300题或完整作文随文仿写均可累计。"},
-    bigPattern:{label:"大作文句型仿写", unit:"句", view:"bigEssay", tab:"patterns", minutes:8, description:"句型库中批改一个新句子后累计。"},
-    bigParagraph:{label:"大作文段落仿写", unit:"句", view:"bigEssay", tab:"paragraphImitation", minutes:22, description:"段落仿写中每批改一句自动累计。"},
-    bigWhole:{label:"大作文整篇逐句仿写", unit:"句", view:"bigEssay", tab:"wholeImitation", minutes:28, description:"整篇仿写中每批改一句自动累计。"},
-    bigDictation:{label:"大作文分段默写", unit:"句", view:"bigEssay", tab:"dictation", minutes:20, description:"分段默写中每批改一句自动累计。"},
-    smallSentence:{label:"小作文逐句写译", unit:"句", view:"smallEssay", tab:"sentenceStudy", minutes:18, description:"逐句写译或完整作文逐句练习均可累计。"},
-    smallImitation:{label:"小作文句子仿写", unit:"句", view:"smallEssay", tab:"sentenceImitation", minutes:18, description:"56题中每批改一句自动累计。"},
-    smallWhole:{label:"小作文整篇逐句仿写", unit:"项", view:"smallEssay", tab:"wholeImitation", minutes:25, description:"标题、称呼、正文和署名均按批改项目累计。"},
-    smallDictation:{label:"小作文分段默写", unit:"句", view:"smallEssay", tab:"dictation", minutes:18, description:"分段默写中每批改一句自动累计。"},
-    smallFunction:{label:"小作文功能句", unit:"句", view:"smallEssay", tab:"functions", minutes:8, description:"功能句库中每批改一句自动累计。"},
-    smallFormat:{label:"复习小作文格式", unit:"次", view:"smallEssay", tab:"functions", minutes:5, description:"进入“格式与功能句”页面即自动记录。"},
-    mistakes:{label:"回看错词本", unit:"次", view:"mistakes", minutes:10, description:"进入错词本页面即自动记录。"},
-    marks:{label:"整理我的标记", unit:"次", view:"myMarks", minutes:8, description:"进入“我的标记”页面即自动记录。"}
+    review:{
+      label:"到期词组复习", unit:"题", category:"words", icon:"词", view:"review", minutes:20,
+      description:"先处理旧词组；今天没有到期旧词时自动完成。",
+      method:"按真实情况评分：写不出选“完全不会”，介词或主干错误选“错误较多”。"
+    },
+    quiz:{
+      label:"选择题训练", unit:"题", category:"quiz", icon:"选", view:"quiz", minutes:12,
+      description:"每回答一道题自动累计，答错也计入训练数量。",
+      method:"混合中英方向；答错后先找错误原因，结束后只重做错题。"
+    },
+    newWords:{
+      label:"学习新词组", unit:"条", category:"words", icon:"新", view:"review", action:"new", minutes:10,
+      description:"只统计在“今日复习”中真正学习的新卡。",
+      method:"优先熟词新义、同义替换和写作表达；普通阅读词组以识别为主。"
+    },
+    bigSentence:{
+      label:"大作文逐句写译", unit:"句", category:"big", icon:"大", view:"bigEssay", tab:"sentenceStudy", minutes:18,
+      description:"看中文写英文，提交批改后累计。",
+      method:"先独立写；重点看主谓、单复数、介词和固定句型；错句清空后重写1遍。"
+    },
+    bigImitation:{
+      label:"大作文句子仿写", unit:"句", category:"big", icon:"仿", view:"bigEssay", tab:"sentenceImitation", minutes:18,
+      description:"300题或随文仿写中每批改一个新句子累计。",
+      method:"先不看提示；批改后不要直接照抄修正版，先说出错误，再重新写1遍。"
+    },
+    bigPattern:{
+      label:"大作文句型仿写", unit:"句", category:"big", icon:"型", view:"bigEssay", tab:"patterns", minutes:8,
+      description:"句型库中每批改一个新句子累计。",
+      method:"每个句型替换主题写1句，重点检查Only when、which和not only等结构。"
+    },
+    bigParagraph:{
+      label:"大作文段落仿写", unit:"句", category:"big", icon:"段", view:"bigEssay", tab:"paragraphImitation", minutes:22,
+      description:"段落仿写中每批改一句累计。",
+      method:"一次只完成一段；先把本段所有句子写完，再集中批改和重写错句。"
+    },
+    bigWhole:{
+      label:"大作文整篇逐句仿写", unit:"句", category:"big", icon:"篇", view:"bigEssay", tab:"wholeImitation", minutes:30,
+      description:"整篇仿写中每批改一句累计。",
+      method:"按第一段描述、第二段分析、第三段建议依次完成；不要边看修正版边抄。"
+    },
+    bigDictation:{
+      label:"大作文分段默写", unit:"句", category:"big", icon:"默", view:"bigEssay", tab:"dictation", minutes:16,
+      description:"分段默写中每批改一句累计。",
+      method:"根据中文默写确认稿；重点记录反复出现的介词、拼写和句型错误。"
+    },
+    smallSentence:{
+      label:"小作文逐句写译", unit:"句", category:"small", icon:"小", view:"smallEssay", tab:"sentenceStudy", minutes:15,
+      description:"逐句写译或完整作文逐句练习均可累计。",
+      method:"先判断句子位于称呼、目的、正文还是结尾，再根据中文写出英文并重写错句。"
+    },
+    smallImitation:{
+      label:"小作文句子仿写", unit:"句", category:"small", icon:"函", view:"smallEssay", tab:"sentenceImitation", minutes:15,
+      description:"56题中每批改一句累计。",
+      method:"保留功能句框架，替换人物、活动、时间、地点、理由或建议。"
+    },
+    smallWhole:{
+      label:"小作文整篇逐句仿写", unit:"项", category:"small", icon:"信", view:"smallEssay", tab:"wholeImitation", minutes:25,
+      description:"标题、称呼、正文、结束语和署名均按批改项目累计。",
+      method:"先完成格式，再逐句完成正文；格式项和正文项都必须批改。"
+    },
+    smallDictation:{
+      label:"小作文分段默写", unit:"句", category:"small", icon:"记", view:"smallEssay", tab:"dictation", minutes:15,
+      description:"分段默写中每批改一句累计。",
+      method:"重点检查称呼后的逗号、段落目的、结束语和署名格式。"
+    },
+    smallFunction:{
+      label:"小作文功能句", unit:"句", category:"small", icon:"功", view:"smallEssay", tab:"functions", minutes:8,
+      description:"功能句库中每批改一句累计。",
+      method:"每次练2个高频功能句，必须更换主题，不能只照抄母句。"
+    },
+    smallFormat:{
+      label:"复习小作文格式", unit:"次", category:"small", icon:"格", view:"smallEssay", tab:"functions", minutes:5,
+      description:"进入“格式与功能句”页面自动记录一次。",
+      method:"不看答案，口头说出标题、称呼、三段职责、结束语和署名的正确顺序。"
+    },
+    mistakes:{
+      label:"回看错词本", unit:"次", category:"review", icon:"错", view:"mistakes", minutes:10,
+      description:"进入错词本页面自动记录一次。",
+      method:"只处理连续错2次以上、介词错误、熟词新义和作文中反复拼错的内容。"
+    },
+    marks:{
+      label:"整理我的标记", unit:"次", category:"review", icon:"标", view:"myMarks", minutes:8,
+      description:"进入“我的标记”页面自动记录一次。",
+      method:"重点回看“作文可用、重点背诵、易混淆”，不要把所有词组都标记。"
+    }
   };
+
+  let selectedStudyPlanDateKey = localDateKey();
+  let studyPlanCalendarCursor = new Date();
+  studyPlanCalendarCursor.setDate(1);
+  studyPlanCalendarCursor.setHours(0,0,0,0);
 
   function studyPhaseForDate(value) {
     const key = localDateKey(value);
-    return STUDY_PHASES.find(phase => key >= phase.start && key <= phase.end) || STUDY_PHASES[STUDY_PHASES.length - 1];
+    return STUDY_PHASES.find(phase => key >= phase.start && key <= phase.end)
+      || STUDY_PHASES[STUDY_PHASES.length - 1];
   }
 
-  function makePlanTask(activity, target, minutes = null) {
+  function mondayOfWeek(value) {
+    const date = value instanceof Date ? new Date(value) : dateFromKey(value);
+    date.setHours(0,0,0,0);
+    const offset = date.getDay() === 0 ? -6 : 1 - date.getDay();
+    date.setDate(date.getDate() + offset);
+    return date;
+  }
+
+  function studyWeekIndex(value) {
+    const releaseMonday = mondayOfWeek(dateFromKey(STUDY_PLAN_RELEASE_DATE));
+    const currentMonday = mondayOfWeek(value);
+    return Math.max(0, Math.floor((currentMonday - releaseMonday) / (7 * DAY)));
+  }
+
+  function focusForPlanDate(value) {
+    const weekIndex = studyWeekIndex(value);
+    return {
+      weekIndex,
+      big: BIG_PLAN_FOCUS[weekIndex % BIG_PLAN_FOCUS.length],
+      small: SMALL_PLAN_FOCUS[weekIndex % SMALL_PLAN_FOCUS.length]
+    };
+  }
+
+  function makePlanTask(activity, target, options = {}) {
     const meta = PLAN_ACTIVITY_META[activity];
-    return {id: activity, activity, target, minutes: minutes ?? meta.minutes, ...meta};
+    const focus = options.focus || "";
+    return {
+      id: activity,
+      activity,
+      target,
+      minutes: options.minutes ?? meta.minutes,
+      focus,
+      focusId: options.focusId || "",
+      label: meta.label,
+      displayLabel: focus ? `${meta.label} · ${focus}` : meta.label,
+      method: options.method || meta.method,
+      description: options.description || meta.description,
+      ...meta
+    };
   }
 
   function studyPlanForDate(value) {
     const date = value instanceof Date ? new Date(value) : dateFromKey(value);
     if (!date) return {date:new Date(), phase:STUDY_PHASES[0], tasks:[]};
     date.setHours(0,0,0,0);
+
     const phase = studyPhaseForDate(date);
     const weekday = date.getDay();
+    const focus = focusForPlanDate(date);
     const tasks = [];
+
+    const add = (activity, target, kind = "", minutes = null, method = "") => {
+      const selectedFocus = kind === "big" ? focus.big : kind === "small" ? focus.small : null;
+      tasks.push(makePlanTask(activity, target, {
+        focus: selectedFocus?.title || "",
+        focusId: selectedFocus?.id || "",
+        minutes,
+        method
+      }));
+    };
+
     const reviewTargets = {foundation:20, transfer:20, output:15, sprint:10};
     const quizTargets = {
       foundation:[20,30,30,30,30,30,50],
       transfer:[20,40,40,40,40,40,60],
-      output:[30,50,50,50,50,50,80],
+      output:[30,50,50,50,50,50,70],
       sprint:[20,30,30,30,30,30,50]
     };
-    tasks.push(makePlanTask("review", reviewTargets[phase.id]));
-    tasks.push(makePlanTask("quiz", quizTargets[phase.id][weekday]));
-    if (phase.id === "foundation" && weekday !== 0) tasks.push(makePlanTask("newWords", 10));
-    if (phase.id === "transfer" && weekday >= 1 && weekday <= 5) tasks.push(makePlanTask("newWords", 5));
+
+    add("review", reviewTargets[phase.id]);
+    add("quiz", quizTargets[phase.id][weekday],
+      "", quizTargets[phase.id][weekday] >= 60 ? 20 : quizTargets[phase.id][weekday] >= 40 ? 15 : 10);
+
+    if (phase.id === "foundation" && weekday !== 0) add("newWords", 10);
+    if (phase.id === "transfer" && weekday >= 1 && weekday <= 5) add("newWords", 5);
 
     const weekly = {
       foundation: {
-        0:[["mistakes",1],["marks",1]],
-        1:[["bigSentence",5],["bigPattern",2]],
-        2:[["smallSentence",5],["smallFunction",2]],
-        3:[["bigImitation",5]],
-        4:[["smallImitation",4],["smallFormat",1]],
-        5:[["bigParagraph",4]],
-        6:[["smallWhole",6]]
+        0:[["mistakes",1,""],["marks",1,""],[focus.weekIndex%2===0?"bigDictation":"smallDictation",3,focus.weekIndex%2===0?"big":"small"]],
+        1:[["bigSentence",5,"big"],["bigPattern",2,"big"],["smallSentence",2,"small",8]],
+        2:[["smallSentence",5,"small"],["smallFunction",2,"small"],["bigSentence",2,"big",8]],
+        3:[["bigImitation",5,"big"],["smallImitation",3,"small"]],
+        4:[["smallImitation",4,"small"],["smallFormat",1,"small"],["bigPattern",2,"big"]],
+        5:[["bigParagraph",4,"big"],["smallSentence",3,"small",10]],
+        6:[["smallWhole",6,"small"],["bigDictation",3,"big",12]]
       },
       transfer: {
-        0:[["mistakes",1],["marks",1]],
-        1:[["bigImitation",6]],
-        2:[["smallImitation",5],["smallFunction",2]],
-        3:[["bigParagraph",5]],
-        4:[["smallWhole",7]],
-        5:[["bigDictation",5]],
-        6:[["bigWhole",8]]
+        0:[["mistakes",1,""],["marks",1,""],[focus.weekIndex%2===0?"bigDictation":"smallDictation",3,focus.weekIndex%2===0?"big":"small"]],
+        1:[["bigImitation",6,"big"],["smallSentence",3,"small"]],
+        2:[["smallImitation",5,"small"],["smallFunction",2,"small"],["bigSentence",3,"big"]],
+        3:[["bigParagraph",5,"big"],["smallImitation",2,"small",8]],
+        4:[["smallWhole",7,"small"],["bigPattern",2,"big"]],
+        5:[["bigDictation",5,"big"],["smallDictation",3,"small"]],
+        6:[["bigWhole",8,"big"],["smallFunction",2,"small"]]
       },
       output: {
-        0:[["mistakes",1],["marks",1]],
-        1:[["bigWhole",8]],
-        2:[["smallWhole",8]],
-        3:[["bigDictation",6]],
-        4:[["smallWhole",8]],
-        5:[["bigWhole",8]],
-        6:[["bigImitation",8],["smallImitation",6]]
+        0:[["mistakes",1,""],["marks",1,""],["smallFormat",1,"small"]],
+        1:[["bigWhole",8,"big"],["smallSentence",3,"small"]],
+        2:[["smallWhole",8,"small"],["bigImitation",3,"big"]],
+        3:[["bigDictation",6,"big"],["smallDictation",3,"small"]],
+        4:[["smallWhole",8,"small"],["bigPattern",2,"big"]],
+        5:[["bigWhole",8,"big"],["smallImitation",3,"small"]],
+        6:[["bigWhole",6,"big"],["smallWhole",6,"small"]]
       },
       sprint: {
-        0:[["mistakes",1],["marks",1]],
-        1:[["bigSentence",5],["bigPattern",2]],
-        2:[["smallSentence",5],["smallFormat",1]],
-        3:[["bigDictation",5]],
-        4:[["smallDictation",5]],
-        5:[["bigWhole",6]],
-        6:[["smallWhole",6]]
+        0:[["mistakes",1,""],["marks",1,""]],
+        1:[["bigSentence",5,"big"],["bigPattern",2,"big"],["smallFunction",2,"small"]],
+        2:[["smallSentence",5,"small"],["smallFormat",1,"small"],["bigImitation",2,"big",8]],
+        3:[["bigDictation",5,"big"],["smallImitation",3,"small"]],
+        4:[["smallDictation",5,"small"],["bigSentence",3,"big"]],
+        5:[["bigWhole",6,"big"],["smallFunction",2,"small"]],
+        6:[["smallWhole",6,"small"],["bigPattern",2,"big"]]
       }
     };
-    (weekly[phase.id][weekday] || []).forEach(([activity,target]) => tasks.push(makePlanTask(activity,target)));
-    return {date, phase, tasks, estimatedMinutes: tasks.reduce((sum, task) => sum + task.minutes, 0)};
+
+    (weekly[phase.id][weekday] || []).forEach(([activity, target, kind, minutes, method]) => {
+      add(activity, target, kind, minutes ?? null, method || "");
+    });
+
+    return {
+      date,
+      phase,
+      focus,
+      tasks,
+      estimatedMinutes: tasks.reduce((sum, task) => sum + task.minutes, 0)
+    };
   }
 
   function planActivityCount(dateKey, activity) {
@@ -4175,7 +5064,8 @@
   }
 
   function planTaskDone(dateKey, task) {
-    return Boolean(state.planTaskCompletions?.[dateKey]?.[task.id]) || planTaskConditionMet(dateKey, task);
+    return Boolean(state.planTaskCompletions?.[dateKey]?.[task.id])
+      || planTaskConditionMet(dateKey, task);
   }
 
   function planDayStatus(value) {
@@ -4183,7 +5073,14 @@
     const key = localDateKey(date);
     const plan = studyPlanForDate(date);
     const done = plan.tasks.filter(task => planTaskDone(key, task)).length;
-    return {key, plan, done, total:plan.tasks.length, complete:plan.tasks.length > 0 && done === plan.tasks.length, percent:plan.tasks.length ? Math.round(done/plan.tasks.length*100) : 0};
+    return {
+      key,
+      plan,
+      done,
+      total:plan.tasks.length,
+      complete:plan.tasks.length > 0 && done === plan.tasks.length,
+      percent:plan.tasks.length ? Math.round(done / plan.tasks.length * 100) : 0
+    };
   }
 
   function recordPlanActivity(activity, amount = 1, saveNow = false) {
@@ -4192,7 +5089,9 @@
     if (!state.planActivities[key]) state.planActivities[key] = {};
     const visitActivities = new Set(["smallFormat","mistakes","marks"]);
     const old = Math.max(0, Number(state.planActivities[key][activity]) || 0);
-    state.planActivities[key][activity] = visitActivities.has(activity) ? Math.max(1, old) : old + Math.max(0, Number(amount) || 0);
+    state.planActivities[key][activity] = visitActivities.has(activity)
+      ? Math.max(1, old)
+      : old + Math.max(0, Number(amount) || 0);
     refreshPlanTaskCompletions(key);
     if (saveNow) {
       saveState();
@@ -4202,98 +5101,339 @@
   }
 
   function planActivityForBigWriting(kind) {
-    return ({study:"bigSentence", sentence300:"bigImitation", inline:"bigImitation", pattern:"bigPattern", paragraph:"bigParagraph", whole:"bigWhole", dictation:"bigDictation"})[kind] || "";
+    return ({
+      study:"bigSentence",
+      sentence300:"bigImitation",
+      inline:"bigImitation",
+      pattern:"bigPattern",
+      paragraph:"bigParagraph",
+      whole:"bigWhole",
+      dictation:"bigDictation"
+    })[kind] || "";
   }
 
   function planActivityForSmallWriting(kind) {
-    return ({study:"smallSentence", original:"smallSentence", imitation:"smallImitation", whole:"smallWhole", dictation:"smallDictation", function:"smallFunction"})[kind] || "";
+    return ({
+      study:"smallSentence",
+      original:"smallSentence",
+      imitation:"smallImitation",
+      whole:"smallWhole",
+      dictation:"smallDictation",
+      function:"smallFunction"
+    })[kind] || "";
   }
 
   function planTaskButton(task) {
     return `<button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button>`;
   }
 
-  function renderPlanTaskList(containerId, value, showActions = true) {
+  function renderPlanTaskList(containerId, value, showActions = true, detailMode = false) {
     const container = $(containerId);
     if (!container) return;
     const status = planDayStatus(value);
     const isToday = status.key === localDateKey();
+
     container.innerHTML = status.plan.tasks.map(task => {
       const count = planActivityCount(status.key, task.activity);
       const done = planTaskDone(status.key, task);
       const shownCount = Math.min(count, task.target);
-      const pct = done ? 100 : Math.min(100, Math.round(shownCount / Math.max(1,task.target) * 100));
+      const pct = done ? 100 : Math.min(100, Math.round(shownCount / Math.max(1, task.target) * 100));
+
+      if (detailMode) {
+        return `<div class="plan-detail-task ${done ? "done" : ""}">
+          <span class="plan-detail-icon">${done ? "✓" : escapeHtml(task.icon)}</span>
+          <div>
+            <div class="plan-detail-title-row">
+              <div class="plan-detail-title">${escapeHtml(task.displayLabel)}</div>
+              <span class="plan-detail-time">${task.minutes}分钟</span>
+            </div>
+            <div class="plan-detail-method">${escapeHtml(task.method)}</div>
+            <div class="plan-detail-progress-row">
+              <div class="plan-detail-progress"><span style="width:${pct}%"></span></div>
+              <div class="plan-detail-value">${done ? "已完成" : `${shownCount}/${task.target}${task.unit}`}</div>
+            </div>
+            ${showActions && isToday && !done
+              ? `<div class="plan-detail-actions">${planTaskButton(task)}</div>`
+              : ""}
+          </div>
+        </div>`;
+      }
+
       return `<div class="auto-plan-task ${done ? "done" : ""}">
-        <span class="auto-plan-check">${done ? "✓" : ""}</span>
+        <span class="auto-plan-check">${done ? "✓" : escapeHtml(task.icon)}</span>
         <div>
-          <div class="auto-plan-task-title">${escapeHtml(task.label)}</div>
+          <div class="auto-plan-task-title">${escapeHtml(task.displayLabel)}</div>
           <div class="auto-plan-task-sub">${escapeHtml(task.description)}</div>
           <div class="auto-plan-task-progress"><span style="width:${pct}%"></span></div>
-          <div class="auto-plan-task-value">${done ? "已自动完成" : `${shownCount}/${task.target}${task.unit}`}</div>
+          <div class="auto-plan-task-value">${done ? "已自动完成" : `${shownCount}/${task.target}${task.unit} · 约${task.minutes}分钟`}</div>
         </div>
         ${showActions && isToday && !done ? planTaskButton(task) : ""}
       </div>`;
     }).join("");
   }
 
+  function planCalendarBadges(status) {
+    const grouped = {
+      words:{label:"词组", value:0, total:0},
+      quiz:{label:"选择", value:0, total:0},
+      big:{label:"大作文", value:0, total:0},
+      small:{label:"小作文", value:0, total:0},
+      review:{label:"复盘", value:0, total:0}
+    };
+
+    status.plan.tasks.forEach(task => {
+      const group = grouped[task.category] || grouped.review;
+      group.total += task.target;
+      group.value += Math.min(planActivityCount(status.key, task.activity), task.target);
+    });
+
+    return Object.entries(grouped)
+      .filter(([, value]) => value.total > 0)
+      .map(([key, value]) => ({
+        key,
+        label:value.label,
+        text:key === "review"
+          ? `${value.value}/${value.total}`
+          : `${value.total}`,
+        done:value.value >= value.total
+      }));
+  }
+
+  function clampStudyPlanDateKey(key) {
+    const date = dateFromKey(key) || new Date();
+    const start = planStartDate();
+    const end = planEndDate();
+    if (date < start) return localDateKey(start);
+    if (date > end) return localDateKey(end);
+    return localDateKey(date);
+  }
+
+  function setStudyPlanSelectedDate(key, alignMonth = true) {
+    selectedStudyPlanDateKey = clampStudyPlanDateKey(key);
+    if (alignMonth) {
+      const date = dateFromKey(selectedStudyPlanDateKey);
+      studyPlanCalendarCursor = new Date(date.getFullYear(), date.getMonth(), 1);
+    }
+    renderStudyPlanView();
+  }
+
+  function moveStudyPlanMonth(offset) {
+    const next = new Date(
+      studyPlanCalendarCursor.getFullYear(),
+      studyPlanCalendarCursor.getMonth() + offset,
+      1
+    );
+    const startMonth = new Date(planStartDate().getFullYear(), planStartDate().getMonth(), 1);
+    const endMonth = new Date(planEndDate().getFullYear(), planEndDate().getMonth(), 1);
+    if (next < startMonth || next > endMonth) return;
+    studyPlanCalendarCursor = next;
+    renderStudyPlanView();
+  }
+
+  function renderStudyPlanCalendar() {
+    const grid = $("planCalendarGrid");
+    if (!grid) return;
+
+    const year = studyPlanCalendarCursor.getFullYear();
+    const month = studyPlanCalendarCursor.getMonth();
+    const first = new Date(year, month, 1);
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const start = planStartDate();
+    const end = planEndDate();
+    const todayKey = localDateKey();
+    const today = dateFromKey(todayKey);
+
+    $("planCalendarMonthTitle").textContent = `${year}年${month + 1}月`;
+
+    const monthDates = [];
+    for (let day = 1; day <= daysInMonth; day += 1) {
+      const date = new Date(year, month, day);
+      if (date >= start && date <= end) monthDates.push(date);
+    }
+    const completed = monthDates.filter(date => planDayStatus(date).complete).length;
+    $("planCalendarMonthSummary").textContent =
+      `本月完整完成${completed}/${monthDates.length}天 · 点击日期查看任务`;
+
+    const cells = [];
+    for (let blank = 0; blank < first.getDay(); blank += 1) {
+      cells.push('<span class="plan-calendar-cell blank"></span>');
+    }
+
+    for (let day = 1; day <= daysInMonth; day += 1) {
+      const date = new Date(year, month, day);
+      const key = localDateKey(date);
+      const inPlan = date >= start && date <= end;
+
+      if (!inPlan) {
+        cells.push(`<span class="plan-calendar-cell outside-plan">
+          <div class="calendar-cell-head"><span class="calendar-cell-date">${day}</span></div>
+        </span>`);
+        continue;
+      }
+
+      const status = planDayStatus(date);
+      const isToday = key === todayKey;
+      const isSelected = key === selectedStudyPlanDateKey;
+      const isPast = date < today;
+      const classes = [
+        "plan-calendar-cell",
+        isToday ? "today" : "",
+        isSelected ? "selected" : "",
+        status.complete ? "complete" : "",
+        isPast && !status.complete ? "missed" : ""
+      ].filter(Boolean).join(" ");
+
+      const stateText = status.complete
+        ? "完成"
+        : isToday
+          ? `${status.done}/${status.total}`
+          : isPast
+            ? "未完成"
+            : `${status.total}项`;
+
+      const badges = planCalendarBadges(status).map(item =>
+        `<span class="calendar-mini-badge ${item.key} ${item.done ? "done" : ""}">
+          <span>${escapeHtml(item.label)}</span><b>${escapeHtml(item.text)}</b>
+        </span>`
+      ).join("");
+
+      cells.push(`<button class="${classes}" data-plan-date="${escapeHtml(key)}" title="${escapeHtml(status.plan.phase.name)}">
+        <div class="calendar-cell-head">
+          <span class="calendar-cell-date">${day}</span>
+          <span class="calendar-cell-state">${escapeHtml(stateText)}</span>
+        </div>
+        <div class="calendar-cell-focus">
+          大：${escapeHtml(status.plan.focus.big.title)}<br>
+          小：${escapeHtml(status.plan.focus.small.title)}
+        </div>
+        <div class="calendar-mini-badges">${badges}</div>
+        <div class="calendar-cell-progress"><span style="width:${status.percent}%"></span></div>
+      </button>`);
+    }
+
+    grid.innerHTML = cells.join("");
+
+    const startMonth = new Date(start.getFullYear(), start.getMonth(), 1);
+    const endMonth = new Date(end.getFullYear(), end.getMonth(), 1);
+    $("planPrevMonthBtn").disabled = studyPlanCalendarCursor <= startMonth;
+    $("planNextMonthBtn").disabled = studyPlanCalendarCursor >= endMonth;
+  }
+
+  function renderSelectedPlanDay() {
+    const date = dateFromKey(selectedStudyPlanDateKey);
+    const status = planDayStatus(date);
+    const weekdays = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+    const isToday = status.key === localDateKey();
+
+    $("selectedPlanDate").textContent =
+      `${date.getMonth() + 1}月${date.getDate()}日 · ${weekdays[date.getDay()]}`;
+    $("selectedPlanPhase").textContent =
+      `${status.plan.phase.name} · 预计${status.plan.estimatedMinutes}分钟`;
+    $("selectedPlanStatus").textContent =
+      status.complete ? "全部完成" : `${status.done}/${status.total}项`;
+    $("selectedPlanStatus").classList.toggle("done", status.complete);
+    $("selectedPlanFocus").innerHTML =
+      `<strong>本周大作文：</strong>${escapeHtml(status.plan.focus.big.title)}<br>` +
+      `<strong>本周小作文：</strong>${escapeHtml(status.plan.focus.small.title)}（${escapeHtml(status.plan.focus.small.type)}）<br>` +
+      `<span>建议顺序：到期词组 → 选择题 → 新词 → 大作文 → 小作文。</span>`;
+
+    renderPlanTaskList("selectedPlanTasks", date, isToday, true);
+  }
+
+  function renderStudyWeekBlueprint() {
+    const selected = dateFromKey(selectedStudyPlanDateKey);
+    const monday = mondayOfWeek(selected);
+    const focus = focusForPlanDate(selected);
+    const weekdays = ["周一","周二","周三","周四","周五","周六","周日"];
+    const todayKey = localDateKey();
+
+    $("studyWeekFocus").innerHTML =
+      `第${focus.weekIndex + 1}周 · 大作文重点：<strong>${escapeHtml(focus.big.title)}</strong>；` +
+      `小作文重点：<strong>${escapeHtml(focus.small.title)}</strong>。` +
+      `本周两类作文都会进入日程，不会只练大作文。`;
+
+    const days = [];
+    for (let offset = 0; offset < 7; offset += 1) {
+      const date = new Date(monday);
+      date.setDate(monday.getDate() + offset);
+      const plan = studyPlanForDate(date);
+      const writing = plan.tasks
+        .filter(task => task.category === "big" || task.category === "small" || task.category === "review")
+        .map(task => task.displayLabel.replace(` · ${task.focus}`, ""))
+        .join("＋") || "词组复习";
+      days.push(`<div class="week-blueprint-day ${localDateKey(date) === todayKey ? "today" : ""}">
+        <strong>${weekdays[offset]} · ${date.getMonth()+1}/${date.getDate()}</strong>
+        <span>${escapeHtml(writing)}</span>
+      </div>`);
+    }
+    $("studyWeekBlueprint").innerHTML = days.join("");
+  }
+
   function renderTodayAutoPlan() {
     const changed = refreshPlanTaskCompletions();
     if (changed) saveState();
     const status = planDayStatus(new Date());
+
     $("todayPlanPhase").textContent = status.plan.phase.name;
-    $("todayPlanMeta").textContent = `${status.plan.phase.summary} · 今日预计${status.plan.estimatedMinutes}分钟 · 达到数量后自动打勾。`;
+    $("todayPlanMeta").textContent =
+      `本周大作文：${status.plan.focus.big.title}；小作文：${status.plan.focus.small.title}。` +
+      `今日预计${status.plan.estimatedMinutes}分钟，达到数量后自动打勾。`;
     $("todayPlanDoneCount").textContent = status.done;
     $("todayPlanTaskCount").textContent = status.total;
     $("todayPlanMinutes").textContent = status.plan.estimatedMinutes;
     $("todayPlanPercent").textContent = `${status.percent}%`;
-    $("todayAutoPlanStatus").textContent = status.complete ? "今日计划已完成" : `${status.done}/${status.total}项`;
+    $("todayAutoPlanStatus").textContent =
+      status.complete ? "今日计划已完成" : `${status.done}/${status.total}项`;
     $("todayAutoPlanStatus").classList.toggle("done", status.complete);
-    renderPlanTaskList("todayAutoPlanTasks", new Date(), true);
+    renderPlanTaskList("todayAutoPlanTasks", new Date(), true, false);
   }
 
   function renderStudyPlanView() {
     refreshPlanTaskCompletions();
+
     const stats = checkinPlanStats();
     const todayStatus = planDayStatus(new Date());
-    $("studyPlanRangeText").textContent = `从${stats.start.toLocaleDateString("zh-CN")}开始，到${stats.end.toLocaleDateString("zh-CN")}（考试前一天）结束；计划自动按四个阶段切换。`;
+    const startMonth = new Date(stats.start.getFullYear(), stats.start.getMonth(), 1);
+    const endMonth = new Date(stats.end.getFullYear(), stats.end.getMonth(), 1);
+
+    if (studyPlanCalendarCursor < startMonth || studyPlanCalendarCursor > endMonth) {
+      const selected = dateFromKey(clampStudyPlanDateKey(selectedStudyPlanDateKey));
+      studyPlanCalendarCursor = new Date(selected.getFullYear(), selected.getMonth(), 1);
+    }
+    selectedStudyPlanDateKey = clampStudyPlanDateKey(selectedStudyPlanDateKey);
+
+    $("studyPlanRangeText").textContent =
+      `从${stats.start.toLocaleDateString("zh-CN")}到${stats.end.toLocaleDateString("zh-CN")}。` +
+      `每天的词组、选择题、大作文和小作文会按实际完成情况自动记录。`;
     $("studyPlanTotalDays").textContent = stats.total;
     $("studyPlanCompletedDays").textContent = stats.checked;
     $("studyPlanCurrentStreak").textContent = calculateCheckinStreak();
     $("studyPlanOverallPercent").textContent = `${stats.progress}%`;
-    $("studyPlanOverallStatus").textContent = todayStatus.complete ? "今日已完成" : `今日${todayStatus.done}/${todayStatus.total}项`;
+    $("studyPlanOverallStatus").textContent =
+      todayStatus.complete ? "今天已完成" : `今天${todayStatus.done}/${todayStatus.total}项`;
     $("studyPlanOverallStatus").classList.toggle("done", todayStatus.complete);
-    $("studyPhaseTimeline").innerHTML = STUDY_PHASES.map(phase => `<div class="phase-card ${phase.id===todayStatus.plan.phase.id ? "current" : ""}"><strong>${escapeHtml(phase.name)}</strong><span>${phase.start.slice(5).replace("-","/")}—${phase.id==="sprint" ? "考试前一天" : phase.end.slice(5).replace("-","/")}</span><span>${escapeHtml(phase.summary)}</span></div>`).join("");
-    renderPlanTaskList("studyPlanTodayTasks", new Date(), true);
+    $("studyPlanCurrentPhase").textContent = todayStatus.plan.phase.name;
 
-    const months = new Map();
-    const cursor = new Date(stats.start);
-    while (cursor <= stats.end) {
-      const key = monthKey(cursor);
-      if (!months.has(key)) months.set(key, []);
-      months.get(key).push(new Date(cursor));
-      cursor.setDate(cursor.getDate()+1);
-    }
-    const todayKey = localDateKey();
-    $("studyPlanMonths").innerHTML = [...months.entries()].map(([key, dates]) => {
-      const monthDone = dates.filter(d => planDayStatus(d).complete).length;
-      const isCurrent = key === todayKey.slice(0,7);
-      const body = dates.map(d => {
-        const s = planDayStatus(d);
-        const past = d < new Date(new Date().setHours(0,0,0,0));
-        const rowClass = s.complete ? "complete" : past ? "missed" : s.key===todayKey ? "today" : "";
-        const weekday = ["周日","周一","周二","周三","周四","周五","周六"][d.getDay()];
-        const chips = s.plan.tasks.map(t => `<span class="plan-task-chip ${planTaskDone(s.key,t)?"done":""}">${planTaskDone(s.key,t)?"✓ ":""}${escapeHtml(t.label)} ${t.target}${t.unit}</span>`).join("");
-        const stateText = s.complete ? "已完成" : past ? `未完成 ${s.done}/${s.total}` : s.key===todayKey ? `今天 ${s.done}/${s.total}` : "待开始";
-        return `<div class="plan-day-row ${rowClass}"><div class="plan-day-date">${d.getMonth()+1}/${d.getDate()} ${weekday}</div><div class="plan-day-phase">${escapeHtml(s.plan.phase.name)}</div><div class="plan-task-chips">${chips}</div><div class="plan-day-status">${stateText}</div></div>`;
-      }).join("");
-      const d=dates[0];
-      return `<details class="plan-month" ${isCurrent ? "open" : ""}><summary><span>${d.getFullYear()}年${d.getMonth()+1}月</span><span class="muted">完整完成${monthDone}/${dates.length}天</span></summary><div class="plan-month-body">${body}</div></details>`;
+    $("studyPhaseTimeline").innerHTML = STUDY_PHASES.map(phase => {
+      const current = phase.id === todayStatus.plan.phase.id;
+      return `<div class="phase-card ${current ? "current" : ""}">
+        <strong>${escapeHtml(phase.name)}</strong>
+        <span>${phase.start.slice(5).replace("-","/")}—${phase.id === "sprint" ? "考试前一天" : phase.end.slice(5).replace("-","/")}</span>
+        <span>${escapeHtml(phase.summary)}</span>
+        <em>${escapeHtml(phase.result)}</em>
+      </div>`;
     }).join("");
+
+    renderStudyPlanCalendar();
+    renderSelectedPlanDay();
+    renderStudyWeekBlueprint();
   }
 
   function goToPlanActivity(activity) {
+    const todayTask = studyPlanForDate(new Date()).tasks.find(task => task.activity === activity);
     const meta = PLAN_ACTIVITY_META[activity];
     if (!meta) return;
+
     if (activity === "newWords") {
       startReview(true);
       return;
@@ -4302,12 +5442,38 @@
       startReview(false);
       return;
     }
+
+    if (todayTask?.focusId && meta.view === "bigEssay") {
+      currentEssayId = todayTask.focusId;
+      if (activity === "bigImitation") {
+        sentenceImitationSource = todayTask.focusId;
+        currentSentenceImitationId = "";
+      }
+      if (activity === "bigWhole") {
+        const matched = WHOLE_IMITATION_TASKS.find(item => item.sourceEssayId === todayTask.focusId);
+        if (matched) currentWholeImitationId = matched.id;
+      }
+    }
+
+    if (todayTask?.focusId && meta.view === "smallEssay") {
+      currentSmallEssayId = todayTask.focusId;
+      if (activity === "smallImitation") {
+        smallSentenceSource = todayTask.focusId;
+        currentSmallSentenceTaskId = "";
+      }
+      if (activity === "smallWhole") {
+        const matched = SMALL_WHOLE.find(item => item.sourceEssayId === todayTask.focusId);
+        if (matched) currentSmallWholeId = matched.id;
+      }
+    }
+
     switchView(meta.view);
     if (meta.view === "bigEssay" && meta.tab) setEssayTab(meta.tab);
     if (meta.view === "smallEssay" && meta.tab && typeof setSmallTab === "function") setSmallTab(meta.tab);
   }
 
   function calculateCheckinStreak() {
+
     const start = planStartDate();
     const end = planEndDate();
     let cursor = new Date(); cursor.setHours(0,0,0,0);
@@ -8541,8 +9707,26 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     $("dashboardReviewBtn").addEventListener("click", () => startReview(false));
     $("learnNewBtn").addEventListener("click", () => startReview(true));
     $("dashboardQuizBtn").addEventListener("click", () => switchView("quiz"));
-    $("openStudyPlanBtn").addEventListener("click", () => switchView("studyPlan"));
+    $("openStudyPlanBtn").addEventListener("click", () => {
+      selectedStudyPlanDateKey = clampStudyPlanDateKey(localDateKey());
+      const today = dateFromKey(selectedStudyPlanDateKey);
+      studyPlanCalendarCursor = new Date(today.getFullYear(), today.getMonth(), 1);
+      switchView("studyPlan");
+    });
+
+    $("planPrevMonthBtn").addEventListener("click", () => moveStudyPlanMonth(-1));
+    $("planNextMonthBtn").addEventListener("click", () => moveStudyPlanMonth(1));
+    $("planTodayBtn").addEventListener("click", () => {
+      setStudyPlanSelectedDate(localDateKey(), true);
+    });
+
     document.addEventListener("click", event => {
+      const dateButton = event.target.closest("[data-plan-date]");
+      if (dateButton) {
+        setStudyPlanSelectedDate(dateButton.dataset.planDate, false);
+        return;
+      }
+
       const button = event.target.closest("[data-plan-go]");
       if (!button) return;
       goToPlanActivity(button.dataset.planGo);

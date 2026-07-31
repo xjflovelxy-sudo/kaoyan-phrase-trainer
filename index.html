@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（90分钟学习计划版V18）</title>
+  <title>考研英语词组记忆器（真实复习打勾修正版V19）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -3457,13 +3457,53 @@
     }
     .unit-rule-note strong { color:#18346d; }
 
+  
+    /* NO_FALSE_REVIEW_CHECK_V19 */
+    .plan-no-due-note {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 10px;
+      padding: 11px 12px;
+      border: 1px solid #d8dde7;
+      border-radius: 12px;
+      background: #f3f5f8;
+      color: #5f6878;
+    }
+
+    .plan-no-due-note-icon {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: #e4e8ee;
+      color: #687181;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .plan-no-due-note strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #414958;
+      font-size: 12px;
+    }
+
+    .plan-no-due-note span {
+      display: block;
+      font-size: 10px;
+      line-height: 1.65;
+    }
+
   </style>
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>考研英语词组记忆器·90分钟学习计划版V18</h1>
+      <h1>考研英语词组记忆器·真实复习打勾修正版V19</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -4608,6 +4648,7 @@
   let state = loadState();
   let currentView = "dashboard";
   let reviewQueue = [];
+  let reviewPlanActivityOverride = "";
   let reviewIndex = 0;
   let currentMode = state.settings.defaultMode || "zh-en";
   let currentAnswered = false;
@@ -4909,7 +4950,8 @@
   ];
 
   const PLAN_ACTIVITY_META = {
-    review:{label:"到期词组复习",unit:"题",category:"words",icon:"词",view:"review",description:"少于目标时清空全部；当天初始到期超过60题时，目标自动改为清空全部，并取消新词。",method:"按真实情况评分，优先清理旧词。"},
+    review:{label:"到期词组复习",unit:"题",category:"words",icon:"词",view:"review",description:"只有实际完成到期词组评分才累计；没有到期词组时不会打勾。",method:"按真实情况评分，优先清理旧词。"},
+    supplementReview:{label:"错词／重点词补充练习",unit:"题",category:"words",icon:"补",view:"review",action:"supplement",description:"今天没有到期词组时，必须实际复习错词、已学重点词或高价值词组后才会打勾。",method:"优先顺序：错词 → 易混淆 → 重点背诵 → 熟词新义 → 同义替换 → 写作表达。每完成一次评分累计1题。"},
     quiz:{label:"选择题训练",unit:"题",category:"quiz",icon:"选",view:"quiz",description:"只统计普通选择题；错题重做单独计入90分钟加练。",method:"混合方向作答；错题先分析核心词和介词。"},
     newWords:{label:"学习新词组",unit:"条",category:"words",icon:"新",view:"review",action:"new",description:"基础期工作日12条，迁移期工作日5条；到期旧词过多时自动取消。",method:"熟词新义→同义替换→写作表达→重点背诵。"},
     bigSentence:{label:"大作文逐句写译",unit:"句",category:"big",icon:"大",view:"bigEssay",tab:"sentenceStudy",description:"首遍正确直接计入；有错必须手动修改后再次批改。",method:"看中文独立写，检查主谓、介词、单复数和固定结构。"},
@@ -4940,7 +4982,7 @@
   function focusForPlanDate(value){const i=studyWeekIndex(value);return{weekIndex:i,big:BIG_PLAN_FOCUS[i%BIG_PLAN_FOCUS.length],small:SMALL_PLAN_FOCUS[i%SMALL_PLAN_FOCUS.length]}}
 
   function estimateTaskMinutes(activity,target){
-    if(activity==="review") return Math.max(10,Math.round(target*.55));
+    if(activity==="review"||activity==="supplementReview") return Math.max(10,Math.round(target*.55));
     if(activity==="quiz") return Math.max(10,Math.round(target*.35));
     if(activity==="newWords") return Math.max(4,Math.round(target*.8));
     if(["bigParagraph","bigWhole","smallWhole"].includes(activity)) return Math.max(5,Math.round(target*2.5));
@@ -4950,7 +4992,7 @@
     if(activity==="marks") return 5;
     return 5;
   }
-  function makePlanTask(activity,target,options={}){const m=PLAN_ACTIVITY_META[activity],focus=options.focus||"";return{id:`v18-core-${activity}`,activity,target,minutes:options.minutes??estimateTaskMinutes(activity,target),focus,focusId:options.focusId||"",label:m.label,displayLabel:focus?`${m.label} · ${focus}`:m.label,method:options.method||m.method,description:options.description||m.description,...m}}
+  function makePlanTask(activity,target,options={}){const m=PLAN_ACTIVITY_META[activity],focus=options.focus||"";return{id:`v19-core-${activity}`,activity,target,minutes:options.minutes??estimateTaskMinutes(activity,target),focus,focusId:options.focusId||"",label:m.label,displayLabel:focus?`${m.label} · ${focus}`:m.label,method:options.method||m.method,description:options.description||m.description,...m}}
 
   function todayDueLoad(){const key=localDateKey(),done=planActivityCount(key,"review"),remaining=state.cards.filter(c=>isDue(c)&&!isNew(c)).length;return done+remaining}
   function baseReviewTarget(phaseId,weekday){if(phaseId==="foundation"||phaseId==="transfer")return weekday===6?35:40;if(phaseId==="output")return 30;return 25}
@@ -4961,13 +5003,21 @@
     const phase=studyPhaseForDate(date),weekday=date.getDay(),focus=focusForPlanDate(date),tasks=[];
     const add=(activity,target,kind="",minutes=null)=>{const f=kind==="big"?focus.big:kind==="small"?focus.small:null;tasks.push(makePlanTask(activity,target,{focus:f?.title||"",focusId:f?.id||"",minutes}))};
 
-    let reviewTarget=baseReviewTarget(phase.id,weekday),cancelNew=false;
+    let reviewTarget=baseReviewTarget(phase.id,weekday),cancelNew=false,reviewNotice="";
     if(localDateKey(date)===localDateKey()){
       const load=todayDueLoad();
-      if(load<reviewTarget)reviewTarget=load;
-      if(load>60){reviewTarget=load;cancelNew=true}
+      const supplementAlreadyStarted=planActivityCount(localDateKey(),"supplementReview")>0;
+      if((load===0&&planActivityCount(localDateKey(),"review")===0)||supplementAlreadyStarted){
+        reviewNotice="今天没有到期词组。这只表示当前没有到期内容，不代表你已经复习过，也不会自动打勾或变绿。今天的词组核心任务已替换为实际完成“错词／重点词补充练习”。";
+        add("supplementReview",baseReviewTarget(phase.id,weekday));
+      }else{
+        if(load<reviewTarget)reviewTarget=load;
+        if(load>60){reviewTarget=load;cancelNew=true}
+        add("review",reviewTarget);
+      }
+    }else{
+      add("review",reviewTarget);
     }
-    add("review",reviewTarget);
     add("quiz",baseQuizTarget(phase.id,weekday));
     if(!cancelNew&&weekday>=1&&weekday<=5&&phase.id==="foundation")add("newWords",12);
     if(!cancelNew&&weekday>=1&&weekday<=5&&phase.id==="transfer")add("newWords",5);
@@ -5012,11 +5062,14 @@
     };
     (weekly[phase.id][weekday]||[]).forEach(([a,t,k,m])=>add(a,t,k,m??null));
     const coreMinutes=tasks.reduce((s,t)=>s+t.minutes,0);
-    return{date,phase,focus,tasks,estimatedMinutes:coreMinutes,targetMinutes:90};
+    return{date,phase,focus,tasks,reviewNotice,estimatedMinutes:coreMinutes,targetMinutes:90};
   }
 
   function planActivityCount(dateKey,activity){return Math.max(0,Number(state.planActivities?.[dateKey]?.[activity])||0)}
-  function planTaskConditionMet(dateKey,task){const count=planActivityCount(dateKey,task.activity);if(count>=task.target)return true;if(task.activity==="review"&&dateKey===localDateKey()){const oldDue=state.cards.filter(c=>isDue(c)&&!isNew(c)).length;if(oldDue===0)return true}return false}
+  function planTaskConditionMet(dateKey,task){
+    const count=planActivityCount(dateKey,task.activity);
+    return task.target>0&&count>=task.target;
+  }
   function refreshPlanTaskCompletions(dateKey=localDateKey()){if(!state.planTaskCompletions||typeof state.planTaskCompletions!=="object")state.planTaskCompletions={};if(!state.planTaskCompletions[dateKey])state.planTaskCompletions[dateKey]={};const plan=studyPlanForDate(dateKey);let changed=false;plan.tasks.forEach(task=>{if(!state.planTaskCompletions[dateKey][task.id]&&planTaskConditionMet(dateKey,task)){state.planTaskCompletions[dateKey][task.id]=true;changed=true}});return changed}
   function planTaskDone(dateKey,task){return Boolean(state.planTaskCompletions?.[dateKey]?.[task.id])||planTaskConditionMet(dateKey,task)}
 
@@ -5029,10 +5082,10 @@
   function bonusTasksForDate(value){
     const date=value instanceof Date?new Date(value):dateFromKey(value),key=localDateKey(date),plan=studyPlanForDate(date),actual=writingActivityTotals(key),core=coreWritingTargets(plan),wrong=planActivityCount(key,"quizWrong"),redo=planActivityCount(key,"quizWrongRedo");
     return[
-      {id:"v18-bonus-quiz",activity:"quizWrongRedo",label:"重做今天全部选择题错题",icon:"重",target:wrong,current:redo,unit:"题",minutes:Math.max(2,Math.min(8,Math.round(wrong*.45))),done:wrong===0||redo>=wrong,view:"quiz",method:wrong===0?"今天普通选择题暂时没有错题，本项自动完成。":"完成普通题量后点击“只重做错题”，把今天所有错题至少重做一遍。"},
-      {id:"v18-bonus-big",activity:"bigExtra",label:"再练大作文1个完整句子单位",icon:"大",target:1,current:Math.max(0,actual.big-core.big),unit:"句",minutes:3,done:actual.big>=core.big+1,view:"bigEssay",method:"任选本周大作文模块，再完成1句；有错必须手动修改并再次批改。"},
-      {id:"v18-bonus-small",activity:"smallExtra",label:"再练小作文1个完整句子单位",icon:"小",target:1,current:Math.max(0,actual.small-core.small),unit:"句",minutes:3,done:actual.small>=core.small+1,view:"smallEssay",method:"任选本周小作文模块，再完成1句或1个格式项。"},
-      {id:"v18-bonus-errors",activity:"errorReview",label:"回看错误最多的5个词组",icon:"查",target:5,current:planActivityCount(key,"errorReview"),unit:"条",minutes:5,done:planActivityCount(key,"errorReview")>=5,view:"mistakes",method:"复习已有错误记录的词组并完成评分；同一词组当天只计一次。"}
+      {id:"v19-bonus-quiz",activity:"quizWrongRedo",label:"重做今天全部选择题错题",icon:"重",target:wrong,current:redo,unit:"题",minutes:Math.max(2,Math.min(8,Math.round(wrong*.45))),done:wrong===0||redo>=wrong,view:"quiz",method:wrong===0?"今天普通选择题暂时没有错题，本项自动完成。":"完成普通题量后点击“只重做错题”，把今天所有错题至少重做一遍。"},
+      {id:"v19-bonus-big",activity:"bigExtra",label:"再练大作文1个完整句子单位",icon:"大",target:1,current:Math.max(0,actual.big-core.big),unit:"句",minutes:3,done:actual.big>=core.big+1,view:"bigEssay",method:"任选本周大作文模块，再完成1句；有错必须手动修改并再次批改。"},
+      {id:"v19-bonus-small",activity:"smallExtra",label:"再练小作文1个完整句子单位",icon:"小",target:1,current:Math.max(0,actual.small-core.small),unit:"句",minutes:3,done:actual.small>=core.small+1,view:"smallEssay",method:"任选本周小作文模块，再完成1句或1个格式项。"},
+      {id:"v19-bonus-errors",activity:"errorReview",label:"回看错误最多的5个词组",icon:"查",target:5,current:planActivityCount(key,"errorReview"),unit:"条",minutes:5,done:planActivityCount(key,"errorReview")>=5,view:"mistakes",method:"复习已有错误记录的词组并完成评分；同一词组当天只计一次。"}
     ];
   }
 
@@ -5043,7 +5096,13 @@
   function planActivityForSmallWriting(kind){return({study:"smallSentence",original:"smallSentence",imitation:"smallImitation",whole:"smallWhole",dictation:"smallDictation",function:"smallFunction"})[kind]||""}
   function planTaskButton(task){return`<button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button>`}
 
-  function renderPlanTaskList(containerId,value,showActions=true,detailMode=false){const c=$(containerId);if(!c)return;const status=planDayStatus(value),isToday=status.key===localDateKey();c.innerHTML=status.plan.tasks.map(task=>{const count=planActivityCount(status.key,task.activity),done=planTaskDone(status.key,task),shown=Math.min(count,task.target),pct=done?100:Math.min(100,Math.round(shown/Math.max(1,task.target)*100));if(detailMode)return`<div class="plan-detail-task ${done?"done":""}"><span class="plan-detail-icon">${done?"✓":escapeHtml(task.icon)}</span><div><div class="plan-detail-title-row"><div class="plan-detail-title">${escapeHtml(task.displayLabel)}</div><span class="plan-detail-time">${task.minutes}分钟</span></div><div class="plan-detail-method">${escapeHtml(task.method)}</div><div class="plan-detail-progress-row"><div class="plan-detail-progress"><span style="width:${pct}%"></span></div><div class="plan-detail-value">${done?"已完成":`${shown}/${task.target}${task.unit}`}</div></div>${showActions&&isToday&&!done?`<div class="plan-detail-actions">${planTaskButton(task)}</div>`:""}</div></div>`;return`<div class="auto-plan-task ${done?"done":""}"><span class="auto-plan-check">${done?"✓":escapeHtml(task.icon)}</span><div><div class="auto-plan-task-title">${escapeHtml(task.displayLabel)}</div><div class="auto-plan-task-sub">${escapeHtml(task.description)}</div><div class="auto-plan-task-progress"><span style="width:${pct}%"></span></div><div class="auto-plan-task-value">${done?"已自动完成":`${shown}/${task.target}${task.unit} · 约${task.minutes}分钟`}</div></div>${showActions&&isToday&&!done?planTaskButton(task):""}</div>`}).join("")}
+  function renderPlanTaskList(containerId,value,showActions=true,detailMode=false){
+    const c=$(containerId);if(!c)return;
+    const status=planDayStatus(value),isToday=status.key===localDateKey();
+    const noDueNote=status.plan.reviewNotice
+      ? `<div class="plan-no-due-note"><span class="plan-no-due-note-icon">—</span><div><strong>今日无到期词组（未完成任何复习）</strong><span>${escapeHtml(status.plan.reviewNotice)}</span></div></div>`
+      : "";
+    c.innerHTML=noDueNote+status.plan.tasks.map(task=>{const count=planActivityCount(status.key,task.activity),done=planTaskDone(status.key,task),shown=Math.min(count,task.target),pct=done?100:Math.min(100,Math.round(shown/Math.max(1,task.target)*100));if(detailMode)return`<div class="plan-detail-task ${done?"done":""}"><span class="plan-detail-icon">${done?"✓":escapeHtml(task.icon)}</span><div><div class="plan-detail-title-row"><div class="plan-detail-title">${escapeHtml(task.displayLabel)}</div><span class="plan-detail-time">${task.minutes}分钟</span></div><div class="plan-detail-method">${escapeHtml(task.method)}</div><div class="plan-detail-progress-row"><div class="plan-detail-progress"><span style="width:${pct}%"></span></div><div class="plan-detail-value">${done?"已完成":`${shown}/${task.target}${task.unit}`}</div></div>${showActions&&isToday&&!done?`<div class="plan-detail-actions">${planTaskButton(task)}</div>`:""}</div></div>`;return`<div class="auto-plan-task ${done?"done":""}"><span class="auto-plan-check">${done?"✓":escapeHtml(task.icon)}</span><div><div class="auto-plan-task-title">${escapeHtml(task.displayLabel)}</div><div class="auto-plan-task-sub">${escapeHtml(task.description)}</div><div class="auto-plan-task-progress"><span style="width:${pct}%"></span></div><div class="auto-plan-task-value">${done?"已自动完成":`${shown}/${task.target}${task.unit} · 约${task.minutes}分钟`}</div></div>${showActions&&isToday&&!done?planTaskButton(task):""}</div>`}).join("")}
 
   function renderBonusTaskList(containerId,panelId,statusId,value,showActions=true){const c=$(containerId),p=$(panelId),s=$(statusId);if(!c||!p||!s)return;const status=planDayStatus(value),isToday=status.key===localDateKey();p.classList.toggle("locked",!status.coreComplete);p.classList.toggle("unlocked",status.coreComplete&&!status.fullComplete);p.classList.toggle("completed",status.fullComplete);s.textContent=!status.coreComplete?"核心完成后解锁":status.fullComplete?"全部完成":`${status.bonusDone}/${status.bonusTotal}项`;if(!status.coreComplete){c.innerHTML='<div class="plan-bonus-lock">先完成上面的核心题量，随后自动解锁错题重做、大小作文各加练1句和5条错误词组复盘。</div>';return}c.innerHTML=status.bonus.map(task=>{const shown=Math.min(task.current,task.target),pct=task.done?100:task.target?Math.min(100,Math.round(shown/task.target*100)):100;return`<div class="bonus-task ${task.done?"done":""}"><span class="bonus-icon">${task.done?"✓":escapeHtml(task.icon)}</span><div><div class="bonus-title">${escapeHtml(task.label)}</div><div class="bonus-method">${escapeHtml(task.method)}</div><div class="bonus-progress-row"><div class="bonus-progress"><span style="width:${pct}%"></span></div><div class="bonus-value">${task.done?"已完成":task.target===0?"无错题":`${shown}/${task.target}${task.unit}`}</div></div>${showActions&&isToday&&!task.done?`<div class="plan-detail-actions"><button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button></div>`:""}</div></div>`}).join("")}
 
@@ -5054,7 +5113,7 @@
 
   function renderStudyPlanCalendar(){const grid=$("planCalendarGrid");if(!grid)return;const y=studyPlanCalendarCursor.getFullYear(),m=studyPlanCalendarCursor.getMonth(),first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),start=planStartDate(),end=planEndDate(),todayKey=localDateKey(),today=dateFromKey(todayKey);$("planCalendarMonthTitle").textContent=`${y}年${m+1}月`;const dates=[];for(let d=1;d<=days;d++){const x=new Date(y,m,d);if(x>=start&&x<=end)dates.push(x)}const core=dates.filter(d=>planDayStatus(d).coreComplete).length,full=dates.filter(d=>planDayStatus(d).fullComplete).length;$("planCalendarMonthSummary").textContent=`本月核心完成${core}天 · 90分钟完成${full}天`;const cells=[];for(let b=0;b<first.getDay();b++)cells.push('<span class="plan-calendar-cell blank"></span>');for(let d=1;d<=days;d++){const date=new Date(y,m,d),key=localDateKey(date),inPlan=date>=start&&date<=end;if(!inPlan){cells.push(`<span class="plan-calendar-cell outside-plan"><div class="calendar-cell-head"><span class="calendar-cell-date">${d}</span></div></span>`);continue}const st=planDayStatus(date),isToday=key===todayKey,isSelected=key===selectedStudyPlanDateKey,isPast=date<today,classes=["plan-calendar-cell",isToday?"today":"",isSelected?"selected":"",st.coreComplete?"core-complete":"",st.fullComplete?"full-complete":"",isPast&&!st.coreComplete?"missed":""].filter(Boolean).join(" "),stateText=st.fullComplete?"90分钟":st.coreComplete?"核心完成":isToday?`${st.done}/${st.total}`:isPast?"未完成":`${st.total}项`,badges=planCalendarBadges(st).map(i=>`<span class="calendar-mini-badge ${i.key} ${i.done?"done":""}"><span>${escapeHtml(i.label)}</span><b>${escapeHtml(i.text)}</b></span>`).join("");cells.push(`<button class="${classes}" data-plan-date="${escapeHtml(key)}"><div class="calendar-cell-head"><span class="calendar-cell-date">${d}</span><span class="calendar-cell-state">${escapeHtml(stateText)}</span></div><div class="calendar-cell-focus">大：${escapeHtml(st.plan.focus.big.title)}<br>小：${escapeHtml(st.plan.focus.small.title)}</div><div class="calendar-mini-badges">${badges}</div><div class="calendar-cell-progress"><span style="width:${st.overallPercent}%"></span></div></button>`)}grid.innerHTML=cells.join("");const sm=new Date(start.getFullYear(),start.getMonth(),1),em=new Date(end.getFullYear(),end.getMonth(),1);$("planPrevMonthBtn").disabled=studyPlanCalendarCursor<=sm;$("planNextMonthBtn").disabled=studyPlanCalendarCursor>=em}
 
-  function renderSelectedPlanDay(){const date=dateFromKey(selectedStudyPlanDateKey),st=planDayStatus(date),weeks=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],isToday=st.key===localDateKey();$("selectedPlanDate").textContent=`${date.getMonth()+1}月${date.getDate()}日 · ${weeks[date.getDay()]}`;$("selectedPlanPhase").textContent=`${st.plan.phase.name} · 目标90分钟`;$("selectedPlanStatus").textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;$("selectedPlanStatus").classList.toggle("done",st.coreComplete);$("selectedPlanFocus").innerHTML=`<strong>本周大作文：</strong>${escapeHtml(st.plan.focus.big.title)}<br><strong>本周小作文：</strong>${escapeHtml(st.plan.focus.small.title)}（${escapeHtml(st.plan.focus.small.type)}）<br><span>建议顺序：到期词组 → 选择题 → 新词 → 大作文 → 小作文 → 90分钟加练。</span>`;renderPlanTaskList("selectedPlanTasks",date,isToday,true);renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday)}
+  function renderSelectedPlanDay(){const date=dateFromKey(selectedStudyPlanDateKey),st=planDayStatus(date),weeks=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],isToday=st.key===localDateKey();$("selectedPlanDate").textContent=`${date.getMonth()+1}月${date.getDate()}日 · ${weeks[date.getDay()]}`;$("selectedPlanPhase").textContent=`${st.plan.phase.name} · 目标90分钟`;$("selectedPlanStatus").textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;$("selectedPlanStatus").classList.toggle("done",st.coreComplete);$("selectedPlanFocus").innerHTML=`<strong>本周大作文：</strong>${escapeHtml(st.plan.focus.big.title)}<br><strong>本周小作文：</strong>${escapeHtml(st.plan.focus.small.title)}（${escapeHtml(st.plan.focus.small.type)}）<br><span>建议顺序：到期词组或重点词补充 → 选择题 → 新词 → 大作文 → 小作文 → 90分钟加练。</span>`;renderPlanTaskList("selectedPlanTasks",date,isToday,true);renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday)}
 
   function renderStudyWeekBlueprint(){const selected=dateFromKey(selectedStudyPlanDateKey),monday=mondayOfWeek(selected),focus=focusForPlanDate(selected),names=["周一","周二","周三","周四","周五","周六","周日"],todayKey=localDateKey();$("studyWeekFocus").innerHTML=`第${focus.weekIndex+1}周 · 大作文重点：<strong>${escapeHtml(focus.big.title)}</strong>；小作文重点：<strong>${escapeHtml(focus.small.title)}</strong>。普通工作日约10—12个作文单位，周六综合输出，周日复盘。`;const arr=[];for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const p=studyPlanForDate(d),writing=p.tasks.filter(t=>["big","small","review"].includes(t.category)).map(t=>t.displayLabel.replace(` · ${t.focus}`,"")).join("＋")||"词组复习";arr.push(`<div class="week-blueprint-day ${localDateKey(d)===todayKey?"today":""}"><strong>${names[i]} · ${d.getMonth()+1}/${d.getDate()}</strong><span>${escapeHtml(writing)}</span></div>`)}$("studyWeekBlueprint").innerHTML=arr.join("")}
 
@@ -5064,7 +5123,9 @@
 
   function goToPlanActivity(activity){
     const task=studyPlanForDate(new Date()).tasks.find(t=>t.activity===activity),m=PLAN_ACTIVITY_META[activity];if(!m)return;
-    if(activity==="newWords"){startReview(true);return}if(activity==="review"){startReview(false);return}
+    if(activity==="newWords"){startReview(true);return}
+    if(activity==="review"){startReview(false);return}
+    if(activity==="supplementReview"){startSupplementReview();return}
     if(activity==="quizWrongRedo"){switchView("quiz");showToast("先完成普通选择题，然后在本轮结果页点击“只重做错题”");return}
     if(activity==="bigExtra"){const f=focusForPlanDate(new Date()).big;currentEssayId=f.id;switchView("bigEssay");setEssayTab("sentenceImitation");return}
     if(activity==="smallExtra"){const f=focusForPlanDate(new Date()).small;currentSmallEssayId=f.id;switchView("smallEssay");if(typeof setSmallTab==="function")setSmallTab("sentenceImitation");return}
@@ -8504,7 +8565,67 @@
     ).join("");
   }
 
+
+  function supplementCardPriority(card) {
+    const markNames = getCardMarks(card).map(mark => String(mark?.name || ""));
+    let score = 0;
+
+    if (Math.max(0, Number(card.lapses) || 0) > 0) score += 1000 + card.lapses * 40;
+    if (!isNew(card)) score += 350;
+    if (markNames.includes("易混淆")) score += 300;
+    if (markNames.includes("重点背诵")) score += 260;
+    if (markNames.includes("作文可用")) score += 210;
+    if (hasCategory(card, "熟词新义")) score += 180;
+    if (hasCategory(card, "同义替换")) score += 150;
+    if (hasCategory(card, "写作表达")) score += 140;
+    if (card.type === "active") score += 80;
+    score += Math.min(60, Math.max(0, Number(card.attempts) || 0) * 3);
+    return score;
+  }
+
+  function getSupplementReviewQueue(target = 40) {
+    return state.cards
+      .filter(card => !card.suspended)
+      .slice()
+      .sort((a, b) =>
+        supplementCardPriority(b) - supplementCardPriority(a)
+        || (Number(a.attempts) || 0) - (Number(b.attempts) || 0)
+        || b.year - a.year
+      )
+      .slice(0, Math.max(1, target));
+  }
+
+  function startSupplementReview() {
+    const task = studyPlanForDate(new Date()).tasks.find(item => item.activity === "supplementReview");
+    const target = task?.target || 40;
+
+    reviewQueue = getSupplementReviewQueue(target);
+    reviewIndex = 0;
+    reviewPlanActivityOverride = "supplementReview";
+    currentMode = state.settings.defaultMode || "zh-en";
+    currentAnswered = false;
+    switchView("review");
+
+    if (!reviewQueue.length) {
+      $("reviewPrompt").textContent = "当前没有可用于补充练习的词组";
+      $("promptLabel").textContent = "未发生复习，不计入完成";
+      $("answerInput").style.display = "none";
+      $("submitAnswerBtn").style.display = "none";
+      $("showAnswerBtn").style.display = "none";
+      $("reviewPills").innerHTML = "";
+      $("reviewContext").style.display = "none";
+      $("reviewProgress").textContent = "0 / 0";
+      return;
+    }
+
+    $("answerInput").style.display = "";
+    $("submitAnswerBtn").style.display = "";
+    $("showAnswerBtn").style.display = "";
+    renderReviewCard();
+  }
+
   function startCategoryReview(category) {
+    reviewPlanActivityOverride = "";
     const matched = state.cards
       .filter(card => !card.suspended && hasCategory(card, category))
       .sort((a, b) => {
@@ -8573,7 +8694,7 @@
       : todayPlanStatus.done > 0 ? `今日核心进行中 ${todayPlanStatus.done}/${todayPlanStatus.total}` : "今日尚未开始";
     $("checkinStatus").classList.toggle("done", checkedIn);
     $("checkinDescription").textContent = checkedIn
-      ? "今天规定的学习内容已经全部完成，系统已自动打勾。"
+      ? "今天规定的学习内容均已发生真实学习行为并达到数量，系统才会自动打勾。"
       : `无需手动打勾：当前核心完成 ${todayPlanStatus.done}/${todayPlanStatus.total} 项；核心完成后自动解锁90分钟加练。`;
     renderUpcomingCheckinDays();
 
@@ -8632,6 +8753,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   }
 
   function startReview(includeNew = false) {
+    reviewPlanActivityOverride = "";
     reviewQueue = getReviewQueue(includeNew);
     reviewIndex = 0;
     currentMode = state.settings.defaultMode || "zh-en";
@@ -8640,7 +8762,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
 
     if (!reviewQueue.length) {
       $("reviewPrompt").textContent = "今天没有到期词组";
-      $("promptLabel").textContent = "复习已完成";
+      $("promptLabel").textContent = "未发生复习，不计入完成";
       $("answerInput").style.display = "none";
       $("submitAnswerBtn").style.display = "none";
       $("showAnswerBtn").style.display = "none";
@@ -8675,6 +8797,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       $("reviewProgress").textContent = `${reviewQueue.length} / ${reviewQueue.length}`;
       $("feedbackBox").className = "feedback";
       $("gradeRow").classList.remove("show");
+      reviewPlanActivityOverride = "";
       saveState();
       renderDashboard();
       return;
@@ -8682,7 +8805,9 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
 
     currentAnswered = false;
     $("reviewProgress").textContent = `${reviewIndex + 1} / ${reviewQueue.length}`;
-    $("reviewModeText").textContent = currentMode === "zh-en" ? "中文 → 英文" : "英文 → 中文";
+    $("reviewModeText").textContent = reviewPlanActivityOverride === "supplementReview"
+      ? `重点补充 · ${currentMode === "zh-en" ? "中文 → 英文" : "英文 → 中文"}`
+      : (currentMode === "zh-en" ? "中文 → 英文" : "英文 → 中文");
     $("reviewPills").innerHTML = `
       <span class="pill"><strong>来源：${card.year}年</strong></span>
       <span class="pill">${escapeHtml(card.section)}</span>
@@ -8850,6 +8975,8 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     } else if (modeForPlan.startsWith("mcq-")) {
       recordPlanActivity("quiz", 1);
       if (grade < 2) recordPlanActivity("quizWrong", 1);
+    } else if (reviewPlanActivityOverride === "supplementReview") {
+      recordPlanActivity("supplementReview", 1);
     } else if (wasNew) {
       recordPlanActivity("newWords", 1);
     } else {

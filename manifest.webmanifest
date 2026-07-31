@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "V24",
-  "short_name": "V24",
-  "description": "V24：全库覆盖、未做优先、自动调量、首次学习与复习严格区分、继续上次学习。",
+  "name": "V25",
+  "short_name": "V25",
+  "description": "V25：新增只读的完整数据一致性检查，不修改任何学习逻辑。",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",

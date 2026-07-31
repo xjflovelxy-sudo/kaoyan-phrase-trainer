@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="V24" />
+  <meta name="application-name" content="V25" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="V24" />
+  <meta name="apple-mobile-web-app-title" content="V25" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V24</title>
+  <title>V25</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -3848,13 +3848,188 @@
     @media(max-width:900px){.coverage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pace-row{grid-template-columns:1fr;gap:3px}.pace-row b{text-align:left}}
     @media(max-width:620px){.resume-learning-card{align-items:stretch;flex-direction:column}.coverage-head{display:grid}.coverage-overall{text-align:left}.coverage-grid{grid-template-columns:1fr}}
 
+  
+    /* DATA_CONSISTENCY_CHECK_V25 */
+    .consistency-card {
+      border-color: #d6deee;
+    }
+
+    .consistency-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .consistency-status {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef1f6;
+      color: #667085;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .consistency-status.running {
+      background: #eef3ff;
+      color: #3559e0;
+    }
+
+    .consistency-status.ok {
+      background: #eaf8ef;
+      color: #237447;
+    }
+
+    .consistency-status.warning {
+      background: #fff4e5;
+      color: #a2671d;
+    }
+
+    .consistency-status.error {
+      background: #fff0f0;
+      color: #a53d3d;
+    }
+
+    .consistency-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 15px;
+    }
+
+    .consistency-summary > div {
+      padding: 10px 11px;
+      border: 1px solid #e0e5ef;
+      border-radius: 11px;
+      background: #fafbfe;
+    }
+
+    .consistency-summary strong {
+      display: block;
+      font-size: 20px;
+      color: #273650;
+    }
+
+    .consistency-summary span {
+      color: #737d90;
+      font-size: 10px;
+    }
+
+    .consistency-overall {
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-radius: 11px;
+      font-size: 12px;
+      line-height: 1.7;
+      border: 1px solid #dfe5ef;
+      background: #f8faff;
+      color: #4d5b73;
+    }
+
+    .consistency-overall.ok {
+      border-color: #b9dfc6;
+      background: #f0faf3;
+      color: #276b43;
+    }
+
+    .consistency-overall.warning {
+      border-color: #eed4a8;
+      background: #fff9ef;
+      color: #8b5c1d;
+    }
+
+    .consistency-overall.error {
+      border-color: #e5bbbb;
+      background: #fff5f5;
+      color: #943f3f;
+    }
+
+    .consistency-results {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .consistency-item {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 11px;
+      border: 1px solid #e2e7ef;
+      border-radius: 11px;
+      background: #fff;
+    }
+
+    .consistency-icon {
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 900;
+      background: #eef1f6;
+      color: #667085;
+    }
+
+    .consistency-item.pass .consistency-icon {
+      background: #e8f7ed;
+      color: #267249;
+    }
+
+    .consistency-item.warning .consistency-icon {
+      background: #fff3df;
+      color: #a36a20;
+    }
+
+    .consistency-item.error .consistency-icon {
+      background: #ffeded;
+      color: #a33e3e;
+    }
+
+    .consistency-item.info .consistency-icon {
+      background: #edf2ff;
+      color: #3559e0;
+    }
+
+    .consistency-item-title {
+      font-size: 12px;
+      font-weight: 850;
+      color: #28364e;
+      line-height: 1.5;
+    }
+
+    .consistency-item-detail {
+      margin-top: 3px;
+      color: #6b7589;
+      font-size: 10px;
+      line-height: 1.7;
+      word-break: break-word;
+    }
+
+    @media (max-width: 650px) {
+      .consistency-card-head {
+        display: grid;
+      }
+
+      .consistency-status {
+        justify-self: start;
+      }
+
+      .consistency-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
   </style>
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>V24</h1>
+      <h1>V25</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -4820,6 +4995,34 @@
         <p class="muted" style="font-size:13px;line-height:1.7;">
           所有数据保存在当前浏览器的 localStorage 中。换电脑或清理浏览器前，请先导出JSON备份。
         </p>
+      </div>
+
+      <div class="card settings-block consistency-card">
+        <div class="consistency-card-head">
+          <div>
+            <h3 class="section-title" style="margin-bottom:5px;">完整数据一致性检查</h3>
+            <p class="muted" style="font-size:13px;line-height:1.75;margin:0;">
+              检查词组、覆盖率、断点、日历任务、作文进度、本地保存和云端状态是否互相一致。
+              <strong>只检查，不会自动修改、删除或重算任何学习数据。</strong>
+            </p>
+          </div>
+          <span class="consistency-status" id="consistencyStatusBadge">尚未检查</span>
+        </div>
+
+        <div class="button-row" style="margin-top:14px;">
+          <button class="primary-btn" id="runConsistencyCheckBtn">开始完整检查</button>
+          <span class="muted" id="consistencyLastChecked" style="font-size:12px;"></span>
+        </div>
+
+        <div class="consistency-summary" id="consistencySummary" style="display:none;">
+          <div><strong id="consistencyPassCount">0</strong><span>正常</span></div>
+          <div><strong id="consistencyWarningCount">0</strong><span>提醒</span></div>
+          <div><strong id="consistencyErrorCount">0</strong><span>异常</span></div>
+          <div><strong id="consistencyInfoCount">0</strong><span>信息</span></div>
+        </div>
+
+        <div class="consistency-overall" id="consistencyOverall" style="display:none;"></div>
+        <div class="consistency-results" id="consistencyResults" style="display:none;"></div>
       </div>
 
       <div class="card settings-block">
@@ -10532,10 +10735,805 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     renderReviewCard();
   }
 
+
+  /* DATA_CONSISTENCY_ENGINE_V25 */
+  function consistencyItem(level, title, detail) {
+    return { level, title, detail };
+  }
+
+  function countDuplicates(values) {
+    const seen = new Set();
+    const duplicates = new Set();
+    (values || []).forEach(value => {
+      const key = String(value);
+      if (seen.has(key)) duplicates.add(key);
+      else seen.add(key);
+    });
+    return [...duplicates];
+  }
+
+  function isValidDateValue(value) {
+    if (!value) return false;
+    return !Number.isNaN(new Date(value).getTime());
+  }
+
+  function consistencyStateDigest(data) {
+    const cards = Array.isArray(data?.cards) ? data.cards : [];
+    const planActivities = data?.planActivities && typeof data.planActivities === "object"
+      ? data.planActivities : {};
+    const totalPlanActions = Object.values(planActivities).reduce((sum, day) => {
+      if (!day || typeof day !== "object") return sum;
+      return sum + Object.values(day).reduce((s, value) => s + Math.max(0, Number(value) || 0), 0);
+    }, 0);
+
+    const bigPractice = data?.bigEssayPractice && typeof data.bigEssayPractice === "object"
+      ? data.bigEssayPractice : {};
+    const smallPractice = data?.smallEssayPractice && typeof data.smallEssayPractice === "object"
+      ? data.smallEssayPractice : {};
+
+    const practiceAnswerCount = practice =>
+      Object.values(practice).reduce((sum, bucket) => {
+        if (!bucket || typeof bucket !== "object") return sum;
+        return sum + Object.values(bucket).filter(item => Boolean(String(item?.answer || "").trim())).length;
+      }, 0);
+
+    return {
+      cards: cards.length,
+      cardAttempts: cards.reduce((sum, card) => sum + Math.max(0, Number(card?.attempts) || 0), 0),
+      quizCoverage: new Set(data?.coverage?.quizIds || []).size,
+      planActions: totalPlanActions,
+      bigProgress: Object.keys(data?.bigEssayProgress || {}).length,
+      smallProgress: Object.keys(data?.smallEssayProgress || {}).length,
+      bigAnswers: practiceAnswerCount(bigPractice),
+      smallAnswers: practiceAnswerCount(smallPractice),
+      sessionLog: Array.isArray(data?.sessionLog) ? data.sessionLog.length : 0
+    };
+  }
+
+  function sameConsistencyDigest(a, b) {
+    const left = consistencyStateDigest(a);
+    const right = consistencyStateDigest(b);
+    return Object.keys(left).every(key => left[key] === right[key]);
+  }
+
+  function validateReviewSessionForConsistency(session, cardIds, label) {
+    const results = [];
+    if (!session) {
+      results.push(consistencyItem("pass", `${label}断点`, "当前没有未完成的该类断点。"));
+      return results;
+    }
+
+    const normalized = normalizeReviewSession(session);
+    if (!normalized) {
+      results.push(consistencyItem("error", `${label}断点`, "断点结构无法正常解析。"));
+      return results;
+    }
+
+    const invalid = normalized.queueIds.filter(id => !cardIds.has(id));
+    const duplicates = countDuplicates(normalized.queueIds);
+    const indexOk = normalized.index >= 0 && normalized.index <= normalized.queueIds.length;
+
+    if (invalid.length) {
+      results.push(consistencyItem(
+        "error",
+        `${label}断点存在无效词组ID`,
+        `发现 ${invalid.length} 个当前词库中不存在的ID。`
+      ));
+    } else if (duplicates.length) {
+      results.push(consistencyItem(
+        "warning",
+        `${label}断点题目重复`,
+        `本轮队列中发现 ${duplicates.length} 个重复ID，可能导致同一题重复出现。`
+      ));
+    } else if (!indexOk) {
+      results.push(consistencyItem(
+        "error",
+        `${label}断点位置异常`,
+        `当前位置 ${normalized.index}，队列长度 ${normalized.queueIds.length}。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        `${label}断点`,
+        `队列 ${normalized.queueIds.length} 题，当前位置 ${normalized.index}，所有ID有效。`
+      ));
+    }
+
+    return results;
+  }
+
+  function validateQuizSessionForConsistency(session, cardIds) {
+    const results = [];
+    if (!session) {
+      results.push(consistencyItem("pass", "选择题断点", "当前没有未完成的选择题断点。"));
+      return results;
+    }
+
+    const normalized = normalizeQuizSession(session);
+    if (!normalized) {
+      results.push(consistencyItem("error", "选择题断点", "断点结构无法正常解析。"));
+      return results;
+    }
+
+    const invalidQueue = normalized.queueIds.filter(id => !cardIds.has(id));
+    const invalidWrong = normalized.wrongIds.filter(id => !cardIds.has(id));
+    const duplicates = countDuplicates(normalized.queueIds);
+    const indexOk = normalized.index >= 0 && normalized.index <= normalized.queueIds.length;
+
+    if (invalidQueue.length || invalidWrong.length) {
+      results.push(consistencyItem(
+        "error",
+        "选择题断点存在无效ID",
+        `题目队列无效 ${invalidQueue.length} 个，错题ID无效 ${invalidWrong.length} 个。`
+      ));
+    } else if (duplicates.length) {
+      results.push(consistencyItem(
+        "warning",
+        "选择题断点存在重复题",
+        `队列中发现 ${duplicates.length} 个重复词组ID。`
+      ));
+    } else if (!indexOk) {
+      results.push(consistencyItem(
+        "error",
+        "选择题断点位置异常",
+        `当前位置 ${normalized.index}，队列长度 ${normalized.queueIds.length}。`
+      ));
+    } else if (normalized.correctCount > normalized.index) {
+      results.push(consistencyItem(
+        "error",
+        "选择题正确数异常",
+        `正确数 ${normalized.correctCount} 大于已完成题数 ${normalized.index}。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        "选择题断点",
+        `队列 ${normalized.queueIds.length} 题，已完成 ${normalized.index} 题，断点有效。`
+      ));
+    }
+
+    return results;
+  }
+
+  function collectLocalConsistencyResults() {
+    const results = [];
+    const cardIds = new Set(state.cards.map(card => String(card.id)));
+
+    // 1. 主状态序列化
+    try {
+      const serialized = JSON.stringify(state);
+      JSON.parse(serialized);
+      results.push(consistencyItem(
+        "pass",
+        "主学习状态可完整序列化",
+        `当前状态可正常导出和重新解析，大小约 ${(new Blob([serialized]).size / 1024).toFixed(1)} KB。`
+      ));
+    } catch (error) {
+      results.push(consistencyItem(
+        "error",
+        "主学习状态无法完整序列化",
+        String(error.message || error)
+      ));
+    }
+
+    // 2. localStorage 主状态
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        results.push(consistencyItem("error", "本地主学习数据", "localStorage 中没有找到主学习状态。"));
+      } else {
+        const parsed = JSON.parse(raw);
+        const sameTime = String(parsed.updatedAt || "") === String(state.updatedAt || "");
+        const sameDigest = sameConsistencyDigest(parsed, state);
+
+        if (sameTime && sameDigest) {
+          results.push(consistencyItem(
+            "pass",
+            "本地保存与当前内存一致",
+            `localStorage 大小约 ${(new Blob([raw]).size / 1024).toFixed(1)} KB，核心统计一致。`
+          ));
+        } else {
+          results.push(consistencyItem(
+            "warning",
+            "本地保存与当前内存存在差异",
+            `更新时间一致：${sameTime ? "是" : "否"}；核心统计一致：${sameDigest ? "是" : "否"}。如果刚输入尚未触发保存，短暂差异可能正常。`
+          ));
+        }
+      }
+    } catch (error) {
+      results.push(consistencyItem(
+        "error",
+        "本地主学习数据损坏",
+        `localStorage 主状态无法解析：${error.message || error}`
+      ));
+    }
+
+    // 3. 内置词库完整性
+    const seedIdentities = new Set(SEED_CARDS.map(card => cardIdentity(normalizeCard(card))));
+    const currentIdentities = new Set(state.cards.map(card => cardIdentity(card)));
+    const missingSeed = [...seedIdentities].filter(id => !currentIdentities.has(id));
+    const duplicateIds = countDuplicates(state.cards.map(card => card.id));
+    const duplicateIdentityCount = state.cards.length - currentIdentities.size;
+    const emptyCards = state.cards.filter(card => !String(card.phrase || "").trim() || !String(card.meaning || "").trim());
+
+    if (missingSeed.length) {
+      results.push(consistencyItem(
+        "error",
+        "内置词库缺失",
+        `当前状态缺少 ${missingSeed.length} 条内置词组。`
+      ));
+    } else if (duplicateIds.length) {
+      results.push(consistencyItem(
+        "error",
+        "词组ID重复",
+        `发现 ${duplicateIds.length} 个重复ID。`
+      ));
+    } else if (duplicateIdentityCount > 0) {
+      results.push(consistencyItem(
+        "warning",
+        "词组内容身份重复",
+        `发现 ${duplicateIdentityCount} 条“年份+章节+词组”重复记录。`
+      ));
+    } else if (emptyCards.length) {
+      results.push(consistencyItem(
+        "error",
+        "词组内容不完整",
+        `发现 ${emptyCards.length} 条词组缺少英文或中文含义。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        "词库完整性",
+        `内置 ${SEED_CARDS.length} 条全部存在；当前共 ${state.cards.length} 条，无重复ID和空内容。`
+      ));
+    }
+
+    // 4. 学习计数合法性
+    const badCounters = state.cards.filter(card => {
+      const attempts = Number(card.attempts) || 0;
+      const correct = Number(card.correct) || 0;
+      const lapses = Number(card.lapses) || 0;
+      const reps = Number(card.repetitions) || 0;
+      return attempts < 0 || correct < 0 || lapses < 0 || reps < 0 || correct > attempts;
+    });
+    const badDue = state.cards.filter(card => !isValidDateValue(card.due));
+
+    if (badCounters.length || badDue.length) {
+      results.push(consistencyItem(
+        "error",
+        "词组学习计数异常",
+        `计数异常 ${badCounters.length} 条；due日期无效 ${badDue.length} 条。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        "词组学习计数",
+        "attempts、correct、lapses、repetitions 和 due 均在合法范围内。"
+      ));
+    }
+
+    // 5. 标记体系
+    const groupIds = state.markGroups.map(item => String(item.id));
+    const markIds = state.customMarks.map(item => String(item.id));
+    const groupIdSet = new Set(groupIds);
+    const markIdSet = new Set(markIds);
+
+    const duplicateGroups = countDuplicates(groupIds);
+    const duplicateMarks = countDuplicates(markIds);
+    const orphanMarks = state.customMarks.filter(mark => !groupIdSet.has(String(mark.groupId)));
+    const orphanCardMarkRefs = state.cards.reduce((sum, card) => {
+      return sum + (card.userMarkIds || []).filter(id => !markIdSet.has(String(id))).length;
+    }, 0);
+
+    if (duplicateGroups.length || duplicateMarks.length || orphanMarks.length || orphanCardMarkRefs) {
+      results.push(consistencyItem(
+        "error",
+        "个人标记引用异常",
+        `重复分组ID ${duplicateGroups.length}；重复标记ID ${duplicateMarks.length}；无所属分组标记 ${orphanMarks.length}；词组无效标记引用 ${orphanCardMarkRefs}。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        "个人标记体系",
+        `${state.markGroups.length} 个分组、${state.customMarks.length} 个标记，引用关系正常。`
+      ));
+    }
+
+    // 6. 选择题覆盖率
+    const quizIds = state.coverage?.quizIds || [];
+    const quizWrongIds = state.coverage?.quizWrongIds || [];
+    const quizFirstAt = state.coverage?.quizFirstAt || {};
+    const invalidQuizIds = quizIds.filter(id => !cardIds.has(String(id)));
+    const invalidWrongIds = quizWrongIds.filter(id => !cardIds.has(String(id)));
+    const wrongNotCovered = quizWrongIds.filter(id => !new Set(quizIds.map(String)).has(String(id)));
+    const invalidFirstAt = Object.entries(quizFirstAt)
+      .filter(([id, value]) => !cardIds.has(String(id)) || !isValidDateValue(value));
+
+    if (invalidQuizIds.length || invalidWrongIds.length || wrongNotCovered.length || invalidFirstAt.length) {
+      results.push(consistencyItem(
+        "error",
+        "选择题覆盖记录异常",
+        `覆盖无效ID ${invalidQuizIds.length}；错题无效ID ${invalidWrongIds.length}；错题未包含在覆盖中 ${wrongNotCovered.length}；首次时间异常 ${invalidFirstAt.length}。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        "选择题覆盖记录",
+        `首次覆盖 ${new Set(quizIds).size} 个不同词组；当前未纠正错题 ${new Set(quizWrongIds).size} 个。`
+      ));
+    }
+
+    // 7. 覆盖率边界
+    try {
+      const snap = coverageSnapshot();
+      const metricKeys = ["words","quiz","bigOriginal","bigImitation","smallOriginal","smallImitation","smallWhole","smallFunction"];
+      const impossible = metricKeys.filter(key => {
+        const item = snap[key];
+        return !item || item.completed < 0 || item.total < 0 || item.completed > item.total;
+      });
+
+      const datasetMismatch = [];
+      if (SENTENCE_IMITATION_TASKS.length !== 300) datasetMismatch.push(`大作文仿写=${SENTENCE_IMITATION_TASKS.length}`);
+      if (typeof SMALL_SENTENCE_TASKS !== "undefined" && SMALL_SENTENCE_TASKS.length !== 56) datasetMismatch.push(`小作文仿写=${SMALL_SENTENCE_TASKS.length}`);
+      if (typeof SMALL_WHOLE !== "undefined" && SMALL_WHOLE.length !== 14) datasetMismatch.push(`小作文整篇=${SMALL_WHOLE.length}`);
+      if (typeof SMALL_FUNCTIONS !== "undefined" && SMALL_FUNCTIONS.length !== 25) datasetMismatch.push(`功能句=${SMALL_FUNCTIONS.length}`);
+      if (allBigOriginalSentenceIds().length !== 73) datasetMismatch.push(`大作文原句=${allBigOriginalSentenceIds().length}`);
+      if (typeof SMALL_ESSAYS !== "undefined" && allSmallOriginalSentenceIds().length !== 106) datasetMismatch.push(`小作文原句=${allSmallOriginalSentenceIds().length}`);
+
+      if (impossible.length || datasetMismatch.length) {
+        results.push(consistencyItem(
+          "error",
+          "全库覆盖统计异常",
+          `越界指标：${impossible.join("、") || "无"}；题库数量异常：${datasetMismatch.join("、") || "无"}。`
+        ));
+      } else {
+        results.push(consistencyItem(
+          "pass",
+          "全库覆盖统计",
+          `覆盖率 ${snap.overallPercent}%；8项覆盖计数均未超过题库总量，题库基准数量正常。`
+        ));
+      }
+    } catch (error) {
+      results.push(consistencyItem(
+        "error",
+        "全库覆盖统计无法计算",
+        String(error.message || error)
+      ));
+    }
+
+    // 8. 大作文数据
+    const bigEssayIds = new Set(BIG_ESSAY_SEED.map(item => item.id));
+    const stateBigEssayIds = new Set(state.bigEssays.map(item => item.id));
+    const missingBigEssays = [...bigEssayIds].filter(id => !stateBigEssayIds.has(id));
+    const validBigSentenceIds = new Set(allBigOriginalSentenceIds());
+    const orphanBigProgress = Object.keys(state.bigEssayProgress || {}).filter(id => !validBigSentenceIds.has(id));
+
+    const validBigImitationIds = new Set([
+      ...SENTENCE_IMITATION_TASKS.map(task => task.id),
+      ...allBigOriginalSentenceIds().map(id => `inline-${id}`)
+    ]);
+    const orphanBigImitation = Object.keys(state.bigEssayPractice?.sentenceImitation || {})
+      .filter(id => !validBigImitationIds.has(id));
+
+    if (missingBigEssays.length || orphanBigProgress.length || orphanBigImitation.length) {
+      results.push(consistencyItem(
+        "error",
+        "大作文数据引用异常",
+        `缺失作文 ${missingBigEssays.length}；孤立原句进度 ${orphanBigProgress.length}；孤立句子仿写记录 ${orphanBigImitation.length}。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        "大作文数据",
+        `5篇作文、73个确认原句和300道仿写的核心引用正常。`
+      ));
+    }
+
+    // 9. 小作文数据
+    if (typeof SMALL_ESSAYS !== "undefined") {
+      const smallEssayIds = new Set(SMALL_ESSAYS.map(item => item.id));
+      const stateSmallEssayIds = new Set(state.smallEssays.map(item => item.id));
+      const missingSmallEssays = [...smallEssayIds].filter(id => !stateSmallEssayIds.has(id));
+      const validSmallSentenceIds = new Set(allSmallOriginalSentenceIds());
+      const orphanSmallProgress = Object.keys(state.smallEssayProgress || {}).filter(id => !validSmallSentenceIds.has(id));
+
+      const validSmallImitationIds = new Set((SMALL_SENTENCE_TASKS || []).map(item => item.id));
+      const validSmallFunctionIds = new Set((SMALL_FUNCTIONS || []).map(item => item.id));
+      const validSmallWholeIds = new Set(
+        (SMALL_WHOLE || []).flatMap(task => (task.units || []).map(unit => `${task.id}-${unit.id}`))
+      );
+      const validSmallInlineIds = validSmallSentenceIds;
+      const validSmallDictationIds = new Set([
+        ...validSmallSentenceIds,
+        ...[...validSmallSentenceIds].map(id => `study-${id}`)
+      ]);
+
+      const orphanSmallImitation = Object.keys(state.smallEssayPractice?.sentenceImitation || {})
+        .filter(id => !validSmallImitationIds.has(id));
+      const orphanSmallFunction = Object.keys(state.smallEssayPractice?.functionPractice || {})
+        .filter(id => !validSmallFunctionIds.has(id));
+      const orphanSmallWhole = Object.keys(state.smallEssayPractice?.wholeImitation || {})
+        .filter(id => !validSmallWholeIds.has(id));
+      const orphanSmallInline = Object.keys(state.smallEssayPractice?.inline || {})
+        .filter(id => !validSmallInlineIds.has(id));
+      const orphanSmallDictation = Object.keys(state.smallEssayPractice?.dictation || {})
+        .filter(id => !validSmallDictationIds.has(id));
+
+      const orphanTotal = orphanSmallImitation.length + orphanSmallFunction.length
+        + orphanSmallWhole.length + orphanSmallInline.length + orphanSmallDictation.length;
+
+      if (missingSmallEssays.length || orphanSmallProgress.length || orphanTotal) {
+        results.push(consistencyItem(
+          "error",
+          "小作文数据引用异常",
+          `缺失作文 ${missingSmallEssays.length}；孤立原句进度 ${orphanSmallProgress.length}；孤立练习记录 ${orphanTotal}。`
+        ));
+      } else {
+        results.push(consistencyItem(
+          "pass",
+          "小作文数据",
+          "14篇小作文、106个正文句子、56道仿写、14道整篇任务和25道功能句引用正常。"
+        ));
+      }
+    } else {
+      results.push(consistencyItem(
+        "warning",
+        "小作文模块尚未初始化",
+        "当前无法完成小作文引用检查。重新进入设置页后再次检查即可。"
+      ));
+    }
+
+    // 10. 断点
+    results.push(...validateReviewSessionForConsistency(state.reviewSession, cardIds, "词组学习/复习"));
+    results.push(...validateQuizSessionForConsistency(state.quizSession, cardIds));
+
+    // 11. 独立断点备份
+    try {
+      const rawBackup = localStorage.getItem(SESSION_BACKUP_KEY);
+      if (!rawBackup) {
+        if (state.reviewSession || state.quizSession) {
+          results.push(consistencyItem(
+            "warning",
+            "独立断点备份缺失",
+            "主状态存在未完成断点，但独立断点备份为空。关闭页面前应再次保存。"
+          ));
+        } else {
+          results.push(consistencyItem(
+            "pass",
+            "独立断点备份",
+            "当前没有未完成会话，因此独立断点备份为空属于正常情况。"
+          ));
+        }
+      } else {
+        const parsedBackup = JSON.parse(rawBackup);
+        const backupReview = normalizeReviewSession(parsedBackup.reviewSession);
+        const backupQuiz = normalizeQuizSession(parsedBackup.quizSession);
+
+        const reviewNewer = sessionTimestamp(backupReview) > sessionTimestamp(state.reviewSession);
+        const quizNewer = sessionTimestamp(backupQuiz) > sessionTimestamp(state.quizSession);
+
+        if (reviewNewer || quizNewer) {
+          results.push(consistencyItem(
+            "warning",
+            "独立断点备份比主状态更新",
+            `词组断点更晚：${reviewNewer ? "是" : "否"}；选择题断点更晚：${quizNewer ? "是" : "否"}。恢复机制仍会优先保留较新的备份。`
+          ));
+        } else {
+          results.push(consistencyItem(
+            "pass",
+            "独立断点备份",
+            "独立断点备份可解析，且没有发现它比当前主状态更新。"
+          ));
+        }
+      }
+    } catch (error) {
+      results.push(consistencyItem(
+        "error",
+        "独立断点备份损坏",
+        String(error.message || error)
+      ));
+    }
+
+    // 12. 学习计划计数
+    let invalidPlanCounts = 0;
+    Object.values(state.planActivities || {}).forEach(day => {
+      if (!day || typeof day !== "object") {
+        invalidPlanCounts += 1;
+        return;
+      }
+      Object.values(day).forEach(value => {
+        const n = Number(value);
+        if (!Number.isFinite(n) || n < 0) invalidPlanCounts += 1;
+      });
+    });
+
+    if (invalidPlanCounts) {
+      results.push(consistencyItem(
+        "error",
+        "学习计划计数异常",
+        `发现 ${invalidPlanCounts} 个负数或非数字计数。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        "学习计划计数",
+        "所有已保存的计划活动次数均为非负有效数字。"
+      ));
+    }
+
+    // 13. 防止“没做却变绿”
+    let falseCompletions = 0;
+    let checkedV24Completions = 0;
+
+    Object.entries(state.planTaskCompletions || {}).forEach(([dateKey, completionMap]) => {
+      if (!completionMap || typeof completionMap !== "object") return;
+
+      let plan;
+      try {
+        plan = studyPlanForDate(dateKey);
+      } catch (_) {
+        return;
+      }
+
+      const byId = new Map((plan.tasks || []).map(task => [task.id, task]));
+
+      Object.entries(completionMap).forEach(([taskId, done]) => {
+        if (!done || !String(taskId).startsWith("v24-core-")) return;
+        const task = byId.get(taskId);
+        if (!task) return;
+        checkedV24Completions += 1;
+        const actual = planActivityCount(dateKey, task.activity);
+        if (actual < task.target) falseCompletions += 1;
+      });
+    });
+
+    if (falseCompletions) {
+      results.push(consistencyItem(
+        "error",
+        "发现可能的错误绿色完成状态",
+        `检查了 ${checkedV24Completions} 个V24核心完成标记，其中 ${falseCompletions} 个的实际完成数量低于任务目标。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        "日历完成状态",
+        `检查了 ${checkedV24Completions} 个V24核心完成标记，没有发现“数量未达标却被标记完成”的情况。`
+      ));
+    }
+
+    // 14. 今日显示状态再核对
+    try {
+      const today = planDayStatus(new Date());
+      const unmet = today.plan.tasks.filter(task => {
+        const count = planActivityCount(today.key, task.activity);
+        return count < task.target;
+      });
+
+      if (today.coreComplete && unmet.length) {
+        results.push(consistencyItem(
+          "error",
+          "今日核心状态与实际数量冲突",
+          `页面判定核心完成，但仍有 ${unmet.length} 项实际数量未达标。`
+        ));
+      } else {
+        results.push(consistencyItem(
+          "pass",
+          "今日计划状态",
+          `今日核心完成 ${today.done}/${today.total} 项，状态与当前任务数量没有发现直接冲突。`
+        ));
+      }
+    } catch (error) {
+      results.push(consistencyItem(
+        "error",
+        "今日计划状态无法计算",
+        String(error.message || error)
+      ));
+    }
+
+    // 15. 设置/日期
+    const examValid = /^\d{4}-\d{2}-\d{2}$/.test(String(state.settings?.examDate || ""))
+      && isValidDateValue(`${state.settings.examDate}T00:00:00`);
+    const startValid = /^\d{4}-\d{2}-\d{2}$/.test(String(state.settings?.checkinStartDate || ""))
+      && isValidDateValue(`${state.settings.checkinStartDate}T00:00:00`);
+
+    if (!examValid || !startValid) {
+      results.push(consistencyItem(
+        "error",
+        "日期设置异常",
+        `考试日期有效：${examValid ? "是" : "否"}；打卡开始日期有效：${startValid ? "是" : "否"}。`
+      ));
+    } else {
+      results.push(consistencyItem(
+        "pass",
+        "日期设置",
+        `考试日期 ${state.settings.examDate}，打卡开始日期 ${state.settings.checkinStartDate}，格式正常。`
+      ));
+    }
+
+    return results;
+  }
+
+  async function collectCloudConsistencyResults() {
+    const results = [];
+
+    if (!supabaseClient || !cloudUser) {
+      results.push(consistencyItem(
+        "info",
+        "云端一致性",
+        "当前未登录云端账号，因此本次只完成本地数据检查。"
+      ));
+      return results;
+    }
+
+    try {
+      const { data, error } = await withCloudTimeout(
+        supabaseClient
+          .from("study_state")
+          .select("data, updated_at")
+          .eq("user_id", cloudUser.id)
+          .maybeSingle(),
+        "一致性检查",
+        20000
+      );
+
+      if (error) throw error;
+
+      if (!data || !data.data) {
+        results.push(consistencyItem(
+          "warning",
+          "云端记录不存在",
+          "当前账号已登录，但study_state中没有找到对应记录。本地数据仍然存在。"
+        ));
+        return results;
+      }
+
+      const localTime = new Date(state.updatedAt || 0).getTime();
+      const cloudTime = new Date(data.updated_at || data.data.updatedAt || 0).getTime();
+      const diffSeconds = Number.isFinite(localTime) && Number.isFinite(cloudTime)
+        ? Math.round((localTime - cloudTime) / 1000)
+        : 0;
+      const digestSame = sameConsistencyDigest(state, data.data);
+
+      if (Math.abs(diffSeconds) <= 2 && digestSame) {
+        results.push(consistencyItem(
+          "pass",
+          "本地与云端核心数据一致",
+          "更新时间基本一致，词组学习次数、覆盖率、计划计数、作文记录和日志核心统计一致。"
+        ));
+      } else if (localTime > cloudTime) {
+        results.push(consistencyItem(
+          "warning",
+          "本地数据比云端更新",
+          `本地约领先云端 ${Math.max(0, diffSeconds)} 秒；核心统计一致：${digestSame ? "是" : "否"}。通常表示仍有内容等待上传。`
+        ));
+      } else if (cloudTime > localTime) {
+        results.push(consistencyItem(
+          "warning",
+          "云端数据比本地更新",
+          `云端约领先本地 ${Math.max(0, -diffSeconds)} 秒；核心统计一致：${digestSame ? "是" : "否"}。正常情况下重新同步后本地应更新。`
+        ));
+      } else if (!digestSame) {
+        results.push(consistencyItem(
+          "error",
+          "本地与云端时间相同但核心统计不同",
+          "更新时间相同，但词组/覆盖率/计划/作文等核心统计不一致，需要重点关注同步状态。"
+        ));
+      } else {
+        results.push(consistencyItem(
+          "pass",
+          "云端状态",
+          "未发现明显的核心数据差异。"
+        ));
+      }
+    } catch (error) {
+      results.push(consistencyItem(
+        "warning",
+        "云端检查未完成",
+        `本地检查不受影响。云端请求失败：${error.message || error}`
+      ));
+    }
+
+    return results;
+  }
+
+  function consistencyLevelMeta(level) {
+    return ({
+      pass:{icon:"✓",label:"正常"},
+      warning:{icon:"!",label:"提醒"},
+      error:{icon:"×",label:"异常"},
+      info:{icon:"i",label:"信息"}
+    })[level] || {icon:"i",label:"信息"};
+  }
+
+  function renderConsistencyResults(results) {
+    const counts = {pass:0,warning:0,error:0,info:0};
+    results.forEach(item => counts[item.level] = (counts[item.level] || 0) + 1);
+
+    $("consistencyPassCount").textContent = counts.pass;
+    $("consistencyWarningCount").textContent = counts.warning;
+    $("consistencyErrorCount").textContent = counts.error;
+    $("consistencyInfoCount").textContent = counts.info;
+
+    $("consistencySummary").style.display = "grid";
+    $("consistencyOverall").style.display = "";
+    $("consistencyResults").style.display = "grid";
+
+    const badge = $("consistencyStatusBadge");
+    badge.classList.remove("running","ok","warning","error");
+
+    const overall = $("consistencyOverall");
+    overall.classList.remove("ok","warning","error");
+
+    if (counts.error > 0) {
+      badge.textContent = `发现 ${counts.error} 个异常`;
+      badge.classList.add("error");
+      overall.classList.add("error");
+      overall.innerHTML = `<strong>检查完成：发现需要处理的数据异常。</strong><br>异常 ${counts.error} 项，提醒 ${counts.warning} 项。检查过程没有修改任何数据。`;
+    } else if (counts.warning > 0) {
+      badge.textContent = `有 ${counts.warning} 个提醒`;
+      badge.classList.add("warning");
+      overall.classList.add("warning");
+      overall.innerHTML = `<strong>核心数据未发现硬性错误，但有需要留意的状态。</strong><br>提醒 ${counts.warning} 项。检查过程没有修改任何数据。`;
+    } else {
+      badge.textContent = "全部正常";
+      badge.classList.add("ok");
+      overall.classList.add("ok");
+      overall.innerHTML = `<strong>完整数据一致性检查通过。</strong><br>没有发现学习记录、覆盖率、断点、日历任务或保存状态之间的明显冲突。`;
+    }
+
+    $("consistencyResults").innerHTML = results.map(item => {
+      const meta = consistencyLevelMeta(item.level);
+      return `<div class="consistency-item ${escapeHtml(item.level)}">
+        <span class="consistency-icon">${escapeHtml(meta.icon)}</span>
+        <div>
+          <div class="consistency-item-title">${escapeHtml(item.title)}</div>
+          <div class="consistency-item-detail">${escapeHtml(item.detail)}</div>
+        </div>
+      </div>`;
+    }).join("");
+
+    $("consistencyLastChecked").textContent =
+      `上次检查：${new Date().toLocaleString("zh-CN")}`;
+  }
+
+  async function runFullConsistencyCheck() {
+    const button = $("runConsistencyCheckBtn");
+    const badge = $("consistencyStatusBadge");
+
+    button.disabled = true;
+    button.textContent = "正在检查……";
+    badge.textContent = "检查中";
+    badge.classList.remove("ok","warning","error");
+    badge.classList.add("running");
+
+    $("consistencySummary").style.display = "none";
+    $("consistencyOverall").style.display = "none";
+    $("consistencyResults").style.display = "none";
+
+    try {
+      // 重要：只读取，不调用saveState，不自动修复。
+      const localResults = collectLocalConsistencyResults();
+      const cloudResults = await collectCloudConsistencyResults();
+      renderConsistencyResults([...localResults, ...cloudResults]);
+    } catch (error) {
+      console.error(error);
+      renderConsistencyResults([
+        consistencyItem(
+          "error",
+          "完整检查执行失败",
+          String(error.message || error)
+        )
+      ]);
+    } finally {
+      button.disabled = false;
+      button.textContent = "重新检查";
+    }
+  }
+
   function exportData() {
     const payload = {
       app: "考研英语词组记忆器",
-      version: 24,
+      version: 25,
       exportedAt: new Date().toISOString(),
       ...state
     };
@@ -11060,6 +12058,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       showToast("设置已保存");
     });
 
+    $("runConsistencyCheckBtn").addEventListener("click", () => runFullConsistencyCheck());
     $("exportBtn").addEventListener("click", exportData);
     $("importFile").addEventListener("change", e => {
       const file = e.target.files[0];

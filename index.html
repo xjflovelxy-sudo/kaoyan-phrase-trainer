@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="考研英语词组记忆器" />
+  <meta name="application-name" content="V20" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="考研词组" />
+  <meta name="apple-mobile-web-app-title" content="V20" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（真实复习打勾修正版V19）</title>
+  <title>V20</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -3497,13 +3497,39 @@
       line-height: 1.65;
     }
 
+  
+    /* SESSION_RESUME_V20 */
+    .session-resume-note {
+      display: none;
+      margin: 10px 0 0;
+      padding: 9px 11px;
+      border: 1px solid #c8d4f5;
+      border-radius: 10px;
+      background: #f2f6ff;
+      color: #36518f;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    .review-head .session-reset-btn {
+      min-height: 28px;
+      padding: 4px 9px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.42);
+      background: rgba(255,255,255,.14);
+      color: inherit;
+      font-size: 10px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .review-head .session-reset-btn:hover { background: rgba(255,255,255,.25); }
+
   </style>
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>考研英语词组记忆器·真实复习打勾修正版V19</h1>
+      <h1>V20</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -3842,7 +3868,9 @@
         <div class="review-head">
           <span id="reviewProgress">尚未开始</span>
           <span id="reviewModeText">中文 → 英文</span>
+          <button class="session-reset-btn" id="restartReviewRoundBtn" style="display:none;">重新开始本轮</button>
         </div>
+        <div class="session-resume-note" id="reviewResumeNote"></div>
         <div class="card review-card">
           <div>
             <div class="pill-row" id="reviewPills"></div>
@@ -4649,6 +4677,8 @@
   let currentView = "dashboard";
   let reviewQueue = [];
   let reviewPlanActivityOverride = "";
+  let reviewSessionKind = "";
+  let reviewSessionMeta = {};
   let reviewIndex = 0;
   let currentMode = state.settings.defaultMode || "zh-en";
   let currentAnswered = false;
@@ -4745,6 +4775,8 @@
       correct: Number(card.correct) || 0,
       lastResult: card.lastResult || "",
       lastReviewed: card.lastReviewed || null,
+      lastPlanErrorReviewDate: String(card.lastPlanErrorReviewDate || ""),
+      lastSupplementReviewDate: String(card.lastSupplementReviewDate || ""),
       createdAt: card.createdAt || new Date(Date.now() + index).toISOString(),
       suspended: Boolean(card.suspended)
     };
@@ -5458,6 +5490,41 @@
     return seed.map(item => ({...item, archived: Boolean(savedMap.get(item.id)?.archived)}));
   }
 
+
+  function normalizeReviewSession(value) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+    const queueIds = Array.isArray(value.queueIds) ? value.queueIds.map(String).filter(Boolean) : [];
+    if (!queueIds.length) return null;
+    return {
+      version: 1,
+      dateKey: String(value.dateKey || ""),
+      kind: String(value.kind || "review"),
+      queueIds,
+      index: Math.max(0, Math.min(queueIds.length, Number(value.index) || 0)),
+      mode: value.mode === "en-zh" ? "en-zh" : "zh-en",
+      activityOverride: String(value.activityOverride || ""),
+      meta: value.meta && typeof value.meta === "object" && !Array.isArray(value.meta) ? value.meta : {},
+      draft: String(value.draft || ""),
+      updatedAt: String(value.updatedAt || "")
+    };
+  }
+
+  function normalizeQuizSession(value) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+    const queueIds = Array.isArray(value.queueIds) ? value.queueIds.map(String).filter(Boolean) : [];
+    if (!queueIds.length) return null;
+    return {
+      version: 1,
+      dateKey: String(value.dateKey || ""),
+      queueIds,
+      index: Math.max(0, Math.min(queueIds.length, Number(value.index) || 0)),
+      correctCount: Math.max(0, Number(value.correctCount) || 0),
+      wrongIds: Array.isArray(value.wrongIds) ? value.wrongIds.map(String).filter(Boolean) : [],
+      wrongRetry: Boolean(value.wrongRetry),
+      updatedAt: String(value.updatedAt || "")
+    };
+  }
+
   function initialState() {
     return {
       cards: SEED_CARDS.map(normalizeCard),
@@ -5467,6 +5534,8 @@
       dailyStudy: {},
       planActivities: {},
       planTaskCompletions: {},
+      reviewSession: null,
+      quizSession: null,
       bigEssays: mergeBigEssaysWithSeed([]),
       bigEssayProgress: {},
       bigEssayPractice: normalizeBigEssayPractice({}),
@@ -5493,6 +5562,8 @@
         dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
         planActivities: normalizePlanActivities(parsed.planActivities),
         planTaskCompletions: normalizePlanTaskCompletions(parsed.planTaskCompletions),
+        reviewSession: normalizeReviewSession(parsed.reviewSession),
+        quizSession: normalizeQuizSession(parsed.quizSession),
         bigEssays: mergeBigEssaysWithSeed(parsed.bigEssays),
         bigEssayProgress: normalizeBigEssayProgress(parsed.bigEssayProgress),
         bigEssayPractice: normalizeBigEssayPractice(parsed.bigEssayPractice),
@@ -5865,6 +5936,8 @@
           dailyStudy: normalizeDailyStudy(data.data.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(data.data.planActivities),
           planTaskCompletions: normalizePlanTaskCompletions(data.data.planTaskCompletions),
+          reviewSession: normalizeReviewSession(data.data.reviewSession),
+          quizSession: normalizeQuizSession(data.data.quizSession),
           bigEssays: mergeBigEssaysWithSeed(data.data.bigEssays),
           bigEssayProgress: normalizeBigEssayProgress(data.data.bigEssayProgress),
           bigEssayPractice: normalizeBigEssayPractice(data.data.bigEssayPractice),
@@ -5879,7 +5952,16 @@
         populateYearSelects();
         populateCustomMarkSelects();
         renderDashboard();
-        if (currentView === "quiz") renderQuizSetup();
+        if (currentView === "quiz") {
+          quizQueue = [];
+          quizIndex = 0;
+          renderQuizSetup();
+        }
+        if (currentView === "review") {
+          reviewQueue = [];
+          reviewIndex = 0;
+          resumeAnyReviewSession();
+        }
         if (currentView === "bigEssay") renderBigEssay();
         if (currentView === "smallEssay" && typeof renderSmallEssay === "function") renderSmallEssay();
         if (currentView === "studyPlan") renderStudyPlanView();
@@ -8221,6 +8303,10 @@
 
   function renderQuizSetup() {
     populateYearSelects();
+    const resumableQuiz = activeQuizSession();
+    $("quizStartBtn").textContent = resumableQuiz
+      ? `继续上次选择题 ${resumableQuiz.index}/${resumableQuiz.queueIds.length}`
+      : "开始选择题";
     populateCustomMarkSelects();
     if (quizQueue.length && quizIndex < quizQueue.length && $("quizPlayPanel").style.display !== "none") return;
 
@@ -8366,7 +8452,58 @@
     return buildGeneralQuizQuestion(card);
   }
 
+
+  function activeQuizSession() {
+    const session = normalizeQuizSession(state.quizSession);
+    if (!session) return null;
+    if (session.dateKey !== localDateKey() || session.index >= session.queueIds.length) return null;
+    return session;
+  }
+
+  function saveQuizSession() {
+    if (!quizQueue.length || quizIndex >= quizQueue.length) {
+      state.quizSession = null;
+    } else {
+      state.quizSession = {
+        version: 1,
+        dateKey: localDateKey(),
+        queueIds: quizQueue.map(card => card.id),
+        index: quizIndex,
+        correctCount: quizCorrectCount,
+        wrongIds: [...quizWrongIds],
+        wrongRetry: quizWrongRetryMode,
+        updatedAt: new Date().toISOString()
+      };
+    }
+    saveState();
+  }
+
+  function restoreQuizSession() {
+    const session = activeQuizSession();
+    if (!session) return false;
+    const queue = session.queueIds.map(id => state.cards.find(card => card.id === id)).filter(Boolean);
+    if (!queue.length || session.index >= queue.length) {
+      state.quizSession = null;
+      saveState();
+      return false;
+    }
+    quizQueue = queue;
+    quizIndex = session.index;
+    quizAnswered = false;
+    quizCorrectCount = session.correctCount;
+    quizWrongIds = [...session.wrongIds];
+    quizWrongRetryMode = session.wrongRetry;
+    quizCurrentQuestion = null;
+    $("quizSetupPanel").style.display = "none";
+    $("quizSummaryPanel").style.display = "none";
+    $("quizPlayPanel").style.display = "";
+    renderQuizQuestion();
+    showToast(`已继续选择题 ${quizIndex}/${quizQueue.length}`);
+    return true;
+  }
+
   function startQuiz(customCards = null, options = {}) {
+    if (!customCards && !options.forceNew && restoreQuizSession()) return;
     quizWrongRetryMode = Boolean(options.wrongRetry);
     let cards = Array.isArray(customCards) ? customCards : quizEligibleCards();
     if (!cards.length) {
@@ -8386,6 +8523,7 @@
     $("quizSetupPanel").style.display="none";
     $("quizSummaryPanel").style.display="none";
     $("quizPlayPanel").style.display="";
+    saveQuizSession();
     renderQuizQuestion();
   }
 
@@ -8458,6 +8596,12 @@
     const card=quizCurrentQuestion.card;
     if (isCorrect) quizCorrectCount += 1;
     else quizWrongIds.push(card.id);
+    if (state.quizSession) {
+      state.quizSession.index = quizIndex + 1;
+      state.quizSession.correctCount = quizCorrectCount;
+      state.quizSession.wrongIds = [...quizWrongIds];
+      state.quizSession.updatedAt = new Date().toISOString();
+    }
     recordQuizResult(card,isCorrect,quizCurrentQuestion.direction);
 
     [...$("quizOptions").querySelectorAll(".quiz-option")].forEach((button,index)=>{
@@ -8514,6 +8658,8 @@
     $("quizSummaryScore").textContent=`${pct}%`;
     $("quizSummaryText").innerHTML=`本轮共完成 <strong>${total}</strong> 题，答对 <strong>${quizCorrectCount}</strong> 题，答错 <strong>${quizWrongIds.length}</strong> 题。错题已经计入错词本和间隔复习。`;
     $("quizRetryWrongBtn").style.display=uniqueWrong.length ? "" : "none";
+    state.quizSession = null;
+    saveState();
     $("quizWrongList").innerHTML=uniqueWrong.length ? uniqueWrong.map(id=>{
       const card=state.cards.find(item=>item.id===id);
       if (!card) return "";
@@ -8537,6 +8683,8 @@
     quizIndex=0;
     quizCurrentQuestion=null;
     quizWrongRetryMode=false;
+    state.quizSession=null;
+    saveState();
     renderQuizSetup();
   }
 
@@ -8585,7 +8733,7 @@
 
   function getSupplementReviewQueue(target = 40) {
     return state.cards
-      .filter(card => !card.suspended)
+      .filter(card => !card.suspended && card.lastSupplementReviewDate !== localDateKey())
       .slice()
       .sort((a, b) =>
         supplementCardPriority(b) - supplementCardPriority(a)
@@ -8595,18 +8743,21 @@
       .slice(0, Math.max(1, target));
   }
 
-  function startSupplementReview() {
+  function startSupplementReview(forceNew = false) {
+    if (!forceNew && restoreReviewSession("supplement")) return;
     const task = studyPlanForDate(new Date()).tasks.find(item => item.activity === "supplementReview");
     const target = task?.target || 40;
 
-    reviewQueue = getSupplementReviewQueue(target);
-    reviewIndex = 0;
+    const queue = getSupplementReviewQueue(target);
     reviewPlanActivityOverride = "supplementReview";
+    reviewQueue = queue;
+    reviewIndex = 0;
     currentMode = state.settings.defaultMode || "zh-en";
     currentAnswered = false;
     switchView("review");
 
     if (!reviewQueue.length) {
+      clearReviewSession();
       $("reviewPrompt").textContent = "当前没有可用于补充练习的词组";
       $("promptLabel").textContent = "未发生复习，不计入完成";
       $("answerInput").style.display = "none";
@@ -8615,16 +8766,25 @@
       $("reviewPills").innerHTML = "";
       $("reviewContext").style.display = "none";
       $("reviewProgress").textContent = "0 / 0";
+      $("restartReviewRoundBtn").style.display = "none";
+      $("reviewResumeNote").style.display = "none";
       return;
     }
 
+    beginReviewSession("supplement", reviewQueue, { target });
+    reviewPlanActivityOverride = "supplementReview";
+    state.reviewSession.activityOverride = "supplementReview";
+    saveState();
     $("answerInput").style.display = "";
     $("submitAnswerBtn").style.display = "";
     $("showAnswerBtn").style.display = "";
+    $("restartReviewRoundBtn").style.display = "";
+    $("reviewResumeNote").style.display = "none";
     renderReviewCard();
   }
 
-  function startCategoryReview(category) {
+  function startCategoryReview(category, forceNew = false) {
+    if (!forceNew && restoreReviewSession("category", { category })) return;
     reviewPlanActivityOverride = "";
     const matched = state.cards
       .filter(card => !card.suspended && hasCategory(card, category))
@@ -8644,6 +8804,7 @@
     switchView("review");
 
     if (!reviewQueue.length) {
+      clearReviewSession();
       $("reviewPrompt").textContent = `“${category}”中没有可学习的词组`;
       $("promptLabel").textContent = "专项学习";
       $("answerInput").style.display = "none";
@@ -8652,17 +8813,26 @@
       $("reviewPills").innerHTML = "";
       $("reviewContext").style.display = "none";
       $("reviewProgress").textContent = "0 / 0";
+      $("restartReviewRoundBtn").style.display = "none";
+      $("reviewResumeNote").style.display = "none";
       return;
     }
 
+    beginReviewSession("category", reviewQueue, { category });
     $("answerInput").style.display = "";
     $("submitAnswerBtn").style.display = "";
     $("showAnswerBtn").style.display = "";
+    $("restartReviewRoundBtn").style.display = "";
+    $("reviewResumeNote").style.display = "none";
     renderReviewCard();
   }
 
   function renderDashboard() {
     renderTodayAutoPlan();
+    const resumableReview = activeReviewSession();
+    $("quickStartBtn").textContent = resumableReview
+      ? `继续上次复习 ${resumableReview.index}/${resumableReview.queueIds.length}`
+      : "开始今日复习";
     const due = getReviewQueue(false).length;
     const total = state.cards.length;
     const mastered = state.cards.filter(isMastered).length;
@@ -8731,6 +8901,100 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     `;
   }
 
+
+  function activeReviewSession() {
+    const session = normalizeReviewSession(state.reviewSession);
+    if (!session) return null;
+    if (session.dateKey !== localDateKey() || session.index >= session.queueIds.length) return null;
+    return session;
+  }
+
+  function saveReviewSession(options = {}) {
+    const { sync = true } = options;
+    if (!reviewQueue.length || reviewIndex >= reviewQueue.length || !reviewSessionKind) {
+      state.reviewSession = null;
+    } else {
+      state.reviewSession = {
+        version: 1,
+        dateKey: localDateKey(),
+        kind: reviewSessionKind,
+        queueIds: reviewQueue.map(card => card.id),
+        index: reviewIndex,
+        mode: currentMode,
+        activityOverride: reviewPlanActivityOverride,
+        meta: reviewSessionMeta || {},
+        draft: $("answerInput")?.value || "",
+        updatedAt: new Date().toISOString()
+      };
+    }
+    saveState({ sync });
+  }
+
+  function clearReviewSession(save = true) {
+    state.reviewSession = null;
+    reviewSessionKind = "";
+    reviewSessionMeta = {};
+    if (save) saveState();
+  }
+
+  function beginReviewSession(kind, queue, meta = {}) {
+    reviewSessionKind = kind;
+    reviewSessionMeta = meta || {};
+    reviewQueue = queue;
+    reviewIndex = 0;
+    currentMode = state.settings.defaultMode || "zh-en";
+    currentAnswered = false;
+    saveReviewSession();
+  }
+
+  function restoreReviewSession(expectedKind = "", expectedMeta = {}) {
+    const session = activeReviewSession();
+    if (!session) return false;
+    if (expectedKind && session.kind !== expectedKind) return false;
+    if (expectedMeta.category && session.meta?.category !== expectedMeta.category) return false;
+
+    const queue = session.queueIds.map(id => state.cards.find(card => card.id === id)).filter(Boolean);
+    if (!queue.length || session.index >= queue.length) {
+      clearReviewSession();
+      return false;
+    }
+
+    reviewQueue = queue;
+    reviewIndex = Math.min(session.index, queue.length - 1);
+    currentMode = session.mode;
+    reviewPlanActivityOverride = session.activityOverride || "";
+    reviewSessionKind = session.kind;
+    reviewSessionMeta = session.meta || {};
+    currentAnswered = false;
+    switchView("review");
+    $("answerInput").style.display = "";
+    $("submitAnswerBtn").style.display = "";
+    $("showAnswerBtn").style.display = "";
+    renderReviewCard();
+    if (session.draft) $("answerInput").value = session.draft;
+    $("reviewResumeNote").style.display = "block";
+    $("reviewResumeNote").textContent = `已恢复上次进度：已完成 ${reviewIndex} 题，继续第 ${reviewIndex + 1}/${reviewQueue.length} 题。`;
+    $("restartReviewRoundBtn").style.display = "";
+    showToast(`已继续上次进度 ${reviewIndex}/${reviewQueue.length}`);
+    return true;
+  }
+
+  function resumeAnyReviewSession() {
+    return restoreReviewSession();
+  }
+
+  function restartCurrentReviewRound() {
+    const session = activeReviewSession();
+    if (!session) return showToast("当前没有可重新开始的复习轮次");
+    if (!confirm("确定重新开始本轮吗？已经评分形成的学习记录不会删除，但本轮位置会回到第1题。")) return;
+    state.reviewSession = null;
+    saveState();
+    if (session.kind === "supplement") return startSupplementReview(true);
+    if (session.kind === "new") return startReview(true, true);
+    if (session.kind === "category") return startCategoryReview(session.meta?.category || "", true);
+    return startReview(false, true);
+  }
+
   function getReviewQueue(includeNew = false) {
     const due = state.cards
       .filter(c => isDue(c) && !isNew(c))
@@ -8752,15 +9016,20 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     return [...due, ...newCards];
   }
 
-  function startReview(includeNew = false) {
+  function startReview(includeNew = false, forceNew = false) {
+    const kind = includeNew ? "new" : "review";
+    if (!forceNew && restoreReviewSession(kind)) return;
+
     reviewPlanActivityOverride = "";
-    reviewQueue = getReviewQueue(includeNew);
+    const queue = getReviewQueue(includeNew);
+    reviewQueue = queue;
     reviewIndex = 0;
     currentMode = state.settings.defaultMode || "zh-en";
     currentAnswered = false;
     switchView("review");
 
     if (!reviewQueue.length) {
+      clearReviewSession();
       $("reviewPrompt").textContent = "今天没有到期词组";
       $("promptLabel").textContent = "未发生复习，不计入完成";
       $("answerInput").style.display = "none";
@@ -8771,12 +9040,17 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       $("reviewProgress").textContent = "0 / 0";
       $("feedbackBox").className = "feedback";
       $("gradeRow").classList.remove("show");
+      $("restartReviewRoundBtn").style.display = "none";
+      $("reviewResumeNote").style.display = "none";
       return;
     }
 
+    beginReviewSession(kind, reviewQueue, { includeNew });
     $("answerInput").style.display = "";
     $("submitAnswerBtn").style.display = "";
     $("showAnswerBtn").style.display = "";
+    $("restartReviewRoundBtn").style.display = "";
+    $("reviewResumeNote").style.display = "none";
     renderReviewCard();
   }
 
@@ -8798,12 +9072,16 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       $("feedbackBox").className = "feedback";
       $("gradeRow").classList.remove("show");
       reviewPlanActivityOverride = "";
+      clearReviewSession(false);
+      $("restartReviewRoundBtn").style.display = "none";
+      $("reviewResumeNote").style.display = "none";
       saveState();
       renderDashboard();
       return;
     }
 
     currentAnswered = false;
+    $("restartReviewRoundBtn").style.display = reviewQueue.length ? "" : "none";
     $("reviewProgress").textContent = `${reviewIndex + 1} / ${reviewQueue.length}`;
     $("reviewModeText").textContent = reviewPlanActivityOverride === "supplementReview"
       ? `重点补充 · ${currentMode === "zh-en" ? "中文 → 英文" : "英文 → 中文"}`
@@ -8976,6 +9254,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       recordPlanActivity("quiz", 1);
       if (grade < 2) recordPlanActivity("quizWrong", 1);
     } else if (reviewPlanActivityOverride === "supplementReview") {
+      card.lastSupplementReviewDate = localDateKey();
       recordPlanActivity("supplementReview", 1);
     } else if (wasNew) {
       recordPlanActivity("newWords", 1);
@@ -9001,8 +9280,15 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   function gradeCurrent(grade) {
     const card = currentCard();
     if (!card || !currentAnswered) return;
+    const nextIndex = reviewIndex + 1;
+    if (state.reviewSession) {
+      state.reviewSession.index = nextIndex;
+      state.reviewSession.draft = "";
+      state.reviewSession.mode = currentMode;
+      state.reviewSession.updatedAt = new Date().toISOString();
+    }
     scheduleCard(card, grade);
-    reviewIndex += 1;
+    reviewIndex = nextIndex;
     renderReviewCard();
   }
 
@@ -9196,6 +9482,8 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     reviewQueue = [card];
     reviewIndex = 0;
     currentMode = state.settings.defaultMode;
+    reviewPlanActivityOverride = "";
+    beginReviewSession("single", reviewQueue, { cardId:id });
     switchView("review");
     $("answerInput").style.display = "";
     $("submitAnswerBtn").style.display = "";
@@ -9206,7 +9494,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   function exportData() {
     const payload = {
       app: "考研英语词组记忆器",
-      version: 9,
+      version: 20,
       exportedAt: new Date().toISOString(),
       ...state
     };
@@ -9238,6 +9526,8 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
           dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(parsed.planActivities),
           planTaskCompletions: normalizePlanTaskCompletions(parsed.planTaskCompletions),
+          reviewSession: normalizeReviewSession(parsed.reviewSession),
+          quizSession: normalizeQuizSession(parsed.quizSession),
           bigEssays: mergeBigEssaysWithSeed(parsed.bigEssays),
           bigEssayProgress: normalizeBigEssayProgress(parsed.bigEssayProgress),
           bigEssayPractice: normalizeBigEssayPractice(parsed.bigEssayPractice),
@@ -9286,6 +9576,11 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     state.smallEssayProgress = {};
     state.smallEssayPractice = {};
     state.sessionLog = [];
+    state.reviewSession = null;
+    state.quizSession = null;
+    reviewQueue = [];
+    reviewIndex = 0;
+    reviewSessionKind = "";
     quizQueue = [];
     quizWrongIds = [];
     saveState();
@@ -9470,7 +9765,9 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       if (action === "show-dictation-source") submitEssayDictation(true);
     });
 
-    $("quickStartBtn").addEventListener("click", () => startReview(false));
+    $("quickStartBtn").addEventListener("click", () => {
+      if (!resumeAnyReviewSession()) startReview(false);
+    });
     $("dashboardReviewBtn").addEventListener("click", () => startReview(false));
     $("learnNewBtn").addEventListener("click", () => startReview(true));
     $("dashboardQuizBtn").addEventListener("click", () => switchView("quiz"));
@@ -9518,7 +9815,24 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
 
     $("switchModeBtn").addEventListener("click", () => {
       currentMode = currentMode === "zh-en" ? "en-zh" : "zh-en";
+      if (state.reviewSession) {
+        state.reviewSession.mode = currentMode;
+        state.reviewSession.draft = "";
+        state.reviewSession.updatedAt = new Date().toISOString();
+        saveState({ sync:false });
+      }
       renderReviewCard();
+    });
+    $("restartReviewRoundBtn").addEventListener("click", restartCurrentReviewRound);
+    let reviewDraftSaveTimer = null;
+    $("answerInput").addEventListener("input", () => {
+      clearTimeout(reviewDraftSaveTimer);
+      reviewDraftSaveTimer = setTimeout(() => {
+        if (!state.reviewSession) return;
+        state.reviewSession.draft = $("answerInput").value;
+        state.reviewSession.updatedAt = new Date().toISOString();
+        saveState({ touch:false, sync:false });
+      }, 250);
     });
     $("answerInput").addEventListener("keydown", e => {
       if (e.key === "Enter") {
@@ -9704,6 +10018,23 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       if (e.key === "Enter") loginAccount();
     });
   }
+
+  window.addEventListener("pagehide", () => {
+    if (reviewQueue.length && reviewIndex < reviewQueue.length && reviewSessionKind) {
+      if (state.reviewSession) {
+        state.reviewSession.index = reviewIndex;
+        state.reviewSession.mode = currentMode;
+        state.reviewSession.draft = $("answerInput")?.value || "";
+        state.reviewSession.updatedAt = new Date().toISOString();
+      }
+    }
+    if (quizQueue.length && quizIndex < quizQueue.length && state.quizSession) {
+      state.quizSession.correctCount = quizCorrectCount;
+      state.quizSession.wrongIds = [...quizWrongIds];
+      state.quizSession.updatedAt = new Date().toISOString();
+    }
+    saveState({ touch:false, sync:false });
+  });
 
   async function init() {
     const now = new Date();

@@ -1,0 +1,31 @@
+﻿考研英语词组记忆器——小作文加载修正版V15
+======================================
+
+上一版一直显示“正在加载14篇小作文”并不正常。
+
+修复内容
+--------
+1. 14篇小作文数据直接嵌入index.html。
+2. 小作文程序直接嵌入主程序内部。
+3. 不再依赖外部JS或JSON完成初始化。
+4. 旧本地数据和旧云端数据都会自动合并14篇小作文。
+5. 云端下载完成后会刷新小作文页面。
+6. 小作文批改报告中的“应用修正版”按钮已修复。
+7. Service Worker缓存升级为v15。
+
+正常显示
+--------
+- 小作文数量：14
+- 正文句子总数：106
+- 首次使用时当前待复习：106
+- 下拉框：14个选项
+- 小作文库：14张作文卡片
+
+更新步骤
+--------
+1. 解压 kaoyan_phrase_trainer_pwa_small_essay_loading_fixed.zip
+2. 上传解压后的全部文件并覆盖GitHub仓库中的同名文件
+3. Commit message：Fix small essay loading and cloud state merge
+4. 等待Actions绿色对勾
+5. 打开：https://xjflovelxy-sudo.github.io/kaoyan-phrase-trainer/?v=15
+6. 电脑按Ctrl+F5；已安装PWA完全关闭后重新打开两次

@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>考研英语词组记忆器（日历学习计划版V17）</title>
+  <title>考研英语词组记忆器（90分钟学习计划版V18）</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -3350,13 +3350,120 @@
       }
     }
 
+  
+    /* NINETY_MINUTE_PLAN_V18 */
+    .plan-calendar-cell.core-complete {
+      border-color: #8fcba4;
+      background: #effaf3;
+    }
+    .plan-calendar-cell.full-complete {
+      border-color: #177b42;
+      background: linear-gradient(145deg, #dff5e7, #edf9f1);
+      box-shadow: inset 0 0 0 1px #28965a;
+    }
+    .plan-calendar-cell.core-complete .calendar-cell-date {
+      background: #75b98d;
+      color: #fff;
+    }
+    .plan-calendar-cell.full-complete .calendar-cell-date {
+      background: #177b42;
+      color: #fff;
+    }
+    .plan-calendar-cell.core-complete .calendar-cell-state { color:#237144; }
+    .plan-calendar-cell.full-complete .calendar-cell-state { color:#0f6333; }
+    .calendar-legend .legend-core { border-color:#8fcba4; background:#effaf3; }
+    .calendar-legend .legend-full { border-color:#177b42; background:#dff5e7; }
+
+    .plan-section-heading {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin: 2px 0 9px;
+      font-size:12px;
+      font-weight:850;
+      color:#2a354d;
+    }
+    .plan-section-heading span {
+      padding:4px 8px;
+      border-radius:999px;
+      background:#eef2ff;
+      color:#3559e0;
+      font-size:9px;
+    }
+    .plan-bonus-panel {
+      margin-top:14px;
+      border:1px solid #d8deea;
+      border-radius:14px;
+      padding:12px;
+      background:#fbfcff;
+    }
+    .plan-bonus-panel.locked {
+      background:#f5f6f8;
+      color:#8b93a2;
+    }
+    .plan-bonus-panel.unlocked {
+      border-color:#e0c57a;
+      background:#fffaf0;
+    }
+    .plan-bonus-panel.completed {
+      border-color:#23854a;
+      background:#eaf8ef;
+    }
+    .plan-bonus-lock {
+      padding:14px 12px;
+      border-radius:10px;
+      text-align:center;
+      background:#eef0f3;
+      color:#737d90;
+      font-size:11px;
+      line-height:1.7;
+    }
+    .bonus-task {
+      display:grid;
+      grid-template-columns:30px minmax(0,1fr);
+      gap:9px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(110,120,140,.14);
+    }
+    .bonus-task:last-child { border-bottom:0; }
+    .bonus-task.done .bonus-icon { background:#23854a; color:#fff; border-color:#23854a; }
+    .bonus-icon {
+      width:29px;height:29px;display:grid;place-items:center;
+      border:1px solid #d1d8e5;border-radius:9px;background:#fff;
+      font-size:11px;font-weight:900;
+    }
+    .bonus-title { font-size:12px;font-weight:820;color:#28334a;line-height:1.5; }
+    .bonus-method { margin-top:3px;font-size:10px;line-height:1.6;color:#69748a; }
+    .bonus-progress-row { display:flex;gap:7px;align-items:center;margin-top:6px; }
+    .bonus-progress { flex:1;height:5px;border-radius:999px;background:#e6eaf0;overflow:hidden; }
+    .bonus-progress span { display:block;height:100%;background:#d09a2f; }
+    .bonus-task.done .bonus-progress span { background:#23854a; }
+    .bonus-value { min-width:60px;text-align:right;font-size:9px;font-weight:800;color:#687389; }
+
+    .auto-plan-status-core { background:#eaf7ef !important;color:#19713a !important; }
+    .auto-plan-status-full { background:#177b42 !important;color:#fff !important; }
+
+    .calendar-day.core-checked { background:#dff3e6;border-color:#79ba91;color:#176f3a; }
+    .calendar-day.full-checked { background:#177b42;border-color:#177b42;color:#fff; }
+    .calendar-day.full-checked .dot { background:#fff; }
+    .legend-core-checkin { background:#dff3e6;border-color:#79ba91 !important; }
+    .legend-full-checkin { background:#177b42;border-color:#177b42 !important; }
+
+    .unit-rule-note {
+      margin-top:10px;padding:10px 12px;border-radius:10px;
+      border:1px solid #cbd6f2;background:#eef3ff;color:#263f77;
+      font-size:11px;line-height:1.7;
+    }
+    .unit-rule-note strong { color:#18346d; }
+
   </style>
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>考研英语词组记忆器·自动学习计划版</h1>
+      <h1>考研英语词组记忆器·90分钟学习计划版V18</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -3413,8 +3520,14 @@
           <div><strong id="todayPlanMinutes">0</strong><span>预计分钟</span></div>
           <div><strong id="todayPlanPercent">0%</strong><span>今日完成度</span></div>
         </div>
+        <div class="plan-section-heading">核心任务 <span>完成后日历变浅绿色</span></div>
         <div class="auto-plan-list" id="todayAutoPlanTasks"></div>
-        <div class="plan-auto-note">只有达到规定数量后才会自动打勾。打开“错词本”“我的标记”或“小作文格式与功能句”这类查看任务时，进入对应页面即可记录。</div>
+        <div class="plan-bonus-panel locked" id="todayBonusPanel">
+          <div class="plan-section-heading">90分钟加练 <span id="todayBonusStatus">核心完成后解锁</span></div>
+          <div id="todayBonusTasks"></div>
+        </div>
+        <div class="unit-rule-note"><strong>作文计数规则：</strong>首遍完全正确会直接计入；首遍有错时，必须手动修改并再次批改才计入1个完整句子单位。直接点击“应用修正版”不计入。</div>
+        <div class="plan-auto-note">浅绿色表示核心任务完成；深绿色表示核心任务和90分钟加练全部完成。所有进度按实际答题、批改与错题复习自动记录。</div>
         <div class="button-row" style="margin-top:12px;"><button class="secondary-btn" id="openStudyPlanBtn">打开月历查看完整计划</button></div>
       </div>
       <div class="checkin-card">
@@ -3504,7 +3617,11 @@
           </div>
           <div class="plan-summary-item">
             <strong id="planCheckedDays">0</strong>
-            <span>完整完成天数</span>
+            <span>核心完成天数</span>
+          </div>
+          <div class="plan-summary-item">
+            <strong id="planFullDays">0</strong>
+            <span>90分钟完成天数</span>
           </div>
           <div class="plan-summary-item">
             <strong id="planMissedDays">0</strong>
@@ -3521,7 +3638,8 @@
         </div>
 
         <div class="plan-legend">
-          <span><i class="legend-checked"></i>当天计划已完成</span>
+          <span><i class="legend-core-checkin"></i>核心任务完成</span>
+          <span><i class="legend-full-checkin"></i>90分钟全部完成</span>
           <span><i class="legend-missed"></i>已过去但未全部完成</span>
           <span><i class="legend-future"></i>未来日期</span>
         </div>
@@ -3596,7 +3714,7 @@
 
         <div class="auto-plan-summary">
           <div><strong id="studyPlanTotalDays">0</strong><span>计划天数</span></div>
-          <div><strong id="studyPlanCompletedDays">0</strong><span>完整完成天数</span></div>
+          <div><strong id="studyPlanCompletedDays">0</strong><span>核心完成天数</span></div>
           <div><strong id="studyPlanCurrentStreak">0</strong><span>当前连续完成</span></div>
           <div><strong id="studyPlanOverallPercent">0%</strong><span>总体完成度</span></div>
         </div>
@@ -3626,7 +3744,8 @@
 
           <div class="calendar-legend">
             <span><i class="legend-today"></i>今天</span>
-            <span><i class="legend-done"></i>全部自动完成</span>
+            <span><i class="legend-core"></i>核心任务完成</span>
+            <span><i class="legend-full"></i>90分钟全部完成</span>
             <span><i class="legend-missed"></i>过去未完成</span>
             <span><i class="legend-future"></i>未来安排</span>
           </div>
@@ -3646,7 +3765,12 @@
             </div>
           </div>
           <div class="plan-day-detail-body">
+            <div class="plan-section-heading">核心任务 <span>浅绿色</span></div>
             <div class="auto-plan-list" id="selectedPlanTasks" style="display:block;margin-top:0;"></div>
+            <div class="plan-bonus-panel locked" id="selectedBonusPanel">
+              <div class="plan-section-heading">90分钟加练 <span id="selectedBonusStatus">核心完成后解锁</span></div>
+              <div id="selectedBonusTasks"></div>
+            </div>
           </div>
         </aside>
       </div>
@@ -4494,6 +4618,8 @@
   let quizCorrectCount = 0;
   let quizWrongIds = [];
   let quizCurrentQuestion = null;
+  let quizWrongRetryMode = false;
+  let planAdoptCorrectionMode = false;
 
   let currentEssayTab = "library";
   let currentEssayId = state.bigEssays?.[0]?.id || BIG_ESSAY_SEED[0].id;
@@ -4761,715 +4887,191 @@
 
 
   const STUDY_PHASES = [
-    {
-      id:"foundation", name:"基础积累期", start:"2026-07-31", end:"2026-09-15",
-      summary:"清理到期词组，少量新词；每周同步推进一篇大作文和一篇小作文。",
-      result:"目标：能按中文写出核心句，掌握五类小作文格式。"
-    },
-    {
-      id:"transfer", name:"句段迁移期", start:"2026-09-16", end:"2026-10-31",
-      summary:"减少新词，增加大小作文句子仿写、段落仿写和分段默写。",
-      result:"目标：从背母句过渡到更换主题后独立表达。"
-    },
-    {
-      id:"output", name:"整篇输出期", start:"2026-11-01", end:"2026-12-07",
-      summary:"以大作文和小作文整篇逐句输出为主，同时维持错句复习。",
-      result:"目标：逐步形成考场三段式和应用文完整输出能力。"
-    },
-    {
-      id:"sprint", name:"考前冲刺期", start:"2026-12-08", end:"2099-12-31",
-      summary:"停止扩张，只练到期内容、错题、核心句、格式和稳定输出。",
-      result:"目标：减少新错误，确保常用结构写得准、写得快。"
-    }
+    {id:"foundation",name:"基础积累期",start:"2026-07-31",end:"2026-09-15",summary:"40题到期复习、50题选择题、12条新词和10—12个作文单位。",result:"目标：建立准确的句子输出和小作文格式基础。"},
+    {id:"transfer",name:"句段迁移期",start:"2026-09-16",end:"2026-10-31",summary:"40题复习、60题选择题、5条新词和每天约12个作文单位。",result:"目标：从母句记忆过渡到句段迁移。"},
+    {id:"output",name:"整篇输出期",start:"2026-11-01",end:"2026-12-07",summary:"30题复习、60题选择题，不固定加新词，作文提高到12—15个单位。",result:"目标：形成大小作文完整输出能力。"},
+    {id:"sprint",name:"考前冲刺期",start:"2026-12-08",end:"2099-12-31",summary:"25题复习、40题选择题，不加新词，稳定练10—12个作文单位。",result:"目标：减少新错误，稳定格式和核心句。"}
   ];
 
   const BIG_PLAN_FOCUS = [
-    {id:"big-essay-parks", title:"城市公园"},
-    {id:"big-essay-campus-lecture", title:"校园讲座"},
-    {id:"big-essay-dragon-boat", title:"龙舟赛"},
-    {id:"big-essay-appliances", title:"家用电器拥有量变化"},
-    {id:"big-essay-elderly-robots", title:"养老机器人"}
+    {id:"big-essay-parks",title:"城市公园"},{id:"big-essay-campus-lecture",title:"校园讲座"},
+    {id:"big-essay-dragon-boat",title:"龙舟赛"},{id:"big-essay-appliances",title:"家用电器拥有量变化"},
+    {id:"big-essay-elderly-robots",title:"养老机器人"}
   ];
-
   const SMALL_PLAN_FOCUS = [
-    {id:"small-01-singing-contest", title:"歌唱比赛通知", type:"通知"},
-    {id:"small-02-job-advice", title:"求职建议信", type:"建议信"},
-    {id:"small-03-innovation-invitation", title:"创新竞赛邀请信", type:"邀请信"},
-    {id:"small-04-sports-assistant", title:"研究助理招聘通知", type:"招聘通知"},
-    {id:"small-05-scientist-report", title:"科学家报告回复信", type:"回复建议信"},
-    {id:"small-06-craft-show", title:"手工艺展示回复信", type:"回复信"},
-    {id:"small-07-handwritten-letters", title:"手写信件介绍回复", type:"回复介绍信"},
-    {id:"small-08-plastic-bags", title:"白色污染问题建议信", type:"问题建议信"},
-    {id:"small-09-movie-recommendation", title:"电影推荐信", type:"推荐信"},
-    {id:"small-10-welcome-students", title:"国际学生欢迎信", type:"欢迎信"},
-    {id:"small-11-book-recommendation", title:"图书推荐信", type:"推荐信"},
-    {id:"small-12-library-notice", title:"图书馆通知", type:"服务通知"},
-    {id:"small-13-meeting-minutes", title:"校园读书节会议纪要", type:"会议纪要"},
-    {id:"small-14-cleanup-announcement", title:"校园清洁日公告", type:"公告"}
+    {id:"small-01-singing-contest",title:"歌唱比赛通知",type:"通知"},{id:"small-02-job-advice",title:"求职建议信",type:"建议信"},
+    {id:"small-03-innovation-invitation",title:"创新竞赛邀请信",type:"邀请信"},{id:"small-04-sports-assistant",title:"研究助理招聘通知",type:"招聘通知"},
+    {id:"small-05-scientist-report",title:"科学家报告回复信",type:"回复建议信"},{id:"small-06-craft-show",title:"手工艺展示回复信",type:"回复信"},
+    {id:"small-07-handwritten-letters",title:"手写信件介绍回复",type:"回复介绍信"},{id:"small-08-plastic-bags",title:"白色污染问题建议信",type:"问题建议信"},
+    {id:"small-09-movie-recommendation",title:"电影推荐信",type:"推荐信"},{id:"small-10-welcome-students",title:"国际学生欢迎信",type:"欢迎信"},
+    {id:"small-11-book-recommendation",title:"图书推荐信",type:"推荐信"},{id:"small-12-library-notice",title:"图书馆通知",type:"服务通知"},
+    {id:"small-13-meeting-minutes",title:"校园读书节会议纪要",type:"会议纪要"},{id:"small-14-cleanup-announcement",title:"校园清洁日公告",type:"公告"}
   ];
 
   const PLAN_ACTIVITY_META = {
-    review:{
-      label:"到期词组复习", unit:"题", category:"words", icon:"词", view:"review", minutes:20,
-      description:"先处理旧词组；今天没有到期旧词时自动完成。",
-      method:"按真实情况评分：写不出选“完全不会”，介词或主干错误选“错误较多”。"
-    },
-    quiz:{
-      label:"选择题训练", unit:"题", category:"quiz", icon:"选", view:"quiz", minutes:12,
-      description:"每回答一道题自动累计，答错也计入训练数量。",
-      method:"混合中英方向；答错后先找错误原因，结束后只重做错题。"
-    },
-    newWords:{
-      label:"学习新词组", unit:"条", category:"words", icon:"新", view:"review", action:"new", minutes:10,
-      description:"只统计在“今日复习”中真正学习的新卡。",
-      method:"优先熟词新义、同义替换和写作表达；普通阅读词组以识别为主。"
-    },
-    bigSentence:{
-      label:"大作文逐句写译", unit:"句", category:"big", icon:"大", view:"bigEssay", tab:"sentenceStudy", minutes:18,
-      description:"看中文写英文，提交批改后累计。",
-      method:"先独立写；重点看主谓、单复数、介词和固定句型；错句清空后重写1遍。"
-    },
-    bigImitation:{
-      label:"大作文句子仿写", unit:"句", category:"big", icon:"仿", view:"bigEssay", tab:"sentenceImitation", minutes:18,
-      description:"300题或随文仿写中每批改一个新句子累计。",
-      method:"先不看提示；批改后不要直接照抄修正版，先说出错误，再重新写1遍。"
-    },
-    bigPattern:{
-      label:"大作文句型仿写", unit:"句", category:"big", icon:"型", view:"bigEssay", tab:"patterns", minutes:8,
-      description:"句型库中每批改一个新句子累计。",
-      method:"每个句型替换主题写1句，重点检查Only when、which和not only等结构。"
-    },
-    bigParagraph:{
-      label:"大作文段落仿写", unit:"句", category:"big", icon:"段", view:"bigEssay", tab:"paragraphImitation", minutes:22,
-      description:"段落仿写中每批改一句累计。",
-      method:"一次只完成一段；先把本段所有句子写完，再集中批改和重写错句。"
-    },
-    bigWhole:{
-      label:"大作文整篇逐句仿写", unit:"句", category:"big", icon:"篇", view:"bigEssay", tab:"wholeImitation", minutes:30,
-      description:"整篇仿写中每批改一句累计。",
-      method:"按第一段描述、第二段分析、第三段建议依次完成；不要边看修正版边抄。"
-    },
-    bigDictation:{
-      label:"大作文分段默写", unit:"句", category:"big", icon:"默", view:"bigEssay", tab:"dictation", minutes:16,
-      description:"分段默写中每批改一句累计。",
-      method:"根据中文默写确认稿；重点记录反复出现的介词、拼写和句型错误。"
-    },
-    smallSentence:{
-      label:"小作文逐句写译", unit:"句", category:"small", icon:"小", view:"smallEssay", tab:"sentenceStudy", minutes:15,
-      description:"逐句写译或完整作文逐句练习均可累计。",
-      method:"先判断句子位于称呼、目的、正文还是结尾，再根据中文写出英文并重写错句。"
-    },
-    smallImitation:{
-      label:"小作文句子仿写", unit:"句", category:"small", icon:"函", view:"smallEssay", tab:"sentenceImitation", minutes:15,
-      description:"56题中每批改一句累计。",
-      method:"保留功能句框架，替换人物、活动、时间、地点、理由或建议。"
-    },
-    smallWhole:{
-      label:"小作文整篇逐句仿写", unit:"项", category:"small", icon:"信", view:"smallEssay", tab:"wholeImitation", minutes:25,
-      description:"标题、称呼、正文、结束语和署名均按批改项目累计。",
-      method:"先完成格式，再逐句完成正文；格式项和正文项都必须批改。"
-    },
-    smallDictation:{
-      label:"小作文分段默写", unit:"句", category:"small", icon:"记", view:"smallEssay", tab:"dictation", minutes:15,
-      description:"分段默写中每批改一句累计。",
-      method:"重点检查称呼后的逗号、段落目的、结束语和署名格式。"
-    },
-    smallFunction:{
-      label:"小作文功能句", unit:"句", category:"small", icon:"功", view:"smallEssay", tab:"functions", minutes:8,
-      description:"功能句库中每批改一句累计。",
-      method:"每次练2个高频功能句，必须更换主题，不能只照抄母句。"
-    },
-    smallFormat:{
-      label:"复习小作文格式", unit:"次", category:"small", icon:"格", view:"smallEssay", tab:"functions", minutes:5,
-      description:"进入“格式与功能句”页面自动记录一次。",
-      method:"不看答案，口头说出标题、称呼、三段职责、结束语和署名的正确顺序。"
-    },
-    mistakes:{
-      label:"回看错词本", unit:"次", category:"review", icon:"错", view:"mistakes", minutes:10,
-      description:"进入错词本页面自动记录一次。",
-      method:"只处理连续错2次以上、介词错误、熟词新义和作文中反复拼错的内容。"
-    },
-    marks:{
-      label:"整理我的标记", unit:"次", category:"review", icon:"标", view:"myMarks", minutes:8,
-      description:"进入“我的标记”页面自动记录一次。",
-      method:"重点回看“作文可用、重点背诵、易混淆”，不要把所有词组都标记。"
-    }
+    review:{label:"到期词组复习",unit:"题",category:"words",icon:"词",view:"review",description:"少于目标时清空全部；当天初始到期超过60题时，目标自动改为清空全部，并取消新词。",method:"按真实情况评分，优先清理旧词。"},
+    quiz:{label:"选择题训练",unit:"题",category:"quiz",icon:"选",view:"quiz",description:"只统计普通选择题；错题重做单独计入90分钟加练。",method:"混合方向作答；错题先分析核心词和介词。"},
+    newWords:{label:"学习新词组",unit:"条",category:"words",icon:"新",view:"review",action:"new",description:"基础期工作日12条，迁移期工作日5条；到期旧词过多时自动取消。",method:"熟词新义→同义替换→写作表达→重点背诵。"},
+    bigSentence:{label:"大作文逐句写译",unit:"句",category:"big",icon:"大",view:"bigEssay",tab:"sentenceStudy",description:"首遍正确直接计入；有错必须手动修改后再次批改。",method:"看中文独立写，检查主谓、介词、单复数和固定结构。"},
+    bigImitation:{label:"大作文句子仿写",unit:"句",category:"big",icon:"仿",view:"bigEssay",tab:"sentenceImitation",description:"300题或随文仿写均可累计完整句子单位。",method:"先不看提示；批改后说明错误，再手动重写。"},
+    bigPattern:{label:"大作文句型仿写",unit:"句",category:"big",icon:"型",view:"bigEssay",tab:"patterns",description:"专项练Only when、which、not only等结构。",method:"保留结构，更换主题和内容。"},
+    bigParagraph:{label:"大作文段落仿写",unit:"句",category:"big",icon:"段",view:"bigEssay",tab:"paragraphImitation",description:"每个完成的句子单位自动累计。",method:"一次完成一段，先写完再集中批改。"},
+    bigWhole:{label:"大作文整篇逐句仿写",unit:"句",category:"big",icon:"篇",view:"bigEssay",tab:"wholeImitation",description:"按三段逐句完成，计入完整句子单位。",method:"描述→分析→建议；不要边看修正版边抄。"},
+    bigDictation:{label:"大作文分段默写",unit:"句",category:"big",icon:"默",view:"bigEssay",tab:"dictation",description:"根据中文默写确认稿并完成改错。",method:"记录反复出现的拼写、介词和句型错误。"},
+    smallSentence:{label:"小作文逐句写译",unit:"句",category:"small",icon:"小",view:"smallEssay",tab:"sentenceStudy",description:"逐句写译或完整作文逐句练习均可累计。",method:"先判断句子功能，再根据中文输出。"},
+    smallImitation:{label:"小作文句子仿写",unit:"句",category:"small",icon:"函",view:"smallEssay",tab:"sentenceImitation",description:"56题中完成完整句子单位后累计。",method:"替换人物、活动、时间、地点、理由或建议。"},
+    smallWhole:{label:"小作文整篇逐句仿写",unit:"项",category:"small",icon:"信",view:"smallEssay",tab:"wholeImitation",description:"称呼、正文、结束语和署名分别累计。",method:"先格式，后正文；错误项手动修改后再次批改。"},
+    smallDictation:{label:"小作文分段默写",unit:"句",category:"small",icon:"记",view:"smallEssay",tab:"dictation",description:"逐句默写并完成改错。",method:"重点检查称呼逗号、结束语和署名格式。"},
+    smallFunction:{label:"小作文功能句",unit:"句",category:"small",icon:"功",view:"smallEssay",tab:"functions",description:"每个功能句需要更换主题，不能照抄母句。",method:"写信目的、建议、邀请、回复、通知和会议纪要分别练。"},
+    smallFormat:{label:"复习小作文格式",unit:"次",category:"small",icon:"格",view:"smallEssay",tab:"functions",description:"进入格式页自动记录。",method:"不看答案说出标题/称呼、三段职责、结束语和署名。"},
+    mistakes:{label:"回看错词本",unit:"次",category:"review",icon:"错",view:"mistakes",description:"进入错词本记录一次。",method:"只处理连续错2次以上、介词错误和熟词新义。"},
+    marks:{label:"整理我的标记",unit:"次",category:"review",icon:"标",view:"myMarks",description:"进入我的标记记录一次。",method:"重点回看作文可用、重点背诵和易混淆。"},
+    quizWrong:{label:"今日选择题错题",unit:"题",category:"bonus",icon:"错",view:"quiz"},
+    quizWrongRedo:{label:"重做今日全部选择题错题",unit:"题",category:"bonus",icon:"重",view:"quiz"},
+    errorReview:{label:"回看错误词组",unit:"条",category:"bonus",icon:"查",view:"mistakes"}
   };
 
-  let selectedStudyPlanDateKey = localDateKey();
-  let studyPlanCalendarCursor = new Date();
-  studyPlanCalendarCursor.setDate(1);
-  studyPlanCalendarCursor.setHours(0,0,0,0);
+  let selectedStudyPlanDateKey=localDateKey();
+  let studyPlanCalendarCursor=new Date(); studyPlanCalendarCursor.setDate(1); studyPlanCalendarCursor.setHours(0,0,0,0);
 
-  function studyPhaseForDate(value) {
-    const key = localDateKey(value);
-    return STUDY_PHASES.find(phase => key >= phase.start && key <= phase.end)
-      || STUDY_PHASES[STUDY_PHASES.length - 1];
+  function studyPhaseForDate(value){const key=localDateKey(value);return STUDY_PHASES.find(p=>key>=p.start&&key<=p.end)||STUDY_PHASES.at(-1)}
+  function mondayOfWeek(value){const d=value instanceof Date?new Date(value):dateFromKey(value);d.setHours(0,0,0,0);d.setDate(d.getDate()+(d.getDay()===0?-6:1-d.getDay()));return d}
+  function studyWeekIndex(value){return Math.max(0,Math.floor((mondayOfWeek(value)-mondayOfWeek(dateFromKey(STUDY_PLAN_RELEASE_DATE)))/(7*DAY)))}
+  function focusForPlanDate(value){const i=studyWeekIndex(value);return{weekIndex:i,big:BIG_PLAN_FOCUS[i%BIG_PLAN_FOCUS.length],small:SMALL_PLAN_FOCUS[i%SMALL_PLAN_FOCUS.length]}}
+
+  function estimateTaskMinutes(activity,target){
+    if(activity==="review") return Math.max(10,Math.round(target*.55));
+    if(activity==="quiz") return Math.max(10,Math.round(target*.35));
+    if(activity==="newWords") return Math.max(4,Math.round(target*.8));
+    if(["bigParagraph","bigWhole","smallWhole"].includes(activity)) return Math.max(5,Math.round(target*2.5));
+    if(["bigSentence","bigImitation","bigPattern","bigDictation","smallSentence","smallImitation","smallDictation","smallFunction"].includes(activity)) return Math.max(4,Math.round(target*2));
+    if(activity==="smallFormat") return 5;
+    if(activity==="mistakes") return 8;
+    if(activity==="marks") return 5;
+    return 5;
   }
+  function makePlanTask(activity,target,options={}){const m=PLAN_ACTIVITY_META[activity],focus=options.focus||"";return{id:`v18-core-${activity}`,activity,target,minutes:options.minutes??estimateTaskMinutes(activity,target),focus,focusId:options.focusId||"",label:m.label,displayLabel:focus?`${m.label} · ${focus}`:m.label,method:options.method||m.method,description:options.description||m.description,...m}}
 
-  function mondayOfWeek(value) {
-    const date = value instanceof Date ? new Date(value) : dateFromKey(value);
-    date.setHours(0,0,0,0);
-    const offset = date.getDay() === 0 ? -6 : 1 - date.getDay();
-    date.setDate(date.getDate() + offset);
-    return date;
-  }
+  function todayDueLoad(){const key=localDateKey(),done=planActivityCount(key,"review"),remaining=state.cards.filter(c=>isDue(c)&&!isNew(c)).length;return done+remaining}
+  function baseReviewTarget(phaseId,weekday){if(phaseId==="foundation"||phaseId==="transfer")return weekday===6?35:40;if(phaseId==="output")return 30;return 25}
+  function baseQuizTarget(phaseId,weekday){if(weekday===6)return phaseId==="sprint"?50:80;if(weekday===0)return 40;if(phaseId==="foundation")return 50;if(phaseId==="transfer"||phaseId==="output")return 60;return 40}
 
-  function studyWeekIndex(value) {
-    const releaseMonday = mondayOfWeek(dateFromKey(STUDY_PLAN_RELEASE_DATE));
-    const currentMonday = mondayOfWeek(value);
-    return Math.max(0, Math.floor((currentMonday - releaseMonday) / (7 * DAY)));
-  }
+  function studyPlanForDate(value){
+    const date=value instanceof Date?new Date(value):dateFromKey(value); if(!date)return{date:new Date(),phase:STUDY_PHASES[0],tasks:[],bonusTasks:[]}; date.setHours(0,0,0,0);
+    const phase=studyPhaseForDate(date),weekday=date.getDay(),focus=focusForPlanDate(date),tasks=[];
+    const add=(activity,target,kind="",minutes=null)=>{const f=kind==="big"?focus.big:kind==="small"?focus.small:null;tasks.push(makePlanTask(activity,target,{focus:f?.title||"",focusId:f?.id||"",minutes}))};
 
-  function focusForPlanDate(value) {
-    const weekIndex = studyWeekIndex(value);
-    return {
-      weekIndex,
-      big: BIG_PLAN_FOCUS[weekIndex % BIG_PLAN_FOCUS.length],
-      small: SMALL_PLAN_FOCUS[weekIndex % SMALL_PLAN_FOCUS.length]
-    };
-  }
+    let reviewTarget=baseReviewTarget(phase.id,weekday),cancelNew=false;
+    if(localDateKey(date)===localDateKey()){
+      const load=todayDueLoad();
+      if(load<reviewTarget)reviewTarget=load;
+      if(load>60){reviewTarget=load;cancelNew=true}
+    }
+    add("review",reviewTarget);
+    add("quiz",baseQuizTarget(phase.id,weekday));
+    if(!cancelNew&&weekday>=1&&weekday<=5&&phase.id==="foundation")add("newWords",12);
+    if(!cancelNew&&weekday>=1&&weekday<=5&&phase.id==="transfer")add("newWords",5);
 
-  function makePlanTask(activity, target, options = {}) {
-    const meta = PLAN_ACTIVITY_META[activity];
-    const focus = options.focus || "";
-    return {
-      id: activity,
-      activity,
-      target,
-      minutes: options.minutes ?? meta.minutes,
-      focus,
-      focusId: options.focusId || "",
-      label: meta.label,
-      displayLabel: focus ? `${meta.label} · ${focus}` : meta.label,
-      method: options.method || meta.method,
-      description: options.description || meta.description,
-      ...meta
-    };
-  }
-
-  function studyPlanForDate(value) {
-    const date = value instanceof Date ? new Date(value) : dateFromKey(value);
-    if (!date) return {date:new Date(), phase:STUDY_PHASES[0], tasks:[]};
-    date.setHours(0,0,0,0);
-
-    const phase = studyPhaseForDate(date);
-    const weekday = date.getDay();
-    const focus = focusForPlanDate(date);
-    const tasks = [];
-
-    const add = (activity, target, kind = "", minutes = null, method = "") => {
-      const selectedFocus = kind === "big" ? focus.big : kind === "small" ? focus.small : null;
-      tasks.push(makePlanTask(activity, target, {
-        focus: selectedFocus?.title || "",
-        focusId: selectedFocus?.id || "",
-        minutes,
-        method
-      }));
-    };
-
-    const reviewTargets = {foundation:20, transfer:20, output:15, sprint:10};
-    const quizTargets = {
-      foundation:[20,30,30,30,30,30,50],
-      transfer:[20,40,40,40,40,40,60],
-      output:[30,50,50,50,50,50,70],
-      sprint:[20,30,30,30,30,30,50]
-    };
-
-    add("review", reviewTargets[phase.id]);
-    add("quiz", quizTargets[phase.id][weekday],
-      "", quizTargets[phase.id][weekday] >= 60 ? 20 : quizTargets[phase.id][weekday] >= 40 ? 15 : 10);
-
-    if (phase.id === "foundation" && weekday !== 0) add("newWords", 10);
-    if (phase.id === "transfer" && weekday >= 1 && weekday <= 5) add("newWords", 5);
-
-    const weekly = {
-      foundation: {
-        0:[["mistakes",1,""],["marks",1,""],[focus.weekIndex%2===0?"bigDictation":"smallDictation",3,focus.weekIndex%2===0?"big":"small"]],
-        1:[["bigSentence",5,"big"],["bigPattern",2,"big"],["smallSentence",2,"small",8]],
-        2:[["smallSentence",5,"small"],["smallFunction",2,"small"],["bigSentence",2,"big",8]],
-        3:[["bigImitation",5,"big"],["smallImitation",3,"small"]],
-        4:[["smallImitation",4,"small"],["smallFormat",1,"small"],["bigPattern",2,"big"]],
-        5:[["bigParagraph",4,"big"],["smallSentence",3,"small",10]],
-        6:[["smallWhole",6,"small"],["bigDictation",3,"big",12]]
+    const weekly={
+      foundation:{
+        0:[["mistakes",1,""],["marks",1,""],["bigDictation",6,"big"],["bigSentence",2,"big"],["smallSentence",2,"small"]],
+        1:[["bigSentence",6,"big"],["bigPattern",2,"big"],["smallSentence",3,"small"]],
+        2:[["smallSentence",6,"small"],["smallFunction",2,"small"],["bigSentence",3,"big"]],
+        3:[["bigImitation",6,"big"],["smallImitation",5,"small"]],
+        4:[["smallImitation",6,"small"],["bigPattern",3,"big"],["smallFormat",1,"small"]],
+        5:[["bigParagraph",6,"big"],["smallSentence",4,"small"]],
+        6:[["smallWhole",7,"small"],["bigDictation",4,"big"]]
       },
-      transfer: {
-        0:[["mistakes",1,""],["marks",1,""],[focus.weekIndex%2===0?"bigDictation":"smallDictation",3,focus.weekIndex%2===0?"big":"small"]],
-        1:[["bigImitation",6,"big"],["smallSentence",3,"small"]],
-        2:[["smallImitation",5,"small"],["smallFunction",2,"small"],["bigSentence",3,"big"]],
-        3:[["bigParagraph",5,"big"],["smallImitation",2,"small",8]],
-        4:[["smallWhole",7,"small"],["bigPattern",2,"big"]],
-        5:[["bigDictation",5,"big"],["smallDictation",3,"small"]],
-        6:[["bigWhole",8,"big"],["smallFunction",2,"small"]]
+      transfer:{
+        0:[["mistakes",1,""],["marks",1,""],["bigDictation",4,"big"],["smallDictation",4,"small"],["bigSentence",2,"big"],["smallSentence",2,"small"]],
+        1:[["bigImitation",7,"big"],["smallSentence",5,"small"]],
+        2:[["smallImitation",7,"small"],["smallFunction",2,"small"],["bigSentence",3,"big"]],
+        3:[["bigParagraph",7,"big"],["smallImitation",5,"small"]],
+        4:[["smallWhole",8,"small"],["bigPattern",4,"big"]],
+        5:[["bigDictation",6,"big"],["smallDictation",6,"small"]],
+        6:[["bigWhole",7,"big"],["smallWhole",5,"small"]]
       },
-      output: {
-        0:[["mistakes",1,""],["marks",1,""],["smallFormat",1,"small"]],
-        1:[["bigWhole",8,"big"],["smallSentence",3,"small"]],
-        2:[["smallWhole",8,"small"],["bigImitation",3,"big"]],
-        3:[["bigDictation",6,"big"],["smallDictation",3,"small"]],
-        4:[["smallWhole",8,"small"],["bigPattern",2,"big"]],
-        5:[["bigWhole",8,"big"],["smallImitation",3,"small"]],
-        6:[["bigWhole",6,"big"],["smallWhole",6,"small"]]
+      output:{
+        0:[["mistakes",1,""],["marks",1,""],["smallFormat",1,"small"],["bigDictation",6,"big"],["smallDictation",6,"small"]],
+        1:[["bigWhole",10,"big"],["smallSentence",4,"small"]],
+        2:[["smallWhole",10,"small"],["bigImitation",4,"big"]],
+        3:[["bigDictation",7,"big"],["smallDictation",6,"small"]],
+        4:[["smallWhole",10,"small"],["bigPattern",3,"big"]],
+        5:[["bigWhole",10,"big"],["smallImitation",4,"small"]],
+        6:[["bigWhole",8,"big"],["smallWhole",7,"small"]]
       },
-      sprint: {
-        0:[["mistakes",1,""],["marks",1,""]],
-        1:[["bigSentence",5,"big"],["bigPattern",2,"big"],["smallFunction",2,"small"]],
-        2:[["smallSentence",5,"small"],["smallFormat",1,"small"],["bigImitation",2,"big",8]],
-        3:[["bigDictation",5,"big"],["smallImitation",3,"small"]],
-        4:[["smallDictation",5,"small"],["bigSentence",3,"big"]],
-        5:[["bigWhole",6,"big"],["smallFunction",2,"small"]],
-        6:[["smallWhole",6,"small"],["bigPattern",2,"big"]]
+      sprint:{
+        0:[["mistakes",1,""],["marks",1,""],["bigDictation",4,"big"],["smallDictation",4,"small"],["bigSentence",2,"big"],["smallSentence",2,"small"]],
+        1:[["bigSentence",5,"big"],["bigPattern",2,"big"],["smallFunction",3,"small"]],
+        2:[["smallSentence",5,"small"],["smallFormat",1,"small"],["bigImitation",3,"big"],["smallFunction",2,"small"]],
+        3:[["bigDictation",5,"big"],["smallImitation",5,"small"]],
+        4:[["smallDictation",5,"small"],["bigSentence",5,"big"]],
+        5:[["bigWhole",6,"big"],["smallFunction",4,"small"]],
+        6:[["smallWhole",6,"small"],["bigPattern",3,"big"],["bigSentence",2,"big"]]
       }
     };
-
-    (weekly[phase.id][weekday] || []).forEach(([activity, target, kind, minutes, method]) => {
-      add(activity, target, kind, minutes ?? null, method || "");
-    });
-
-    return {
-      date,
-      phase,
-      focus,
-      tasks,
-      estimatedMinutes: tasks.reduce((sum, task) => sum + task.minutes, 0)
-    };
+    (weekly[phase.id][weekday]||[]).forEach(([a,t,k,m])=>add(a,t,k,m??null));
+    const coreMinutes=tasks.reduce((s,t)=>s+t.minutes,0);
+    return{date,phase,focus,tasks,estimatedMinutes:coreMinutes,targetMinutes:90};
   }
 
-  function planActivityCount(dateKey, activity) {
-    return Math.max(0, Number(state.planActivities?.[dateKey]?.[activity]) || 0);
+  function planActivityCount(dateKey,activity){return Math.max(0,Number(state.planActivities?.[dateKey]?.[activity])||0)}
+  function planTaskConditionMet(dateKey,task){const count=planActivityCount(dateKey,task.activity);if(count>=task.target)return true;if(task.activity==="review"&&dateKey===localDateKey()){const oldDue=state.cards.filter(c=>isDue(c)&&!isNew(c)).length;if(oldDue===0)return true}return false}
+  function refreshPlanTaskCompletions(dateKey=localDateKey()){if(!state.planTaskCompletions||typeof state.planTaskCompletions!=="object")state.planTaskCompletions={};if(!state.planTaskCompletions[dateKey])state.planTaskCompletions[dateKey]={};const plan=studyPlanForDate(dateKey);let changed=false;plan.tasks.forEach(task=>{if(!state.planTaskCompletions[dateKey][task.id]&&planTaskConditionMet(dateKey,task)){state.planTaskCompletions[dateKey][task.id]=true;changed=true}});return changed}
+  function planTaskDone(dateKey,task){return Boolean(state.planTaskCompletions?.[dateKey]?.[task.id])||planTaskConditionMet(dateKey,task)}
+
+  function writingActivityTotals(dateKey){
+    const big=["bigSentence","bigImitation","bigPattern","bigParagraph","bigWhole","bigDictation"].reduce((s,a)=>s+planActivityCount(dateKey,a),0);
+    const small=["smallSentence","smallImitation","smallWhole","smallDictation","smallFunction"].reduce((s,a)=>s+planActivityCount(dateKey,a),0);
+    return{big,small};
+  }
+  function coreWritingTargets(plan){return{big:plan.tasks.filter(t=>t.category==="big").reduce((s,t)=>s+t.target,0),small:plan.tasks.filter(t=>t.category==="small"&&t.activity!=="smallFormat").reduce((s,t)=>s+t.target,0)}}
+  function bonusTasksForDate(value){
+    const date=value instanceof Date?new Date(value):dateFromKey(value),key=localDateKey(date),plan=studyPlanForDate(date),actual=writingActivityTotals(key),core=coreWritingTargets(plan),wrong=planActivityCount(key,"quizWrong"),redo=planActivityCount(key,"quizWrongRedo");
+    return[
+      {id:"v18-bonus-quiz",activity:"quizWrongRedo",label:"重做今天全部选择题错题",icon:"重",target:wrong,current:redo,unit:"题",minutes:Math.max(2,Math.min(8,Math.round(wrong*.45))),done:wrong===0||redo>=wrong,view:"quiz",method:wrong===0?"今天普通选择题暂时没有错题，本项自动完成。":"完成普通题量后点击“只重做错题”，把今天所有错题至少重做一遍。"},
+      {id:"v18-bonus-big",activity:"bigExtra",label:"再练大作文1个完整句子单位",icon:"大",target:1,current:Math.max(0,actual.big-core.big),unit:"句",minutes:3,done:actual.big>=core.big+1,view:"bigEssay",method:"任选本周大作文模块，再完成1句；有错必须手动修改并再次批改。"},
+      {id:"v18-bonus-small",activity:"smallExtra",label:"再练小作文1个完整句子单位",icon:"小",target:1,current:Math.max(0,actual.small-core.small),unit:"句",minutes:3,done:actual.small>=core.small+1,view:"smallEssay",method:"任选本周小作文模块，再完成1句或1个格式项。"},
+      {id:"v18-bonus-errors",activity:"errorReview",label:"回看错误最多的5个词组",icon:"查",target:5,current:planActivityCount(key,"errorReview"),unit:"条",minutes:5,done:planActivityCount(key,"errorReview")>=5,view:"mistakes",method:"复习已有错误记录的词组并完成评分；同一词组当天只计一次。"}
+    ];
   }
 
-  function planTaskConditionMet(dateKey, task) {
-    const count = planActivityCount(dateKey, task.activity);
-    if (count >= task.target) return true;
-    if (task.activity === "review" && dateKey === localDateKey()) {
-      const oldDue = state.cards.filter(card => isDue(card) && !isNew(card)).length;
-      if (oldDue === 0) return true;
-    }
-    return false;
-  }
+  function planDayStatus(value){const date=value instanceof Date?new Date(value):dateFromKey(value),key=localDateKey(date),plan=studyPlanForDate(date),done=plan.tasks.filter(t=>planTaskDone(key,t)).length,coreComplete=plan.tasks.length>0&&done===plan.tasks.length,bonus=bonusTasksForDate(date),bonusDone=bonus.filter(t=>t.done).length,fullComplete=coreComplete&&bonusDone===bonus.length;return{key,plan,done,total:plan.tasks.length,complete:coreComplete,coreComplete,bonus,bonusDone,bonusTotal:bonus.length,fullComplete,percent:plan.tasks.length?Math.round(done/plan.tasks.length*100):0,overallPercent:Math.round((done+bonusDone)/(plan.tasks.length+bonus.length)*100)}}
 
-  function refreshPlanTaskCompletions(dateKey = localDateKey()) {
-    if (!state.planTaskCompletions || typeof state.planTaskCompletions !== "object") state.planTaskCompletions = {};
-    if (!state.planTaskCompletions[dateKey]) state.planTaskCompletions[dateKey] = {};
-    const plan = studyPlanForDate(dateKey);
-    let changed = false;
-    plan.tasks.forEach(task => {
-      if (!state.planTaskCompletions[dateKey][task.id] && planTaskConditionMet(dateKey, task)) {
-        state.planTaskCompletions[dateKey][task.id] = true;
-        changed = true;
-      }
-    });
-    return changed;
-  }
+  function recordPlanActivity(activity,amount=1,saveNow=false){const key=localDateKey();if(!state.planActivities||typeof state.planActivities!=="object")state.planActivities={};if(!state.planActivities[key])state.planActivities[key]={};const visits=new Set(["smallFormat","mistakes","marks"]),old=Math.max(0,Number(state.planActivities[key][activity])||0);state.planActivities[key][activity]=visits.has(activity)?Math.max(1,old):old+Math.max(0,Number(amount)||0);refreshPlanTaskCompletions(key);if(saveNow){saveState();if(currentView==="dashboard")renderDashboard();if(currentView==="studyPlan")renderStudyPlanView()}}
+  function planActivityForBigWriting(kind){return({study:"bigSentence",sentence300:"bigImitation",inline:"bigImitation",pattern:"bigPattern",paragraph:"bigParagraph",whole:"bigWhole",dictation:"bigDictation"})[kind]||""}
+  function planActivityForSmallWriting(kind){return({study:"smallSentence",original:"smallSentence",imitation:"smallImitation",whole:"smallWhole",dictation:"smallDictation",function:"smallFunction"})[kind]||""}
+  function planTaskButton(task){return`<button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button>`}
 
-  function planTaskDone(dateKey, task) {
-    return Boolean(state.planTaskCompletions?.[dateKey]?.[task.id])
-      || planTaskConditionMet(dateKey, task);
-  }
+  function renderPlanTaskList(containerId,value,showActions=true,detailMode=false){const c=$(containerId);if(!c)return;const status=planDayStatus(value),isToday=status.key===localDateKey();c.innerHTML=status.plan.tasks.map(task=>{const count=planActivityCount(status.key,task.activity),done=planTaskDone(status.key,task),shown=Math.min(count,task.target),pct=done?100:Math.min(100,Math.round(shown/Math.max(1,task.target)*100));if(detailMode)return`<div class="plan-detail-task ${done?"done":""}"><span class="plan-detail-icon">${done?"✓":escapeHtml(task.icon)}</span><div><div class="plan-detail-title-row"><div class="plan-detail-title">${escapeHtml(task.displayLabel)}</div><span class="plan-detail-time">${task.minutes}分钟</span></div><div class="plan-detail-method">${escapeHtml(task.method)}</div><div class="plan-detail-progress-row"><div class="plan-detail-progress"><span style="width:${pct}%"></span></div><div class="plan-detail-value">${done?"已完成":`${shown}/${task.target}${task.unit}`}</div></div>${showActions&&isToday&&!done?`<div class="plan-detail-actions">${planTaskButton(task)}</div>`:""}</div></div>`;return`<div class="auto-plan-task ${done?"done":""}"><span class="auto-plan-check">${done?"✓":escapeHtml(task.icon)}</span><div><div class="auto-plan-task-title">${escapeHtml(task.displayLabel)}</div><div class="auto-plan-task-sub">${escapeHtml(task.description)}</div><div class="auto-plan-task-progress"><span style="width:${pct}%"></span></div><div class="auto-plan-task-value">${done?"已自动完成":`${shown}/${task.target}${task.unit} · 约${task.minutes}分钟`}</div></div>${showActions&&isToday&&!done?planTaskButton(task):""}</div>`}).join("")}
 
-  function planDayStatus(value) {
-    const date = value instanceof Date ? new Date(value) : dateFromKey(value);
-    const key = localDateKey(date);
-    const plan = studyPlanForDate(date);
-    const done = plan.tasks.filter(task => planTaskDone(key, task)).length;
-    return {
-      key,
-      plan,
-      done,
-      total:plan.tasks.length,
-      complete:plan.tasks.length > 0 && done === plan.tasks.length,
-      percent:plan.tasks.length ? Math.round(done / plan.tasks.length * 100) : 0
-    };
-  }
+  function renderBonusTaskList(containerId,panelId,statusId,value,showActions=true){const c=$(containerId),p=$(panelId),s=$(statusId);if(!c||!p||!s)return;const status=planDayStatus(value),isToday=status.key===localDateKey();p.classList.toggle("locked",!status.coreComplete);p.classList.toggle("unlocked",status.coreComplete&&!status.fullComplete);p.classList.toggle("completed",status.fullComplete);s.textContent=!status.coreComplete?"核心完成后解锁":status.fullComplete?"全部完成":`${status.bonusDone}/${status.bonusTotal}项`;if(!status.coreComplete){c.innerHTML='<div class="plan-bonus-lock">先完成上面的核心题量，随后自动解锁错题重做、大小作文各加练1句和5条错误词组复盘。</div>';return}c.innerHTML=status.bonus.map(task=>{const shown=Math.min(task.current,task.target),pct=task.done?100:task.target?Math.min(100,Math.round(shown/task.target*100)):100;return`<div class="bonus-task ${task.done?"done":""}"><span class="bonus-icon">${task.done?"✓":escapeHtml(task.icon)}</span><div><div class="bonus-title">${escapeHtml(task.label)}</div><div class="bonus-method">${escapeHtml(task.method)}</div><div class="bonus-progress-row"><div class="bonus-progress"><span style="width:${pct}%"></span></div><div class="bonus-value">${task.done?"已完成":task.target===0?"无错题":`${shown}/${task.target}${task.unit}`}</div></div>${showActions&&isToday&&!task.done?`<div class="plan-detail-actions"><button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button></div>`:""}</div></div>`}).join("")}
 
-  function recordPlanActivity(activity, amount = 1, saveNow = false) {
-    const key = localDateKey();
-    if (!state.planActivities || typeof state.planActivities !== "object") state.planActivities = {};
-    if (!state.planActivities[key]) state.planActivities[key] = {};
-    const visitActivities = new Set(["smallFormat","mistakes","marks"]);
-    const old = Math.max(0, Number(state.planActivities[key][activity]) || 0);
-    state.planActivities[key][activity] = visitActivities.has(activity)
-      ? Math.max(1, old)
-      : old + Math.max(0, Number(amount) || 0);
-    refreshPlanTaskCompletions(key);
-    if (saveNow) {
-      saveState();
-      if (currentView === "dashboard") renderDashboard();
-      if (currentView === "studyPlan") renderStudyPlanView();
-    }
-  }
+  function planCalendarBadges(status){const grouped={words:{label:"词组",value:0,total:0},quiz:{label:"选择",value:0,total:0},big:{label:"大作文",value:0,total:0},small:{label:"小作文",value:0,total:0},review:{label:"复盘",value:0,total:0}};status.plan.tasks.forEach(task=>{const g=grouped[task.category]||grouped.review;g.total+=task.target;g.value+=Math.min(planActivityCount(status.key,task.activity),task.target)});return Object.entries(grouped).filter(([,v])=>v.total>0).map(([key,v])=>({key,label:v.label,text:key==="review"?`${v.value}/${v.total}`:`${v.total}`,done:v.value>=v.total}))}
+  function clampStudyPlanDateKey(key){const d=dateFromKey(key)||new Date(),start=planStartDate(),end=planEndDate();if(d<start)return localDateKey(start);if(d>end)return localDateKey(end);return localDateKey(d)}
+  function setStudyPlanSelectedDate(key,alignMonth=true){selectedStudyPlanDateKey=clampStudyPlanDateKey(key);if(alignMonth){const d=dateFromKey(selectedStudyPlanDateKey);studyPlanCalendarCursor=new Date(d.getFullYear(),d.getMonth(),1)}renderStudyPlanView()}
+  function moveStudyPlanMonth(offset){const next=new Date(studyPlanCalendarCursor.getFullYear(),studyPlanCalendarCursor.getMonth()+offset,1),start=new Date(planStartDate().getFullYear(),planStartDate().getMonth(),1),end=new Date(planEndDate().getFullYear(),planEndDate().getMonth(),1);if(next<start||next>end)return;studyPlanCalendarCursor=next;renderStudyPlanView()}
 
-  function planActivityForBigWriting(kind) {
-    return ({
-      study:"bigSentence",
-      sentence300:"bigImitation",
-      inline:"bigImitation",
-      pattern:"bigPattern",
-      paragraph:"bigParagraph",
-      whole:"bigWhole",
-      dictation:"bigDictation"
-    })[kind] || "";
-  }
+  function renderStudyPlanCalendar(){const grid=$("planCalendarGrid");if(!grid)return;const y=studyPlanCalendarCursor.getFullYear(),m=studyPlanCalendarCursor.getMonth(),first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),start=planStartDate(),end=planEndDate(),todayKey=localDateKey(),today=dateFromKey(todayKey);$("planCalendarMonthTitle").textContent=`${y}年${m+1}月`;const dates=[];for(let d=1;d<=days;d++){const x=new Date(y,m,d);if(x>=start&&x<=end)dates.push(x)}const core=dates.filter(d=>planDayStatus(d).coreComplete).length,full=dates.filter(d=>planDayStatus(d).fullComplete).length;$("planCalendarMonthSummary").textContent=`本月核心完成${core}天 · 90分钟完成${full}天`;const cells=[];for(let b=0;b<first.getDay();b++)cells.push('<span class="plan-calendar-cell blank"></span>');for(let d=1;d<=days;d++){const date=new Date(y,m,d),key=localDateKey(date),inPlan=date>=start&&date<=end;if(!inPlan){cells.push(`<span class="plan-calendar-cell outside-plan"><div class="calendar-cell-head"><span class="calendar-cell-date">${d}</span></div></span>`);continue}const st=planDayStatus(date),isToday=key===todayKey,isSelected=key===selectedStudyPlanDateKey,isPast=date<today,classes=["plan-calendar-cell",isToday?"today":"",isSelected?"selected":"",st.coreComplete?"core-complete":"",st.fullComplete?"full-complete":"",isPast&&!st.coreComplete?"missed":""].filter(Boolean).join(" "),stateText=st.fullComplete?"90分钟":st.coreComplete?"核心完成":isToday?`${st.done}/${st.total}`:isPast?"未完成":`${st.total}项`,badges=planCalendarBadges(st).map(i=>`<span class="calendar-mini-badge ${i.key} ${i.done?"done":""}"><span>${escapeHtml(i.label)}</span><b>${escapeHtml(i.text)}</b></span>`).join("");cells.push(`<button class="${classes}" data-plan-date="${escapeHtml(key)}"><div class="calendar-cell-head"><span class="calendar-cell-date">${d}</span><span class="calendar-cell-state">${escapeHtml(stateText)}</span></div><div class="calendar-cell-focus">大：${escapeHtml(st.plan.focus.big.title)}<br>小：${escapeHtml(st.plan.focus.small.title)}</div><div class="calendar-mini-badges">${badges}</div><div class="calendar-cell-progress"><span style="width:${st.overallPercent}%"></span></div></button>`)}grid.innerHTML=cells.join("");const sm=new Date(start.getFullYear(),start.getMonth(),1),em=new Date(end.getFullYear(),end.getMonth(),1);$("planPrevMonthBtn").disabled=studyPlanCalendarCursor<=sm;$("planNextMonthBtn").disabled=studyPlanCalendarCursor>=em}
 
-  function planActivityForSmallWriting(kind) {
-    return ({
-      study:"smallSentence",
-      original:"smallSentence",
-      imitation:"smallImitation",
-      whole:"smallWhole",
-      dictation:"smallDictation",
-      function:"smallFunction"
-    })[kind] || "";
-  }
+  function renderSelectedPlanDay(){const date=dateFromKey(selectedStudyPlanDateKey),st=planDayStatus(date),weeks=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],isToday=st.key===localDateKey();$("selectedPlanDate").textContent=`${date.getMonth()+1}月${date.getDate()}日 · ${weeks[date.getDay()]}`;$("selectedPlanPhase").textContent=`${st.plan.phase.name} · 目标90分钟`;$("selectedPlanStatus").textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;$("selectedPlanStatus").classList.toggle("done",st.coreComplete);$("selectedPlanFocus").innerHTML=`<strong>本周大作文：</strong>${escapeHtml(st.plan.focus.big.title)}<br><strong>本周小作文：</strong>${escapeHtml(st.plan.focus.small.title)}（${escapeHtml(st.plan.focus.small.type)}）<br><span>建议顺序：到期词组 → 选择题 → 新词 → 大作文 → 小作文 → 90分钟加练。</span>`;renderPlanTaskList("selectedPlanTasks",date,isToday,true);renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday)}
 
-  function planTaskButton(task) {
-    return `<button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button>`;
-  }
+  function renderStudyWeekBlueprint(){const selected=dateFromKey(selectedStudyPlanDateKey),monday=mondayOfWeek(selected),focus=focusForPlanDate(selected),names=["周一","周二","周三","周四","周五","周六","周日"],todayKey=localDateKey();$("studyWeekFocus").innerHTML=`第${focus.weekIndex+1}周 · 大作文重点：<strong>${escapeHtml(focus.big.title)}</strong>；小作文重点：<strong>${escapeHtml(focus.small.title)}</strong>。普通工作日约10—12个作文单位，周六综合输出，周日复盘。`;const arr=[];for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const p=studyPlanForDate(d),writing=p.tasks.filter(t=>["big","small","review"].includes(t.category)).map(t=>t.displayLabel.replace(` · ${t.focus}`,"")).join("＋")||"词组复习";arr.push(`<div class="week-blueprint-day ${localDateKey(d)===todayKey?"today":""}"><strong>${names[i]} · ${d.getMonth()+1}/${d.getDate()}</strong><span>${escapeHtml(writing)}</span></div>`)}$("studyWeekBlueprint").innerHTML=arr.join("")}
 
-  function renderPlanTaskList(containerId, value, showActions = true, detailMode = false) {
-    const container = $(containerId);
-    if (!container) return;
-    const status = planDayStatus(value);
-    const isToday = status.key === localDateKey();
+  function renderTodayAutoPlan(){const changed=refreshPlanTaskCompletions();if(changed)saveState();const st=planDayStatus(new Date());$("todayPlanPhase").textContent=st.plan.phase.name;$("todayPlanMeta").textContent=`本周大作文：${st.plan.focus.big.title}；小作文：${st.plan.focus.small.title}。核心题量完成后解锁90分钟加练。`;$("todayPlanDoneCount").textContent=st.done;$("todayPlanTaskCount").textContent=st.total;$("todayPlanMinutes").textContent=90;$("todayPlanPercent").textContent=`${st.overallPercent}%`;const badge=$("todayAutoPlanStatus");badge.textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;badge.classList.toggle("done",st.coreComplete);badge.classList.toggle("auto-plan-status-core",st.coreComplete&&!st.fullComplete);badge.classList.toggle("auto-plan-status-full",st.fullComplete);renderPlanTaskList("todayAutoPlanTasks",new Date(),true,false);renderBonusTaskList("todayBonusTasks","todayBonusPanel","todayBonusStatus",new Date(),true)}
 
-    container.innerHTML = status.plan.tasks.map(task => {
-      const count = planActivityCount(status.key, task.activity);
-      const done = planTaskDone(status.key, task);
-      const shownCount = Math.min(count, task.target);
-      const pct = done ? 100 : Math.min(100, Math.round(shownCount / Math.max(1, task.target) * 100));
+  function renderStudyPlanView(){refreshPlanTaskCompletions();const stats=checkinPlanStats(),today=planDayStatus(new Date()),sm=new Date(stats.start.getFullYear(),stats.start.getMonth(),1),em=new Date(stats.end.getFullYear(),stats.end.getMonth(),1);if(studyPlanCalendarCursor<sm||studyPlanCalendarCursor>em){const s=dateFromKey(clampStudyPlanDateKey(selectedStudyPlanDateKey));studyPlanCalendarCursor=new Date(s.getFullYear(),s.getMonth(),1)}selectedStudyPlanDateKey=clampStudyPlanDateKey(selectedStudyPlanDateKey);$("studyPlanRangeText").textContent=`从${stats.start.toLocaleDateString("zh-CN")}到${stats.end.toLocaleDateString("zh-CN")}。核心完成显示浅绿色，90分钟加练完成显示深绿色。`;$("studyPlanTotalDays").textContent=stats.total;$("studyPlanCompletedDays").textContent=stats.checked;$("studyPlanCurrentStreak").textContent=calculateCheckinStreak();$("studyPlanOverallPercent").textContent=`${stats.progress}%`;$("studyPlanOverallStatus").textContent=today.fullComplete?"今天90分钟已完成":today.coreComplete?"今天核心已完成":`今天核心${today.done}/${today.total}`;$("studyPlanOverallStatus").classList.toggle("done",today.coreComplete);$("studyPlanCurrentPhase").textContent=today.plan.phase.name;$("studyPhaseTimeline").innerHTML=STUDY_PHASES.map(p=>`<div class="phase-card ${p.id===today.plan.phase.id?"current":""}"><strong>${escapeHtml(p.name)}</strong><span>${p.start.slice(5).replace("-","/")}—${p.id==="sprint"?"考试前一天":p.end.slice(5).replace("-","/")}</span><span>${escapeHtml(p.summary)}</span><em>${escapeHtml(p.result)}</em></div>`).join("");renderStudyPlanCalendar();renderSelectedPlanDay();renderStudyWeekBlueprint()}
 
-      if (detailMode) {
-        return `<div class="plan-detail-task ${done ? "done" : ""}">
-          <span class="plan-detail-icon">${done ? "✓" : escapeHtml(task.icon)}</span>
-          <div>
-            <div class="plan-detail-title-row">
-              <div class="plan-detail-title">${escapeHtml(task.displayLabel)}</div>
-              <span class="plan-detail-time">${task.minutes}分钟</span>
-            </div>
-            <div class="plan-detail-method">${escapeHtml(task.method)}</div>
-            <div class="plan-detail-progress-row">
-              <div class="plan-detail-progress"><span style="width:${pct}%"></span></div>
-              <div class="plan-detail-value">${done ? "已完成" : `${shownCount}/${task.target}${task.unit}`}</div>
-            </div>
-            ${showActions && isToday && !done
-              ? `<div class="plan-detail-actions">${planTaskButton(task)}</div>`
-              : ""}
-          </div>
-        </div>`;
-      }
-
-      return `<div class="auto-plan-task ${done ? "done" : ""}">
-        <span class="auto-plan-check">${done ? "✓" : escapeHtml(task.icon)}</span>
-        <div>
-          <div class="auto-plan-task-title">${escapeHtml(task.displayLabel)}</div>
-          <div class="auto-plan-task-sub">${escapeHtml(task.description)}</div>
-          <div class="auto-plan-task-progress"><span style="width:${pct}%"></span></div>
-          <div class="auto-plan-task-value">${done ? "已自动完成" : `${shownCount}/${task.target}${task.unit} · 约${task.minutes}分钟`}</div>
-        </div>
-        ${showActions && isToday && !done ? planTaskButton(task) : ""}
-      </div>`;
-    }).join("");
-  }
-
-  function planCalendarBadges(status) {
-    const grouped = {
-      words:{label:"词组", value:0, total:0},
-      quiz:{label:"选择", value:0, total:0},
-      big:{label:"大作文", value:0, total:0},
-      small:{label:"小作文", value:0, total:0},
-      review:{label:"复盘", value:0, total:0}
-    };
-
-    status.plan.tasks.forEach(task => {
-      const group = grouped[task.category] || grouped.review;
-      group.total += task.target;
-      group.value += Math.min(planActivityCount(status.key, task.activity), task.target);
-    });
-
-    return Object.entries(grouped)
-      .filter(([, value]) => value.total > 0)
-      .map(([key, value]) => ({
-        key,
-        label:value.label,
-        text:key === "review"
-          ? `${value.value}/${value.total}`
-          : `${value.total}`,
-        done:value.value >= value.total
-      }));
-  }
-
-  function clampStudyPlanDateKey(key) {
-    const date = dateFromKey(key) || new Date();
-    const start = planStartDate();
-    const end = planEndDate();
-    if (date < start) return localDateKey(start);
-    if (date > end) return localDateKey(end);
-    return localDateKey(date);
-  }
-
-  function setStudyPlanSelectedDate(key, alignMonth = true) {
-    selectedStudyPlanDateKey = clampStudyPlanDateKey(key);
-    if (alignMonth) {
-      const date = dateFromKey(selectedStudyPlanDateKey);
-      studyPlanCalendarCursor = new Date(date.getFullYear(), date.getMonth(), 1);
-    }
-    renderStudyPlanView();
-  }
-
-  function moveStudyPlanMonth(offset) {
-    const next = new Date(
-      studyPlanCalendarCursor.getFullYear(),
-      studyPlanCalendarCursor.getMonth() + offset,
-      1
-    );
-    const startMonth = new Date(planStartDate().getFullYear(), planStartDate().getMonth(), 1);
-    const endMonth = new Date(planEndDate().getFullYear(), planEndDate().getMonth(), 1);
-    if (next < startMonth || next > endMonth) return;
-    studyPlanCalendarCursor = next;
-    renderStudyPlanView();
-  }
-
-  function renderStudyPlanCalendar() {
-    const grid = $("planCalendarGrid");
-    if (!grid) return;
-
-    const year = studyPlanCalendarCursor.getFullYear();
-    const month = studyPlanCalendarCursor.getMonth();
-    const first = new Date(year, month, 1);
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const start = planStartDate();
-    const end = planEndDate();
-    const todayKey = localDateKey();
-    const today = dateFromKey(todayKey);
-
-    $("planCalendarMonthTitle").textContent = `${year}年${month + 1}月`;
-
-    const monthDates = [];
-    for (let day = 1; day <= daysInMonth; day += 1) {
-      const date = new Date(year, month, day);
-      if (date >= start && date <= end) monthDates.push(date);
-    }
-    const completed = monthDates.filter(date => planDayStatus(date).complete).length;
-    $("planCalendarMonthSummary").textContent =
-      `本月完整完成${completed}/${monthDates.length}天 · 点击日期查看任务`;
-
-    const cells = [];
-    for (let blank = 0; blank < first.getDay(); blank += 1) {
-      cells.push('<span class="plan-calendar-cell blank"></span>');
-    }
-
-    for (let day = 1; day <= daysInMonth; day += 1) {
-      const date = new Date(year, month, day);
-      const key = localDateKey(date);
-      const inPlan = date >= start && date <= end;
-
-      if (!inPlan) {
-        cells.push(`<span class="plan-calendar-cell outside-plan">
-          <div class="calendar-cell-head"><span class="calendar-cell-date">${day}</span></div>
-        </span>`);
-        continue;
-      }
-
-      const status = planDayStatus(date);
-      const isToday = key === todayKey;
-      const isSelected = key === selectedStudyPlanDateKey;
-      const isPast = date < today;
-      const classes = [
-        "plan-calendar-cell",
-        isToday ? "today" : "",
-        isSelected ? "selected" : "",
-        status.complete ? "complete" : "",
-        isPast && !status.complete ? "missed" : ""
-      ].filter(Boolean).join(" ");
-
-      const stateText = status.complete
-        ? "完成"
-        : isToday
-          ? `${status.done}/${status.total}`
-          : isPast
-            ? "未完成"
-            : `${status.total}项`;
-
-      const badges = planCalendarBadges(status).map(item =>
-        `<span class="calendar-mini-badge ${item.key} ${item.done ? "done" : ""}">
-          <span>${escapeHtml(item.label)}</span><b>${escapeHtml(item.text)}</b>
-        </span>`
-      ).join("");
-
-      cells.push(`<button class="${classes}" data-plan-date="${escapeHtml(key)}" title="${escapeHtml(status.plan.phase.name)}">
-        <div class="calendar-cell-head">
-          <span class="calendar-cell-date">${day}</span>
-          <span class="calendar-cell-state">${escapeHtml(stateText)}</span>
-        </div>
-        <div class="calendar-cell-focus">
-          大：${escapeHtml(status.plan.focus.big.title)}<br>
-          小：${escapeHtml(status.plan.focus.small.title)}
-        </div>
-        <div class="calendar-mini-badges">${badges}</div>
-        <div class="calendar-cell-progress"><span style="width:${status.percent}%"></span></div>
-      </button>`);
-    }
-
-    grid.innerHTML = cells.join("");
-
-    const startMonth = new Date(start.getFullYear(), start.getMonth(), 1);
-    const endMonth = new Date(end.getFullYear(), end.getMonth(), 1);
-    $("planPrevMonthBtn").disabled = studyPlanCalendarCursor <= startMonth;
-    $("planNextMonthBtn").disabled = studyPlanCalendarCursor >= endMonth;
-  }
-
-  function renderSelectedPlanDay() {
-    const date = dateFromKey(selectedStudyPlanDateKey);
-    const status = planDayStatus(date);
-    const weekdays = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
-    const isToday = status.key === localDateKey();
-
-    $("selectedPlanDate").textContent =
-      `${date.getMonth() + 1}月${date.getDate()}日 · ${weekdays[date.getDay()]}`;
-    $("selectedPlanPhase").textContent =
-      `${status.plan.phase.name} · 预计${status.plan.estimatedMinutes}分钟`;
-    $("selectedPlanStatus").textContent =
-      status.complete ? "全部完成" : `${status.done}/${status.total}项`;
-    $("selectedPlanStatus").classList.toggle("done", status.complete);
-    $("selectedPlanFocus").innerHTML =
-      `<strong>本周大作文：</strong>${escapeHtml(status.plan.focus.big.title)}<br>` +
-      `<strong>本周小作文：</strong>${escapeHtml(status.plan.focus.small.title)}（${escapeHtml(status.plan.focus.small.type)}）<br>` +
-      `<span>建议顺序：到期词组 → 选择题 → 新词 → 大作文 → 小作文。</span>`;
-
-    renderPlanTaskList("selectedPlanTasks", date, isToday, true);
-  }
-
-  function renderStudyWeekBlueprint() {
-    const selected = dateFromKey(selectedStudyPlanDateKey);
-    const monday = mondayOfWeek(selected);
-    const focus = focusForPlanDate(selected);
-    const weekdays = ["周一","周二","周三","周四","周五","周六","周日"];
-    const todayKey = localDateKey();
-
-    $("studyWeekFocus").innerHTML =
-      `第${focus.weekIndex + 1}周 · 大作文重点：<strong>${escapeHtml(focus.big.title)}</strong>；` +
-      `小作文重点：<strong>${escapeHtml(focus.small.title)}</strong>。` +
-      `本周两类作文都会进入日程，不会只练大作文。`;
-
-    const days = [];
-    for (let offset = 0; offset < 7; offset += 1) {
-      const date = new Date(monday);
-      date.setDate(monday.getDate() + offset);
-      const plan = studyPlanForDate(date);
-      const writing = plan.tasks
-        .filter(task => task.category === "big" || task.category === "small" || task.category === "review")
-        .map(task => task.displayLabel.replace(` · ${task.focus}`, ""))
-        .join("＋") || "词组复习";
-      days.push(`<div class="week-blueprint-day ${localDateKey(date) === todayKey ? "today" : ""}">
-        <strong>${weekdays[offset]} · ${date.getMonth()+1}/${date.getDate()}</strong>
-        <span>${escapeHtml(writing)}</span>
-      </div>`);
-    }
-    $("studyWeekBlueprint").innerHTML = days.join("");
-  }
-
-  function renderTodayAutoPlan() {
-    const changed = refreshPlanTaskCompletions();
-    if (changed) saveState();
-    const status = planDayStatus(new Date());
-
-    $("todayPlanPhase").textContent = status.plan.phase.name;
-    $("todayPlanMeta").textContent =
-      `本周大作文：${status.plan.focus.big.title}；小作文：${status.plan.focus.small.title}。` +
-      `今日预计${status.plan.estimatedMinutes}分钟，达到数量后自动打勾。`;
-    $("todayPlanDoneCount").textContent = status.done;
-    $("todayPlanTaskCount").textContent = status.total;
-    $("todayPlanMinutes").textContent = status.plan.estimatedMinutes;
-    $("todayPlanPercent").textContent = `${status.percent}%`;
-    $("todayAutoPlanStatus").textContent =
-      status.complete ? "今日计划已完成" : `${status.done}/${status.total}项`;
-    $("todayAutoPlanStatus").classList.toggle("done", status.complete);
-    renderPlanTaskList("todayAutoPlanTasks", new Date(), true, false);
-  }
-
-  function renderStudyPlanView() {
-    refreshPlanTaskCompletions();
-
-    const stats = checkinPlanStats();
-    const todayStatus = planDayStatus(new Date());
-    const startMonth = new Date(stats.start.getFullYear(), stats.start.getMonth(), 1);
-    const endMonth = new Date(stats.end.getFullYear(), stats.end.getMonth(), 1);
-
-    if (studyPlanCalendarCursor < startMonth || studyPlanCalendarCursor > endMonth) {
-      const selected = dateFromKey(clampStudyPlanDateKey(selectedStudyPlanDateKey));
-      studyPlanCalendarCursor = new Date(selected.getFullYear(), selected.getMonth(), 1);
-    }
-    selectedStudyPlanDateKey = clampStudyPlanDateKey(selectedStudyPlanDateKey);
-
-    $("studyPlanRangeText").textContent =
-      `从${stats.start.toLocaleDateString("zh-CN")}到${stats.end.toLocaleDateString("zh-CN")}。` +
-      `每天的词组、选择题、大作文和小作文会按实际完成情况自动记录。`;
-    $("studyPlanTotalDays").textContent = stats.total;
-    $("studyPlanCompletedDays").textContent = stats.checked;
-    $("studyPlanCurrentStreak").textContent = calculateCheckinStreak();
-    $("studyPlanOverallPercent").textContent = `${stats.progress}%`;
-    $("studyPlanOverallStatus").textContent =
-      todayStatus.complete ? "今天已完成" : `今天${todayStatus.done}/${todayStatus.total}项`;
-    $("studyPlanOverallStatus").classList.toggle("done", todayStatus.complete);
-    $("studyPlanCurrentPhase").textContent = todayStatus.plan.phase.name;
-
-    $("studyPhaseTimeline").innerHTML = STUDY_PHASES.map(phase => {
-      const current = phase.id === todayStatus.plan.phase.id;
-      return `<div class="phase-card ${current ? "current" : ""}">
-        <strong>${escapeHtml(phase.name)}</strong>
-        <span>${phase.start.slice(5).replace("-","/")}—${phase.id === "sprint" ? "考试前一天" : phase.end.slice(5).replace("-","/")}</span>
-        <span>${escapeHtml(phase.summary)}</span>
-        <em>${escapeHtml(phase.result)}</em>
-      </div>`;
-    }).join("");
-
-    renderStudyPlanCalendar();
-    renderSelectedPlanDay();
-    renderStudyWeekBlueprint();
-  }
-
-  function goToPlanActivity(activity) {
-    const todayTask = studyPlanForDate(new Date()).tasks.find(task => task.activity === activity);
-    const meta = PLAN_ACTIVITY_META[activity];
-    if (!meta) return;
-
-    if (activity === "newWords") {
-      startReview(true);
-      return;
-    }
-    if (activity === "review") {
-      startReview(false);
-      return;
-    }
-
-    if (todayTask?.focusId && meta.view === "bigEssay") {
-      currentEssayId = todayTask.focusId;
-      if (activity === "bigImitation") {
-        sentenceImitationSource = todayTask.focusId;
-        currentSentenceImitationId = "";
-      }
-      if (activity === "bigWhole") {
-        const matched = WHOLE_IMITATION_TASKS.find(item => item.sourceEssayId === todayTask.focusId);
-        if (matched) currentWholeImitationId = matched.id;
-      }
-    }
-
-    if (todayTask?.focusId && meta.view === "smallEssay") {
-      currentSmallEssayId = todayTask.focusId;
-      if (activity === "smallImitation") {
-        smallSentenceSource = todayTask.focusId;
-        currentSmallSentenceTaskId = "";
-      }
-      if (activity === "smallWhole") {
-        const matched = SMALL_WHOLE.find(item => item.sourceEssayId === todayTask.focusId);
-        if (matched) currentSmallWholeId = matched.id;
-      }
-    }
-
-    switchView(meta.view);
-    if (meta.view === "bigEssay" && meta.tab) setEssayTab(meta.tab);
-    if (meta.view === "smallEssay" && meta.tab && typeof setSmallTab === "function") setSmallTab(meta.tab);
+  function goToPlanActivity(activity){
+    const task=studyPlanForDate(new Date()).tasks.find(t=>t.activity===activity),m=PLAN_ACTIVITY_META[activity];if(!m)return;
+    if(activity==="newWords"){startReview(true);return}if(activity==="review"){startReview(false);return}
+    if(activity==="quizWrongRedo"){switchView("quiz");showToast("先完成普通选择题，然后在本轮结果页点击“只重做错题”");return}
+    if(activity==="bigExtra"){const f=focusForPlanDate(new Date()).big;currentEssayId=f.id;switchView("bigEssay");setEssayTab("sentenceImitation");return}
+    if(activity==="smallExtra"){const f=focusForPlanDate(new Date()).small;currentSmallEssayId=f.id;switchView("smallEssay");if(typeof setSmallTab==="function")setSmallTab("sentenceImitation");return}
+    if(activity==="errorReview"){switchView("mistakes");return}
+    if(task?.focusId&&m.view==="bigEssay"){currentEssayId=task.focusId;if(activity==="bigImitation"){sentenceImitationSource=task.focusId;currentSentenceImitationId=""}if(activity==="bigWhole"){const x=WHOLE_IMITATION_TASKS.find(i=>i.sourceEssayId===task.focusId);if(x)currentWholeImitationId=x.id}}
+    if(task?.focusId&&m.view==="smallEssay"){currentSmallEssayId=task.focusId;if(activity==="smallImitation"){smallSentenceSource=task.focusId;currentSmallSentenceTaskId=""}if(activity==="smallWhole"){const x=SMALL_WHOLE.find(i=>i.sourceEssayId===task.focusId);if(x)currentSmallWholeId=x.id}}
+    switchView(m.view);if(m.view==="bigEssay"&&m.tab)setEssayTab(m.tab);if(m.view==="smallEssay"&&m.tab&&typeof setSmallTab==="function")setSmallTab(m.tab)
   }
 
   function calculateCheckinStreak() {
@@ -5522,6 +5124,7 @@
     const total = inclusiveDaysBetween(start, end);
 
     let checked = 0;
+    let full = 0;
     let missed = 0;
     let longest = 0;
     let running = 0;
@@ -5529,7 +5132,9 @@
     const cursor = new Date(start);
     while (cursor <= end) {
       const key = localDateKey(cursor);
-      const active = planDayStatus(cursor).complete;
+      const dayStatus = planDayStatus(cursor);
+      const active = dayStatus.coreComplete;
+      if (dayStatus.fullComplete) full += 1;
       if (active) {
         checked += 1;
         running += 1;
@@ -5543,7 +5148,8 @@
 
     const remaining = Math.max(0, total - checked - missed);
     const progress = total ? Math.round(checked / total * 100) : 0;
-    return { start, end, today, effectiveToday, total, checked, missed, remaining, longest, progress };
+    const fullProgress = total ? Math.round(full / total * 100) : 0;
+    return { start, end, today, effectiveToday, total, checked, full, missed, remaining, longest, progress, fullProgress };
   }
 
   function monthKey(date) {
@@ -5580,7 +5186,7 @@
       if (isExamEve) classes += " exam-eve";
 
       const stateText = active
-        ? "今日计划已完成"
+        ? (dayStatus.fullComplete ? "90分钟已完成" : "核心已完成")
         : isToday
           ? "等待今日计划"
           : isExamEve
@@ -5630,13 +5236,17 @@
         const inPlan = d >= stats.start && d <= stats.end;
         const key = localDateKey(d);
         const dayStatus = planDayStatus(d);
-        const active = dayStatus.complete;
+        const active = dayStatus.coreComplete;
+        const fullActive = dayStatus.fullComplete;
         const isToday = key === localDateKey(stats.today);
         let className = "calendar-day";
 
         if (!inPlan) className += " outside-plan";
-        else if (active) {
-          className += " checked";
+        else if (fullActive) {
+          className += " full-checked";
+          checkedInMonth += 1;
+        } else if (active) {
+          className += " core-checked";
           checkedInMonth += 1;
         } else if (d < stats.today) className += " missed";
         else className += " future";
@@ -5645,14 +5255,16 @@
 
         const title = !inPlan
           ? `${key} 不在打卡计划内`
-          : active
-            ? `${key} 学习计划已全部完成`
+          : fullActive
+            ? `${key} 90分钟计划全部完成`
+            : active
+              ? `${key} 核心任务已完成`
             : d < stats.today
               ? `${key} 未完整完成`
               : `${key} 等待完成`;
 
         cells.push(`<span class="${className}" title="${escapeHtml(title)}">
-          ${day}${inPlan && active ? '<i class="dot"></i>' : ""}
+          ${day}${inPlan && (active || fullActive) ? '<i class="dot"></i>' : ""}
         </span>`);
       }
 
@@ -5674,12 +5286,13 @@
       `从${stats.start.toLocaleDateString("zh-CN")}开始，到${stats.end.toLocaleDateString("zh-CN")}（考试前一天）结束。`;
     $("planTotalDays").textContent = stats.total;
     $("planCheckedDays").textContent = stats.checked;
+    $("planFullDays").textContent = stats.full;
     $("planMissedDays").textContent = stats.missed;
     $("planRemainingDays").textContent = stats.remaining;
     $("planLongestStreak").textContent = stats.longest;
     $("fullPlanProgressBar").style.width = `${stats.progress}%`;
     $("fullPlanProgressText").textContent =
-      `已完成${stats.checked}天 / 共${stats.total}天 · 完成率${stats.progress}%`;
+      `核心完成${stats.checked}天 · 90分钟完成${stats.full}天 / 共${stats.total}天`;
 
     const status = $("planOverallStatus");
     if (stats.today < stats.start) {
@@ -6808,7 +6421,8 @@
           <div class="correction-warning">
             这里按照本题的确认答案或辅助参考答案逐句批改。
             它能明确检查拼写、缺词、多词、词序、标点、关键词和指定句型；
-            使用完全不同但仍然正确的自由表达时，仍需人工确认。
+            使用完全不同但仍然正确的自由表达时，仍需人工确认。<br>
+            <strong>日历计数：</strong>首遍完全正确直接计入；首遍有错时，必须手动修改并再次批改。直接应用修正版不计入。
           </div>
         </div>
       </div>`;
@@ -6819,32 +6433,41 @@
       || (state.bigEssayPractice[context.storageCategory] = {});
     const old = bucket[context.storageId] || {};
     const changed = old.answer !== answer;
-    const firstPlanCountToday = old.lastPlanCountDate !== localDateKey();
+    const todayKey = localDateKey();
+    const alreadyCounted = old.lastPlanV18CountDate === todayKey;
+    const firstDate = old.planV18FirstDate;
+    const firstAnswer = old.planV18FirstAnswer || "";
+    const firstPerfect = analysis.score >= 92 && analysis.failed.length === 0;
+    let countUnit = false;
+    let nextFirstDate = firstDate;
+    let nextFirstAnswer = firstAnswer;
+
+    if (changed && !planAdoptCorrectionMode && !alreadyCounted) {
+      if (firstDate !== todayKey) {
+        nextFirstDate = todayKey;
+        nextFirstAnswer = answer;
+        if (firstPerfect) countUnit = true;
+      } else if (answer !== firstAnswer) {
+        countUnit = true;
+      }
+    }
 
     bucket[context.storageId] = {
-      ...old,
-      answer,
-      score: analysis.score,
-      correction: {
-        level: analysis.level,
-        failedChecks: analysis.failed.map(item => item.label),
-        missing: analysis.details.missing,
-        extra: analysis.details.extra,
-        spelling: analysis.details.spelling,
-        checkedAt: new Date().toISOString()
-      },
-      attempts: Math.max(0, Number(old.attempts) || 0) + (changed ? 1 : 0),
-      lastPlanCountDate: changed ? localDateKey() : old.lastPlanCountDate,
-      lastAt: new Date().toISOString()
+      ...old, answer, score: analysis.score,
+      correction:{level:analysis.level,failedChecks:analysis.failed.map(item=>item.label),missing:analysis.details.missing,extra:analysis.details.extra,spelling:analysis.details.spelling,checkedAt:new Date().toISOString()},
+      attempts:Math.max(0,Number(old.attempts)||0)+(changed?1:0),
+      planV18FirstDate: countUnit ? null : nextFirstDate,
+      planV18FirstAnswer: countUnit ? "" : nextFirstAnswer,
+      lastPlanV18CountDate: countUnit ? todayKey : old.lastPlanV18CountDate,
+      lastAt:new Date().toISOString()
     };
 
-    if (changed) {
-      recordDailyStudy(analysis.score >= 75 ? 2 : 1, false, "essay");
+    if (changed) recordDailyStudy(analysis.score >= 75 ? 2 : 1, false, "essay");
+    if (countUnit) {
       const activity = planActivityForBigWriting(context.kind);
-      if (activity && firstPlanCountToday) recordPlanActivity(activity, 1);
+      if (activity) recordPlanActivity(activity, 1);
     }
-    saveState();
-    renderDashboard();
+    saveState(); renderDashboard();
   }
 
   function runWritingCorrection(kind, id) {
@@ -6873,7 +6496,9 @@
 
     input.value = context.reference;
     if (kind === "study") essayStudyDraft = context.reference;
-    runWritingCorrection(kind, id);
+    planAdoptCorrectionMode = true;
+    try { runWritingCorrection(kind, id); }
+    finally { planAdoptCorrectionMode = false; }
     input.focus();
     showToast("修正版已放入输入框，并重新完成批改");
   }
@@ -8680,7 +8305,8 @@
     return buildGeneralQuizQuestion(card);
   }
 
-  function startQuiz(customCards = null) {
+  function startQuiz(customCards = null, options = {}) {
+    quizWrongRetryMode = Boolean(options.wrongRetry);
     let cards = Array.isArray(customCards) ? customCards : quizEligibleCards();
     if (!cards.length) {
       showToast("当前筛选条件下没有可用题目");
@@ -8758,7 +8384,7 @@
 
   function recordQuizResult(card,isCorrect,direction) {
     const oldMode=currentMode;
-    currentMode=`mcq-${direction}`;
+    currentMode=quizWrongRetryMode ? `mcq-retry-${direction}` : `mcq-${direction}`;
     scheduleCard(card,isCorrect ? 2 : 1);
     currentMode=oldMode;
   }
@@ -8841,7 +8467,7 @@
   function retryQuizWrong() {
     const cards=[...new Set(quizWrongIds)].map(id=>state.cards.find(card=>card.id===id)).filter(Boolean);
     if (!cards.length) return showToast("本轮没有错题");
-    startQuiz(cards);
+    startQuiz(cards, {wrongRetry:true});
   }
 
   function exitQuizRound() {
@@ -8849,6 +8475,7 @@
     quizQueue=[];
     quizIndex=0;
     quizCurrentQuestion=null;
+    quizWrongRetryMode=false;
     renderQuizSetup();
   }
 
@@ -8940,14 +8567,14 @@
     $("checkinProgressText").textContent = `今日计划 ${todayPlanStatus.done}/${todayPlanStatus.total}项 · 答题 ${todayStats.reviewed} 次 · 新学 ${todayStats.newLearned} 条 · 作文练习 ${todayStats.essayPractice} 次`;
     $("checkinProgressBar").style.width = `${progress}%`;
 
-    const checkedIn = todayPlanStatus.complete;
+    const checkedIn = todayPlanStatus.coreComplete;
     $("checkinStatus").textContent = checkedIn
-      ? "今日计划已完成"
-      : todayPlanStatus.done > 0 ? `今日进行中 ${todayPlanStatus.done}/${todayPlanStatus.total}` : "今日尚未开始";
+      ? (todayPlanStatus.fullComplete ? "今日90分钟计划已完成" : "今日核心任务已完成")
+      : todayPlanStatus.done > 0 ? `今日核心进行中 ${todayPlanStatus.done}/${todayPlanStatus.total}` : "今日尚未开始";
     $("checkinStatus").classList.toggle("done", checkedIn);
     $("checkinDescription").textContent = checkedIn
       ? "今天规定的学习内容已经全部完成，系统已自动打勾。"
-      : `无需手动打勾：当前自动完成 ${todayPlanStatus.done}/${todayPlanStatus.total} 项，达到每项数量后自动记录。`;
+      : `无需手动打勾：当前核心完成 ${todayPlanStatus.done}/${todayPlanStatus.total} 项；核心完成后自动解锁90分钟加练。`;
     renderUpcomingCheckinDays();
 
     renderFullCheckinCalendar();
@@ -9181,6 +8808,8 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
 
   function scheduleCard(card, grade) {
     const wasNew = isNew(card);
+    const modeForPlan = String(currentMode || "");
+    const hadPriorError = !wasNew && Math.max(0, Number(card.lapses) || 0) > 0;
     card.attempts += 1;
     card.lastReviewed = new Date().toISOString();
     card.lastResult = ["完全不会", "错误较多", "基本正确", "熟练掌握"][grade];
@@ -9216,9 +8845,20 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     }
 
     recordDailyStudy(grade, wasNew);
-    if (String(currentMode).startsWith("mcq-")) recordPlanActivity("quiz", 1);
-    else if (wasNew) recordPlanActivity("newWords", 1);
-    else recordPlanActivity("review", 1);
+    if (modeForPlan.startsWith("mcq-retry-")) {
+      recordPlanActivity("quizWrongRedo", 1);
+    } else if (modeForPlan.startsWith("mcq-")) {
+      recordPlanActivity("quiz", 1);
+      if (grade < 2) recordPlanActivity("quizWrong", 1);
+    } else if (wasNew) {
+      recordPlanActivity("newWords", 1);
+    } else {
+      recordPlanActivity("review", 1);
+      if (hadPriorError && card.lastPlanErrorReviewDate !== localDateKey()) {
+        card.lastPlanErrorReviewDate = localDateKey();
+        recordPlanActivity("errorReview", 1);
+      }
+    }
     state.sessionLog.push({
       cardId: card.id,
       year: card.year,
@@ -9805,6 +9445,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     $("quizNewRoundBtn").addEventListener("click", () => {
       quizQueue=[];
       quizIndex=0;
+      quizWrongRetryMode=false;
       renderQuizSetup();
     });
     $("quizCategoryGrid").addEventListener("click", event => {
@@ -9818,7 +9459,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       const button=event.target.closest("button[data-quiz-wrong-practice]");
       if (!button) return;
       const card=state.cards.find(item=>item.id===button.dataset.quizWrongPractice);
-      if (card) startQuiz([card]);
+      if (card) startQuiz([card], {wrongRetry:true});
     });
 
     $("globalSearchInput").addEventListener("input", renderGlobalSearch);
@@ -9997,7 +9638,7 @@ function smallContext(kind,id){
  if(kind==="function"){const t=SMALL_FUNCTIONS.find(x=>x.id===id);if(!t)return null;return{...t,kind,pattern:t.title,storageCategory:"functionPractice",storageId:id,referenceLabel:"功能句修正版",inputId:smallInputId(kind,id),feedbackId:smallFeedbackId(kind,id)}}
  return null;
 }
-function saveSmallCorrection(ctx,answer,analysis){const bucket=state.smallEssayPractice[ctx.storageCategory]||(state.smallEssayPractice[ctx.storageCategory]={});const old=bucket[ctx.storageId]||{};const changed=old.answer!==answer,firstPlanCountToday=old.lastPlanCountDate!==localDateKey();bucket[ctx.storageId]={...old,answer,score:analysis.score,correction:{level:analysis.level,failedChecks:analysis.failed.map(x=>x.label),missing:analysis.details.missing,extra:analysis.details.extra,spelling:analysis.details.spelling,checkedAt:new Date().toISOString()},attempts:Math.max(0,Number(old.attempts)||0)+(changed?1:0),lastPlanCountDate:changed?localDateKey():old.lastPlanCountDate,lastAt:new Date().toISOString()};if(changed){recordDailyStudy(analysis.score>=75?2:1,false,"essay");const activity=planActivityForSmallWriting(ctx.kind);if(activity&&firstPlanCountToday)recordPlanActivity(activity,1)}saveState();renderDashboard()}
+function saveSmallCorrection(ctx,answer,analysis){const bucket=state.smallEssayPractice[ctx.storageCategory]||(state.smallEssayPractice[ctx.storageCategory]={}),old=bucket[ctx.storageId]||{},changed=old.answer!==answer,todayKey=localDateKey(),already=old.lastPlanV18CountDate===todayKey,firstPerfect=analysis.score>=92&&analysis.failed.length===0;let firstDate=old.planV18FirstDate,firstAnswer=old.planV18FirstAnswer||"",countUnit=false;if(changed&&!planAdoptCorrectionMode&&!already){if(firstDate!==todayKey){firstDate=todayKey;firstAnswer=answer;if(firstPerfect)countUnit=true}else if(answer!==firstAnswer)countUnit=true}bucket[ctx.storageId]={...old,answer,score:analysis.score,correction:{level:analysis.level,failedChecks:analysis.failed.map(x=>x.label),missing:analysis.details.missing,extra:analysis.details.extra,spelling:analysis.details.spelling,checkedAt:new Date().toISOString()},attempts:Math.max(0,Number(old.attempts)||0)+(changed?1:0),planV18FirstDate:countUnit?null:firstDate,planV18FirstAnswer:countUnit?"":firstAnswer,lastPlanV18CountDate:countUnit?todayKey:old.lastPlanV18CountDate,lastAt:new Date().toISOString()};if(changed)recordDailyStudy(analysis.score>=75?2:1,false,"essay");if(countUnit){const activity=planActivityForSmallWriting(ctx.kind);if(activity)recordPlanActivity(activity,1)}saveState();renderDashboard()}
 function runSmallCorrection(kind,id){const ctx=smallContext(kind,id);if(!ctx)return showToast("没有找到本句的批改信息");const input=$(ctx.inputId),feedback=$(ctx.feedbackId),answer=input?.value.trim()||"";if(!answer)return showToast("请先写出英文内容");const analysis=writingCorrectionAnalysis(answer,ctx);saveSmallCorrection(ctx,answer,analysis);if(feedback){let report=renderDetailedWritingReport(ctx,answer,analysis);report=report.replaceAll('data-big-essay-action="adopt-writing-correction"','data-small-action="adopt"').replaceAll('data-writing-kind=','data-kind=').replaceAll('data-writing-id=','data-id=');feedback.innerHTML=report;feedback.scrollIntoView({behavior:"smooth",block:"nearest"})}return analysis}
 function adoptSmallCorrection(kind,id){const ctx=smallContext(kind,id);if(!ctx)return;const input=$(ctx.inputId);if(!input)return;input.value=ctx.reference;if(kind==="study")smallStudyDraft=ctx.reference;runSmallCorrection(kind,id);input.focus();showToast("修正版已放入输入框，并重新批改")}
 function checkSmallContainer(id){const c=$(id);if(!c)return;let n=0;c.querySelectorAll('[data-small-action="check"]').forEach(b=>{const ctx=smallContext(b.dataset.kind,b.dataset.id),input=ctx?$(ctx.inputId):null;if(input?.value.trim()){runSmallCorrection(b.dataset.kind,b.dataset.id);n++}});showToast(n?`已批改${n}个已填写项目`:"当前还没有填写内容")}

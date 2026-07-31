@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="V22" />
+  <meta name="application-name" content="V23" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="V22" />
+  <meta name="apple-mobile-web-app-title" content="V23" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V22</title>
+  <title>V23</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -3484,6 +3484,166 @@
     }
 
   
+    /* STUDY_REVIEW_SPLIT_V23 */
+    .review-entry-shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 8px 0 28px;
+    }
+
+    .review-entry-intro {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+      padding: 4px 2px;
+    }
+
+    .review-entry-kicker {
+      display: inline-block;
+      margin-bottom: 6px;
+      color: #4c65c8;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .review-entry-intro h3 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      color: #17243d;
+    }
+
+    .review-entry-intro p {
+      margin: 0;
+      color: #6b768b;
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .review-entry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .review-entry-card {
+      position: relative;
+      min-height: 300px;
+      overflow: hidden;
+      border: 1px solid #d7e0f1;
+      border-radius: 20px;
+      padding: 24px;
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(38, 57, 105, .07);
+    }
+
+    .review-entry-card.learn {
+      background: linear-gradient(145deg, #f7f9ff 0%, #ffffff 64%);
+    }
+
+    .review-entry-card.review {
+      background: linear-gradient(145deg, #f6fbf9 0%, #ffffff 64%);
+      border-color: #d5e8df;
+    }
+
+    .review-entry-number {
+      position: absolute;
+      right: 18px;
+      top: 12px;
+      font-size: 56px;
+      line-height: 1;
+      font-weight: 900;
+      color: rgba(52, 82, 178, .07);
+      user-select: none;
+    }
+
+    .review-entry-card.review .review-entry-number {
+      color: rgba(26, 119, 85, .07);
+    }
+
+    .review-entry-copy {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .review-entry-type {
+      width: fit-content;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #eaf0ff;
+      color: #3559e0;
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .review-entry-card.review .review-entry-type {
+      background: #eaf7f1;
+      color: #19704d;
+    }
+
+    .review-entry-copy h4 {
+      margin: 14px 0 7px;
+      font-size: 20px;
+      color: #1d2b46;
+    }
+
+    .review-entry-copy p {
+      min-height: 48px;
+      margin: 0;
+      color: #68748a;
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .review-entry-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 20px 0 18px;
+    }
+
+    .review-entry-stats span {
+      padding: 10px;
+      border: 1px solid #e1e6f0;
+      border-radius: 11px;
+      background: rgba(255,255,255,.8);
+      color: #707a8d;
+      font-size: 10px;
+    }
+
+    .review-entry-stats strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #263655;
+      font-size: 17px;
+    }
+
+    .review-entry-action {
+      margin-top: auto;
+      width: 100%;
+      min-height: 42px;
+    }
+
+    .review-entry-note {
+      margin-top: 14px;
+      padding: 11px 13px;
+      border: 1px solid #e0e5ee;
+      border-radius: 12px;
+      background: #f8f9fc;
+      color: #687286;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 780px) {
+      .review-entry-grid { grid-template-columns: 1fr; }
+      .review-entry-card { min-height: 260px; }
+    }
+
     /* NINETY_MINUTE_PLAN_V18 */
     .plan-calendar-cell.core-complete {
       border-color: #8fcba4;
@@ -3662,13 +3822,13 @@
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>V22</h1>
+      <h1>V23</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
       <button class="nav-btn active" data-view="dashboard">首页</button>
       <button class="nav-btn" data-view="studyPlan">学习计划</button>
-      <button class="nav-btn" data-view="review">今日复习</button>
+      <button class="nav-btn" data-view="review">今日学习</button>
       <button class="nav-btn" data-view="quiz">选择题训练</button>
       <button class="nav-btn" data-view="bigEssay">大作文</button>
       <button class="nav-btn" data-view="smallEssay">小作文</button>
@@ -3696,7 +3856,7 @@
       <div class="button-row" style="align-items:center;">
         <span class="sync-badge" id="syncBadge"><span class="sync-dot"></span><span id="syncText">仅本地保存</span></span>
         <button class="secondary-btn" id="installAppBtn" style="display:none;">安装应用</button>
-        <button class="primary-btn" id="quickStartBtn">开始今日复习</button>
+        <button class="primary-btn" id="quickStartBtn">进入今日学习</button>
       </div>
     </div>
 
@@ -4013,8 +4173,49 @@
 
 
     <section class="view" id="reviewView">
-      <div class="review-shell">
+      <div class="review-entry-shell" id="reviewLanding">
+        <div class="review-entry-intro">
+          <div>
+            <span class="review-entry-kicker">词组学习</span>
+            <h3>今天要做哪一种？</h3>
+            <p>“学习”用于第一次接触的新词组；“复习”只用于已经学过的旧词。两者分开统计、分开进入。</p>
+          </div>
+        </div>
+        <div class="review-entry-grid">
+          <article class="review-entry-card learn">
+            <div class="review-entry-number">01</div>
+            <div class="review-entry-copy">
+              <span class="review-entry-type">今日学习</span>
+              <h4>学习今天的新词组</h4>
+              <p>只抽取从未正式学习过的新词，不夹带已经学过的到期旧词。</p>
+              <div class="review-entry-stats">
+                <span><strong id="todayLearningProgress">0/0</strong> 今日计划</span>
+                <span><strong id="todayNewRemaining">0</strong> 库中未学</span>
+              </div>
+              <button class="primary-btn review-entry-action" id="startTodayLearningBtn">开始今日学习</button>
+            </div>
+          </article>
+
+          <article class="review-entry-card review">
+            <div class="review-entry-number">02</div>
+            <div class="review-entry-copy">
+              <span class="review-entry-type">今日复习</span>
+              <h4>复习已经学过的词组</h4>
+              <p id="todayReviewEntryDesc">只处理已经学过且今天到期的旧词；没有到期旧词时改做错词／重点词补充复习。</p>
+              <div class="review-entry-stats">
+                <span><strong id="todayReviewProgress">0/0</strong> 今日计划</span>
+                <span><strong id="todayDueOldCount">0</strong> 当前到期</span>
+              </div>
+              <button class="secondary-btn review-entry-action" id="startTodayReviewBtn">开始今日复习</button>
+            </div>
+          </article>
+        </div>
+        <div class="review-entry-note" id="reviewEntryNote">学习新词和复习旧词是两件事：新词第一次完成评分后进入复习系统，以后再按到期时间复习。</div>
+      </div>
+
+      <div class="review-shell" id="reviewWorkspace" style="display:none;">
         <div class="review-head">
+          <button class="session-reset-btn" id="backToReviewLandingBtn">← 今日学习</button>
           <span id="reviewProgress">尚未开始</span>
           <span id="reviewModeText">中文 → 英文</span>
           <button class="session-reset-btn" id="restartReviewRoundBtn" style="display:none;">重新开始本轮</button>
@@ -4024,7 +4225,7 @@
           <div>
             <div class="pill-row" id="reviewPills"></div>
             <div class="prompt-label" id="promptLabel">请写出英文结构</div>
-            <div class="prompt" id="reviewPrompt">点击“开始今日复习”</div>
+            <div class="prompt" id="reviewPrompt">请选择“今日学习”或“今日复习”</div>
             <div class="context" id="reviewContext" style="display:none;"></div>
             <input class="answer-input" id="answerInput" placeholder="在这里输入英文词组" autocomplete="off" />
             <div class="button-row" style="margin-top:12px;">
@@ -8134,7 +8335,7 @@
     const titles = {
       dashboard: "学习首页",
       studyPlan: "学习计划",
-      review: "今日复习",
+      review: "今日学习",
       quiz: "选择题训练",
       bigEssay: "大作文训练",
       smallEssay: "小作文",
@@ -8152,6 +8353,7 @@
     if (viewName === "myMarks" || viewName === "marks") recordPlanActivity("marks", 1, true);
     if (viewName === "dashboard") renderDashboard();
     if (viewName === "studyPlan") renderStudyPlanView();
+    if (viewName === "review") showReviewLanding();
     if (viewName === "quiz") renderQuizSetup();
     if (viewName === "bigEssay") renderBigEssay();
     if (viewName === "search") renderGlobalSearch();
@@ -9270,8 +9472,8 @@
     renderTodayAutoPlan();
     const resumableReview = activeReviewSession();
     $("quickStartBtn").textContent = resumableReview
-      ? `继续上次复习 ${resumableReview.index}/${resumableReview.queueIds.length}`
-      : "开始今日复习";
+      ? `进入今日学习 · 有未完成进度`
+      : "进入今日学习";
     const due = getReviewQueue(false).length;
     const total = state.cards.length;
     const mastered = state.cards.filter(isMastered).length;
@@ -9340,6 +9542,68 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     `;
   }
 
+
+  function showReviewLanding() {
+    $("reviewLanding").style.display = "";
+    $("reviewWorkspace").style.display = "none";
+    renderReviewLanding();
+  }
+
+  function showReviewWorkspace() {
+    $("reviewLanding").style.display = "none";
+    $("reviewWorkspace").style.display = "";
+  }
+
+  function renderReviewLanding() {
+    const key = localDateKey();
+    const plan = studyPlanForDate(new Date());
+    const learnTask = plan.tasks.find(task => task.activity === "newWords");
+    const reviewTask = plan.tasks.find(task => task.activity === "review" || task.activity === "supplementReview");
+    const learned = planActivityCount(key, "newWords");
+    const learnTarget = learnTask?.target || 0;
+    const reviewActivity = reviewTask?.activity || "review";
+    const reviewed = planActivityCount(key, reviewActivity);
+    const reviewTarget = reviewTask?.target || 0;
+    const newRemaining = state.cards.filter(card => isNew(card) && !card.suspended).length;
+    const dueOld = state.cards.filter(card => isDue(card) && !isNew(card) && !card.suspended).length;
+    const session = activeReviewSession();
+
+    $("todayLearningProgress").textContent = learnTarget ? `${Math.min(learned,learnTarget)}/${learnTarget}` : "今日未安排";
+    $("todayNewRemaining").textContent = newRemaining;
+    $("todayReviewProgress").textContent = reviewTarget ? `${Math.min(reviewed,reviewTarget)}/${reviewTarget}` : "今日未安排";
+    $("todayDueOldCount").textContent = dueOld;
+
+    const learnBtn = $("startTodayLearningBtn");
+    if (session?.kind === "new") {
+      learnBtn.textContent = `继续今日学习 ${session.index}/${session.queueIds.length}`;
+    } else if (!learnTarget) {
+      learnBtn.textContent = newRemaining ? "自主学习新词" : "暂无新词";
+    } else if (learned >= learnTarget) {
+      learnBtn.textContent = "今日学习已完成";
+    } else {
+      learnBtn.textContent = "开始今日学习";
+    }
+    learnBtn.disabled = newRemaining === 0 || (learnTarget > 0 && learned >= learnTarget && session?.kind !== "new");
+
+    const reviewBtn = $("startTodayReviewBtn");
+    if (session && ["review","supplement"].includes(session.kind)) {
+      reviewBtn.textContent = `继续今日复习 ${session.index}/${session.queueIds.length}`;
+    } else if (reviewTask?.activity === "supplementReview") {
+      reviewBtn.textContent = "开始重点词复习";
+    } else if (dueOld > 0) {
+      reviewBtn.textContent = "开始今日复习";
+    } else {
+      reviewBtn.textContent = "今日无到期旧词";
+    }
+    $("todayReviewEntryDesc").textContent = reviewTask?.activity === "supplementReview"
+      ? "今天没有到期旧词，因此复习任务改为错词／重点词补充复习；只有实际评分后才计入。"
+      : "只复习已经学过并在今天到期的旧词，不会夹带从未学过的新词。";
+
+    const activeText = session
+      ? `当前还有一轮${session.kind === "new" ? "今日学习" : "今日复习"}未完成：已完成 ${session.index}/${session.queueIds.length} 题。`
+      : "学习新词和复习旧词是两件事：新词第一次完成评分后才进入复习系统。";
+    $("reviewEntryNote").textContent = activeText;
+  }
 
   function activeReviewSession() {
     const session = normalizeReviewSession(state.reviewSession);
@@ -9435,24 +9699,19 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   }
 
   function getReviewQueue(includeNew = false) {
-    const due = state.cards
-      .filter(c => isDue(c) && !isNew(c))
-      .sort((a,b) => new Date(a.due) - new Date(b.due) || b.lapses - a.lapses);
-
-    const learnedToday = todayStudyStats().newLearned;
-    const newRemaining = Math.max(0, Number(state.settings.dailyNew || 10) - learnedToday);
-
     if (!includeNew) {
-      const newDue = state.cards
-        .filter(c => isDue(c) && isNew(c))
-        .slice(0, newRemaining);
-      return [...due, ...newDue];
+      return state.cards
+        .filter(c => isDue(c) && !isNew(c) && !c.suspended)
+        .sort((a,b) => new Date(a.due) - new Date(b.due) || b.lapses - a.lapses);
     }
 
-    const newCards = state.cards
+    const learnedToday = todayStudyStats().newLearned;
+    const planNewTask = studyPlanForDate(new Date()).tasks.find(task => task.activity === "newWords");
+    const plannedTarget = planNewTask?.target ?? Number(state.settings.dailyNew || 10);
+    const newRemaining = Math.max(0, plannedTarget - learnedToday);
+    return state.cards
       .filter(c => isNew(c) && !c.suspended)
       .slice(0, newRemaining);
-    return [...due, ...newCards];
   }
 
   function startReview(includeNew = false, forceNew = false) {
@@ -9469,8 +9728,8 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
 
     if (!reviewQueue.length) {
       clearReviewSession();
-      $("reviewPrompt").textContent = "今天没有到期词组";
-      $("promptLabel").textContent = "未发生复习，不计入完成";
+      $("reviewPrompt").textContent = includeNew ? "今天没有需要新学的词组" : "今天没有到期词组";
+      $("promptLabel").textContent = includeNew ? "今日学习" : "未发生复习，不计入完成";
       $("answerInput").style.display = "none";
       $("submitAnswerBtn").style.display = "none";
       $("showAnswerBtn").style.display = "none";
@@ -9498,6 +9757,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   }
 
   function renderReviewCard() {
+    showReviewWorkspace();
     const card = currentCard();
     if (!card) {
       $("reviewPrompt").textContent = "本轮复习完成";
@@ -10204,9 +10464,21 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       if (action === "show-dictation-source") submitEssayDictation(true);
     });
 
-    $("quickStartBtn").addEventListener("click", () => {
-      if (!resumeAnyReviewSession()) startReview(false);
+    $("quickStartBtn").addEventListener("click", () => switchView("review"));
+    $("startTodayLearningBtn").addEventListener("click", () => {
+      const session = activeReviewSession();
+      if (session?.kind === "new") return restoreReviewSession("new");
+      startReview(true);
     });
+    $("startTodayReviewBtn").addEventListener("click", () => {
+      const session = activeReviewSession();
+      if (session && ["review","supplement"].includes(session.kind)) return restoreReviewSession(session.kind);
+      const task = studyPlanForDate(new Date()).tasks.find(item => item.activity === "review" || item.activity === "supplementReview");
+      if (task?.activity === "supplementReview") return startSupplementReview();
+      startReview(false);
+    });
+    $("backToReviewLandingBtn").addEventListener("click", () => showReviewLanding());
+
     $("dashboardReviewBtn").addEventListener("click", () => startReview(false));
     $("learnNewBtn").addEventListener("click", () => startReview(true));
     $("dashboardQuizBtn").addEventListener("click", () => switchView("quiz"));

@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "V20",
-  "short_name": "V20",
-  "description": "支持词组复习与选择题断点续做、大小作文训练、自动学习日历和账号云同步。",
+  "name": "V21",
+  "short_name": "V21",
+  "description": "本地优先的考研英语训练器。V21修复断点被云端覆盖、同步卡住和保存期间丢上传请求的问题。",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",

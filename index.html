@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="V20" />
+  <meta name="application-name" content="V21" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="V20" />
+  <meta name="apple-mobile-web-app-title" content="V21" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V20</title>
+  <title>V21</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -3529,7 +3529,7 @@
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>V20</h1>
+      <h1>V21</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -4640,6 +4640,7 @@
   ]);
 
   const STORAGE_KEY = "kaoyan_phrase_trainer_v1";
+  const SESSION_BACKUP_KEY = "kaoyan_phrase_trainer_session_v21";
   const SUPABASE_CONFIG_KEY = "kaoyan_phrase_supabase_config_v1";
   const EMBEDDED_SUPABASE_URL = "https://pjwbfugoqhtgriocchjf.supabase.co";
   const EMBEDDED_SUPABASE_KEY = "sb_publishable_5CfaOuSv7CQRqtYSmSNqHg_ed4012Ry";
@@ -4650,6 +4651,8 @@
   let authSubscription = null;
   let cloudSaveTimer = null;
   let cloudSyncing = false;
+  let cloudPendingSave = false;
+  let cloudPullPending = false;
   let suppressCloudSave = false;
 
   const BIG_ESSAY_SEED = [{"id":"big-essay-elderly-robots","type":"图表作文","theme":"科技、养老与产品接受度","version":"整理确认稿","sourceNote":"较早作文，根据当时已经确定的中文内容和句型整理为统一版本。","title":"养老机器人","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["图表清楚显示，消费者对养老机器人持有不同的态度。","39.3%的受访者完全接受，32.8%部分接受，27.9%不接受。","在主要关注点方面，46.3%关注安全，24.9%关注价格，10.7%关注便利性。","总体而言，超过70%的受访者至少部分接受养老机器人，而安全是他们最关心的问题。"],"sentences":[{"id":"big-essay-elderly-robots-p1-s1","type":"复合句","text":"As is clearly shown in the charts, consumers have different attitudes toward elderly-care robots.","chinesePrompt":"图表清楚显示，消费者对养老机器人持有不同的态度。","note":"","position":"描述与总结"},{"id":"big-essay-elderly-robots-p1-s2","type":"并列句","text":"39.3% of the respondents fully accept them, 32.8% partly accept them, and 27.9% do not accept them.","chinesePrompt":"39.3%的受访者完全接受，32.8%部分接受，27.9%不接受。","note":"","position":"描述与总结"},{"id":"big-essay-elderly-robots-p1-s3","type":"并列句","text":"As for their main concerns, 46.3% pay attention to safety, 24.9% focus on price, and 10.7% care about convenience.","chinesePrompt":"在主要关注点方面，46.3%关注安全，24.9%关注价格，10.7%关注便利性。","note":"","position":"描述与总结"},{"id":"big-essay-elderly-robots-p1-s4","type":"并列句","text":"In general, more than 70% of the respondents at least partly accept elderly-care robots, and safety is their greatest concern.","chinesePrompt":"总体而言，超过70%的受访者至少部分接受养老机器人，而安全是他们最关心的问题。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["养老机器人受到欢迎有几个原因。","一方面，人口老龄化增加了养老需求，机器人能够帮助减轻家庭和社会的压力。","另一方面，技术进步使这些机器人更加智能和便利。","然而，人们仍可能担心安全、隐私和价格，而这些因素会直接影响他们使用此类产品的意愿。"],"sentences":[{"id":"big-essay-elderly-robots-p2-s1","type":"简单句","text":"The popularity of elderly-care robots has several reasons.","chinesePrompt":"养老机器人受到欢迎有几个原因。","note":"","position":"分析与论证"},{"id":"big-essay-elderly-robots-p2-s2","type":"并列句","text":"On the one hand, population aging has increased the demand for elderly care, and robots can help relieve the pressure on families and society.","chinesePrompt":"一方面，人口老龄化增加了养老需求，机器人能够帮助减轻家庭和社会的压力。","note":"","position":"分析与论证"},{"id":"big-essay-elderly-robots-p2-s3","type":"简单句","text":"On the other hand, advances in technology have made these robots more intelligent and convenient.","chinesePrompt":"另一方面，技术进步使这些机器人更加智能和便利。","note":"","position":"分析与论证"},{"id":"big-essay-elderly-robots-p2-s4","type":"复合句","text":"However, people may still worry about safety, privacy, and price, which directly influence their willingness to use such products.","chinesePrompt":"然而，人们仍可能担心安全、隐私和价格，而这些因素会直接影响他们使用此类产品的意愿。","note":"","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，制造商应提高产品质量，并更加重视安全和隐私保护。","政府也应制定明确的标准并提供适当支持。","消费者应理性认识这些产品，而不是盲目拒绝或接受。","只有制造商、政府和消费者共同努力，养老机器人才能在社会中发挥更大的作用。"],"sentences":[{"id":"big-essay-elderly-robots-p3-s1","type":"简单句","text":"In my opinion, manufacturers should improve product quality and pay more attention to safety and privacy protection.","chinesePrompt":"在我看来，制造商应提高产品质量，并更加重视安全和隐私保护。","note":"虽然有`improve`和`pay attention to`两个动作，但共用一个主语`manufacturers`，所以仍然是简单句。","position":"建议与总结"},{"id":"big-essay-elderly-robots-p3-s2","type":"简单句","text":"The government should also establish clear standards and provide proper support.","chinesePrompt":"政府也应制定明确的标准并提供适当支持。","note":"","position":"建议与总结"},{"id":"big-essay-elderly-robots-p3-s3","type":"简单句","text":"Consumers should understand these products rationally instead of rejecting or accepting them blindly.","chinesePrompt":"消费者应理性认识这些产品，而不是盲目拒绝或接受。","note":"","position":"建议与总结"},{"id":"big-essay-elderly-robots-p3-s4","type":"复合句","text":"Only when manufacturers, the government, and consumers work together can elderly-care robots play a greater role in society.","chinesePrompt":"只有制造商、政府和消费者共同努力，养老机器人才能在社会中发挥更大的作用。","note":"","position":"建议与总结"}]}]},{"id":"big-essay-appliances","type":"图表作文","theme":"消费升级与家用电器","version":"整理确认稿","sourceNote":"较早作文，根据当时已经确定的中文内容和句型整理为统一版本。","title":"家用电器拥有量变化","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["如图表所示，2014年至2023年三类家用电器的拥有量均有所增加。","2014年，每百户拥有的空调、洗衣机和冰箱数量分别为75.2、83.7和85.5。","到2023年，这些数字分别增加到145.9、98.2和103.4。","空调拥有量增长最快。","总体而言，三类家用电器都呈上升趋势，这反映了人们生活条件的改善。"],"sentences":[{"id":"big-essay-appliances-p1-s1","type":"复合句","text":"As is shown in the chart, the ownership of three types of household appliances increased from 2014 to 2023.","chinesePrompt":"如图表所示，2014年至2023年三类家用电器的拥有量均有所增加。","note":"","position":"描述与总结"},{"id":"big-essay-appliances-p1-s2","type":"简单句","text":"In 2014, the numbers of air conditioners, washing machines, and refrigerators owned per one hundred households were 75.2, 83.7, and 85.5 respectively.","chinesePrompt":"2014年，每百户拥有的空调、洗衣机和冰箱数量分别为75.2、83.7和85.5。","note":"","position":"描述与总结"},{"id":"big-essay-appliances-p1-s3","type":"简单句","text":"By 2023, these figures had increased to 145.9, 98.2, and 103.4 respectively.","chinesePrompt":"到2023年，这些数字分别增加到145.9、98.2和103.4。","note":"","position":"描述与总结"},{"id":"big-essay-appliances-p1-s4","type":"简单句","text":"The ownership of air conditioners increased the fastest.","chinesePrompt":"空调拥有量增长最快。","note":"","position":"描述与总结"},{"id":"big-essay-appliances-p1-s5","type":"复合句","text":"Overall, all three types of household appliances showed an upward trend, which reflects an improvement in people’s living conditions.","chinesePrompt":"总体而言，三类家用电器都呈上升趋势，这反映了人们生活条件的改善。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["这一变化主要由生活水平和消费能力的提高造成。","随着收入提高，更多家庭能够购买家用电器，并更加关注舒适度和使用体验。","洗衣机和冰箱增长较慢，因为这些产品已在许多家庭中广泛使用。","相比之下，空调需求仍在持续增长。"],"sentences":[{"id":"big-essay-appliances-p2-s1","type":"简单句","text":"This change is mainly caused by improvements in living standards and consumer purchasing power.","chinesePrompt":"这一变化主要由生活水平和消费能力的提高造成。","note":"","position":"分析与论证"},{"id":"big-essay-appliances-p2-s2","type":"复合句","text":"As people’s incomes rise, more families can afford household appliances and pay greater attention to comfort and user experience.","chinesePrompt":"随着收入提高，更多家庭能够购买家用电器，并更加关注舒适度和使用体验。","note":"","position":"分析与论证"},{"id":"big-essay-appliances-p2-s3","type":"复合句","text":"The growth rates of washing machines and refrigerators are relatively slow because these products are already widely used in many households.","chinesePrompt":"洗衣机和冰箱增长较慢，因为这些产品已在许多家庭中广泛使用。","note":"","position":"分析与论证"},{"id":"big-essay-appliances-p2-s4","type":"简单句","text":"By contrast, the demand for air conditioners has continued to grow.","chinesePrompt":"相比之下，空调需求仍在持续增长。","note":"","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，制造商应提高产品质量，并开发节能、环保和智能的产品。","政府可以提供适当补贴并完善相关政策。","消费者应根据实际需要理性选择产品。","只有制造商、政府和消费者共同努力，家用电器才能给人们的生活带来更大便利。"],"sentences":[{"id":"big-essay-appliances-p3-s1","type":"简单句","text":"In my opinion, manufacturers should improve product quality and develop energy-saving, environmentally friendly, and intelligent products.","chinesePrompt":"在我看来，制造商应提高产品质量，并开发节能、环保和智能的产品。","note":"","position":"建议与总结"},{"id":"big-essay-appliances-p3-s2","type":"简单句","text":"The government can provide appropriate subsidies and improve relevant policies.","chinesePrompt":"政府可以提供适当补贴并完善相关政策。","note":"","position":"建议与总结"},{"id":"big-essay-appliances-p3-s3","type":"简单句","text":"Consumers should choose products rationally according to their actual needs.","chinesePrompt":"消费者应根据实际需要理性选择产品。","note":"","position":"建议与总结"},{"id":"big-essay-appliances-p3-s4","type":"复合句","text":"Only when manufacturers, the government, and consumers work together can household appliances bring greater convenience to people’s lives.","chinesePrompt":"只有制造商、政府和消费者共同努力，家用电器才能给人们的生活带来更大便利。","note":"","position":"建议与总结"}]}]},{"id":"big-essay-parks","type":"图画＋图表作文","theme":"公共服务、城市环境与居民幸福感","version":"整理确认稿","sourceNote":"较早作文，根据当时已经确定的中文内容和句型整理为统一版本。","title":"城市公园","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["如图所示，几位居民正在一座新建公园里休息和锻炼。","一个男孩说，他家附近的新公园非常好。","图表显示，该市公园数量从2020年至2022年持续增加。","2020年有406座公园，2021年有532座，2022年有670座。","总体而言，公园数量显著增加，居民也能更方便地享受公共绿色空间。"],"sentences":[{"id":"big-essay-parks-p1-s1","type":"复合句","text":"As is shown in the picture, several residents are resting and exercising in a newly built park.","chinesePrompt":"如图所示，几位居民正在一座新建公园里休息和锻炼。","note":"","position":"描述与总结"},{"id":"big-essay-parks-p1-s2","type":"复合句","text":"A boy says that the new park near his home is very good.","chinesePrompt":"一个男孩说，他家附近的新公园非常好。","note":"","position":"描述与总结"},{"id":"big-essay-parks-p1-s3","type":"复合句","text":"The chart shows that the number of parks in the city increased continuously from 2020 to 2022.","chinesePrompt":"图表显示，该市公园数量从2020年至2022年持续增加。","note":"","position":"描述与总结"},{"id":"big-essay-parks-p1-s4","type":"简单句","text":"There were 406 parks in 2020, 532 in 2021, and 670 in 2022.","chinesePrompt":"2020年有406座公园，2021年有532座，2022年有670座。","note":"","position":"描述与总结"},{"id":"big-essay-parks-p1-s5","type":"并列句","text":"Overall, the number of parks increased significantly, and residents can enjoy public green spaces more conveniently.","chinesePrompt":"总体而言，公园数量显著增加，居民也能更方便地享受公共绿色空间。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["总体而言，图画和图表反映了城市公共服务和生活环境正在不断改善。","一方面，更多公园能够为居民提供锻炼、散步和休息的场所，并改善身体健康和生活质量。","另一方面，公园是交流和放松的重要空间，能够使城市生活更加舒适。","此外，公园数量增加说明政府越来越重视居民的实际需要。","因此，这一变化不仅改善了城市环境，也增强了居民的幸福感。"],"sentences":[{"id":"big-essay-parks-p2-s1","type":"复合句","text":"In general, the picture and the chart reflect that urban public services and living environments are continuously improving.","chinesePrompt":"总体而言，图画和图表反映了城市公共服务和生活环境正在不断改善。","note":"","position":"分析与论证"},{"id":"big-essay-parks-p2-s2","type":"简单句","text":"On the one hand, more parks can provide residents with places for exercise, walking, and rest and improve their physical health and quality of life.","chinesePrompt":"一方面，更多公园能够为居民提供锻炼、散步和休息的场所，并改善身体健康和生活质量。","note":"虽然有两个动作`provide`和`improve`，但共用一个主语`more parks`，仍是简单句。","position":"分析与论证"},{"id":"big-essay-parks-p2-s3","type":"并列句","text":"On the other hand, parks are important spaces for communication and relaxation, and they can make urban life more comfortable.","chinesePrompt":"另一方面，公园是交流和放松的重要空间，能够使城市生活更加舒适。","note":"","position":"分析与论证"},{"id":"big-essay-parks-p2-s4","type":"复合句","text":"In addition, the increase in the number of parks shows that the government is paying greater attention to residents’ actual needs.","chinesePrompt":"此外，公园数量增加说明政府越来越重视居民的实际需要。","note":"","position":"分析与论证"},{"id":"big-essay-parks-p2-s5","type":"简单句","text":"Therefore, this change not only improves the urban environment but also increases residents’ sense of happiness.","chinesePrompt":"因此，这一变化不仅改善了城市环境，也增强了居民的幸福感。","note":"`not only...but also...`连接两个谓语，不是从句。","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，政府应继续合理建设公园，尤其是居民区附近的小型公园。","同时，有关部门应加强日常管理、保持环境清洁并确保公共设施安全。","居民也应保护植物和公共设施，并合理使用公园。","只有政府和居民共同努力，城市公园才能发挥更大的作用，并给个人、家庭和社会带来更多益处。"],"sentences":[{"id":"big-essay-parks-p3-s1","type":"简单句","text":"In my opinion, the government should continue to build parks reasonably, especially small parks near residential areas.","chinesePrompt":"在我看来，政府应继续合理建设公园，尤其是居民区附近的小型公园。","note":"","position":"建议与总结"},{"id":"big-essay-parks-p3-s2","type":"简单句","text":"At the same time, relevant departments should strengthen daily management, keep the environment clean, and ensure the safety of public facilities.","chinesePrompt":"同时，有关部门应加强日常管理、保持环境清洁并确保公共设施安全。","note":"","position":"建议与总结"},{"id":"big-essay-parks-p3-s3","type":"简单句","text":"Residents should also protect plants and public facilities and use parks properly.","chinesePrompt":"居民也应保护植物和公共设施，并合理使用公园。","note":"","position":"建议与总结"},{"id":"big-essay-parks-p3-s4","type":"复合句","text":"Only when the government and residents work together can urban parks play a greater role and bring more benefits to individuals, families, and society.","chinesePrompt":"只有政府和居民共同努力，城市公园才能发挥更大的作用，并给个人、家庭和社会带来更多益处。","note":"","position":"建议与总结"}]}]},{"id":"big-essay-dragon-boat","type":"图画作文","theme":"传统文化与文化传承","version":"最终确认稿","sourceNote":"按照最终确认版本保留。","title":"龙舟赛","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["如上图生动展示的那样，几艘龙舟正在河面上激烈比赛。","两位老人高兴地说：“龙舟赛越来越受欢迎了。”","总体而言，这幅图表明传统习俗越来越受欢迎，人们也更加关注传统文化。"],"sentences":[{"id":"big-essay-dragon-boat-p1-s1","type":"复合句","text":"As is vividly displayed in the picture above, the picture shows that several dragon boats are competing fiercely on the river.","chinesePrompt":"如上图生动展示的那样，几艘龙舟正在河面上激烈比赛。","note":"","position":"描述与总结"},{"id":"big-essay-dragon-boat-p1-s2","type":"简单句＋直接引语","text":"Two elderly people say happily, “The dragon boat race is becoming more and more popular.”","chinesePrompt":"两位老人高兴地说：“龙舟赛越来越受欢迎了。”","note":"引号外的`Two elderly people say happily`是简单句，引号内也是一个简单句。","position":"描述与总结"},{"id":"big-essay-dragon-boat-p1-s3","type":"复合句","text":"In general, this picture shows that traditional customs are becoming more and more popular, and that people are paying more attention to traditional culture.","chinesePrompt":"总体而言，这幅图表明传统习俗越来越受欢迎，人们也更加关注传统文化。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["总体而言，龙舟赛越来越受欢迎具有重要意义。","一方面，这项传统活动能够帮助人们了解许多节日。","它还能帮助人们感受传统文化的魅力，并增强文化认同感。","另一方面，龙舟赛也为交流和娱乐提供了机会。","邻里关系得到加强是有益的。","这也能使乡村生活更加令人满意。","此外，越来越多的人正在观看龙舟赛并参与其中。","这也有助于传统文化代代相传。","因此，传统习俗活动不仅丰富人们的生活，也促进传统文化的发展。"],"sentences":[{"id":"big-essay-dragon-boat-p2-s1","type":"复合句","text":"In general, it is significant that the dragon boat race has become more popular.","chinesePrompt":"总体而言，龙舟赛越来越受欢迎具有重要意义。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s2","type":"简单句","text":"On the one hand, the traditional activity can help people understand many festivals.","chinesePrompt":"一方面，这项传统活动能够帮助人们了解许多节日。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s3","type":"简单句","text":"This can also help people experience the charm of traditional culture and strengthen people’s sense of cultural identity.","chinesePrompt":"它还能帮助人们感受传统文化的魅力，并增强文化认同感。","note":"`experience`和`strengthen`是并列动作，共用主语`This`。","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s4","type":"简单句","text":"On the other hand, the dragon boat race also provides a chance for communication and entertainment.","chinesePrompt":"另一方面，龙舟赛也为交流和娱乐提供了机会。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s5","type":"复合句","text":"It is beneficial that neighborhood relationships are strengthened.","chinesePrompt":"邻里关系得到加强是有益的。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s6","type":"简单句","text":"This can also make countryside life more satisfying.","chinesePrompt":"这也能使乡村生活更加令人满意。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s7","type":"简单句","text":"In addition, more and more people are watching the dragon boat race and participating in it.","chinesePrompt":"此外，越来越多的人正在观看龙舟赛并参与其中。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s8","type":"简单句","text":"This can also help traditional culture be passed down from generation to generation.","chinesePrompt":"这也有助于传统文化代代相传。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s9","type":"简单句","text":"Therefore, the activity of traditional customs not only enriches people’s lives but also promotes the development of traditional culture.","chinesePrompt":"因此，传统习俗活动不仅丰富人们的生活，也促进传统文化的发展。","note":"","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，有关部门应加强对传统习俗活动的保护，并为龙舟赛提供支持。","同时，组织者还应做好安全管理并确保比赛顺利进行。","年轻人也应积极关注传统文化并参与相关活动。","只有政府、社会和个人共同努力，优秀传统文化才能传承下去。","这有益于个人、家庭和社会。"],"sentences":[{"id":"big-essay-dragon-boat-p3-s1","type":"简单句","text":"In my opinion, the relevant department should strengthen the protection of traditional custom activities and provide support for the dragon boat race.","chinesePrompt":"在我看来，有关部门应加强对传统习俗活动的保护，并为龙舟赛提供支持。","note":"","position":"建议与总结"},{"id":"big-essay-dragon-boat-p3-s2","type":"复合句","text":"At the same time, the organizer should also manage safety and ensure the race goes smoothly.","chinesePrompt":"同时，组织者还应做好安全管理并确保比赛顺利进行。","note":"这里`the race goes smoothly`是省略了`that`的从句：\n> ensure **that** the race goes smoothly","position":"建议与总结"},{"id":"big-essay-dragon-boat-p3-s3","type":"简单句","text":"Young people should also actively pay attention to traditional culture and participate in relevant activities.","chinesePrompt":"年轻人也应积极关注传统文化并参与相关活动。","note":"","position":"建议与总结"},{"id":"big-essay-dragon-boat-p3-s4","type":"复合句","text":"Excellent traditional culture can be passed down only when the government, society, and individuals work together.","chinesePrompt":"只有政府、社会和个人共同努力，优秀传统文化才能传承下去。","note":"","position":"建议与总结"},{"id":"big-essay-dragon-boat-p3-s5","type":"简单句","text":"It is beneficial to individuals, families, and society.","chinesePrompt":"这有益于个人、家庭和社会。","note":"","position":"建议与总结"}]}]},{"id":"big-essay-campus-lecture","type":"图画作文","theme":"校园教育、跨学科学习与视野拓展","version":"最终确认稿","sourceNote":"按照最终确认版本保留；最后一句保持用户最终确认版本。","title":"校园讲座","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["如图生动展示的那样，两名学生正站在一张名为“校园讲座”的通知前。","一名学生认为讲座与自己的专业无关，所以没有必要听；另一名学生认为讲座对自己有益，因此需要听。","总体而言，这幅图告诉我们，学生面对专业之外的知识时持有不同态度。","此外，拓宽视野具有重要意义。"],"sentences":[{"id":"big-essay-campus-lecture-p1-s1","type":"复合句","text":"As is vividly displayed in the picture, the picture shows that two students are standing in front of a notice named “Campus Lecture.”","chinesePrompt":"如图生动展示的那样，两名学生正站在一张名为“校园讲座”的通知前。","note":"","position":"描述与总结"},{"id":"big-essay-campus-lecture-p1-s2","type":"复合句","text":"One student thinks, “The lecture is not related to my major, so I do not need to listen to it,” while another student thinks, “I need to listen to it because it is beneficial to me.”","chinesePrompt":"一名学生认为讲座与自己的专业无关，所以没有必要听；另一名学生认为讲座对自己有益，因此需要听。","note":"这句话中包含：\n* `while`连接两个学生的不同观点；\n* `because`引导原因从句。","position":"描述与总结"},{"id":"big-essay-campus-lecture-p1-s3","type":"复合句","text":"In general, the picture tells us that students have different attitudes when facing knowledge outside their majors.","chinesePrompt":"总体而言，这幅图告诉我们，学生面对专业之外的知识时持有不同态度。","note":"","position":"描述与总结"},{"id":"big-essay-campus-lecture-p1-s4","type":"复合句","text":"In addition, it is significant that we broaden our horizons.","chinesePrompt":"此外，拓宽视野具有重要意义。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["综合考虑，参加不同领域的讲座具有重要意义。","一方面，学生不仅要学习本专业知识，也要了解其他领域的内容。","拓宽视野并丰富知识是有益的。","另一方面，不同学科之间存在联系。","当学生接触新知识时，产生新想法并提高解决问题的能力是有益的。","此外，校园讲座还为学生与教师及其他学生交流提供了机会。","因此，学生不应只关注一场讲座是否对自己的专业有益。","他们应以积极、开放的态度对待新知识。"],"sentences":[{"id":"big-essay-campus-lecture-p2-s1","type":"复合句","text":"All things considered, it is significant that we take part in lectures in different fields.","chinesePrompt":"综合考虑，参加不同领域的讲座具有重要意义。","note":"","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s2","type":"简单句","text":"On the one hand, students not only need to study knowledge in their majors but also need to know about content in other fields.","chinesePrompt":"一方面，学生不仅要学习本专业知识，也要了解其他领域的内容。","note":"`not only...but also...`连接两个谓语：\n> need to study\n> need to know\n所以仍是简单句。","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s3","type":"简单句","text":"It is beneficial to broaden our horizons and enrich our knowledge.","chinesePrompt":"拓宽视野并丰富知识是有益的。","note":"","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s4","type":"简单句","text":"On the other hand, different subjects have relationships with each other.","chinesePrompt":"另一方面，不同学科之间存在联系。","note":"","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s5","type":"复合句","text":"It is beneficial that students create new ideas and improve their ability to solve problems when they come into contact with new knowledge.","chinesePrompt":"当学生接触新知识时，产生新想法并提高解决问题的能力是有益的。","note":"这句话有两个从句：\n> that students create...\n> when they come into contact...","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s6","type":"简单句","text":"What’s more, campus lectures also provide students with chances for communication with teachers and other students.","chinesePrompt":"此外，校园讲座还为学生与教师及其他学生交流提供了机会。","note":"","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s7","type":"复合句","text":"Therefore, students should not just pay attention to whether a lecture is beneficial to their majors or not.","chinesePrompt":"因此，学生不应只关注一场讲座是否对自己的专业有益。","note":"`whether...or not`引导“是否……”从句。","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s8","type":"简单句","text":"They should treat new knowledge positively and openly.","chinesePrompt":"他们应以积极、开放的态度对待新知识。","note":"","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，学生应根据自己的时间安排积极参加有价值的校园讲座。","同时，学校可以邀请不同领域的专家并举办活动。","学生也应思考讲座的内容。","此外，我们应在学习中把实践与理论结合起来。","只有保持好奇心并积极学习，学生才能不断提升自己并为未来发展做好准备。"],"sentences":[{"id":"big-essay-campus-lecture-p3-s1","type":"简单句","text":"In my opinion, students should actively take part in valuable campus lectures with regard to their own schedules.","chinesePrompt":"在我看来，学生应根据自己的时间安排积极参加有价值的校园讲座。","note":"","position":"建议与总结"},{"id":"big-essay-campus-lecture-p3-s2","type":"简单句","text":"At the same time, schools can invite experts from different fields and hold activities.","chinesePrompt":"同时，学校可以邀请不同领域的专家并举办活动。","note":"","position":"建议与总结"},{"id":"big-essay-campus-lecture-p3-s3","type":"简单句","text":"Students also should think about the content of the lecture.","chinesePrompt":"学生也应思考讲座的内容。","note":"","position":"建议与总结"},{"id":"big-essay-campus-lecture-p3-s4","type":"简单句","text":"In addition, we should combine practice with theory in our studies.","chinesePrompt":"此外，我们应在学习中把实践与理论结合起来。","note":"","position":"建议与总结"},{"id":"big-essay-campus-lecture-p3-s5","type":"复合句","text":"Students can improve themselves continuously and prepare for future development only when they keep their curiosity and study actively.","chinesePrompt":"只有保持好奇心并积极学习，学生才能不断提升自己并为未来发展做好准备。","note":"这是你最终确认的最后一句，保留不变。","position":"建议与总结"}]}]}];
@@ -5525,6 +5528,74 @@
     };
   }
 
+
+  /* ROBUST_LOCAL_SESSION_V21 */
+  function sessionTimestamp(value) {
+    const time = new Date(value?.updatedAt || 0).getTime();
+    return Number.isFinite(time) ? time : 0;
+  }
+
+  function newerSession(localValue, remoteValue, normalizer) {
+    const localSession = normalizer(localValue);
+    const remoteSession = normalizer(remoteValue);
+    if (!localSession) return remoteSession;
+    if (!remoteSession) return localSession;
+    return sessionTimestamp(localSession) >= sessionTimestamp(remoteSession)
+      ? localSession
+      : remoteSession;
+  }
+
+  function loadLocalSessionBackup() {
+    try {
+      const raw = localStorage.getItem(SESSION_BACKUP_KEY);
+      if (!raw) return { reviewSession: null, quizSession: null };
+      const parsed = JSON.parse(raw);
+      return {
+        reviewSession: normalizeReviewSession(parsed?.reviewSession),
+        quizSession: normalizeQuizSession(parsed?.quizSession)
+      };
+    } catch (error) {
+      console.warn("读取本地断点备份失败", error);
+      return { reviewSession: null, quizSession: null };
+    }
+  }
+
+  function persistLocalSessionBackup(sourceState = state) {
+    try {
+      const reviewSession = normalizeReviewSession(sourceState?.reviewSession);
+      const quizSession = normalizeQuizSession(sourceState?.quizSession);
+      if (!reviewSession && !quizSession) {
+        localStorage.removeItem(SESSION_BACKUP_KEY);
+        return true;
+      }
+      localStorage.setItem(SESSION_BACKUP_KEY, JSON.stringify({
+        version: 21,
+        reviewSession,
+        quizSession,
+        savedAt: new Date().toISOString()
+      }));
+      return true;
+    } catch (error) {
+      console.error("保存本地断点备份失败", error);
+      return false;
+    }
+  }
+
+  function mergeLocalSessionBackup(targetState) {
+    const backup = loadLocalSessionBackup();
+    targetState.reviewSession = newerSession(
+      backup.reviewSession,
+      targetState.reviewSession,
+      normalizeReviewSession
+    );
+    targetState.quizSession = newerSession(
+      backup.quizSession,
+      targetState.quizSession,
+      normalizeQuizSession
+    );
+    return targetState;
+  }
+
   function initialState() {
     return {
       cards: SEED_CARDS.map(normalizeCard),
@@ -5550,11 +5621,11 @@
   function loadState() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return initialState();
+      if (!raw) return mergeLocalSessionBackup(initialState());
       const parsed = JSON.parse(raw);
       const markGroups = loadMarkGroups(parsed.markGroups);
       const sessionLog = Array.isArray(parsed.sessionLog) ? parsed.sessionLog : [];
-      return {
+      return mergeLocalSessionBackup({
         cards: mergeCardsWithSeed(parsed.cards),
         markGroups,
         customMarks: loadCustomMarks(parsed.customMarks, markGroups),
@@ -5572,7 +5643,7 @@
         smallEssayPractice: parsed.smallEssayPractice && typeof parsed.smallEssayPractice === "object" ? parsed.smallEssayPractice : {},
         sessionLog,
         updatedAt: parsed.updatedAt || new Date().toISOString()
-      };
+      });
     } catch (error) {
       console.error(error);
       return initialState();
@@ -5582,8 +5653,25 @@
   function saveState(options = {}) {
     const { touch = true, sync = true } = options;
     if (touch) state.updatedAt = new Date().toISOString();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+    let localSaved = true;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (error) {
+      localSaved = false;
+      console.error("本地学习记录保存失败", error);
+      setSyncStatus("error", "本地保存失败");
+      setAuthMessage(`本地保存失败：${error.message || error}`);
+    }
+
+    // 断点使用独立小文件再次保存。即使整份状态很大，当前做到第几题也不会丢。
+    const sessionSaved = persistLocalSessionBackup(state);
+    if (!sessionSaved && localSaved) {
+      setSyncStatus("error", "断点保存失败");
+    }
+
     if (sync && !suppressCloudSave) queueCloudSave();
+    return localSaved && sessionSaved;
   }
 
   function cryptoId() {
@@ -5728,20 +5816,22 @@
       if (error) throw error;
       cloudUser = data.session?.user || null;
 
-      const listener = supabaseClient.auth.onAuthStateChange(async (event, session) => {
+      const listener = supabaseClient.auth.onAuthStateChange((event, session) => {
         cloudUser = session?.user || null;
+        renderAccount();
+
         if (cloudUser) {
-          setSyncStatus("busy", "正在同步");
-          await syncFromCloud();
+          setSyncStatus("busy", "本地已保存 · 准备同步");
+          // Supabase建议不要在auth回调内部直接await新的Supabase请求。
+          setTimeout(() => syncFromCloud(), 0);
         } else {
           setSyncStatus("", "已退出云端");
         }
-        renderAccount();
       });
       authSubscription = listener.data.subscription;
 
       if (cloudUser) {
-        setSyncStatus("busy", "正在同步");
+        setSyncStatus("busy", "本地已保存 · 准备同步");
         await syncFromCloud();
       } else {
         setSyncStatus("", "未登录");
@@ -5874,50 +5964,164 @@
     renderAccount();
   }
 
-  function queueCloudSave() {
-    if (!supabaseClient || !cloudUser || cloudSyncing) return;
-    clearTimeout(cloudSaveTimer);
-    setSyncStatus("busy", "等待同步");
-    cloudSaveTimer = setTimeout(() => saveToCloud(), 1000);
+
+  /* COMPACT_CLOUD_PAYLOAD_V21 */
+  function compactCardForCloud(card) {
+    return {
+      id: card.id,
+      year: card.year,
+      section: card.section,
+      phrase: card.phrase,
+      meaning: card.meaning,
+      example: card.example,
+      type: card.type,
+      attempts: card.attempts,
+      correct: card.correct,
+      lapses: card.lapses,
+      repetitions: card.repetitions,
+      interval: card.interval,
+      ease: card.ease,
+      due: card.due,
+      suspended: Boolean(card.suspended),
+      lastReviewed: card.lastReviewed || null,
+      lastResult: card.lastResult || "",
+      userMarkIds: Array.isArray(card.userMarkIds) ? card.userMarkIds : [],
+      userNote: card.userNote || "",
+      lastSupplementReviewDate: card.lastSupplementReviewDate || "",
+      lastPlanErrorReviewDate: card.lastPlanErrorReviewDate || ""
+    };
   }
 
-  async function saveToCloud() {
-    if (!supabaseClient || !cloudUser) return;
-    cloudSyncing = true;
-    setSyncStatus("busy", "正在上传");
-    try {
-      const payload = JSON.parse(JSON.stringify(state));
-      const { error } = await supabaseClient
+  function buildCloudPayload() {
+    return {
+      cards: state.cards.map(compactCardForCloud),
+      markGroups: state.markGroups,
+      customMarks: state.customMarks,
+      settings: state.settings,
+      dailyStudy: state.dailyStudy,
+      planActivities: state.planActivities,
+      planTaskCompletions: state.planTaskCompletions,
+      reviewSession: normalizeReviewSession(state.reviewSession),
+      quizSession: normalizeQuizSession(state.quizSession),
+      bigEssays: state.bigEssays.map(item => ({ id: item.id, archived: Boolean(item.archived) })),
+      bigEssayProgress: state.bigEssayProgress,
+      bigEssayPractice: state.bigEssayPractice,
+      smallEssays: state.smallEssays.map(item => ({ id: item.id, archived: Boolean(item.archived) })),
+      smallEssayProgress: state.smallEssayProgress,
+      smallEssayPractice: state.smallEssayPractice,
+      sessionLog: Array.isArray(state.sessionLog) ? state.sessionLog.slice(-3000) : [],
+      updatedAt: state.updatedAt
+    };
+  }
+
+  function withCloudTimeout(promise, label = "云端请求", timeoutMs = 20000) {
+    let timer = null;
+    return Promise.race([
+      Promise.resolve(promise),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`${label}超时，请稍后重试`)), timeoutMs);
+      })
+    ]).finally(() => clearTimeout(timer));
+  }
+
+  async function performCloudUpload() {
+    const payload = buildCloudPayload();
+    return withCloudTimeout(
+      supabaseClient
         .from("study_state")
         .upsert({
           user_id: cloudUser.id,
           data: payload,
           updated_at: state.updatedAt || new Date().toISOString()
-        }, { onConflict: "user_id" });
+        }, { onConflict: "user_id" }),
+      "上传",
+      20000
+    );
+  }
+
+  function schedulePendingCloudSave(delay = 500) {
+    if (!supabaseClient || !cloudUser) return;
+    clearTimeout(cloudSaveTimer);
+    cloudSaveTimer = setTimeout(() => saveToCloud(), delay);
+  }
+
+  function queueCloudSave() {
+    if (!supabaseClient || !cloudUser) return;
+    cloudPendingSave = true;
+    clearTimeout(cloudSaveTimer);
+
+    if (cloudSyncing) {
+      setSyncStatus("busy", "本地已保存 · 等待云端");
+      return;
+    }
+
+    setSyncStatus("busy", "本地已保存 · 等待云端");
+    cloudSaveTimer = setTimeout(() => saveToCloud(), 800);
+  }
+
+  async function saveToCloud() {
+    if (!supabaseClient || !cloudUser) return false;
+
+    if (cloudSyncing) {
+      cloudPendingSave = true;
+      setSyncStatus("busy", "本地已保存 · 等待云端");
+      return false;
+    }
+
+    cloudSyncing = true;
+    cloudPendingSave = false;
+    setSyncStatus("busy", "本地已保存 · 正在上传");
+
+    let ok = false;
+    try {
+      const { error } = await performCloudUpload();
       if (error) throw error;
-      setSyncStatus("ok", "云端已同步");
+      ok = true;
+      setSyncStatus("ok", "本地与云端已同步");
+      setAuthMessage("");
     } catch (error) {
       console.error(error);
-      setSyncStatus("error", "同步失败");
-      setAuthMessage(`上传失败：${error.message || error}`);
+      cloudPendingSave = true;
+      setSyncStatus("error", "本地已保存 · 云端失败");
+      setAuthMessage(`云端上传失败，本地记录仍已保存：${error.message || error}`);
     } finally {
       cloudSyncing = false;
+      if (cloudPendingSave && navigator.onLine !== false) {
+        schedulePendingCloudSave(ok ? 350 : 3000);
+      }
     }
+    return ok;
   }
 
   async function syncFromCloud() {
     if (!supabaseClient || !cloudUser) return;
+
+    if (cloudSyncing) {
+      cloudPullPending = true;
+      return;
+    }
+
     cloudSyncing = true;
+    cloudPullPending = false;
+    setSyncStatus("busy", "本地已保存 · 正在核对云端");
+
     try {
-      const { data, error } = await supabaseClient
-        .from("study_state")
-        .select("data, updated_at")
-        .eq("user_id", cloudUser.id)
-        .maybeSingle();
+      const { data, error } = await withCloudTimeout(
+        supabaseClient
+          .from("study_state")
+          .select("data, updated_at")
+          .eq("user_id", cloudUser.id)
+          .maybeSingle(),
+        "下载",
+        20000
+      );
       if (error) throw error;
 
       if (!data) {
-        await saveToCloud();
+        const uploadResult = await performCloudUpload();
+        if (uploadResult.error) throw uploadResult.error;
+        cloudPendingSave = false;
+        setSyncStatus("ok", "本地与云端已同步");
         return;
       }
 
@@ -5925,9 +6129,25 @@
       const localTime = new Date(state.updatedAt || 0).getTime();
 
       if (cloudTime > localTime && data.data) {
+        // 关键：下载云端整份状态之前，先保住本机最新断点。
+        const localBackup = loadLocalSessionBackup();
+        const localReview = newerSession(
+          state.reviewSession,
+          localBackup.reviewSession,
+          normalizeReviewSession
+        );
+        const localQuiz = newerSession(
+          state.quizSession,
+          localBackup.quizSession,
+          normalizeQuizSession
+        );
+
         suppressCloudSave = true;
         const markGroups = loadMarkGroups(data.data.markGroups);
         const sessionLog = Array.isArray(data.data.sessionLog) ? data.data.sessionLog : [];
+        const cloudReview = normalizeReviewSession(data.data.reviewSession);
+        const cloudQuiz = normalizeQuizSession(data.data.quizSession);
+
         state = {
           cards: mergeCardsWithSeed(data.data.cards),
           markGroups,
@@ -5936,8 +6156,8 @@
           dailyStudy: normalizeDailyStudy(data.data.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(data.data.planActivities),
           planTaskCompletions: normalizePlanTaskCompletions(data.data.planTaskCompletions),
-          reviewSession: normalizeReviewSession(data.data.reviewSession),
-          quizSession: normalizeQuizSession(data.data.quizSession),
+          reviewSession: newerSession(localReview, cloudReview, normalizeReviewSession),
+          quizSession: newerSession(localQuiz, cloudQuiz, normalizeQuizSession),
           bigEssays: mergeBigEssaysWithSeed(data.data.bigEssays),
           bigEssayProgress: normalizeBigEssayProgress(data.data.bigEssayProgress),
           bigEssayPractice: normalizeBigEssayPractice(data.data.bigEssayPractice),
@@ -5947,15 +6167,28 @@
           sessionLog,
           updatedAt: data.data.updatedAt || data.updated_at || new Date().toISOString()
         };
+
+        // 如果本机断点比云端断点新，整份状态也提升时间戳，稍后把断点补传上去。
+        const newestSessionTime = Math.max(
+          sessionTimestamp(state.reviewSession),
+          sessionTimestamp(state.quizSession)
+        );
+        if (newestSessionTime > cloudTime) {
+          state.updatedAt = new Date(newestSessionTime).toISOString();
+          cloudPendingSave = true;
+        }
+
         saveState({ touch: false, sync: false });
         suppressCloudSave = false;
+
         populateYearSelects();
         populateCustomMarkSelects();
         renderDashboard();
+
         if (currentView === "quiz") {
           quizQueue = [];
           quizIndex = 0;
-          renderQuizSetup();
+          if (!restoreQuizSession()) renderQuizSetup();
         }
         if (currentView === "review") {
           reviewQueue = [];
@@ -5971,19 +6204,44 @@
         if (currentView === "library") renderLibrary();
         if (currentView === "mistakes") renderMistakes();
         if (currentView === "stats") renderStats();
-        setSyncStatus("ok", "已下载云端进度");
+
+        setSyncStatus("ok", cloudPendingSave ? "本地断点已保留 · 等待上传" : "已下载云端进度");
       } else if (localTime > cloudTime) {
-        await saveToCloud();
+        const uploadResult = await performCloudUpload();
+        if (uploadResult.error) throw uploadResult.error;
+        cloudPendingSave = false;
+        setSyncStatus("ok", "本地与云端已同步");
       } else {
-        setSyncStatus("ok", "云端已同步");
+        // 时间相同时也保留独立断点备份，绝不因为云端没有断点就清空本机。
+        const backup = loadLocalSessionBackup();
+        state.reviewSession = newerSession(
+          backup.reviewSession,
+          state.reviewSession,
+          normalizeReviewSession
+        );
+        state.quizSession = newerSession(
+          backup.quizSession,
+          state.quizSession,
+          normalizeQuizSession
+        );
+        saveState({ touch: false, sync: false });
+        setSyncStatus("ok", "本地与云端已同步");
       }
     } catch (error) {
       console.error(error);
-      setSyncStatus("error", "同步失败");
-      setAuthMessage(`同步失败：${error.message || error}`);
+      setSyncStatus("error", "本地已保存 · 云端失败");
+      setAuthMessage(`云端同步失败，本地记录仍然安全：${error.message || error}`);
     } finally {
+      suppressCloudSave = false;
       cloudSyncing = false;
       renderAccount();
+
+      if (cloudPullPending) {
+        cloudPullPending = false;
+        setTimeout(() => syncFromCloud(), 250);
+      } else if (cloudPendingSave && navigator.onLine !== false) {
+        schedulePendingCloudSave(500);
+      }
     }
   }
 
@@ -10019,6 +10277,18 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     });
   }
 
+
+  window.addEventListener("offline", () => {
+    if (cloudUser) setSyncStatus("error", "本地已保存 · 当前离线");
+  });
+
+  window.addEventListener("online", () => {
+    if (!cloudUser) return;
+    setSyncStatus("busy", "网络已恢复 · 准备同步");
+    cloudPendingSave = true;
+    schedulePendingCloudSave(300);
+  });
+
   window.addEventListener("pagehide", () => {
     if (reviewQueue.length && reviewIndex < reviewQueue.length && reviewSessionKind) {
       if (state.reviewSession) {
@@ -10033,6 +10303,8 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       state.quizSession.wrongIds = [...quizWrongIds];
       state.quizSession.updatedAt = new Date().toISOString();
     }
+    // pagehide阶段不等待网络：先把断点同步写进本机。
+    persistLocalSessionBackup(state);
     saveState({ touch:false, sync:false });
   });
 

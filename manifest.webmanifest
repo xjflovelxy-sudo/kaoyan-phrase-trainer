@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "V23",
-  "short_name": "V23",
-  "description": "V23：将今日学习与今日复习明确分开，今日学习只学新词，今日复习只复习旧词。",
+  "name": "V24",
+  "short_name": "V24",
+  "description": "V24：全库覆盖、未做优先、自动调量、首次学习与复习严格区分、继续上次学习。",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",

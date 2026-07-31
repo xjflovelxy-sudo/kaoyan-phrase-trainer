@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="V23" />
+  <meta name="application-name" content="V24" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="V23" />
+  <meta name="apple-mobile-web-app-title" content="V24" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V23</title>
+  <title>V24</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -3816,13 +3816,45 @@
     }
     .review-head .session-reset-btn:hover { background: rgba(255,255,255,.25); }
 
+  
+    /* COVERAGE_ENGINE_V24 */
+    .resume-learning-card{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:16px;border-color:#bfcaf0;background:radial-gradient(circle at 88% 0%,rgba(53,89,224,.12),transparent 34%),linear-gradient(145deg,#f7f9ff,#fff)}
+    .resume-learning-copy{display:grid;gap:4px;min-width:0}
+    .resume-learning-kicker{width:max-content;padding:4px 8px;border-radius:999px;background:#eaf0ff;color:#3559e0;font-size:10px;font-weight:800}
+    .resume-learning-copy strong{font-size:17px;color:#202c45}
+    .resume-learning-copy>span:last-child{color:#6d778b;font-size:11px;line-height:1.55}
+    .coverage-dashboard-card{margin-bottom:16px}
+    .coverage-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:14px}
+    .coverage-overall{min-width:112px;padding:10px 12px;border:1px solid #d7dfef;border-radius:13px;background:#f7f9fe;text-align:right}
+    .coverage-overall strong{display:block;font-size:24px;color:#2949b4}
+    .coverage-overall span{color:#6c768a;font-size:10px}
+    .coverage-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+    .coverage-item{padding:11px;border:1px solid #e0e5ef;border-radius:12px;background:#fbfcff}
+    .coverage-item>span{display:block;color:#6b758a;font-size:10px;margin-bottom:5px}
+    .coverage-item>strong{display:block;color:#263551;font-size:15px}
+    .coverage-line{height:5px;margin-top:8px;border-radius:999px;overflow:hidden;background:#e9edf5}
+    .coverage-line i{display:block;width:0;height:100%;border-radius:inherit;background:#5572e8}
+    .pace-panel{margin-top:14px;padding:13px;border:1px solid #dce3f0;border-radius:13px;background:#f9fbff}
+    .pace-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+    .pace-panel-head strong{display:block;margin-bottom:3px;font-size:13px;color:#273653}
+    .pace-panel-head span{color:#6d778a;font-size:10px}
+    .pace-status{padding:5px 9px;border-radius:999px;background:#edf1f7;color:#667185!important;font-weight:800;white-space:nowrap}
+    .pace-status.ok{background:#e9f7ee;color:#247046!important}
+    .pace-status.behind{background:#fff1e4;color:#a15d19!important}
+    .pace-list{display:grid;gap:7px}
+    .pace-row{display:grid;grid-template-columns:minmax(120px,.9fr) minmax(180px,1.4fr) auto;gap:10px;align-items:center;padding:8px 9px;border-radius:9px;background:#fff;border:1px solid #e5e9f1;font-size:10px}
+    .pace-row strong{color:#2a3854}.pace-row span{color:#687389}.pace-row b{color:#3559e0;font-size:10px;text-align:right}
+    .pace-adjust-note{margin-top:9px;color:#667188;font-size:10px;line-height:1.65}
+    @media(max-width:900px){.coverage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pace-row{grid-template-columns:1fr;gap:3px}.pace-row b{text-align:left}}
+    @media(max-width:620px){.resume-learning-card{align-items:stretch;flex-direction:column}.coverage-head{display:grid}.coverage-overall{text-align:left}.coverage-grid{grid-template-columns:1fr}}
+
   </style>
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>V23</h1>
+      <h1>V24</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -3861,6 +3893,15 @@
     </div>
 
     <section class="view active" id="dashboardView">
+
+      <div class="card resume-learning-card" id="resumeLearningCard" style="display:none;">
+        <div class="resume-learning-copy">
+          <span class="resume-learning-kicker">继续上次学习</span>
+          <strong id="resumeLearningTitle">上次学习</strong>
+          <span id="resumeLearningMeta">当前有未完成进度</span>
+        </div>
+        <button class="primary-btn" id="resumeLearningBtn">继续</button>
+      </div>
 
       <div class="card auto-plan-card">
         <div class="auto-plan-head">
@@ -3903,6 +3944,43 @@
         <div class="plan-auto-note">浅绿色表示核心任务完成；深绿色表示核心任务和90分钟加练全部完成。所有进度按实际答题、批改与错题复习自动记录。</div>
         <div class="button-row" style="margin-top:12px;"><button class="secondary-btn" id="openStudyPlanBtn">打开月历查看完整计划</button></div>
       </div>
+
+      <div class="card coverage-dashboard-card">
+        <div class="coverage-head">
+          <div>
+            <h3 class="section-title" style="margin-bottom:5px;">全库覆盖</h3>
+            <div class="muted">统计“不同内容至少真正完成过一次”，不是总点击次数。未做内容会优先进入后续训练。</div>
+          </div>
+          <div class="coverage-overall">
+            <strong id="coverageOverallPercent">0%</strong>
+            <span>总体首次覆盖</span>
+          </div>
+        </div>
+
+        <div class="coverage-grid">
+          <div class="coverage-item"><span>词组首次学习</span><strong id="coverageWords">0 / 0</strong><div class="coverage-line"><i id="coverageWordsBar"></i></div></div>
+          <div class="coverage-item"><span>选择题首次覆盖</span><strong id="coverageQuiz">0 / 0</strong><div class="coverage-line"><i id="coverageQuizBar"></i></div></div>
+          <div class="coverage-item"><span>大作文原句</span><strong id="coverageBigOriginal">0 / 0</strong><div class="coverage-line"><i id="coverageBigOriginalBar"></i></div></div>
+          <div class="coverage-item"><span>大作文仿写</span><strong id="coverageBigImitation">0 / 300</strong><div class="coverage-line"><i id="coverageBigImitationBar"></i></div></div>
+          <div class="coverage-item"><span>小作文原句</span><strong id="coverageSmallOriginal">0 / 0</strong><div class="coverage-line"><i id="coverageSmallOriginalBar"></i></div></div>
+          <div class="coverage-item"><span>小作文仿写</span><strong id="coverageSmallImitation">0 / 56</strong><div class="coverage-line"><i id="coverageSmallImitationBar"></i></div></div>
+          <div class="coverage-item"><span>小作文整篇</span><strong id="coverageSmallWhole">0 / 14</strong><div class="coverage-line"><i id="coverageSmallWholeBar"></i></div></div>
+          <div class="coverage-item"><span>小作文功能句</span><strong id="coverageSmallFunction">0 / 25</strong><div class="coverage-line"><i id="coverageSmallFunctionBar"></i></div></div>
+        </div>
+
+        <div class="pace-panel">
+          <div class="pace-panel-head">
+            <div>
+              <strong>按当前速度能否按时刷完</strong>
+              <span id="paceOverallMessage">正在计算……</span>
+            </div>
+            <span class="pace-status" id="paceStatusBadge">计算中</span>
+          </div>
+          <div class="pace-list" id="paceList"></div>
+          <div class="pace-adjust-note" id="paceAdjustNote"></div>
+        </div>
+      </div>
+
       <div class="checkin-card">
         <div class="countdown-box">
           <div class="countdown-label">考研初试倒计时</div>
@@ -5254,6 +5332,70 @@
   }
 
 
+
+  function normalizeCoverage(value, sessionLog = []) {
+    const source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    const quizIds = new Set(Array.isArray(source.quizIds) ? source.quizIds.map(String) : []);
+    const quizWrongIds = new Set(Array.isArray(source.quizWrongIds) ? source.quizWrongIds.map(String) : []);
+    const quizFirstAt = source.quizFirstAt && typeof source.quizFirstAt === "object" ? {...source.quizFirstAt} : {};
+
+    [...sessionLog]
+      .filter(log => String(log?.mode || "").startsWith("mcq-"))
+      .sort((a,b) => new Date(a.time || 0) - new Date(b.time || 0))
+      .forEach(log => {
+        if (!log?.cardId) return;
+        const id = String(log.cardId);
+        quizIds.add(id);
+        if (!quizFirstAt[id] && log.time) quizFirstAt[id] = log.time;
+        if (Number(log.grade) < 2) quizWrongIds.add(id);
+        else quizWrongIds.delete(id);
+      });
+
+    return { quizIds:[...quizIds], quizWrongIds:[...quizWrongIds], quizFirstAt };
+  }
+
+  function normalizeDailyModes(value) {
+    const result = {};
+    if (!value || typeof value !== "object" || Array.isArray(value)) return result;
+    Object.entries(value).forEach(([key,item]) => {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(key)) return;
+      result[key] = {
+        learningIds:[...new Set(Array.isArray(item?.learningIds) ? item.learningIds.map(String) : [])],
+        reviewIds:[...new Set(Array.isArray(item?.reviewIds) ? item.reviewIds.map(String) : [])]
+      };
+    });
+    return result;
+  }
+
+  function normalizeLastLearning(value) {
+    if (!value || typeof value !== "object" || !value.type || !value.updatedAt) return null;
+    return {
+      type:String(value.type), kind:String(value.kind || ""), id:String(value.id || ""),
+      sourceId:String(value.sourceId || ""), label:String(value.label || ""), updatedAt:value.updatedAt
+    };
+  }
+
+  function recordDailyMode(mode, contentId) {
+    if (!contentId) return;
+    const key = localDateKey();
+    if (!state.dailyModes || typeof state.dailyModes !== "object") state.dailyModes = {};
+    if (!state.dailyModes[key]) state.dailyModes[key] = {learningIds:[],reviewIds:[]};
+    const field = mode === "learning" ? "learningIds" : "reviewIds";
+    if (!state.dailyModes[key][field].includes(contentId)) state.dailyModes[key][field].push(contentId);
+  }
+
+  function todayLearningModeStats() {
+    const item = state.dailyModes?.[localDateKey()] || {learningIds:[],reviewIds:[]};
+    return { learning:new Set(item.learningIds || []).size, review:new Set(item.reviewIds || []).size };
+  }
+
+  function setLastLearning(pointer) {
+    state.lastLearning = pointer ? {
+      type:pointer.type, kind:pointer.kind || "", id:pointer.id || "",
+      sourceId:pointer.sourceId || "", label:pointer.label || "", updatedAt:new Date().toISOString()
+    } : null;
+  }
+
   function normalizePlanActivities(value) {
     const result = {};
     if (!value || typeof value !== "object" || Array.isArray(value)) return result;
@@ -5377,7 +5519,138 @@
     if(activity==="marks") return 5;
     return 5;
   }
-  function makePlanTask(activity,target,options={}){const m=PLAN_ACTIVITY_META[activity],focus=options.focus||"";return{id:`v19-core-${activity}`,activity,target,minutes:options.minutes??estimateTaskMinutes(activity,target),focus,focusId:options.focusId||"",label:m.label,displayLabel:focus?`${m.label} · ${focus}`:m.label,method:options.method||m.method,description:options.description||m.description,...m}}
+  function makePlanTask(activity,target,options={}){const m=PLAN_ACTIVITY_META[activity],focus=options.focus||"";return{id:`v24-core-${activity}`,activity,target,minutes:options.minutes??estimateTaskMinutes(activity,target),focus,focusId:options.focusId||"",label:m.label,displayLabel:focus?`${m.label} · ${focus}`:m.label,method:options.method||m.method,description:options.description||m.description,...m}}
+
+
+  function hasPracticeAnswer(entry){return Boolean(String(entry?.answer || "").trim())}
+
+  function allBigOriginalSentenceIds(){
+    return BIG_ESSAY_SEED.flatMap(e=>e.paragraphs.flatMap(p=>p.sentences.map(s=>s.id)));
+  }
+
+  function allSmallOriginalSentenceIds(){
+    return typeof SMALL_ESSAYS==="undefined" ? [] : SMALL_ESSAYS.flatMap(e=>e.paragraphs.flatMap(p=>p.map(s=>s.id)));
+  }
+
+  function coverageSnapshot(){
+    const wordsTotal=state.cards.filter(c=>!c.suspended).length;
+    const wordsCompleted=state.cards.filter(c=>!c.suspended&&!isNew(c)).length;
+
+    const validIds=new Set(state.cards.filter(c=>!c.suspended).map(c=>c.id));
+    const quizCompleted=[...new Set(state.coverage?.quizIds||[])].filter(id=>validIds.has(id)).length;
+
+    const bigIds=allBigOriginalSentenceIds(),bigProgress=state.bigEssayProgress||{},bigDict=state.bigEssayPractice?.dictation||{};
+    const bigOriginalCompleted=bigIds.filter(id=>Number(bigProgress?.[id]?.attempts||0)>0||hasPracticeAnswer(bigDict[`study-${id}`])||hasPracticeAnswer(bigDict[id])).length;
+
+    const bigImIds=SENTENCE_IMITATION_TASKS.map(t=>t.id),bigImBucket=state.bigEssayPractice?.sentenceImitation||{};
+    const bigImitationCompleted=bigImIds.filter(id=>hasPracticeAnswer(bigImBucket[id])).length;
+
+    const smallIds=allSmallOriginalSentenceIds(),smallProgress=state.smallEssayProgress||{},smallInline=state.smallEssayPractice?.inline||{},smallDict=state.smallEssayPractice?.dictation||{};
+    const smallOriginalCompleted=smallIds.filter(id=>Number(smallProgress?.[id]?.attempts||0)>0||hasPracticeAnswer(smallInline[id])||hasPracticeAnswer(smallDict[`study-${id}`])||hasPracticeAnswer(smallDict[id])).length;
+
+    const smallImTasks=typeof SMALL_SENTENCE_TASKS==="undefined"?[]:SMALL_SENTENCE_TASKS,smallImBucket=state.smallEssayPractice?.sentenceImitation||{};
+    const smallImitationCompleted=smallImTasks.filter(t=>hasPracticeAnswer(smallImBucket[t.id])).length;
+
+    const smallWholeTasks=typeof SMALL_WHOLE==="undefined"?[]:SMALL_WHOLE,wholeBucket=state.smallEssayPractice?.wholeImitation||{};
+    const smallWholeCompleted=smallWholeTasks.filter(t=>t.units?.length&&t.units.every(u=>hasPracticeAnswer(wholeBucket[`${t.id}-${u.id}`]))).length;
+
+    const smallFunctions=typeof SMALL_FUNCTIONS==="undefined"?[]:SMALL_FUNCTIONS,functionBucket=state.smallEssayPractice?.functionPractice||{};
+    const smallFunctionCompleted=smallFunctions.filter(t=>hasPracticeAnswer(functionBucket[t.id])).length;
+
+    const metrics={
+      words:{completed:wordsCompleted,total:wordsTotal,label:"词组首次学习"},
+      quiz:{completed:quizCompleted,total:wordsTotal,label:"选择题首次覆盖"},
+      bigOriginal:{completed:bigOriginalCompleted,total:bigIds.length,label:"大作文原句"},
+      bigImitation:{completed:bigImitationCompleted,total:bigImIds.length,label:"大作文仿写"},
+      smallOriginal:{completed:smallOriginalCompleted,total:smallIds.length,label:"小作文原句"},
+      smallImitation:{completed:smallImitationCompleted,total:smallImTasks.length,label:"小作文仿写"},
+      smallWhole:{completed:smallWholeCompleted,total:smallWholeTasks.length,label:"小作文整篇"},
+      smallFunction:{completed:smallFunctionCompleted,total:smallFunctions.length,label:"小作文功能句"}
+    };
+    const totals=Object.values(metrics).reduce((a,x)=>({completed:a.completed+x.completed,total:a.total+x.total}),{completed:0,total:0});
+    return {...metrics,overallPercent:totals.total?Math.round(totals.completed/totals.total*100):0};
+  }
+
+  function dateDaysAgo(days){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-days);return d}
+  function withinRecentDays(value,days=14){const d=new Date(value||0);return !Number.isNaN(d.getTime())&&d>=dateDaysAgo(days-1)}
+
+  function recentCoverageCount(metric,days=14){
+    if(metric==="words"){
+      let total=0;
+      for(let i=0;i<days;i++){const d=new Date();d.setDate(d.getDate()-i);total+=Math.max(0,Number(state.dailyStudy?.[localDateKey(d)]?.newLearned)||0)}
+      return total;
+    }
+    if(metric==="quiz")return Object.values(state.coverage?.quizFirstAt||{}).filter(v=>withinRecentDays(v,days)).length;
+    if(metric==="bigImitation"){
+      const b=state.bigEssayPractice?.sentenceImitation||{};
+      return SENTENCE_IMITATION_TASKS.filter(t=>hasPracticeAnswer(b[t.id])&&withinRecentDays(b[t.id]?.firstAt||b[t.id]?.lastAt,days)).length;
+    }
+    if(metric==="smallImitation"){
+      const b=state.smallEssayPractice?.sentenceImitation||{},tasks=typeof SMALL_SENTENCE_TASKS==="undefined"?[]:SMALL_SENTENCE_TASKS;
+      return tasks.filter(t=>hasPracticeAnswer(b[t.id])&&withinRecentDays(b[t.id]?.firstAt||b[t.id]?.lastAt,days)).length;
+    }
+    if(metric==="smallWhole"){
+      const tasks=typeof SMALL_WHOLE==="undefined"?[]:SMALL_WHOLE,b=state.smallEssayPractice?.wholeImitation||{};
+      return tasks.filter(t=>{
+        if(!t.units?.length)return false;
+        const items=t.units.map(u=>b[`${t.id}-${u.id}`]).filter(Boolean);
+        if(items.length!==t.units.length||!items.every(hasPracticeAnswer))return false;
+        const dates=items.map(x=>x.firstAt||x.lastAt).filter(Boolean);
+        return dates.length&&dates.every(v=>withinRecentDays(v,days))
+      }).length;
+    }
+    return 0;
+  }
+
+  function remainingPlanDays(){
+    const exam=dateFromKey(state.settings.examDate);if(!exam)return 1;
+    exam.setDate(exam.getDate()-1);exam.setHours(0,0,0,0);
+    return Math.max(1,Math.floor((exam-startOfToday())/DAY)+1);
+  }
+
+  function addDaysV24(date,count){const d=new Date(date);d.setDate(d.getDate()+count);return d}
+  function shortDateV24(d){return d?`${d.getMonth()+1}月${d.getDate()}日`:"暂无法估算"}
+
+  function paceForMetric(metric,snapshot=coverageSnapshot()){
+    const item=snapshot[metric];if(!item||!item.total)return{required:0,recentRate:0,estimate:null,onTime:true,remaining:0};
+    const remaining=Math.max(0,item.total-item.completed),daysLeft=remainingPlanDays(),required=remaining?remaining/daysLeft:0,recentDays=14,recent=recentCoverageCount(metric,recentDays);
+    let recentRate=recent/recentDays;
+    if(recentRate<=0&&item.completed>0){
+      const start=dateFromKey(STUDY_PLAN_RELEASE_DATE),elapsed=Math.max(1,Math.floor((startOfToday()-start)/DAY)+1);
+      recentRate=item.completed/elapsed;
+    }
+    const needed=remaining===0?0:recentRate>0?Math.ceil(remaining/recentRate):Infinity;
+    return{remaining,daysLeft,required,recentRate,estimate:Number.isFinite(needed)?addDaysV24(new Date(),needed):null,onTime:remaining===0||recentRate>=required*.98};
+  }
+
+  function adaptiveCoverageTargets(){
+    const snap=coverageSnapshot(),days=remainingPlanDays();
+    const need=(key,cap)=>{const x=snap[key];if(!x?.total)return 0;const r=Math.max(0,x.total-x.completed);return r?Math.min(cap,Math.max(1,Math.ceil(r/days))):0};
+    return{words:need("words",30),quiz:need("quiz",80),bigImitation:need("bigImitation",6),smallImitation:need("smallImitation",4)};
+  }
+
+  function renderCoverageDashboard(){
+    const snap=coverageSnapshot(),map={
+      words:["coverageWords","coverageWordsBar"],quiz:["coverageQuiz","coverageQuizBar"],
+      bigOriginal:["coverageBigOriginal","coverageBigOriginalBar"],bigImitation:["coverageBigImitation","coverageBigImitationBar"],
+      smallOriginal:["coverageSmallOriginal","coverageSmallOriginalBar"],smallImitation:["coverageSmallImitation","coverageSmallImitationBar"],
+      smallWhole:["coverageSmallWhole","coverageSmallWholeBar"],smallFunction:["coverageSmallFunction","coverageSmallFunctionBar"]
+    };
+    Object.entries(map).forEach(([key,[textId,barId]])=>{const x=snap[key];if(!$(textId)||!$(barId))return;$(textId).textContent=`${x.completed} / ${x.total}`;$(barId).style.width=`${x.total?Math.round(x.completed/x.total*100):0}%`});
+    $("coverageOverallPercent").textContent=`${snap.overallPercent}%`;
+
+    const rows=["words","quiz","bigImitation","smallImitation","smallWhole"].map(key=>({key,item:snap[key],pace:paceForMetric(key,snap)}));
+    const behind=rows.filter(r=>!r.pace.onTime&&r.pace.remaining>0);
+    $("paceStatusBadge").textContent=behind.length?`需加速 ${behind.length}项`:"进度正常";
+    $("paceStatusBadge").classList.toggle("ok",!behind.length);$("paceStatusBadge").classList.toggle("behind",Boolean(behind.length));
+    $("paceOverallMessage").textContent=behind.length?"系统已自动提高今天不足的首次覆盖题量。":"按照当前覆盖速度，主要题库可以在考试前完成第一轮。";
+    $("paceList").innerHTML=rows.map(r=>{
+      const p=r.pace,estimate=r.item.completed>=r.item.total?"已完成":p.estimate?`预计${shortDateV24(p.estimate)}完成`:"近期暂无有效速度";
+      return`<div class="pace-row"><strong>${escapeHtml(r.item.label)}</strong><span>最近 ${p.recentRate.toFixed(1)}/天 · 至少需要 ${p.required.toFixed(1)}/天</span><b>${escapeHtml(estimate)}</b></div>`
+    }).join("");
+    const a=adaptiveCoverageTargets();
+    $("paceAdjustNote").innerHTML=`今日首次覆盖底线：新词<strong>${a.words}</strong>条、选择题节奏<strong>${a.quiz}</strong>条/天、大作文新仿写<strong>${a.bigImitation}</strong>题、小作文新仿写<strong>${a.smallImitation}</strong>题。完成后相应目标自动下降。`;
+  }
 
   function todayDueLoad(){const key=localDateKey(),done=planActivityCount(key,"review"),remaining=state.cards.filter(c=>isDue(c)&&!isNew(c)).length;return done+remaining}
   function baseReviewTarget(phaseId,weekday){if(phaseId==="foundation"||phaseId==="transfer")return weekday===6?35:40;if(phaseId==="output")return 30;return 25}
@@ -5386,7 +5659,16 @@
   function studyPlanForDate(value){
     const date=value instanceof Date?new Date(value):dateFromKey(value); if(!date)return{date:new Date(),phase:STUDY_PHASES[0],tasks:[],bonusTasks:[]}; date.setHours(0,0,0,0);
     const phase=studyPhaseForDate(date),weekday=date.getDay(),focus=focusForPlanDate(date),tasks=[];
-    const add=(activity,target,kind="",minutes=null)=>{const f=kind==="big"?focus.big:kind==="small"?focus.small:null;tasks.push(makePlanTask(activity,target,{focus:f?.title||"",focusId:f?.id||"",minutes}))};
+    const add=(activity,target,kind="",minutes=null)=>{
+      if(!target||target<=0)return;
+      const f=kind==="big"?focus.big:kind==="small"?focus.small:null,existing=tasks.find(x=>x.activity===activity);
+      if(existing){
+        if(target>existing.target){existing.target=target;existing.minutes=minutes??estimateTaskMinutes(activity,target)}
+        if(f&&!existing.focus){existing.focus=f.title;existing.focusId=f.id;existing.displayLabel=`${existing.label} · ${f.title}`}
+        return
+      }
+      tasks.push(makePlanTask(activity,target,{focus:f?.title||"",focusId:f?.id||"",minutes}))
+    };
 
     let reviewTarget=baseReviewTarget(phase.id,weekday),cancelNew=false,reviewNotice="";
     if(localDateKey(date)===localDateKey()){
@@ -5446,6 +5728,13 @@
       }
     };
     (weekly[phase.id][weekday]||[]).forEach(([a,t,k,m])=>add(a,t,k,m??null));
+    if(date>=startOfToday()){
+      const adaptive=adaptiveCoverageTargets();
+      if(!cancelNew&&adaptive.words>0)add("newWords",adaptive.words);
+      if(adaptive.quiz>0)add("quiz",Math.max(baseQuizTarget(phase.id,weekday),adaptive.quiz));
+      if(adaptive.bigImitation>0)add("bigImitation",adaptive.bigImitation,"big");
+      if(adaptive.smallImitation>0)add("smallImitation",adaptive.smallImitation,"small");
+    }
     const coreMinutes=tasks.reduce((s,t)=>s+t.minutes,0);
     return{date,phase,focus,tasks,reviewNotice,estimatedMinutes:coreMinutes,targetMinutes:90};
   }
@@ -5467,10 +5756,10 @@
   function bonusTasksForDate(value){
     const date=value instanceof Date?new Date(value):dateFromKey(value),key=localDateKey(date),plan=studyPlanForDate(date),actual=writingActivityTotals(key),core=coreWritingTargets(plan),wrong=planActivityCount(key,"quizWrong"),redo=planActivityCount(key,"quizWrongRedo");
     return[
-      {id:"v19-bonus-quiz",activity:"quizWrongRedo",label:"重做今天全部选择题错题",icon:"重",target:wrong,current:redo,unit:"题",minutes:Math.max(2,Math.min(8,Math.round(wrong*.45))),done:wrong===0||redo>=wrong,view:"quiz",method:wrong===0?"今天普通选择题暂时没有错题，本项自动完成。":"完成普通题量后点击“只重做错题”，把今天所有错题至少重做一遍。"},
-      {id:"v19-bonus-big",activity:"bigExtra",label:"再练大作文1个完整句子单位",icon:"大",target:1,current:Math.max(0,actual.big-core.big),unit:"句",minutes:3,done:actual.big>=core.big+1,view:"bigEssay",method:"任选本周大作文模块，再完成1句；有错必须手动修改并再次批改。"},
-      {id:"v19-bonus-small",activity:"smallExtra",label:"再练小作文1个完整句子单位",icon:"小",target:1,current:Math.max(0,actual.small-core.small),unit:"句",minutes:3,done:actual.small>=core.small+1,view:"smallEssay",method:"任选本周小作文模块，再完成1句或1个格式项。"},
-      {id:"v19-bonus-errors",activity:"errorReview",label:"回看错误最多的5个词组",icon:"查",target:5,current:planActivityCount(key,"errorReview"),unit:"条",minutes:5,done:planActivityCount(key,"errorReview")>=5,view:"mistakes",method:"复习已有错误记录的词组并完成评分；同一词组当天只计一次。"}
+      {id:"v24-bonus-quiz",activity:"quizWrongRedo",label:"重做今天全部选择题错题",icon:"重",target:wrong,current:redo,unit:"题",minutes:Math.max(2,Math.min(8,Math.round(wrong*.45))),done:wrong===0||redo>=wrong,view:"quiz",method:wrong===0?"今天普通选择题暂时没有错题，本项自动完成。":"完成普通题量后点击“只重做错题”，把今天所有错题至少重做一遍。"},
+      {id:"v24-bonus-big",activity:"bigExtra",label:"再练大作文1个完整句子单位",icon:"大",target:1,current:Math.max(0,actual.big-core.big),unit:"句",minutes:3,done:actual.big>=core.big+1,view:"bigEssay",method:"任选本周大作文模块，再完成1句；有错必须手动修改并再次批改。"},
+      {id:"v24-bonus-small",activity:"smallExtra",label:"再练小作文1个完整句子单位",icon:"小",target:1,current:Math.max(0,actual.small-core.small),unit:"句",minutes:3,done:actual.small>=core.small+1,view:"smallEssay",method:"任选本周小作文模块，再完成1句或1个格式项。"},
+      {id:"v24-bonus-errors",activity:"errorReview",label:"回看错误最多的5个词组",icon:"查",target:5,current:planActivityCount(key,"errorReview"),unit:"条",minutes:5,done:planActivityCount(key,"errorReview")>=5,view:"mistakes",method:"复习已有错误记录的词组并完成评分；同一词组当天只计一次。"}
     ];
   }
 
@@ -5534,7 +5823,7 @@
 
   function renderStudyWeekBlueprint(){const selected=dateFromKey(selectedStudyPlanDateKey),monday=mondayOfWeek(selected),focus=focusForPlanDate(selected),names=["周一","周二","周三","周四","周五","周六","周日"],todayKey=localDateKey();$("studyWeekFocus").innerHTML=`第${focus.weekIndex+1}周 · 大作文重点：<strong>${escapeHtml(focus.big.title)}</strong>；小作文重点：<strong>${escapeHtml(focus.small.title)}</strong>。普通工作日约10—12个作文单位，周六综合输出，周日复盘。`;const arr=[];for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const p=studyPlanForDate(d),writing=p.tasks.filter(t=>["big","small","review"].includes(t.category)).map(t=>t.displayLabel.replace(` · ${t.focus}`,"")).join("＋")||"词组复习";arr.push(`<div class="week-blueprint-day ${localDateKey(d)===todayKey?"today":""}"><strong>${names[i]} · ${d.getMonth()+1}/${d.getDate()}</strong><span>${escapeHtml(writing)}</span></div>`)}$("studyWeekBlueprint").innerHTML=arr.join("")}
 
-  function renderTodayAutoPlan(){const changed=refreshPlanTaskCompletions();if(changed)saveState();const st=planDayStatus(new Date()),learn=planBucketStats(st,"learn"),review=planBucketStats(st,"review");$("todayPlanPhase").textContent=st.plan.phase.name;$("todayPlanMeta").textContent=`本周大作文：${st.plan.focus.big.title}；小作文：${st.plan.focus.small.title}。核心题量完成后解锁90分钟加练。`;$("todayPlanDoneCount").textContent=st.done;$("todayPlanTaskCount").textContent=st.total;$("todayPlanMinutes").textContent=90;$("todayPlanPercent").textContent=`${st.overallPercent}%`;$("todayLearnHeadline").textContent=`${learn.done}/${learn.total}项`;$("todayLearnSub").textContent=learn.total?`约${learn.minutes}分钟 · 新词/作文`:"今天暂无学习项";$("todayReviewHeadline").textContent=`${review.done}/${review.total}项`;$("todayReviewSub").textContent=review.total?`约${review.minutes}分钟 · 词组/选择题`:"今天暂无复习项";const badge=$("todayAutoPlanStatus");badge.textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;badge.classList.toggle("done",st.coreComplete);badge.classList.toggle("auto-plan-status-core",st.coreComplete&&!st.fullComplete);badge.classList.toggle("auto-plan-status-full",st.fullComplete);renderPlanTaskList("todayAutoPlanTasks",new Date(),true,false);renderBonusTaskList("todayBonusTasks","todayBonusPanel","todayBonusStatus",new Date(),true)}
+  function renderTodayAutoPlan(){const changed=refreshPlanTaskCompletions();if(changed)saveState();const st=planDayStatus(new Date()),learn=planBucketStats(st,"learn"),review=planBucketStats(st,"review"),actual=todayLearningModeStats();$("todayPlanPhase").textContent=st.plan.phase.name;$("todayPlanMeta").textContent=`本周大作文：${st.plan.focus.big.title}；小作文：${st.plan.focus.small.title}。V24按未做内容优先，并根据考试日期自动调量。`;$("todayPlanDoneCount").textContent=st.done;$("todayPlanTaskCount").textContent=st.total;$("todayPlanMinutes").textContent=90;$("todayPlanPercent").textContent=`${st.overallPercent}%`;$("todayLearnHeadline").textContent=`${actual.learning}项`;$("todayLearnSub").textContent=`真正首次接触 · 计划${learn.done}/${learn.total}项`;$("todayReviewHeadline").textContent=`${actual.review}项`;$("todayReviewSub").textContent=`已经学过后再次巩固 · 计划${review.done}/${review.total}项`;const badge=$("todayAutoPlanStatus");badge.textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;badge.classList.toggle("done",st.coreComplete);badge.classList.toggle("auto-plan-status-core",st.coreComplete&&!st.fullComplete);badge.classList.toggle("auto-plan-status-full",st.fullComplete);renderPlanTaskList("todayAutoPlanTasks",new Date(),true,false);renderBonusTaskList("todayBonusTasks","todayBonusPanel","todayBonusStatus",new Date(),true)}
 
   function renderStudyPlanView(){refreshPlanTaskCompletions();const stats=checkinPlanStats(),today=planDayStatus(new Date()),sm=new Date(stats.start.getFullYear(),stats.start.getMonth(),1),em=new Date(stats.end.getFullYear(),stats.end.getMonth(),1);if(studyPlanCalendarCursor<sm||studyPlanCalendarCursor>em){const s=dateFromKey(clampStudyPlanDateKey(selectedStudyPlanDateKey));studyPlanCalendarCursor=new Date(s.getFullYear(),s.getMonth(),1)}selectedStudyPlanDateKey=clampStudyPlanDateKey(selectedStudyPlanDateKey);$("studyPlanRangeText").textContent=`从${stats.start.toLocaleDateString("zh-CN")}到${stats.end.toLocaleDateString("zh-CN")}。核心完成显示浅绿色，90分钟加练完成显示深绿色。`;$("studyPlanTotalDays").textContent=stats.total;$("studyPlanCompletedDays").textContent=stats.checked;$("studyPlanCurrentStreak").textContent=calculateCheckinStreak();$("studyPlanOverallPercent").textContent=`${stats.progress}%`;$("studyPlanOverallStatus").textContent=today.fullComplete?"今天90分钟已完成":today.coreComplete?"今天核心已完成":`今天核心${today.done}/${today.total}`;$("studyPlanOverallStatus").classList.toggle("done",today.coreComplete);$("studyPlanCurrentPhase").textContent=today.plan.phase.name;$("studyPhaseTimeline").innerHTML=STUDY_PHASES.map(p=>`<div class="phase-card ${p.id===today.plan.phase.id?"current":""}"><strong>${escapeHtml(p.name)}</strong><span>${p.start.slice(5).replace("-","/")}—${p.id==="sprint"?"考试前一天":p.end.slice(5).replace("-","/")}</span><span>${escapeHtml(p.summary)}</span><em>${escapeHtml(p.result)}</em></div>`).join("");renderStudyPlanCalendar();renderSelectedPlanDay();renderStudyWeekBlueprint()}
 
@@ -5987,6 +6276,9 @@
       dailyStudy: {},
       planActivities: {},
       planTaskCompletions: {},
+      coverage: normalizeCoverage({}, []),
+      dailyModes: {},
+      lastLearning: null,
       reviewSession: null,
       quizSession: null,
       bigEssays: mergeBigEssaysWithSeed([]),
@@ -6015,6 +6307,9 @@
         dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
         planActivities: normalizePlanActivities(parsed.planActivities),
         planTaskCompletions: normalizePlanTaskCompletions(parsed.planTaskCompletions),
+        coverage: normalizeCoverage(parsed.coverage, sessionLog),
+        dailyModes: normalizeDailyModes(parsed.dailyModes),
+        lastLearning: normalizeLastLearning(parsed.lastLearning),
         reviewSession: normalizeReviewSession(parsed.reviewSession),
         quizSession: normalizeQuizSession(parsed.quizSession),
         bigEssays: mergeBigEssaysWithSeed(parsed.bigEssays),
@@ -6383,6 +6678,9 @@
       dailyStudy: state.dailyStudy,
       planActivities: state.planActivities,
       planTaskCompletions: state.planTaskCompletions,
+      coverage: state.coverage,
+      dailyModes: state.dailyModes,
+      lastLearning: state.lastLearning,
       reviewSession: normalizeReviewSession(state.reviewSession),
       quizSession: normalizeQuizSession(state.quizSession),
       bigEssays: state.bigEssays.map(item => ({ id: item.id, archived: Boolean(item.archived) })),
@@ -6538,6 +6836,9 @@
           dailyStudy: normalizeDailyStudy(data.data.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(data.data.planActivities),
           planTaskCompletions: normalizePlanTaskCompletions(data.data.planTaskCompletions),
+          coverage: normalizeCoverage(data.data.coverage, sessionLog),
+          dailyModes: normalizeDailyModes(data.data.dailyModes),
+          lastLearning: normalizeLastLearning(data.data.lastLearning),
           reviewSession: newerSession(localReview, cloudReview, normalizeReviewSession),
           quizSession: newerSession(localQuiz, cloudQuiz, normalizeQuizSession),
           bigEssays: mergeBigEssaysWithSeed(data.data.bigEssays),
@@ -7235,8 +7536,10 @@
       }
     }
 
+    const wasFirstPractice=changed&&!hasPracticeAnswer(old);
     bucket[context.storageId] = {
       ...old, answer, score: analysis.score,
+      firstAt:old.firstAt||(wasFirstPractice?new Date().toISOString():old.firstAt),
       correction:{level:analysis.level,failedChecks:analysis.failed.map(item=>item.label),missing:analysis.details.missing,extra:analysis.details.extra,spelling:analysis.details.spelling,checkedAt:new Date().toISOString()},
       attempts:Math.max(0,Number(old.attempts)||0)+(changed?1:0),
       planV18FirstDate: countUnit ? null : nextFirstDate,
@@ -7245,7 +7548,11 @@
       lastAt:new Date().toISOString()
     };
 
-    if (changed) recordDailyStudy(analysis.score >= 75 ? 2 : 1, false, "essay");
+    if(changed){
+      recordDailyStudy(analysis.score>=75?2:1,false,"essay");
+      recordDailyMode(wasFirstPractice?"learning":"review",`big:${context.storageCategory}:${context.storageId}`);
+      setLastLearning({type:"bigEssay",kind:context.kind,id:context.id,sourceId:context.sourceEssayId||currentEssayId,label:`大作文 · ${context.kind==="sentence300"?"句子仿写":context.kind==="study"?"逐句写译":"写作训练"}`});
+    }
     if (countUnit) {
       const activity = planActivityForBigWriting(context.kind);
       if (activity) recordPlanActivity(activity, 1);
@@ -7617,12 +7924,10 @@
   }
 
   function ensureCurrentSentenceImitationTask() {
-    const filtered = filteredSentenceImitationTasks();
-    if (!filtered.length) return null;
-    if (!filtered.some(task => task.id === currentSentenceImitationId)) {
-      currentSentenceImitationId = filtered[0].id;
-    }
-    return filtered.find(task => task.id === currentSentenceImitationId) || filtered[0];
+    const filtered=filteredSentenceImitationTasks();if(!filtered.length)return null;
+    const bucket=state.bigEssayPractice.sentenceImitation||{},unfinished=filtered.filter(task=>!hasPracticeAnswer(bucket[task.id])),current=filtered.find(task=>task.id===currentSentenceImitationId);
+    if(!current||(hasPracticeAnswer(bucket[current.id])&&unfinished.length))currentSentenceImitationId=(unfinished[0]||filtered[0]).id;
+    return filtered.find(task=>task.id===currentSentenceImitationId)||filtered[0];
   }
 
   function moveSentenceImitationTask(step) {
@@ -7636,15 +7941,10 @@
   }
 
   function randomSentenceImitationTask() {
-    const filtered = filteredSentenceImitationTasks();
-    if (!filtered.length) return;
-    const currentIndex = filtered.findIndex(task => task.id === currentSentenceImitationId);
-    let nextIndex = Math.floor(Math.random() * filtered.length);
-    if (filtered.length > 1 && nextIndex === currentIndex) {
-      nextIndex = (nextIndex + 1) % filtered.length;
-    }
-    currentSentenceImitationId = filtered[nextIndex].id;
-    renderBigEssay();
+    const filtered=filteredSentenceImitationTasks();if(!filtered.length)return;
+    const bucket=state.bigEssayPractice.sentenceImitation||{},unfinished=filtered.filter(task=>!hasPracticeAnswer(bucket[task.id])),pool=unfinished.length?unfinished:filtered,currentIndex=pool.findIndex(task=>task.id===currentSentenceImitationId);
+    let nextIndex=Math.floor(Math.random()*pool.length);if(pool.length>1&&nextIndex===currentIndex)nextIndex=(nextIndex+1)%pool.length;
+    currentSentenceImitationId=pool[nextIndex].id;renderBigEssay();
   }
 
   function renderSentenceImitation() {
@@ -9151,7 +9451,11 @@
       showToast("当前筛选条件下没有可用题目");
       return;
     }
-    cards=shuffleArray(cards);
+    if(!customCards){
+      const covered=new Set(state.coverage?.quizIds||[]),wrong=new Set(state.coverage?.quizWrongIds||[]),groups=[[],[],[],[]];
+      cards.forEach(card=>{if(!covered.has(card.id))groups[0].push(card);else if(wrong.has(card.id))groups[1].push(card);else if(isDue(card))groups[2].push(card);else groups[3].push(card)});
+      cards=groups.flatMap(group=>shuffleArray(group));
+    }else cards=shuffleArray(cards);
     const countValue=$("quizCount").value;
     if (!customCards && countValue !== "all") cards=cards.slice(0,Number(countValue));
 
@@ -9243,6 +9547,12 @@
       state.quizSession.wrongIds = [...quizWrongIds];
       state.quizSession.updatedAt = new Date().toISOString();
     }
+    if(!state.coverage)state.coverage=normalizeCoverage({},state.sessionLog);
+    const quizIds=new Set(state.coverage.quizIds||[]),quizWrong=new Set(state.coverage.quizWrongIds||[]),wasQuizUnseen=!quizIds.has(card.id);
+    quizIds.add(card.id);
+    if(wasQuizUnseen&&!state.coverage.quizFirstAt?.[card.id]){if(!state.coverage.quizFirstAt)state.coverage.quizFirstAt={};state.coverage.quizFirstAt[card.id]=new Date().toISOString()}
+    if(isCorrect)quizWrong.delete(card.id);else quizWrong.add(card.id);
+    state.coverage.quizIds=[...quizIds];state.coverage.quizWrongIds=[...quizWrong];
     recordQuizResult(card,isCorrect,quizCurrentQuestion.direction);
 
     [...$("quizOptions").querySelectorAll(".quiz-option")].forEach((button,index)=>{
@@ -9468,8 +9778,39 @@
     renderReviewCard();
   }
 
+
+  function lastEssayPracticePointer(){
+    const c=[];
+    Object.entries(state.bigEssayPractice||{}).forEach(([category,bucket])=>{if(!bucket||typeof bucket!=="object")return;Object.entries(bucket).forEach(([id,item])=>{if(item?.lastAt)c.push({type:"bigEssay",kind:category==="sentenceImitation"?"sentence300":category==="patternImitation"?"pattern":category==="paragraphImitation"?"paragraph":category==="wholeImitation"?"whole":category==="dictation"?"study":"",id,sourceId:"",label:"大作文 · 上次写作训练",updatedAt:item.lastAt})})});
+    Object.entries(state.smallEssayPractice||{}).forEach(([category,bucket])=>{if(!bucket||typeof bucket!=="object")return;Object.entries(bucket).forEach(([id,item])=>{if(item?.lastAt)c.push({type:"smallEssay",kind:category==="sentenceImitation"?"imitation":category==="wholeImitation"?"whole":category==="functionPractice"?"function":category==="dictation"?"study":"original",id,sourceId:"",label:"小作文 · 上次写作训练",updatedAt:item.lastAt})})});
+    return c.sort((a,b)=>new Date(b.updatedAt)-new Date(a.updatedAt))[0]||null
+  }
+
+  function resumableLearningPointer(){
+    const review=activeReviewSession();if(review)return{type:"review",kind:review.kind,label:review.kind==="new"?"今日学习 · 新词组":"今日复习 · 词组",meta:`已完成 ${review.index}/${review.queueIds.length} 题`,updatedAt:review.updatedAt};
+    const quiz=activeQuizSession();if(quiz)return{type:"quiz",kind:"quiz",label:"选择题训练",meta:`已完成 ${quiz.index}/${quiz.queueIds.length} 题`,updatedAt:quiz.updatedAt};
+    const saved=normalizeLastLearning(state.lastLearning),fallback=lastEssayPracticePointer(),pointer=[saved,fallback].filter(Boolean).sort((a,b)=>new Date(b.updatedAt)-new Date(a.updatedAt))[0];
+    return pointer?{...pointer,meta:"返回上次练习的位置"}:null
+  }
+
+  function renderResumeLearningCard(){
+    const card=$("resumeLearningCard");if(!card)return;const p=resumableLearningPointer();
+    if(!p){card.style.display="none";return}
+    card.style.display="";$("resumeLearningTitle").textContent=p.label||"继续上次学习";$("resumeLearningMeta").textContent=p.meta||"返回上次进度";$("resumeLearningBtn").textContent=p.type==="review"||p.type==="quiz"?"继续未完成进度":"返回上次练习"
+  }
+
+  function resumeLastLearning(){
+    const p=resumableLearningPointer();if(!p)return showToast("当前没有可继续的学习进度");
+    if(p.type==="review"){switchView("review");if(p.kind==="new")restoreReviewSession("new");else restoreReviewSession(p.kind||"review");return}
+    if(p.type==="quiz"){switchView("quiz");restoreQuizSession();return}
+    if(p.type==="bigEssay"){if(p.sourceId&&getBigEssayById(p.sourceId))currentEssayId=p.sourceId;switchView("bigEssay");setEssayTab(p.kind==="sentence300"?"sentenceImitation":p.kind==="pattern"?"patterns":p.kind==="paragraph"?"paragraphImitation":p.kind==="whole"?"wholeImitation":p.kind==="dictation"?"dictation":"sentenceStudy");return}
+    if(p.type==="smallEssay"){if(p.sourceId&&getSmallEssay(p.sourceId))currentSmallEssayId=p.sourceId;switchView("smallEssay");setSmallTab(p.kind==="imitation"?"sentenceImitation":p.kind==="whole"?"wholeImitation":p.kind==="function"?"functions":p.kind==="dictation"?"dictation":"sentenceStudy")}
+  }
+
   function renderDashboard() {
+    renderResumeLearningCard();
     renderTodayAutoPlan();
+    renderCoverageDashboard();
     const resumableReview = activeReviewSession();
     $("quickStartBtn").textContent = resumableReview
       ? `进入今日学习 · 有未完成进度`
@@ -9947,6 +10288,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     }
 
     recordDailyStudy(grade, wasNew);
+    recordDailyMode(wasNew?"learning":"review",`word:${card.id}`);
     if (modeForPlan.startsWith("mcq-retry-")) {
       recordPlanActivity("quizWrongRedo", 1);
     } else if (modeForPlan.startsWith("mcq-")) {
@@ -10193,7 +10535,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   function exportData() {
     const payload = {
       app: "考研英语词组记忆器",
-      version: 20,
+      version: 24,
       exportedAt: new Date().toISOString(),
       ...state
     };
@@ -10225,6 +10567,9 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
           dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(parsed.planActivities),
           planTaskCompletions: normalizePlanTaskCompletions(parsed.planTaskCompletions),
+          coverage: normalizeCoverage(parsed.coverage, sessionLog),
+          dailyModes: normalizeDailyModes(parsed.dailyModes),
+          lastLearning: normalizeLastLearning(parsed.lastLearning),
           reviewSession: normalizeReviewSession(parsed.reviewSession),
           quizSession: normalizeQuizSession(parsed.quizSession),
           bigEssays: mergeBigEssaysWithSeed(parsed.bigEssays),
@@ -10274,6 +10619,9 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     state.bigEssayPractice = normalizeBigEssayPractice({});
     state.smallEssayProgress = {};
     state.smallEssayPractice = {};
+    state.coverage = normalizeCoverage({}, []);
+    state.dailyModes = {};
+    state.lastLearning = null;
     state.sessionLog = [];
     state.reviewSession = null;
     state.quizSession = null;
@@ -10464,6 +10812,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       if (action === "show-dictation-source") submitEssayDictation(true);
     });
 
+    $("resumeLearningBtn").addEventListener("click", () => resumeLastLearning());
     $("quickStartBtn").addEventListener("click", () => switchView("review"));
     $("startTodayLearningBtn").addEventListener("click", () => {
       const session = activeReviewSession();
@@ -10821,7 +11170,15 @@ function smallContext(kind,id){
  if(kind==="function"){const t=SMALL_FUNCTIONS.find(x=>x.id===id);if(!t)return null;return{...t,kind,pattern:t.title,storageCategory:"functionPractice",storageId:id,referenceLabel:"功能句修正版",inputId:smallInputId(kind,id),feedbackId:smallFeedbackId(kind,id)}}
  return null;
 }
-function saveSmallCorrection(ctx,answer,analysis){const bucket=state.smallEssayPractice[ctx.storageCategory]||(state.smallEssayPractice[ctx.storageCategory]={}),old=bucket[ctx.storageId]||{},changed=old.answer!==answer,todayKey=localDateKey(),already=old.lastPlanV18CountDate===todayKey,firstPerfect=analysis.score>=92&&analysis.failed.length===0;let firstDate=old.planV18FirstDate,firstAnswer=old.planV18FirstAnswer||"",countUnit=false;if(changed&&!planAdoptCorrectionMode&&!already){if(firstDate!==todayKey){firstDate=todayKey;firstAnswer=answer;if(firstPerfect)countUnit=true}else if(answer!==firstAnswer)countUnit=true}bucket[ctx.storageId]={...old,answer,score:analysis.score,correction:{level:analysis.level,failedChecks:analysis.failed.map(x=>x.label),missing:analysis.details.missing,extra:analysis.details.extra,spelling:analysis.details.spelling,checkedAt:new Date().toISOString()},attempts:Math.max(0,Number(old.attempts)||0)+(changed?1:0),planV18FirstDate:countUnit?null:firstDate,planV18FirstAnswer:countUnit?"":firstAnswer,lastPlanV18CountDate:countUnit?todayKey:old.lastPlanV18CountDate,lastAt:new Date().toISOString()};if(changed)recordDailyStudy(analysis.score>=75?2:1,false,"essay");if(countUnit){const activity=planActivityForSmallWriting(ctx.kind);if(activity)recordPlanActivity(activity,1)}saveState();renderDashboard()}
+function saveSmallCorrection(ctx,answer,analysis){
+ const bucket=state.smallEssayPractice[ctx.storageCategory]||(state.smallEssayPractice[ctx.storageCategory]={}),old=bucket[ctx.storageId]||{},changed=old.answer!==answer,wasFirstPractice=changed&&!hasPracticeAnswer(old),todayKey=localDateKey(),already=old.lastPlanV18CountDate===todayKey,firstPerfect=analysis.score>=92&&analysis.failed.length===0;
+ let firstDate=old.planV18FirstDate,firstAnswer=old.planV18FirstAnswer||"",countUnit=false;
+ if(changed&&!planAdoptCorrectionMode&&!already){if(firstDate!==todayKey){firstDate=todayKey;firstAnswer=answer;if(firstPerfect)countUnit=true}else if(answer!==firstAnswer)countUnit=true}
+ bucket[ctx.storageId]={...old,answer,score:analysis.score,firstAt:old.firstAt||(wasFirstPractice?new Date().toISOString():old.firstAt),correction:{level:analysis.level,failedChecks:analysis.failed.map(x=>x.label),missing:analysis.details.missing,extra:analysis.details.extra,spelling:analysis.details.spelling,checkedAt:new Date().toISOString()},attempts:Math.max(0,Number(old.attempts)||0)+(changed?1:0),planV18FirstDate:countUnit?null:firstDate,planV18FirstAnswer:countUnit?"":firstAnswer,lastPlanV18CountDate:countUnit?todayKey:old.lastPlanV18CountDate,lastAt:new Date().toISOString()};
+ if(changed){recordDailyStudy(analysis.score>=75?2:1,false,"essay");recordDailyMode(wasFirstPractice?"learning":"review",`small:${ctx.storageCategory}:${ctx.storageId}`);setLastLearning({type:"smallEssay",kind:ctx.kind,id:ctx.id,sourceId:ctx.sourceEssayId||currentSmallEssayId,label:`小作文 · ${ctx.kind==="imitation"?"句子仿写":ctx.kind==="study"?"逐句写译":ctx.kind==="whole"?"整篇仿写":"写作训练"}`})}
+ if(countUnit){const activity=planActivityForSmallWriting(ctx.kind);if(activity)recordPlanActivity(activity,1)}
+ saveState();renderDashboard()
+}
 function runSmallCorrection(kind,id){const ctx=smallContext(kind,id);if(!ctx)return showToast("没有找到本句的批改信息");const input=$(ctx.inputId),feedback=$(ctx.feedbackId),answer=input?.value.trim()||"";if(!answer)return showToast("请先写出英文内容");const analysis=writingCorrectionAnalysis(answer,ctx);saveSmallCorrection(ctx,answer,analysis);if(feedback){let report=renderDetailedWritingReport(ctx,answer,analysis);report=report.replaceAll('data-big-essay-action="adopt-writing-correction"','data-small-action="adopt"').replaceAll('data-writing-kind=','data-kind=').replaceAll('data-writing-id=','data-id=');feedback.innerHTML=report;feedback.scrollIntoView({behavior:"smooth",block:"nearest"})}return analysis}
 function adoptSmallCorrection(kind,id){const ctx=smallContext(kind,id);if(!ctx)return;const input=$(ctx.inputId);if(!input)return;input.value=ctx.reference;if(kind==="study")smallStudyDraft=ctx.reference;runSmallCorrection(kind,id);input.focus();showToast("修正版已放入输入框，并重新批改")}
 function checkSmallContainer(id){const c=$(id);if(!c)return;let n=0;c.querySelectorAll('[data-small-action="check"]').forEach(b=>{const ctx=smallContext(b.dataset.kind,b.dataset.id),input=ctx?$(ctx.inputId):null;if(input?.value.trim()){runSmallCorrection(b.dataset.kind,b.dataset.id);n++}});showToast(n?`已批改${n}个已填写项目`:"当前还没有填写内容")}
@@ -10838,9 +11195,9 @@ function scheduleSmall(id,grade){const old=smallProgress(id);let interval=old.in
 function gradeSmall(grade){const r=curSmallStudy();if(!r||!smallStudyRevealed)return;scheduleSmall(r.sentence.id,grade);smallStudyIndex++;smallStudyRevealed=false;smallStudyDraft="";if(smallStudyIndex>=smallStudyQueue.length){smallStudyQueue=[];smallStudyIndex=0;showToast("本轮小作文逐句写译已完成")}renderSmallEssay();renderDashboard()}
 function renderSmallStudy(){const e=getSmallEssay(currentSmallEssayId),r=curSmallStudy();if(!r){const total=smallRefs(e.id).length;return`<div class="essay-training-card"><h3 class="section-title">逐句写译＋详细批改 · ${escapeHtml(e.title)}</h3><div class="all-writing-notice">看中文 → 写英文 → 批改本句 → 查看正确和错误细节 → 评分安排下次复习。</div><div class="essay-metrics" style="margin-top:16px"><div class="essay-metric"><strong>${total}</strong><span>本篇正文句数</span></div><div class="essay-metric"><strong>${smallDueCount(e.id)}</strong><span>当前到期</span></div><div class="essay-metric"><strong>${smallMastered(e.id)}</strong><span>已掌握</span></div><div class="essay-metric"><strong>${Math.max(0,total-smallMastered(e.id))}</strong><span>仍需巩固</span></div></div><div class="button-row" style="margin-top:18px"><button class="primary-btn" data-small-action="start-study" data-mode="due">开始到期写译</button><button class="secondary-btn" data-small-action="start-study" data-mode="random">随机写5句</button><button class="secondary-btn" data-small-action="start-study" data-mode="all">按顺序写全部</button></div></div>`}const ctx=smallContext("study",r.sentence.id),analysis=smallStudyRevealed&&smallStudyDraft?writingCorrectionAnalysis(smallStudyDraft,ctx):null,p=smallProgress(r.sentence.id);return`<div class="essay-training-card"><div class="study-stepbar"><div class="study-step active">1. 看中文</div><div class="study-step active">2. 写英文</div><div class="study-step ${smallStudyRevealed?"active":""}">3. 批改并评分</div></div><div class="essay-reading-header"><div><span class="essay-chip">${escapeHtml(r.essay.title)}</span><span class="essay-chip">第${r.paragraphIndex+1}段 · 第${r.sentenceIndex+1}句</span></div><span class="muted">${smallStudyIndex+1}/${smallStudyQueue.length}</span></div><div class="chinese-writing-prompt">${escapeHtml(r.sentence.chinesePrompt)}</div><div class="field" style="margin-top:14px"><label>请写出英文</label><textarea class="essay-textarea" id="smallStudyDraftInput" spellcheck="true">${escapeHtml(smallStudyDraft)}</textarea></div>${smallStudyRevealed?`<div id="${escapeHtml(ctx.feedbackId)}">${renderDetailedWritingReport(ctx,smallStudyDraft,analysis)}</div><div class="pill-row" style="margin-top:10px"><span class="small-role-label">${escapeHtml(r.sentence.role)}</span><span class="pill">已练${p.attempts}次</span><span class="pill">掌握度${p.mastery}/4</span></div><div class="essay-grade-grid"><button class="essay-grade" data-small-action="grade" data-grade="0">完全不会<br><span class="muted">10分钟后</span></button><button class="essay-grade" data-small-action="grade" data-grade="1">错误较多<br><span class="muted">1天后</span></button><button class="essay-grade" data-small-action="grade" data-grade="2">基本正确<br><span class="muted">约3天后</span></button><button class="essay-grade" data-small-action="grade" data-grade="3">完全掌握<br><span class="muted">约7天后</span></button></div>`:`<div class="button-row" style="margin-top:12px"><button class="primary-btn" data-small-action="submit-study">批改本句</button><button class="secondary-btn" data-small-action="stop-study">结束本轮</button></div>`}</div>`}
 function filteredSmallTasks(){return SMALL_SENTENCE_TASKS.filter(t=>(smallSentenceSource==="all"||t.sourceEssayId===smallSentenceSource)&&(smallSentenceCategory==="all"||t.category===smallSentenceCategory))}
-function ensureSmallTask(){const f=filteredSmallTasks();if(!f.length)return null;if(!f.some(x=>x.id===currentSmallSentenceTaskId))currentSmallSentenceTaskId=f[0].id;return f.find(x=>x.id===currentSmallSentenceTaskId)||f[0]}
+function ensureSmallTask(){const f=filteredSmallTasks();if(!f.length)return null;const bucket=state.smallEssayPractice.sentenceImitation||{},unfinished=f.filter(x=>!hasPracticeAnswer(bucket[x.id])),current=f.find(x=>x.id===currentSmallSentenceTaskId);if(!current||(hasPracticeAnswer(bucket[current.id])&&unfinished.length))currentSmallSentenceTaskId=(unfinished[0]||f[0]).id;return f.find(x=>x.id===currentSmallSentenceTaskId)||f[0]}
 function moveSmallTask(step){const f=filteredSmallTasks();if(!f.length)return;let i=f.findIndex(x=>x.id===currentSmallSentenceTaskId);if(i<0)i=0;i=(i+step+f.length)%f.length;currentSmallSentenceTaskId=f[i].id;renderSmallEssay()}
-function randomSmallTask(){const f=filteredSmallTasks();if(!f.length)return;let i=Math.floor(Math.random()*f.length),cur=f.findIndex(x=>x.id===currentSmallSentenceTaskId);if(f.length>1&&i===cur)i=(i+1)%f.length;currentSmallSentenceTaskId=f[i].id;renderSmallEssay()}
+function randomSmallTask(){const f=filteredSmallTasks();if(!f.length)return;const bucket=state.smallEssayPractice.sentenceImitation||{},unfinished=f.filter(x=>!hasPracticeAnswer(bucket[x.id])),pool=unfinished.length?unfinished:f;let i=Math.floor(Math.random()*pool.length),cur=pool.findIndex(x=>x.id===currentSmallSentenceTaskId);if(pool.length>1&&i===cur)i=(i+1)%pool.length;currentSmallSentenceTaskId=pool[i].id;renderSmallEssay()}
 function renderSmallImitation(){const f=filteredSmallTasks(),t=ensureSmallTask();if(!t)return`<div class="my-mark-empty">当前筛选条件下没有题目。</div>`;const saved=state.smallEssayPractice.sentenceImitation?.[t.id]?.answer||"",source=getSmallEssay(t.sourceEssayId),idx=f.findIndex(x=>x.id===t.id),done=Object.values(state.smallEssayPractice.sentenceImitation||{}).filter(x=>x?.answer).length;return`<div class="imitation-layout"><aside class="imitation-side"><h3 class="section-title">小作文句子仿写 · 56题</h3><div class="muted" style="line-height:1.8">14篇小作文各4道核心仿写，答案与大作文分开保存。</div><div class="essay-metrics" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-top:14px"><div class="essay-metric"><strong>${done}</strong><span>全部已完成</span></div><div class="essay-metric"><strong>${idx+1}/${f.length}</strong><span>当前筛选位置</span></div></div><div class="field" style="margin-top:14px"><label>母文来源</label><select data-small-select="source"><option value="all">全部14篇（56题）</option>${state.smallEssays.map(e=>`<option value="${escapeHtml(e.id)}" ${e.id===smallSentenceSource?"selected":""}>${e.number}. ${escapeHtml(e.title)}（4题）</option>`).join("")}</select></div><div class="field"><label>题型</label><select data-small-select="category"><option value="all">全部题型</option>${[...new Set(SMALL_SENTENCE_TASKS.map(x=>x.category))].map(c=>`<option value="${escapeHtml(c)}" ${c===smallSentenceCategory?"selected":""}>${escapeHtml(c)}</option>`).join("")}</select></div><div class="field"><label>具体题目</label><select data-small-select="task">${f.map((x,i)=>`<option value="${escapeHtml(x.id)}" ${x.id===t.id?"selected":""}>${i+1}. ${escapeHtml(x.pattern)}</option>`).join("")}</select></div><div class="button-row"><button class="secondary-btn" data-small-action="previous">上一题</button><button class="primary-btn" data-small-action="random">随机一题</button><button class="secondary-btn" data-small-action="next">下一题</button></div><div class="hint-panel"><strong>母文：</strong>${escapeHtml(source.title)}<br><strong>功能：</strong>${escapeHtml(t.pattern)}</div></aside><main class="imitation-main"><div class="training-label">中文仿写任务</div><div class="training-prompt" style="font-size:18px">${escapeHtml(t.prompt)}</div><div class="field" style="margin-top:15px"><label>你的英文</label><textarea class="essay-textarea" id="smallSentenceImitationAnswer" spellcheck="true">${escapeHtml(saved)}</textarea></div><div class="button-row"><button class="primary-btn" data-small-action="check" data-kind="imitation" data-id="${escapeHtml(t.id)}">检查并改正</button><button class="secondary-btn" data-small-action="adopt" data-kind="imitation" data-id="${escapeHtml(t.id)}">应用修正版</button></div><div id="smallSentenceImitationFeedback"></div></main></div>`}
 function renderSmallWhole(){const t=SMALL_WHOLE.find(x=>x.id===currentSmallWholeId)||SMALL_WHOLE[0],source=getSmallEssay(t.sourceEssayId),done=t.units.filter(u=>state.smallEssayPractice.wholeImitation?.[`${t.id}-${u.id}`]?.answer).length;return`<div class="imitation-layout"><aside class="imitation-side"><h3 class="section-title">整篇逐句仿写</h3><div class="field"><label>选择题目</label><select data-small-select="whole">${SMALL_WHOLE.map(x=>`<option value="${escapeHtml(x.id)}" ${x.id===t.id?"selected":""}>${escapeHtml(x.title)}</option>`).join("")}</select></div><div class="hint-panel"><strong>母版：</strong>${escapeHtml(source.title)}<br><strong>完成：</strong>${done}/${t.units.length}项<br><br>标题、称呼、正文、结束语和署名均分开输入并批改。</div></aside><main class="imitation-main" id="smallWholeWork"><div class="training-label">仿写任务</div><div class="training-prompt" style="font-size:18px">${escapeHtml(t.prompt)}</div><div class="sentence-work-list">${t.units.map((u,i)=>{const id=`${t.id}::${u.id}`,ctx=smallContext("whole",id),saved=state.smallEssayPractice.wholeImitation?.[`${t.id}-${u.id}`]?.answer||"";return`<div class="sentence-work-card ${u.section==="格式"?"small-unit-format":""} ${saved?"completed":""}"><div class="sentence-work-head"><span class="sentence-work-number">${u.section==="格式"?"格式":`第${i+1}项`}</span><span class="sentence-work-status ${saved?"done":""}">${escapeHtml(u.role)} · ${saved?"已填写":"待填写"}</span></div><div class="chinese-writing-prompt">${escapeHtml(u.prompt)}</div><textarea class="sentence-writing-input" id="${escapeHtml(ctx.inputId)}" spellcheck="true">${escapeHtml(saved)}</textarea><div class="button-row" style="margin-top:8px"><button class="primary-btn" data-small-action="check" data-kind="whole" data-id="${escapeHtml(id)}">批改本项</button><button class="secondary-btn" data-small-action="adopt" data-kind="whole" data-id="${escapeHtml(id)}">应用修正版</button></div><div id="${escapeHtml(ctx.feedbackId)}"></div></div>`}).join("")}</div><div class="button-row" style="margin-top:14px"><button class="primary-btn" data-small-action="check-container" data-container="smallWholeWork">批改全部已填写项目</button></div></main></div>`}
 function renderSmallDictation(){const e=getSmallEssay(currentSmallEssayId),p=e.paragraphs[currentSmallDictationParagraph-1]||e.paragraphs[0];return`<div class="imitation-layout"><aside class="imitation-side"><h3 class="section-title">小作文分段默写</h3><div class="field"><label>选择段落</label><select data-small-select="dictation">${e.paragraphs.map((x,i)=>`<option value="${i+1}" ${i+1===currentSmallDictationParagraph?"selected":""}>第${i+1}段（${x.length}句）</option>`).join("")}</select></div><div class="hint-panel"><strong>${escapeHtml(e.title)}</strong><br>根据中文逐句默写确认原文，每句单独显示正确部分、错误类型和修正版。</div></aside><main class="imitation-main" id="smallDictationWork"><div class="sentence-work-list">${p.map((s,i)=>{const ctx=smallContext("dictation",s.id),saved=state.smallEssayPractice.dictation?.[s.id]?.answer||"";return`<div class="sentence-work-card ${saved?"completed":""}"><div class="sentence-work-head"><span class="sentence-work-number">第${i+1}句</span><span class="sentence-work-status ${saved?"done":""}">${escapeHtml(s.role)}</span></div><div class="chinese-writing-prompt">${escapeHtml(s.chinesePrompt)}</div><textarea class="sentence-writing-input" id="${escapeHtml(ctx.inputId)}" spellcheck="true">${escapeHtml(saved)}</textarea><div class="button-row" style="margin-top:8px"><button class="primary-btn" data-small-action="check" data-kind="dictation" data-id="${escapeHtml(s.id)}">批改本句</button><button class="secondary-btn" data-small-action="adopt" data-kind="dictation" data-id="${escapeHtml(s.id)}">应用确认原句</button></div><div id="${escapeHtml(ctx.feedbackId)}"></div></div>`}).join("")}</div><div class="button-row" style="margin-top:14px"><button class="primary-btn" data-small-action="check-container" data-container="smallDictationWork">批改本段所有已填写句子</button></div></main></div>`}

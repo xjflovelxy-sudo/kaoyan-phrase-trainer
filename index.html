@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="V21" />
+  <meta name="application-name" content="V22" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="V21" />
+  <meta name="apple-mobile-web-app-title" content="V22" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V21</title>
+  <title>V22</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -3256,6 +3256,135 @@
       line-height: 1.45;
     }
 
+    .plan-dual-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 10px 0 12px;
+    }
+
+    .plan-dual-card {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #dbe3f6;
+      background: linear-gradient(180deg, #ffffff 0%, #f7f9fe 100%);
+      display: grid;
+      gap: 3px;
+    }
+
+    .plan-dual-card strong {
+      font-size: 20px;
+      line-height: 1.15;
+      color: #1f2d4d;
+    }
+
+    .plan-dual-card span {
+      font-size: 12px;
+      color: #6a7488;
+    }
+
+    .plan-dual-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: #274387;
+      letter-spacing: .02em;
+    }
+
+    .plan-dual-card-review .plan-dual-label {
+      color: #0f6b54;
+    }
+
+    .auto-plan-scrollbox {
+      max-height: 58vh;
+      min-height: 220px;
+      overflow-y: auto;
+      padding-right: 4px;
+      margin-top: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: #b8c4df #eef2fb;
+    }
+
+    .auto-plan-scrollbox-detail {
+      max-height: 52vh;
+      min-height: 180px;
+    }
+
+    .auto-plan-scrollbox::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .auto-plan-scrollbox::-webkit-scrollbar-track {
+      background: #eef2fb;
+      border-radius: 999px;
+    }
+
+    .auto-plan-scrollbox::-webkit-scrollbar-thumb {
+      background: #b8c4df;
+      border-radius: 999px;
+      border: 2px solid #eef2fb;
+    }
+
+    .auto-plan-scrollbox::-webkit-scrollbar-thumb:hover {
+      background: #97a9d2;
+    }
+
+    .auto-plan-list {
+      display: block;
+      margin-top: 0;
+    }
+
+    .plan-mode-group {
+      margin-bottom: 14px;
+      border: 1px solid #dde4f2;
+      border-radius: 14px;
+      background: #fcfdff;
+      padding: 10px;
+    }
+
+    .plan-mode-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .plan-mode-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #d7deec;
+    }
+
+    .plan-mode-header strong {
+      display: block;
+      font-size: 15px;
+      color: #223150;
+    }
+
+    .plan-mode-header span {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      color: #6d778c;
+      line-height: 1.45;
+    }
+
+    .plan-mode-meta {
+      white-space: nowrap;
+      font-size: 11px;
+      font-weight: 700;
+      color: #3559e0;
+      background: #eef2ff;
+      border-radius: 999px;
+      padding: 5px 9px;
+    }
+
+    .plan-mode-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
     @media (max-width: 1180px) {
       .calendar-plan-layout {
         grid-template-columns: 1fr;
@@ -3288,7 +3417,11 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .auto-plan-list {
+      .plan-dual-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .plan-mode-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -3529,7 +3662,7 @@
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>V21</h1>
+      <h1>V22</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -3586,8 +3719,22 @@
           <div><strong id="todayPlanMinutes">0</strong><span>预计分钟</span></div>
           <div><strong id="todayPlanPercent">0%</strong><span>今日完成度</span></div>
         </div>
-        <div class="plan-section-heading">核心任务 <span>完成后日历变浅绿色</span></div>
-        <div class="auto-plan-list" id="todayAutoPlanTasks"></div>
+        <div class="plan-section-heading">今日学习 / 今日复习 <span>先区分学习与复习，再按实际完成自动记录</span></div>
+        <div class="plan-dual-summary" id="todayPlanDualSummary">
+          <div class="plan-dual-card plan-dual-card-learn">
+            <div class="plan-dual-label">今日学习</div>
+            <strong id="todayLearnHeadline">0/0项</strong>
+            <span id="todayLearnSub">约0分钟</span>
+          </div>
+          <div class="plan-dual-card plan-dual-card-review">
+            <div class="plan-dual-label">今日复习</div>
+            <strong id="todayReviewHeadline">0/0项</strong>
+            <span id="todayReviewSub">约0分钟</span>
+          </div>
+        </div>
+        <div class="auto-plan-scrollbox">
+          <div class="auto-plan-list" id="todayAutoPlanTasks"></div>
+        </div>
         <div class="plan-bonus-panel locked" id="todayBonusPanel">
           <div class="plan-section-heading">90分钟加练 <span id="todayBonusStatus">核心完成后解锁</span></div>
           <div id="todayBonusTasks"></div>
@@ -3831,8 +3978,10 @@
             </div>
           </div>
           <div class="plan-day-detail-body">
-            <div class="plan-section-heading">核心任务 <span>浅绿色</span></div>
-            <div class="auto-plan-list" id="selectedPlanTasks" style="display:block;margin-top:0;"></div>
+            <div class="plan-section-heading">当日学习 / 当日复习 <span>浅绿色表示核心完成</span></div>
+            <div class="auto-plan-scrollbox auto-plan-scrollbox-detail">
+              <div class="auto-plan-list" id="selectedPlanTasks" style="display:block;margin-top:0;"></div>
+            </div>
             <div class="plan-bonus-panel locked" id="selectedBonusPanel">
               <div class="plan-section-heading">90分钟加练 <span id="selectedBonusStatus">核心完成后解锁</span></div>
               <div id="selectedBonusTasks"></div>
@@ -5131,13 +5280,45 @@
   function planActivityForSmallWriting(kind){return({study:"smallSentence",original:"smallSentence",imitation:"smallImitation",whole:"smallWhole",dictation:"smallDictation",function:"smallFunction"})[kind]||""}
   function planTaskButton(task){return`<button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button>`}
 
+  function studyReviewBucket(task){
+    if(!task)return "review";
+    if(task.activity==="newWords") return "learn";
+    if(["big","small"].includes(task.category)) return "learn";
+    return "review";
+  }
+
+  function taskCardHtml(task,status,isToday,showActions,detailMode){
+    const count=planActivityCount(status.key,task.activity),done=planTaskDone(status.key,task),shown=Math.min(count,task.target),pct=done?100:Math.min(100,Math.round(shown/Math.max(1,task.target)*100));
+    if(detailMode)return`<div class="plan-detail-task ${done?"done":""}"><span class="plan-detail-icon">${done?"✓":escapeHtml(task.icon)}</span><div><div class="plan-detail-title-row"><div class="plan-detail-title">${escapeHtml(task.displayLabel)}</div><span class="plan-detail-time">${task.minutes}分钟</span></div><div class="plan-detail-method">${escapeHtml(task.method)}</div><div class="plan-detail-progress-row"><div class="plan-detail-progress"><span style="width:${pct}%"></span></div><div class="plan-detail-value">${done?"已完成":`${shown}/${task.target}${task.unit}`}</div></div>${showActions&&isToday&&!done?`<div class="plan-detail-actions">${planTaskButton(task)}</div>`:""}</div></div>`;
+    return`<div class="auto-plan-task ${done?"done":""}"><span class="auto-plan-check">${done?"✓":escapeHtml(task.icon)}</span><div><div class="auto-plan-task-title">${escapeHtml(task.displayLabel)}</div><div class="auto-plan-task-sub">${escapeHtml(task.description)}</div><div class="auto-plan-task-progress"><span style="width:${pct}%"></span></div><div class="auto-plan-task-value">${done?"已自动完成":`${shown}/${task.target}${task.unit} · 约${task.minutes}分钟`}</div></div>${showActions&&isToday&&!done?planTaskButton(task):""}</div>`;
+  }
+
+  function planBucketStats(status,bucket){
+    const tasks=status.plan.tasks.filter(task=>studyReviewBucket(task)===bucket);
+    return {
+      tasks,
+      total:tasks.length,
+      done:tasks.filter(task=>planTaskDone(status.key,task)).length,
+      minutes:tasks.reduce((sum,task)=>sum+(Number(task.minutes)||0),0)
+    };
+  }
+
   function renderPlanTaskList(containerId,value,showActions=true,detailMode=false){
     const c=$(containerId);if(!c)return;
     const status=planDayStatus(value),isToday=status.key===localDateKey();
     const noDueNote=status.plan.reviewNotice
       ? `<div class="plan-no-due-note"><span class="plan-no-due-note-icon">—</span><div><strong>今日无到期词组（未完成任何复习）</strong><span>${escapeHtml(status.plan.reviewNotice)}</span></div></div>`
       : "";
-    c.innerHTML=noDueNote+status.plan.tasks.map(task=>{const count=planActivityCount(status.key,task.activity),done=planTaskDone(status.key,task),shown=Math.min(count,task.target),pct=done?100:Math.min(100,Math.round(shown/Math.max(1,task.target)*100));if(detailMode)return`<div class="plan-detail-task ${done?"done":""}"><span class="plan-detail-icon">${done?"✓":escapeHtml(task.icon)}</span><div><div class="plan-detail-title-row"><div class="plan-detail-title">${escapeHtml(task.displayLabel)}</div><span class="plan-detail-time">${task.minutes}分钟</span></div><div class="plan-detail-method">${escapeHtml(task.method)}</div><div class="plan-detail-progress-row"><div class="plan-detail-progress"><span style="width:${pct}%"></span></div><div class="plan-detail-value">${done?"已完成":`${shown}/${task.target}${task.unit}`}</div></div>${showActions&&isToday&&!done?`<div class="plan-detail-actions">${planTaskButton(task)}</div>`:""}</div></div>`;return`<div class="auto-plan-task ${done?"done":""}"><span class="auto-plan-check">${done?"✓":escapeHtml(task.icon)}</span><div><div class="auto-plan-task-title">${escapeHtml(task.displayLabel)}</div><div class="auto-plan-task-sub">${escapeHtml(task.description)}</div><div class="auto-plan-task-progress"><span style="width:${pct}%"></span></div><div class="auto-plan-task-value">${done?"已自动完成":`${shown}/${task.target}${task.unit} · 约${task.minutes}分钟`}</div></div>${showActions&&isToday&&!done?planTaskButton(task):""}</div>`}).join("")}
+    const bucketConfigs=[
+      {key:"learn",title:"今日学习",desc:"新词、大小作文与输出训练",empty:"今天暂未安排新的学习任务。"},
+      {key:"review",title:"今日复习",desc:"到期词组、错词补充与选择题训练",empty:"今天暂未安排复习任务。"}
+    ];
+    const groups=bucketConfigs.map(cfg=>{
+      const stats=planBucketStats(status,cfg.key);
+      return {...cfg,...stats};
+    }).filter(group=>group.total>0);
+    c.innerHTML=noDueNote+groups.map(group=>`<section class="plan-mode-group"><div class="plan-mode-header"><div><strong>${escapeHtml(group.title)}</strong><span>${escapeHtml(group.desc)}</span></div><div class="plan-mode-meta">${group.done}/${group.total}项 · 约${group.minutes}分钟</div></div><div class="${detailMode?"plan-mode-detail-list":"plan-mode-grid"}">${group.tasks.map(task=>taskCardHtml(task,status,isToday,showActions,detailMode)).join("")}</div></section>`).join("");
+  }
 
   function renderBonusTaskList(containerId,panelId,statusId,value,showActions=true){const c=$(containerId),p=$(panelId),s=$(statusId);if(!c||!p||!s)return;const status=planDayStatus(value),isToday=status.key===localDateKey();p.classList.toggle("locked",!status.coreComplete);p.classList.toggle("unlocked",status.coreComplete&&!status.fullComplete);p.classList.toggle("completed",status.fullComplete);s.textContent=!status.coreComplete?"核心完成后解锁":status.fullComplete?"全部完成":`${status.bonusDone}/${status.bonusTotal}项`;if(!status.coreComplete){c.innerHTML='<div class="plan-bonus-lock">先完成上面的核心题量，随后自动解锁错题重做、大小作文各加练1句和5条错误词组复盘。</div>';return}c.innerHTML=status.bonus.map(task=>{const shown=Math.min(task.current,task.target),pct=task.done?100:task.target?Math.min(100,Math.round(shown/task.target*100)):100;return`<div class="bonus-task ${task.done?"done":""}"><span class="bonus-icon">${task.done?"✓":escapeHtml(task.icon)}</span><div><div class="bonus-title">${escapeHtml(task.label)}</div><div class="bonus-method">${escapeHtml(task.method)}</div><div class="bonus-progress-row"><div class="bonus-progress"><span style="width:${pct}%"></span></div><div class="bonus-value">${task.done?"已完成":task.target===0?"无错题":`${shown}/${task.target}${task.unit}`}</div></div>${showActions&&isToday&&!task.done?`<div class="plan-detail-actions"><button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button></div>`:""}</div></div>`}).join("")}
 
@@ -5152,7 +5333,7 @@
 
   function renderStudyWeekBlueprint(){const selected=dateFromKey(selectedStudyPlanDateKey),monday=mondayOfWeek(selected),focus=focusForPlanDate(selected),names=["周一","周二","周三","周四","周五","周六","周日"],todayKey=localDateKey();$("studyWeekFocus").innerHTML=`第${focus.weekIndex+1}周 · 大作文重点：<strong>${escapeHtml(focus.big.title)}</strong>；小作文重点：<strong>${escapeHtml(focus.small.title)}</strong>。普通工作日约10—12个作文单位，周六综合输出，周日复盘。`;const arr=[];for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const p=studyPlanForDate(d),writing=p.tasks.filter(t=>["big","small","review"].includes(t.category)).map(t=>t.displayLabel.replace(` · ${t.focus}`,"")).join("＋")||"词组复习";arr.push(`<div class="week-blueprint-day ${localDateKey(d)===todayKey?"today":""}"><strong>${names[i]} · ${d.getMonth()+1}/${d.getDate()}</strong><span>${escapeHtml(writing)}</span></div>`)}$("studyWeekBlueprint").innerHTML=arr.join("")}
 
-  function renderTodayAutoPlan(){const changed=refreshPlanTaskCompletions();if(changed)saveState();const st=planDayStatus(new Date());$("todayPlanPhase").textContent=st.plan.phase.name;$("todayPlanMeta").textContent=`本周大作文：${st.plan.focus.big.title}；小作文：${st.plan.focus.small.title}。核心题量完成后解锁90分钟加练。`;$("todayPlanDoneCount").textContent=st.done;$("todayPlanTaskCount").textContent=st.total;$("todayPlanMinutes").textContent=90;$("todayPlanPercent").textContent=`${st.overallPercent}%`;const badge=$("todayAutoPlanStatus");badge.textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;badge.classList.toggle("done",st.coreComplete);badge.classList.toggle("auto-plan-status-core",st.coreComplete&&!st.fullComplete);badge.classList.toggle("auto-plan-status-full",st.fullComplete);renderPlanTaskList("todayAutoPlanTasks",new Date(),true,false);renderBonusTaskList("todayBonusTasks","todayBonusPanel","todayBonusStatus",new Date(),true)}
+  function renderTodayAutoPlan(){const changed=refreshPlanTaskCompletions();if(changed)saveState();const st=planDayStatus(new Date()),learn=planBucketStats(st,"learn"),review=planBucketStats(st,"review");$("todayPlanPhase").textContent=st.plan.phase.name;$("todayPlanMeta").textContent=`本周大作文：${st.plan.focus.big.title}；小作文：${st.plan.focus.small.title}。核心题量完成后解锁90分钟加练。`;$("todayPlanDoneCount").textContent=st.done;$("todayPlanTaskCount").textContent=st.total;$("todayPlanMinutes").textContent=90;$("todayPlanPercent").textContent=`${st.overallPercent}%`;$("todayLearnHeadline").textContent=`${learn.done}/${learn.total}项`;$("todayLearnSub").textContent=learn.total?`约${learn.minutes}分钟 · 新词/作文`:"今天暂无学习项";$("todayReviewHeadline").textContent=`${review.done}/${review.total}项`;$("todayReviewSub").textContent=review.total?`约${review.minutes}分钟 · 词组/选择题`:"今天暂无复习项";const badge=$("todayAutoPlanStatus");badge.textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;badge.classList.toggle("done",st.coreComplete);badge.classList.toggle("auto-plan-status-core",st.coreComplete&&!st.fullComplete);badge.classList.toggle("auto-plan-status-full",st.fullComplete);renderPlanTaskList("todayAutoPlanTasks",new Date(),true,false);renderBonusTaskList("todayBonusTasks","todayBonusPanel","todayBonusStatus",new Date(),true)}
 
   function renderStudyPlanView(){refreshPlanTaskCompletions();const stats=checkinPlanStats(),today=planDayStatus(new Date()),sm=new Date(stats.start.getFullYear(),stats.start.getMonth(),1),em=new Date(stats.end.getFullYear(),stats.end.getMonth(),1);if(studyPlanCalendarCursor<sm||studyPlanCalendarCursor>em){const s=dateFromKey(clampStudyPlanDateKey(selectedStudyPlanDateKey));studyPlanCalendarCursor=new Date(s.getFullYear(),s.getMonth(),1)}selectedStudyPlanDateKey=clampStudyPlanDateKey(selectedStudyPlanDateKey);$("studyPlanRangeText").textContent=`从${stats.start.toLocaleDateString("zh-CN")}到${stats.end.toLocaleDateString("zh-CN")}。核心完成显示浅绿色，90分钟加练完成显示深绿色。`;$("studyPlanTotalDays").textContent=stats.total;$("studyPlanCompletedDays").textContent=stats.checked;$("studyPlanCurrentStreak").textContent=calculateCheckinStreak();$("studyPlanOverallPercent").textContent=`${stats.progress}%`;$("studyPlanOverallStatus").textContent=today.fullComplete?"今天90分钟已完成":today.coreComplete?"今天核心已完成":`今天核心${today.done}/${today.total}`;$("studyPlanOverallStatus").classList.toggle("done",today.coreComplete);$("studyPlanCurrentPhase").textContent=today.plan.phase.name;$("studyPhaseTimeline").innerHTML=STUDY_PHASES.map(p=>`<div class="phase-card ${p.id===today.plan.phase.id?"current":""}"><strong>${escapeHtml(p.name)}</strong><span>${p.start.slice(5).replace("-","/")}—${p.id==="sprint"?"考试前一天":p.end.slice(5).replace("-","/")}</span><span>${escapeHtml(p.summary)}</span><em>${escapeHtml(p.result)}</em></div>`).join("");renderStudyPlanCalendar();renderSelectedPlanDay();renderStudyWeekBlueprint()}
 

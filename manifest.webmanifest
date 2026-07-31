@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "V21",
-  "short_name": "V21",
-  "description": "本地优先的考研英语训练器。V21修复断点被云端覆盖、同步卡住和保存期间丢上传请求的问题。",
+  "name": "V22",
+  "short_name": "V22",
+  "description": "V22：区分今日学习与今日复习，并为核心任务列表加入可滚动小滑块。",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",

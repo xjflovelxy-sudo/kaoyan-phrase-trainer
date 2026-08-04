@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="V25" />
+  <meta name="application-name" content="V28" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="V25" />
+  <meta name="apple-mobile-web-app-title" content="V28" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V25</title>
+  <title>V28 手动打卡与作文历史版</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -698,6 +698,24 @@
       align-items: end;
     }
     .manual-checkin-target-row .field { margin: 0; }
+    .manual-checkin-form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      align-items: end;
+    }
+    .manual-checkin-form-grid .field { margin: 0; }
+    .manual-checkin-warning {
+      margin-top: 10px;
+      padding: 9px 11px;
+      border-radius: 10px;
+      border: 1px solid #efc36c;
+      background: #fff8e7;
+      color: #684600;
+      font-size: 12px;
+      line-height: 1.65;
+      font-weight: 700;
+    }
     .practice-note-box {
       margin-top: 14px;
       padding: 13px;
@@ -709,6 +727,7 @@
     @media (max-width: 650px) {
       .manual-checkin-panel { grid-template-columns: 1fr; }
       .manual-checkin-target-row { grid-template-columns: 1fr; }
+      .manual-checkin-form-grid { grid-template-columns: 1fr; }
     }
 
     .checkin-history {
@@ -4062,12 +4081,156 @@
     }
 
   </style>
+
+<style id="v28-writing-history-styles">
+  .manual-plan-action-card {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    gap: 14px;
+    align-items: center;
+    border-left: 5px solid #3559e0;
+  }
+  .manual-plan-action-card .button-row { justify-content: flex-end; margin: 0; }
+  .manual-plan-status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 10px;
+    border-radius: 9px;
+    background: #eef2ff;
+    color: #3347a9;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .manual-plan-status.done { background: #e9f8ef; color: #167340; }
+
+  .essay-memory-panel {
+    margin-top: 16px;
+    border: 2px solid #d9e1ff;
+    border-radius: 16px;
+    background: #f8faff;
+    overflow: hidden;
+  }
+  .essay-memory-head {
+    padding: 15px 16px;
+    background: #eaf0ff;
+    border-bottom: 1px solid #d9e1ff;
+  }
+  .essay-memory-head strong { display:block; font-size:16px; color:#243f9f; }
+  .essay-memory-head span { display:block; margin-top:5px; color:#56647d; font-size:12px; line-height:1.65; }
+  .essay-memory-body { padding: 15px; }
+  .essay-memory-reference {
+    padding: 12px 13px;
+    border-radius: 11px;
+    background: #fff;
+    border: 1px solid #dfe5f0;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+  .essay-memory-grid {
+    display:grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 12px;
+    margin-top: 13px;
+  }
+  .essay-memory-field {
+    padding: 12px;
+    border: 1px solid #dfe5f0;
+    border-radius: 12px;
+    background: #fff;
+  }
+  .essay-memory-field label { display:block; font-weight:800; margin-bottom:7px; }
+  .essay-memory-field textarea { width:100%; min-height:105px; resize:vertical; }
+  .essay-memory-section { margin-top: 16px; }
+  .essay-memory-section-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: #26375e;
+    margin-bottom: 9px;
+  }
+  .essay-history-empty {
+    padding: 13px;
+    border: 1px dashed #cbd4e8;
+    border-radius: 11px;
+    background:#fff;
+    color:#66728a;
+    line-height:1.7;
+  }
+  .essay-history-record {
+    margin-top: 12px;
+    padding: 14px;
+    border: 1px solid #dfe5f0;
+    border-radius: 13px;
+    background:#fff;
+  }
+  .essay-history-record:first-child { margin-top:0; }
+  .essay-history-record-head {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    padding-bottom:10px;
+    border-bottom:1px solid #edf0f6;
+  }
+  .essay-history-record-head strong { color:#213b91; }
+  .essay-history-record-head span { color:#6b7589; font-size:12px; }
+  .essay-history-block { margin-top: 11px; }
+  .essay-history-label { font-weight:900; font-size:12px; color:#4b5871; margin-bottom:5px; }
+  .essay-history-text {
+    padding:10px 11px;
+    border-radius:9px;
+    background:#f6f8fc;
+    line-height:1.75;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .essay-history-text.standard { background:#fff7e7; }
+  .essay-history-text.final { background:#edf9f2; }
+  .essay-history-list { display:grid; gap:7px; }
+  .essay-history-item {
+    display:grid;
+    grid-template-columns:24px minmax(0,1fr);
+    gap:7px;
+    align-items:start;
+    padding:8px 9px;
+    border-radius:9px;
+    line-height:1.65;
+  }
+  .essay-history-item.good { background:#edf9f2; color:#165d38; }
+  .essay-history-item.bad { background:#fff0f0; color:#8a2525; }
+  .essay-history-item.info { background:#f3f5fa; color:#556178; }
+  .essay-history-item > b { text-align:center; }
+  .essay-common-errors { display:flex; flex-wrap:wrap; gap:7px; }
+  .essay-error-chip {
+    display:inline-flex;
+    gap:6px;
+    align-items:center;
+    padding:7px 10px;
+    border-radius:999px;
+    background:#fff0f0;
+    color:#8a2525;
+    font-size:12px;
+    font-weight:800;
+  }
+  .essay-alternative-list { display:grid; gap:6px; }
+  .essay-alternative-list div { padding:8px 10px; border-radius:9px; background:#eef5ff; line-height:1.7; }
+  .essay-memory-help { margin-top:8px; color:#68748a; font-size:12px; line-height:1.65; }
+
+  @media (max-width: 760px) {
+    .manual-plan-action-card { grid-template-columns:1fr; }
+    .manual-plan-action-card .button-row { justify-content:flex-start; }
+    .essay-memory-grid { grid-template-columns:1fr; }
+    .essay-history-record-head { display:block; }
+    .essay-history-record-head span { display:block; margin-top:5px; }
+  }
+</style>
+
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>V25</h1>
+      <h1>V28</h1>
       <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
     </div>
     <nav>
@@ -4207,33 +4370,41 @@
         <div class="checkin-content">
           <div class="checkin-head">
             <div>
-              <h3 class="section-title" style="margin-bottom:5px;">今日手动打卡</h3>
-              <div class="muted" id="checkinDescription">学习进度只作参考。只有你点击“手动打卡”才会计入打卡日历和连续天数。</div>
+              <h3 class="section-title" style="margin-bottom:5px;">手动设置打卡</h3>
+              <div class="muted" id="checkinDescription">日期、打卡数量和达标标准全部由你填写。学习、答题和作文练习不会自动修改打卡记录。</div>
             </div>
-            <span class="checkin-status" id="checkinStatus">今日未打卡</span>
+            <span class="checkin-status" id="checkinStatus">所选日期未打卡</span>
           </div>
 
           <div class="manual-checkin-panel">
             <div>
-              <div class="muted" style="font-size:12px;">今日已手动打卡</div>
+              <div class="muted" style="font-size:12px;">所选日期的手动打卡记录</div>
               <div class="manual-checkin-count">
                 <strong id="manualCheckinCount">0</strong>
                 <span>/ <b id="manualCheckinTargetText">1</b> 次</span>
               </div>
-              <div class="muted" id="manualCheckinHint" style="font-size:12px;line-height:1.7;">目标数量由你设置。</div>
+              <div class="muted" id="manualCheckinHint" style="font-size:12px;line-height:1.7;">请直接填写数量并保存。</div>
             </div>
             <div class="manual-checkin-controls">
-              <div class="manual-checkin-target-row">
+              <div class="manual-checkin-form-grid">
                 <div class="field">
-                  <label>今日目标打卡数量</label>
+                  <label>打卡日期</label>
+                  <input id="manualCheckinDateInput" type="date" />
+                </div>
+                <div class="field">
+                  <label>手动打卡数量</label>
+                  <input id="manualCheckinCountInput" type="number" min="0" max="999" value="0" />
+                </div>
+                <div class="field">
+                  <label>该日达标标准</label>
                   <input id="manualCheckinTargetInput" type="number" min="1" max="999" value="1" />
                 </div>
-                <button class="secondary-btn" id="saveManualCheckinTargetBtn">保存数量</button>
               </div>
               <div class="button-row">
-                <button class="primary-btn" id="manualCheckinBtn">手动打卡 +1</button>
-                <button class="ghost-btn" id="undoManualCheckinBtn">撤销一次</button>
+                <button class="primary-btn" id="saveManualCheckinBtn">保存该日打卡</button>
+                <button class="ghost-btn" id="clearManualCheckinBtn">清除该日记录</button>
               </div>
+              <div class="manual-checkin-warning">不会自动打卡：完成词组、选择题、大作文或小作文，都不会改变这里的数量。</div>
             </div>
           </div>
 
@@ -4761,6 +4932,18 @@
 
 
     <section class="view" id="myMarksView">
+      <div class="card manual-plan-action-card" style="margin-bottom:16px;">
+        <div>
+          <h3 class="section-title" style="margin-bottom:5px;">手动确认：整理我的标记</h3>
+          <div class="muted">打开本页不会自动计数。完成实际整理后，再点击“确认完成”。</div>
+        </div>
+        <div class="button-row">
+          <button class="primary-btn" data-manual-plan-activity="marks">确认今天已整理</button>
+          <button class="ghost-btn" data-manual-plan-clear="marks">取消今天记录</button>
+          <span class="manual-plan-status" data-manual-plan-status="marks">今天尚未确认</span>
+        </div>
+      </div>
+
       <div class="grid marked-summary-grid">
         <div class="card metric">
           <div class="label">已标记词组</div>
@@ -4814,6 +4997,18 @@
     </section>
 
     <section class="view" id="marksView">
+      <div class="card manual-plan-action-card" style="margin-bottom:16px;">
+        <div>
+          <h3 class="section-title" style="margin-bottom:5px;">手动确认：整理我的标记</h3>
+          <div class="muted">打开本页不会自动计数。完成实际整理后，再点击“确认完成”。</div>
+        </div>
+        <div class="button-row">
+          <button class="primary-btn" data-manual-plan-activity="marks">确认今天已整理</button>
+          <button class="ghost-btn" data-manual-plan-clear="marks">取消今天记录</button>
+          <span class="manual-plan-status" data-manual-plan-status="marks">今天尚未确认</span>
+        </div>
+      </div>
+
       <div class="card">
         <h3 class="section-title">自定义标记与分组</h3>
         <div class="muted" style="line-height:1.9;">
@@ -4884,6 +5079,18 @@
     </section>
 
     <section class="view" id="mistakesView">
+      <div class="card manual-plan-action-card" style="margin-bottom:16px;">
+        <div>
+          <h3 class="section-title" style="margin-bottom:5px;">手动确认：回看错词本</h3>
+          <div class="muted">打开本页不会自动计数。实际回看并处理错词后，再点击“确认完成”。</div>
+        </div>
+        <div class="button-row">
+          <button class="primary-btn" data-manual-plan-activity="mistakes">确认今天已回看</button>
+          <button class="ghost-btn" data-manual-plan-clear="mistakes">取消今天记录</button>
+          <span class="manual-plan-status" data-manual-plan-status="mistakes">今天尚未确认</span>
+        </div>
+      </div>
+
       <div class="toolbar">
         <input id="mistakeSearch" placeholder="搜索错词" />
         <select id="mistakeYear"><option value="all">全部年份</option></select>
@@ -5038,7 +5245,7 @@
             <input id="checkinStartDateInput" type="date" value="2026-07-30" />
           </div>
           <div class="field">
-            <label>默认每日手动打卡数量</label>
+            <label>新日期默认达标标准（不会自动打卡）</label>
             <input id="manualCheckinTargetSettingInput" type="number" min="1" max="999" value="1" />
           </div>
         </div>
@@ -6134,35 +6341,41 @@
     return { key, count, target, complete: count >= target, percent: Math.min(100, Math.round(count / target * 100)) };
   }
 
-  function ensureManualCheckinRecord(key = localDateKey()) {
+  function selectedManualCheckinKey() {
+    const input = $("manualCheckinDateInput");
+    const value = String(input?.value || "");
+    return /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : localDateKey();
+  }
+
+  function loadManualCheckinForm(key = selectedManualCheckinKey()) {
+    const record = manualCheckinRecord(key);
+    if ($("manualCheckinDateInput")) $("manualCheckinDateInput").value = key;
+    if ($("manualCheckinCountInput")) $("manualCheckinCountInput").value = record.count;
+    if ($("manualCheckinTargetInput")) $("manualCheckinTargetInput").value = record.target;
+    return record;
+  }
+
+  function saveManualCheckinFromForm() {
+    const key = selectedManualCheckinKey();
+    const count = Math.max(0, Math.min(999, Math.floor(Number($("manualCheckinCountInput")?.value) || 0)));
+    const target = Math.max(1, Math.min(999, Math.floor(Number($("manualCheckinTargetInput")?.value) || 1)));
     if (!state.manualCheckins || typeof state.manualCheckins !== "object") state.manualCheckins = {};
-    const current = manualCheckinRecord(key);
-    if (!state.manualCheckins[key]) {
-      state.manualCheckins[key] = { count: current.count, target: current.target, updatedAt: new Date().toISOString() };
+    state.manualCheckins[key] = { count, target, updatedAt: new Date().toISOString() };
+    saveState();
+    renderDashboard();
+    if (currentView === "studyPlan") renderStudyPlanView();
+    showToast(`${key} 的打卡数量已手动设为 ${count} 次`);
+  }
+
+  function clearManualCheckinFromForm() {
+    const key = selectedManualCheckinKey();
+    if (state.manualCheckins && Object.prototype.hasOwnProperty.call(state.manualCheckins, key)) {
+      delete state.manualCheckins[key];
+      saveState();
     }
-    return state.manualCheckins[key];
-  }
-
-  function setTodayManualCheckinTarget() {
-    const input = $("manualCheckinTargetInput");
-    const target = Math.max(1, Math.min(999, Math.floor(Number(input?.value) || 1)));
-    const record = ensureManualCheckinRecord();
-    record.target = target;
-    record.updatedAt = new Date().toISOString();
-    saveState();
     renderDashboard();
     if (currentView === "studyPlan") renderStudyPlanView();
-    showToast(`今日手动打卡目标已设为 ${target} 次`);
-  }
-
-  function changeTodayManualCheckin(amount) {
-    const record = ensureManualCheckinRecord();
-    record.count = Math.max(0, Math.floor(Number(record.count) || 0) + amount);
-    record.updatedAt = new Date().toISOString();
-    saveState();
-    renderDashboard();
-    if (currentView === "studyPlan") renderStudyPlanView();
-    showToast(amount > 0 ? "已手动打卡 1 次" : "已撤销 1 次手动打卡");
+    showToast(`${key} 的手动打卡记录已清除`);
   }
 
   function calculateCheckinStreak() {
@@ -10171,7 +10384,8 @@
     const todayStats = todayStudyStats();
     const remaining = getReviewQueue(false).length;
     const todayPlanStatus = planDayStatus(new Date());
-    const manualStatus = manualCheckinRecord(new Date());
+    const manualKey = selectedManualCheckinKey();
+    const manualStatus = manualCheckinRecord(manualKey);
     const progress = manualStatus.percent;
     const streak = calculateCheckinStreak();
 
@@ -10181,22 +10395,22 @@
     $("todayRemainingCount").textContent = remaining;
     $("todayCorrectCount").textContent = todayStats.correct;
     $("checkinStreakCount").textContent = streak;
-    $("checkinProgressText").textContent = `手动打卡 ${manualStatus.count}/${manualStatus.target} 次 · 学习计划 ${todayPlanStatus.done}/${todayPlanStatus.total} 项 · 答题 ${todayStats.reviewed} 次 · 作文练习 ${todayStats.essayPractice} 次`;
+    $("checkinProgressText").textContent = `${manualKey} 手动打卡 ${manualStatus.count}/${manualStatus.target} 次 · 今日学习计划 ${todayPlanStatus.done}/${todayPlanStatus.total} 项 · 今日答题 ${todayStats.reviewed} 次 · 今日作文练习 ${todayStats.essayPractice} 次`;
     $("checkinProgressBar").style.width = `${progress}%`;
     $("manualCheckinCount").textContent = manualStatus.count;
     $("manualCheckinTargetText").textContent = manualStatus.target;
-    $("manualCheckinTargetInput").value = manualStatus.target;
+    loadManualCheckinForm(manualKey);
     $("manualCheckinHint").textContent = manualStatus.complete
-      ? `今日目标已达标。继续点击仍会累计，但不会由学习行为自动增加。`
-      : `还需手动打卡 ${Math.max(0, manualStatus.target - manualStatus.count)} 次。学习行为不会自动增加这里的数量。`;
-    $("undoManualCheckinBtn").disabled = manualStatus.count <= 0;
+      ? `${manualKey} 已达到你设置的标准。数量只来自手动填写。`
+      : `${manualKey} 还差 ${Math.max(0, manualStatus.target - manualStatus.count)} 次。请直接修改“手动打卡数量”后保存。`;
+    $("clearManualCheckinBtn").disabled = !Object.prototype.hasOwnProperty.call(state.manualCheckins || {}, manualKey);
 
     const checkedIn = manualStatus.complete;
     $("checkinStatus").textContent = checkedIn
-      ? `今日手动打卡已达标 ${manualStatus.count}/${manualStatus.target}`
-      : manualStatus.count > 0 ? `今日手动打卡 ${manualStatus.count}/${manualStatus.target}` : "今日未手动打卡";
+      ? `${manualKey} 已达标 ${manualStatus.count}/${manualStatus.target}`
+      : manualStatus.count > 0 ? `${manualKey} 未达标 ${manualStatus.count}/${manualStatus.target}` : `${manualKey} 未打卡`;
     $("checkinStatus").classList.toggle("done", checkedIn);
-    $("checkinDescription").textContent = "学习进度只作参考。只有你点击“手动打卡”才会计入打卡日历、完成天数和连续天数。";
+    $("checkinDescription").textContent = "日期、打卡数量和达标标准全部由你填写。学习、答题和作文练习不会自动修改打卡记录。";
     renderUpcomingCheckinDays();
 
     renderFullCheckinCalendar();
@@ -11681,7 +11895,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   function exportData() {
     const payload = {
       app: "考研英语词组记忆器",
-      version: 25,
+      version: 28,
       exportedAt: new Date().toISOString(),
       ...state
     };
@@ -12005,9 +12219,9 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       goToPlanActivity(button.dataset.planGo);
     });
 
-    $("saveManualCheckinTargetBtn").addEventListener("click", setTodayManualCheckinTarget);
-    $("manualCheckinBtn").addEventListener("click", () => changeTodayManualCheckin(1));
-    $("undoManualCheckinBtn").addEventListener("click", () => changeTodayManualCheckin(-1));
+    $("manualCheckinDateInput").addEventListener("change", () => renderDashboard());
+    $("saveManualCheckinBtn").addEventListener("click", saveManualCheckinFromForm);
+    $("clearManualCheckinBtn").addEventListener("click", clearManualCheckinFromForm);
     $("checkinReviewBtn").addEventListener("click", () => startReview(false));
     $("checkinMarksBtn").addEventListener("click", () => switchView("myMarks"));
 
@@ -12368,6 +12582,525 @@ function bindSmallModule(){
  const oldSwitch=switchView;switchView=function(view){oldSwitch(view);if(view==="smallEssay")renderSmallEssay()};
 }
 
+
+
+  /* V28_MANUAL_PAGE_CONFIRMATION_AND_WRITING_HISTORY */
+  const V28_ESSAY_HISTORY_LIMIT = 50;
+
+  function v28StringArray(value) {
+    const source = Array.isArray(value) ? value : String(value || "").split(/\r?\n/);
+    return [...new Set(source.map(item => String(item || "").trim()).filter(Boolean))];
+  }
+
+  function v28NormalizeHistoryRecord(item) {
+    const source = item && typeof item === "object" && !Array.isArray(item) ? item : {};
+    return {
+      id: String(source.id || cryptoId()),
+      dateKey: String(source.dateKey || String(source.checkedAt || "").slice(0, 10) || localDateKey()),
+      checkedAt: String(source.checkedAt || new Date().toISOString()),
+      attemptOfDay: Math.max(1, Number(source.attemptOfDay) || 1),
+      originalAnswer: String(source.originalAnswer || ""),
+      referenceAnswer: String(source.referenceAnswer || source.suggestedAnswer || ""),
+      referenceLabel: String(source.referenceLabel || "标准／辅助答案"),
+      level: String(source.level || ""),
+      score: Math.max(0, Math.min(100, Number(source.score) || 0)),
+      passed: Array.isArray(source.passed) ? source.passed.map(value => ({
+        label: String(value?.label || value || ""),
+        detail: String(value?.detail || "")
+      })).filter(value => value.label) : [],
+      correctPhrases: v28StringArray(source.correctPhrases),
+      failed: Array.isArray(source.failed) ? source.failed.map(value => ({
+        label: String(value?.label || value || ""),
+        detail: String(value?.detail || "")
+      })).filter(value => value.label) : [],
+      spelling: Array.isArray(source.spelling) ? source.spelling.map(value => ({
+        wrong: String(value?.wrong || ""),
+        correct: String(value?.correct || "")
+      })).filter(value => value.wrong || value.correct) : [],
+      missing: v28StringArray(source.missing),
+      extra: v28StringArray(source.extra),
+      orderWords: v28StringArray(source.orderWords),
+      suggestedAnswer: String(source.suggestedAnswer || source.referenceAnswer || ""),
+      finalAnswer: String(source.finalAnswer || ""),
+      acceptedAlternatives: v28StringArray(source.acceptedAlternatives),
+      grade: Number.isFinite(Number(source.grade)) ? Number(source.grade) : null
+    };
+  }
+
+  function v28NormalizePracticeEntry(value) {
+    const source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    const alternatives = v28StringArray(
+      Array.isArray(source.acceptedAlternatives) && source.acceptedAlternatives.length
+        ? source.acceptedAlternatives
+        : source.userNote
+    );
+    const history = Array.isArray(source.history)
+      ? source.history.map(v28NormalizeHistoryRecord).slice(-V28_ESSAY_HISTORY_LIMIT)
+      : [];
+    return {
+      ...source,
+      acceptedAlternatives: alternatives,
+      userNote: alternatives.join("\n"),
+      finalAnswer: String(source.finalAnswer || ""),
+      history
+    };
+  }
+
+  function v28NormalizePracticeBucket(value) {
+    const source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    const result = {};
+    Object.entries(source).forEach(([key, item]) => result[key] = v28NormalizePracticeEntry(item));
+    return result;
+  }
+
+  normalizeBigEssayPractice = function(value) {
+    const source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    return {
+      sentenceImitation: v28NormalizePracticeBucket(source.sentenceImitation),
+      paragraphImitation: v28NormalizePracticeBucket(source.paragraphImitation),
+      wholeImitation: v28NormalizePracticeBucket(source.wholeImitation),
+      dictation: v28NormalizePracticeBucket(source.dictation),
+      patternImitation: v28NormalizePracticeBucket(source.patternImitation)
+    };
+  };
+
+  normalizeSmallPractice = function(value) {
+    const source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    return {
+      inline: v28NormalizePracticeBucket(source.inline),
+      sentenceImitation: v28NormalizePracticeBucket(source.sentenceImitation),
+      wholeImitation: v28NormalizePracticeBucket(source.wholeImitation),
+      dictation: v28NormalizePracticeBucket(source.dictation),
+      functionPractice: v28NormalizePracticeBucket(source.functionPractice)
+    };
+  };
+
+  state.bigEssayPractice = normalizeBigEssayPractice(state.bigEssayPractice);
+  state.smallEssayPractice = normalizeSmallPractice(state.smallEssayPractice);
+
+  function v28HistoryEnabled(scope, kind) {
+    return scope === "big"
+      ? ["study", "sentence300"].includes(kind)
+      : ["study", "imitation"].includes(kind);
+  }
+
+  function v28PracticeRoot(scope) {
+    if (scope === "big") {
+      state.bigEssayPractice = normalizeBigEssayPractice(state.bigEssayPractice);
+      return state.bigEssayPractice;
+    }
+    state.smallEssayPractice = normalizeSmallPractice(state.smallEssayPractice);
+    return state.smallEssayPractice;
+  }
+
+  function v28PracticeEntry(scope, context) {
+    const root = v28PracticeRoot(scope);
+    const bucket = root[context.storageCategory] || (root[context.storageCategory] = {});
+    const entry = v28NormalizePracticeEntry(bucket[context.storageId]);
+    bucket[context.storageId] = entry;
+    return entry;
+  }
+
+  function v28MemoryPanelId(scope, context) {
+    return `essay-memory-panel-${safeWritingDomId(`${scope}-${context.kind}-${context.id}`)}`;
+  }
+
+  function v28MemoryInputId(scope, context, field) {
+    return `essay-memory-${field}-${safeWritingDomId(`${scope}-${context.kind}-${context.id}`)}`;
+  }
+
+  function v28HistoryDate(record) {
+    const date = new Date(record.checkedAt || `${record.dateKey}T00:00:00`);
+    if (Number.isNaN(date.getTime())) return record.dateKey;
+    return date.toLocaleString("zh-CN", {
+      year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit"
+    });
+  }
+
+  function v28GradeLabel(grade) {
+    return ["完全不会", "错误较多", "基本正确", "完全掌握"][Number(grade)] || "未评分";
+  }
+
+  function v28RenderHistoryRecord(record, index) {
+    const correctRows = [
+      ...record.passed.map(item => `<div class="essay-history-item good"><b>✓</b><div><strong>${escapeHtml(item.label)}</strong>${item.detail ? `<br>${escapeHtml(item.detail)}` : ""}</div></div>`),
+      ...record.correctPhrases.map(item => `<div class="essay-history-item good"><b>✓</b><div>正确词组：${escapeHtml(item)}</div></div>`)
+    ];
+    const wrongRows = [
+      ...record.failed.map(item => `<div class="essay-history-item bad"><b>!</b><div><strong>${escapeHtml(item.label)}</strong>${item.detail ? `<br>${escapeHtml(item.detail)}` : ""}</div></div>`),
+      ...record.spelling.map(item => `<div class="essay-history-item bad"><b>拼</b><div>疑似拼写：${escapeHtml(item.wrong)} → ${escapeHtml(item.correct)}</div></div>`),
+      ...(record.orderWords.length ? [`<div class="essay-history-item bad"><b>序</b><div>词序需检查：${record.orderWords.map(escapeHtml).join("、")}</div></div>`] : []),
+      ...(record.missing.length ? [`<div class="essay-history-item bad"><b>缺</b><div>参考答案中有、原句中缺少：${record.missing.map(escapeHtml).join("、")}</div></div>`] : []),
+      ...(record.extra.length ? [`<div class="essay-history-item bad"><b>多</b><div>原句中多出或建议替换：${record.extra.map(escapeHtml).join("、")}</div></div>`] : [])
+    ];
+    const alternatives = record.acceptedAlternatives.length
+      ? `<div class="essay-alternative-list">${record.acceptedAlternatives.map(item => `<div>${escapeHtml(item)}</div>`).join("")}</div>`
+      : `<div class="essay-history-text">当时没有保存其他正确表达。</div>`;
+    return `<article class="essay-history-record">
+      <div class="essay-history-record-head">
+        <strong>${index === 0 ? "最近一次练习记录" : `更早练习记录 ${index}`}</strong>
+        <span>${escapeHtml(v28HistoryDate(record))} · 当日第${record.attemptOfDay}次 · ${escapeHtml(record.level || "未评级")} · ${record.score}%${record.grade === null ? "" : ` · 自评：${escapeHtml(v28GradeLabel(record.grade))}`}</span>
+      </div>
+      <div class="essay-history-block"><div class="essay-history-label">我的原始作答</div><div class="essay-history-text">${escapeHtml(record.originalAnswer || "（空）")}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">${escapeHtml(record.referenceLabel || "标准／辅助答案")}</div><div class="essay-history-text standard">${escapeHtml(record.referenceAnswer || record.suggestedAnswer || "（无）")}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">逐词对照</div><div class="correction-diff">${renderCorrectionDiff(record.originalAnswer, record.referenceAnswer || record.suggestedAnswer)}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">我写对的地方</div><div class="essay-history-list">${correctRows.length ? correctRows.join("") : '<div class="essay-history-item info"><b>i</b><div>当时没有通过预设检查的项目。</div></div>'}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">我需要修改的地方</div><div class="essay-history-list">${wrongRows.length ? wrongRows.join("") : '<div class="essay-history-item good"><b>✓</b><div>当时未发现预设问题。</div></div>'}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">系统修改建议</div><div class="essay-history-text standard">${escapeHtml(record.suggestedAnswer || record.referenceAnswer || "（无）")}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">我的最终修改</div><div class="essay-history-text final">${escapeHtml(record.finalAnswer || "当时未保存最终修改。")}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">我确认的其他正确表达</div>${alternatives}</div>
+    </article>`;
+  }
+
+  function v28CommonErrorCounts(history) {
+    const counts = new Map();
+    const add = label => counts.set(label, (counts.get(label) || 0) + 1);
+    history.forEach(record => {
+      record.failed.forEach(item => add(item.label));
+      if (record.spelling.length) add("疑似拼写错误");
+      if (record.orderWords.length) add("词序问题");
+      if (record.missing.length) add("缺词");
+      if (record.extra.length) add("多词或替换");
+    });
+    return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 10);
+  }
+
+  function v28RenderMemoryPanel(scope, context) {
+    if (!v28HistoryEnabled(scope, context.kind)) return "";
+    const entry = v28PracticeEntry(scope, context);
+    const history = entry.history.slice().sort((a, b) => new Date(b.checkedAt) - new Date(a.checkedAt));
+    const commonErrors = v28CommonErrorCounts(history);
+    const alternativesId = v28MemoryInputId(scope, context, "alternatives");
+    const finalId = v28MemoryInputId(scope, context, "final");
+    return `<section class="essay-memory-panel" id="${escapeHtml(v28MemoryPanelId(scope, context))}">
+      <div class="essay-memory-head">
+        <strong>我的其他正确表达与历史作答</strong>
+        <span>本区始终显示。第二天再次打开同一道题时，可以直接看到以前写对、写错和修改过的内容。</span>
+      </div>
+      <div class="essay-memory-body">
+        <div class="essay-memory-section-title">标准／辅助答案</div>
+        <div class="essay-memory-reference">${escapeHtml(context.reference || "")}</div>
+        <div class="essay-memory-grid">
+          <div class="essay-memory-field">
+            <label>我的其他正确表达（每行一条）</label>
+            <textarea id="${escapeHtml(alternativesId)}" placeholder="填写与网页答案不同、但你确认正确的完整英文句子。">${escapeHtml(entry.acceptedAlternatives.join("\n"))}</textarea>
+            <div class="button-row" style="margin-top:9px;"><button class="secondary-btn" data-essay-memory-action="save-alternatives" data-scope="${scope}" data-kind="${escapeHtml(context.kind)}" data-id="${escapeHtml(context.id)}">保存其他正确表达</button></div>
+            <div class="essay-memory-help">这里保存的是完整句子，不会被重新批改或应用标准答案覆盖。</div>
+          </div>
+          <div class="essay-memory-field">
+            <label>我的最终修改</label>
+            <textarea id="${escapeHtml(finalId)}" placeholder="填写你最终认可并准备复习的版本。">${escapeHtml(entry.finalAnswer)}</textarea>
+            <div class="button-row" style="margin-top:9px;"><button class="secondary-btn" data-essay-memory-action="save-final" data-scope="${scope}" data-kind="${escapeHtml(context.kind)}" data-id="${escapeHtml(context.id)}">保存最终修改</button></div>
+            <div class="essay-memory-help">保存后会写入最近一次历史记录，第二天仍可直接查看。</div>
+          </div>
+        </div>
+        <div class="essay-memory-section">
+          <div class="essay-memory-section-title">本题常见错误</div>
+          ${commonErrors.length ? `<div class="essay-common-errors">${commonErrors.map(([label, count]) => `<span class="essay-error-chip">${escapeHtml(label)} <b>${count}次</b></span>`).join("")}</div>` : '<div class="essay-history-empty">目前还没有历史错误统计。完成一次批改后会自动生成。</div>'}
+        </div>
+        <div class="essay-memory-section">
+          <div class="essay-memory-section-title">历史练习记录（最近最多保留50次）</div>
+          ${history.length ? `<div>${history.map(v28RenderHistoryRecord).join("")}</div>` : '<div class="essay-history-empty">还没有练习记录。第一次点击“批改本句”或“检查并改正”后，原始作答、正确部分、错误部分和修改建议会保存到这里。</div>'}
+        </div>
+      </div>
+    </section>`;
+  }
+
+  function v28AppendHistory(scope, context, answer, analysis) {
+    if (!v28HistoryEnabled(scope, context.kind) || planAdoptCorrectionMode) return;
+    const entry = v28PracticeEntry(scope, context);
+    const now = new Date().toISOString();
+    const dateKey = localDateKey();
+    const attemptOfDay = entry.history.filter(record => record.dateKey === dateKey).length + 1;
+    entry.history.push(v28NormalizeHistoryRecord({
+      id: cryptoId(), dateKey, checkedAt: now, attemptOfDay,
+      originalAnswer: answer,
+      referenceAnswer: context.reference,
+      referenceLabel: context.referenceLabel || "标准／辅助答案",
+      level: analysis.level,
+      score: analysis.score,
+      passed: analysis.passed,
+      correctPhrases: analysis.details.correctPhrases,
+      failed: analysis.failed,
+      spelling: analysis.details.spelling,
+      missing: analysis.details.missing,
+      extra: analysis.details.extra,
+      orderWords: analysis.details.orderWords,
+      suggestedAnswer: context.reference,
+      finalAnswer: entry.finalAnswer,
+      acceptedAlternatives: entry.acceptedAlternatives,
+      grade: null
+    }));
+    entry.history = entry.history.slice(-V28_ESSAY_HISTORY_LIMIT);
+  }
+
+  function v28RefreshMemoryPanel(scope, context) {
+    const current = document.getElementById(v28MemoryPanelId(scope, context));
+    if (current) current.outerHTML = v28RenderMemoryPanel(scope, context);
+  }
+
+  function v28ResolveContext(scope, kind, id) {
+    return scope === "big" ? resolveWritingContext(kind, id) : smallContext(kind, id);
+  }
+
+  function v28SaveMemoryField(scope, kind, id, field) {
+    const context = v28ResolveContext(scope, kind, id);
+    if (!context) return showToast("没有找到本句记录");
+    const entry = v28PracticeEntry(scope, context);
+    if (field === "alternatives") {
+      const input = document.getElementById(v28MemoryInputId(scope, context, "alternatives"));
+      entry.acceptedAlternatives = v28StringArray(input?.value || "");
+      entry.userNote = entry.acceptedAlternatives.join("\n");
+      entry.noteUpdatedAt = new Date().toISOString();
+    } else {
+      const input = document.getElementById(v28MemoryInputId(scope, context, "final"));
+      entry.finalAnswer = String(input?.value || "").trim();
+      entry.finalAnswerUpdatedAt = new Date().toISOString();
+    }
+    const latest = entry.history.slice().sort((a, b) => new Date(b.checkedAt) - new Date(a.checkedAt))[0];
+    if (latest) {
+      latest.acceptedAlternatives = [...entry.acceptedAlternatives];
+      latest.finalAnswer = entry.finalAnswer;
+    }
+    saveState();
+    v28RefreshMemoryPanel(scope, context);
+    showToast(field === "alternatives" ? "其他正确表达已保存" : "最终修改已保存");
+  }
+
+  function v28UpdateLatestHistoryGrade(scope, context, grade) {
+    if (!context || !v28HistoryEnabled(scope, context.kind)) return;
+    const entry = v28PracticeEntry(scope, context);
+    const latest = entry.history.slice().sort((a, b) => new Date(b.checkedAt) - new Date(a.checkedAt))[0];
+    if (latest) latest.grade = Number(grade);
+  }
+
+  const v28BaseSaveWritingCorrection = saveWritingCorrection;
+  saveWritingCorrection = function(context, answer, analysis) {
+    v28BaseSaveWritingCorrection(context, answer, analysis);
+    v28AppendHistory("big", context, answer, analysis);
+    if (v28HistoryEnabled("big", context.kind) && !planAdoptCorrectionMode) {
+      saveState();
+      v28RefreshMemoryPanel("big", context);
+    }
+  };
+
+  const v28BaseSaveSmallCorrection = saveSmallCorrection;
+  saveSmallCorrection = function(context, answer, analysis) {
+    v28BaseSaveSmallCorrection(context, answer, analysis);
+    v28AppendHistory("small", context, answer, analysis);
+    if (v28HistoryEnabled("small", context.kind) && !planAdoptCorrectionMode) {
+      saveState();
+      v28RefreshMemoryPanel("small", context);
+    }
+  };
+
+  const v28BaseGradeEssayStudy = gradeEssayStudy;
+  gradeEssayStudy = function(grade) {
+    const ref = currentEssayStudyRef();
+    if (ref) v28UpdateLatestHistoryGrade("big", resolveWritingContext("study", ref.sentence.id), grade);
+    return v28BaseGradeEssayStudy(grade);
+  };
+
+  const v28BaseGradeSmall = gradeSmall;
+  gradeSmall = function(grade) {
+    const ref = curSmallStudy();
+    if (ref) v28UpdateLatestHistoryGrade("small", smallContext("study", ref.sentence.id), grade);
+    return v28BaseGradeSmall(grade);
+  };
+
+  function v28InsertAfterTextareaField(html, inputId, panelHtml) {
+    const inputAt = html.indexOf(`id="${inputId}"`);
+    if (inputAt < 0) return html;
+    const textareaEnd = html.indexOf("</textarea>", inputAt);
+    if (textareaEnd < 0) return html;
+    const fieldEnd = html.indexOf("</div>", textareaEnd);
+    if (fieldEnd < 0) return html;
+    const insertAt = fieldEnd + 6;
+    return html.slice(0, insertAt) + panelHtml + html.slice(insertAt);
+  }
+
+  ensureCurrentSentenceImitationTask = function() {
+    const filtered = filteredSentenceImitationTasks();
+    if (!filtered.length) return null;
+    const current = filtered.find(task => task.id === currentSentenceImitationId);
+    if (current) return current;
+    const bucket = state.bigEssayPractice.sentenceImitation || {};
+    const unfinished = filtered.filter(task => !hasPracticeAnswer(bucket[task.id]));
+    currentSentenceImitationId = (unfinished[0] || filtered[0]).id;
+    return filtered.find(task => task.id === currentSentenceImitationId) || filtered[0];
+  };
+
+  ensureSmallTask = function() {
+    const filtered = filteredSmallTasks();
+    if (!filtered.length) return null;
+    const current = filtered.find(task => task.id === currentSmallSentenceTaskId);
+    if (current) return current;
+    const bucket = state.smallEssayPractice.sentenceImitation || {};
+    const unfinished = filtered.filter(task => !hasPracticeAnswer(bucket[task.id]));
+    currentSmallSentenceTaskId = (unfinished[0] || filtered[0]).id;
+    return filtered.find(task => task.id === currentSmallSentenceTaskId) || filtered[0];
+  };
+
+  const v28BaseRenderSentenceImitation = renderSentenceImitation;
+  renderSentenceImitation = function() {
+    let html = v28BaseRenderSentenceImitation();
+    const task = ensureCurrentSentenceImitationTask();
+    if (!task) return html;
+    const context = resolveWritingContext("sentence300", task.id);
+    const start = html.indexOf('<div class="practice-note-box">');
+    const end = html.indexOf('<div id="sentenceImitationHints">', start);
+    if (start >= 0 && end > start) html = html.slice(0, start) + v28RenderMemoryPanel("big", context) + html.slice(end);
+    return html;
+  };
+
+  const v28BaseRenderEssaySentenceStudy = renderEssaySentenceStudy;
+  renderEssaySentenceStudy = function() {
+    let html = v28BaseRenderEssaySentenceStudy();
+    const ref = currentEssayStudyRef();
+    if (!ref) return html;
+    const context = resolveWritingContext("study", ref.sentence.id);
+    return v28InsertAfterTextareaField(html, "essayStudyDraftInput", v28RenderMemoryPanel("big", context));
+  };
+
+  const v28BaseRenderSmallImitation = renderSmallImitation;
+  renderSmallImitation = function() {
+    let html = v28BaseRenderSmallImitation();
+    const task = ensureSmallTask();
+    if (!task) return html;
+    const context = smallContext("imitation", task.id);
+    const start = html.indexOf('<div class="practice-note-box">');
+    const end = html.indexOf('<div id="smallSentenceImitationFeedback">', start);
+    if (start >= 0 && end > start) html = html.slice(0, start) + v28RenderMemoryPanel("small", context) + html.slice(end);
+    return html;
+  };
+
+  const v28BaseRenderSmallStudy = renderSmallStudy;
+  renderSmallStudy = function() {
+    let html = v28BaseRenderSmallStudy();
+    const ref = curSmallStudy();
+    if (!ref) return html;
+    const context = smallContext("study", ref.sentence.id);
+    return v28InsertAfterTextareaField(html, "smallStudyDraftInput", v28RenderMemoryPanel("small", context));
+  };
+
+  function v28SetManualPlanActivity(activity, complete) {
+    const key = localDateKey();
+    if (!state.planActivities || typeof state.planActivities !== "object") state.planActivities = {};
+    if (!state.planActivities[key]) state.planActivities[key] = {};
+    if (complete) state.planActivities[key][activity] = Math.max(1, Number(state.planActivities[key][activity]) || 0);
+    else delete state.planActivities[key][activity];
+    refreshPlanTaskCompletions(key);
+    saveState();
+    refreshManualPlanActionButtons();
+    if (currentView === "dashboard") renderDashboard();
+    if (currentView === "studyPlan") renderStudyPlanView();
+    if (currentView === "smallEssay" && currentSmallTab === "functions") renderSmallEssay();
+    showToast(complete ? "已手动确认今天完成该任务" : "已取消今天的手动完成记录");
+  }
+
+  function refreshManualPlanActionButtons() {
+    const key = localDateKey();
+    document.querySelectorAll("[data-manual-plan-status]").forEach(status => {
+      const activity = status.dataset.manualPlanStatus;
+      const done = planActivityCount(key, activity) >= 1;
+      status.textContent = done ? "今天已手动确认" : "今天尚未确认";
+      status.classList.toggle("done", done);
+    });
+  }
+
+  recordPlanActivity = function(activity, amount = 1, saveNow = false) {
+    const key = localDateKey();
+    if (!state.planActivities || typeof state.planActivities !== "object") state.planActivities = {};
+    if (!state.planActivities[key]) state.planActivities[key] = {};
+    const old = Math.max(0, Number(state.planActivities[key][activity]) || 0);
+    state.planActivities[key][activity] = old + Math.max(0, Number(amount) || 0);
+    refreshPlanTaskCompletions(key);
+    if (saveNow) {
+      saveState();
+      if (currentView === "dashboard") renderDashboard();
+      if (currentView === "studyPlan") renderStudyPlanView();
+    }
+  };
+
+  Object.assign(PLAN_ACTIVITY_META.smallFormat, {
+    description: "打开格式页不会计数；完成实际复习后，点击页面上的手动确认按钮。",
+    method: "不看答案说出标题/称呼、三段职责、结束语和署名，再手动确认完成。"
+  });
+  Object.assign(PLAN_ACTIVITY_META.mistakes, {
+    description: "打开错词本不会计数；实际回看并处理后，点击页面上的手动确认按钮。",
+    method: "优先处理连续错2次以上、介词错误和熟词新义，再手动确认完成。"
+  });
+  Object.assign(PLAN_ACTIVITY_META.marks, {
+    description: "打开标记页不会计数；实际整理标记后，点击页面上的手动确认按钮。",
+    method: "重点回看作文可用、重点背诵和易混淆，整理完成后手动确认。"
+  });
+
+  const v28BaseRenderSmallFunctions = renderSmallFunctions;
+  renderSmallFunctions = function() {
+    const done = planActivityCount(localDateKey(), "smallFormat") >= 1;
+    const card = `<div class="card manual-plan-action-card" style="margin-bottom:16px;">
+      <div><h3 class="section-title" style="margin-bottom:5px;">手动确认：复习小作文格式</h3><div class="muted">打开本页不会自动计数。实际完成格式复习后，再点击确认。</div></div>
+      <div class="button-row"><button class="primary-btn" data-manual-plan-activity="smallFormat">确认今天已复习</button><button class="ghost-btn" data-manual-plan-clear="smallFormat">取消今天记录</button><span class="manual-plan-status ${done ? "done" : ""}" data-manual-plan-status="smallFormat">${done ? "今天已手动确认" : "今天尚未确认"}</span></div>
+    </div>`;
+    return `<div>${card}${v28BaseRenderSmallFunctions().replace(/^<div>/, "").replace(/<\/div>$/, "")}</div>`;
+  };
+
+  setSmallTab = function(tab) {
+    currentSmallTab = tab;
+    document.querySelectorAll('[data-small-tab]').forEach(button => button.classList.toggle('active', button.dataset.smallTab === tab));
+    renderSmallEssay();
+  };
+
+  switchView = function(viewName) {
+    currentView = viewName;
+    Object.entries(views).forEach(([name, element]) => element.classList.toggle("active", name === viewName));
+    document.querySelectorAll(".nav-btn").forEach(button => button.classList.toggle("active", button.dataset.view === viewName));
+    const titles = {
+      dashboard: "学习首页", studyPlan: "学习计划", review: "今日学习", quiz: "选择题训练",
+      bigEssay: "大作文训练", smallEssay: "小作文", search: "全局搜索", myMarks: "我的标记",
+      marks: "标记管理", library: "词组库", mistakes: "错词本", stats: "数据统计",
+      account: "账号与云同步", settings: "设置"
+    };
+    $("pageTitle").textContent = titles[viewName];
+    if (viewName === "dashboard") renderDashboard();
+    if (viewName === "studyPlan") renderStudyPlanView();
+    if (viewName === "review") showReviewLanding();
+    if (viewName === "quiz") renderQuizSetup();
+    if (viewName === "bigEssay") renderBigEssay();
+    if (viewName === "search") renderGlobalSearch();
+    if (viewName === "myMarks") renderMyMarks();
+    if (viewName === "marks") renderMarkManager();
+    if (viewName === "library") renderLibrary();
+    if (viewName === "mistakes") renderMistakes();
+    if (viewName === "stats") renderStats();
+    if (viewName === "account") renderAccount();
+    if (viewName === "settings") renderSettings();
+    refreshManualPlanActionButtons();
+  };
+
+  document.addEventListener("click", event => {
+    const memoryButton = event.target.closest("[data-essay-memory-action]");
+    if (memoryButton) {
+      v28SaveMemoryField(
+        memoryButton.dataset.scope,
+        memoryButton.dataset.kind,
+        memoryButton.dataset.id,
+        memoryButton.dataset.essayMemoryAction === "save-final" ? "final" : "alternatives"
+      );
+      return;
+    }
+    const completeButton = event.target.closest("[data-manual-plan-activity]");
+    if (completeButton) {
+      v28SetManualPlanActivity(completeButton.dataset.manualPlanActivity, true);
+      return;
+    }
+    const clearButton = event.target.closest("[data-manual-plan-clear]");
+    if (clearButton) v28SetManualPlanActivity(clearButton.dataset.manualPlanClear, false);
+  });
+
+  refreshManualPlanActionButtons();
+
+
   /* SMALL_ESSAY_MODULE_EMBEDDED_V15 */
   try {
     smallEssayData = SMALL_ESSAY_EMBEDDED_DATA;
@@ -12386,6 +13119,7 @@ function bindSmallModule(){
   }
 
 
+  window.__KAOYAN_BUILD__ = "V28-manual-checkin-writing-history-2026-08-04";
   init();
 })();
 </script>

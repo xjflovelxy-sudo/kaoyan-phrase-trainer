@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="V28" />
+  <meta name="application-name" content="V29" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="V28" />
+  <meta name="apple-mobile-web-app-title" content="V29" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V28 手动打卡与作文历史版</title>
+  <title>V29 精简手动勾选版</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -4080,6 +4080,34 @@
       }
     }
 
+    .compact-removed { display: none !important; }
+    #dashboardView .auto-plan-summary,
+    #dashboardView .plan-dual-summary,
+    #dashboardView .unit-rule-note,
+    #dashboardView .plan-auto-note { display:none !important; }
+    .hub-head { margin-bottom:16px; }
+    .hub-head h3 { margin:0 0 6px; font-size:24px; color:#1f2b43; }
+    .hub-head p { margin:0; color:#6b7589; line-height:1.7; }
+    .hub-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .hub-grid-two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .hub-card { border:1px solid #dce4f2; border-radius:18px; background:#fff; padding:20px; text-align:left; cursor:pointer; box-shadow:0 8px 24px rgba(54,78,126,.07); transition:.18s ease; }
+    .hub-card:hover { transform:translateY(-2px); border-color:#9fb3ee; }
+    .hub-card strong { display:block; font-size:18px; color:#20304e; margin-bottom:7px; }
+    .hub-card span { display:block; color:#69758a; line-height:1.7; }
+    .manual-task-target-row { display:grid; grid-template-columns:1fr 92px auto; align-items:center; gap:10px; padding:12px 14px; margin:12px 0; border:1px solid #dce4f2; border-radius:14px; background:#f8faff; }
+    .manual-task-target-row strong,.manual-task-target-row span { display:block; }
+    .manual-task-target-row span { font-size:12px; color:#6d788c; margin-top:3px; }
+    .manual-task-target-row input { width:100%; min-height:40px; border:1px solid #ccd7ea; border-radius:10px; padding:0 10px; font-size:16px; }
+    .task-manual-actions { display:flex; flex-direction:column; gap:8px; align-items:stretch; min-width:104px; }
+    .task-check-btn { border:1px solid #aebbd1; background:#fff; color:#34415a; border-radius:10px; min-height:38px; padding:8px 11px; cursor:pointer; font-weight:700; white-space:nowrap; }
+    .task-check-btn.checked { background:#e1f4e8; color:#19713e; border-color:#79ba91; }
+    .task-check-btn .box { display:inline-flex; width:18px; height:18px; align-items:center; justify-content:center; margin-right:6px; border:1.5px solid currentColor; border-radius:5px; vertical-align:-3px; }
+    .auto-plan-task.manual-done,.plan-detail-task.manual-done { background:#f1faf4; border-color:#9bc9aa; }
+    .auto-plan-task.manual-done .auto-plan-check,.plan-detail-task.manual-done .plan-detail-icon { background:#dff3e6; color:#19713e; }
+
+    @media (max-width: 980px) { nav { grid-template-columns:repeat(5,minmax(68px,1fr)); overflow-x:visible; } .nav-btn { padding:12px 8px; } }
+    @media(max-width:700px){.hub-grid,.hub-grid-two{grid-template-columns:1fr}.manual-task-target-row{grid-template-columns:1fr 78px}.manual-task-target-row button{grid-column:1/-1}.task-manual-actions{min-width:0;flex-direction:row;grid-column:1/-1}.task-manual-actions>*{flex:1}}
+
   </style>
 
 <style id="v28-writing-history-styles">
@@ -4230,29 +4258,17 @@
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>V28</h1>
-      <p>六年真题补全 · 大题库选择题 · 自定义标记</p>
+      <h1>V29</h1>
+      <p>精简导航 · 任务手动勾选 · 作文历史</p>
     </div>
     <nav>
       <button class="nav-btn active" data-view="dashboard">首页</button>
-      <button class="nav-btn" data-view="studyPlan">学习计划</button>
-      <button class="nav-btn" data-view="review">今日学习</button>
-      <button class="nav-btn" data-view="quiz">选择题训练</button>
-      <button class="nav-btn" data-view="bigEssay">大作文</button>
-      <button class="nav-btn" data-view="smallEssay">小作文</button>
-      <button class="nav-btn" data-view="search">全局搜索</button>
-      <button class="nav-btn" data-view="myMarks">我的标记</button>
-      <button class="nav-btn" data-view="marks">标记管理</button>
-      <button class="nav-btn" data-view="library">词组库</button>
-      <button class="nav-btn" data-view="mistakes">错词本</button>
-      <button class="nav-btn" data-view="stats">数据统计</button>
-      <button class="nav-btn" data-view="account">账号同步</button>
-      <button class="nav-btn" data-view="settings">设置</button>
+      <button class="nav-btn" data-view="learningHub">学习</button>
+      <button class="nav-btn" data-view="reviewHub">复习</button>
+      <button class="nav-btn" data-view="writingHub">作文</button>
+      <button class="nav-btn" data-view="settingsHub">设置</button>
     </nav>
-    <div class="aside-note">
-      学习顺序建议：<br>
-      先复习到期词组，再做一组选择题，最后回看真题语境。
-    </div>
+    <div class="aside-note">任务进度自动记录；是否完成只由你手动勾选。</div>
   </aside>
 
   <main>
@@ -4283,10 +4299,10 @@
         <div class="auto-plan-head">
           <div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
-              <h3 class="section-title" style="margin:0;">今天按顺序完成</h3>
+              <h3 class="section-title" style="margin:0;">今日任务 · 手动勾选</h3>
               <span class="auto-plan-phase" id="todayPlanPhase">基础积累期</span>
             </div>
-            <div class="auto-plan-meta" id="todayPlanMeta">词组、选择题和作文按实际完成数量自动统计计划进度，但不会自动打卡。</div>
+            <div class="auto-plan-meta" id="todayPlanMeta">实际学习进度继续自动记录，但任务不会自动打勾。</div>
           </div>
           <span class="checkin-status" id="todayAutoPlanStatus">0/0项</span>
         </div>
@@ -4296,7 +4312,7 @@
           <div><strong id="todayPlanMinutes">0</strong><span>预计分钟</span></div>
           <div><strong id="todayPlanPercent">0%</strong><span>今日完成度</span></div>
         </div>
-        <div class="plan-section-heading">今日学习 / 今日复习 <span>先区分学习与复习，再按实际完成自动统计</span></div>
+        <div class="plan-section-heading">今日学习 / 今日复习 <span>实际进度自动记录，完成状态手动勾选</span></div>
         <div class="plan-dual-summary" id="todayPlanDualSummary">
           <div class="plan-dual-card plan-dual-card-learn">
             <div class="plan-dual-label">今日学习</div>
@@ -4309,6 +4325,11 @@
             <span id="todayReviewSub">约0分钟</span>
           </div>
         </div>
+        <div class="manual-task-target-row">
+          <div><strong>今天需要勾选</strong><span>达到该数量后，今天才算打卡完成</span></div>
+          <input id="todayManualTaskTargetInput" type="number" min="1" max="99" value="1" />
+          <button class="secondary-btn" id="saveTodayManualTaskTargetBtn">保存数量</button>
+        </div>
         <div class="auto-plan-scrollbox">
           <div class="auto-plan-list" id="todayAutoPlanTasks"></div>
         </div>
@@ -4317,11 +4338,11 @@
           <div id="todayBonusTasks"></div>
         </div>
         <div class="unit-rule-note"><strong>作文计数规则：</strong>首遍完全正确会直接计入；首遍有错时，必须手动修改并再次批改才计入1个完整句子单位。直接点击“应用修正版”不计入。</div>
-        <div class="plan-auto-note">浅绿色表示核心任务完成；深绿色表示核心任务和90分钟加练全部完成。这里仅自动统计学习进度，不会计入手动打卡。</div>
+        <div class="plan-auto-note">浅绿色表示核心任务完成；深绿色表示核心任务和90分钟加练全部完成。学习进度只作参考；是否完成由你手动勾选。</div>
         <div class="button-row" style="margin-top:12px;"><button class="secondary-btn" id="openStudyPlanBtn">打开月历查看完整计划</button></div>
       </div>
 
-      <div class="card coverage-dashboard-card">
+      <div class="card coverage-dashboard-card compact-removed">
         <div class="coverage-head">
           <div>
             <h3 class="section-title" style="margin-bottom:5px;">全库覆盖</h3>
@@ -4357,7 +4378,7 @@
         </div>
       </div>
 
-      <div class="checkin-card">
+      <div class="checkin-card compact-removed">
         <div class="countdown-box">
           <div class="countdown-label">考研初试倒计时</div>
           <div>
@@ -4458,7 +4479,7 @@
         </div>
       </div>
 
-      <div class="card" style="margin-bottom:16px;">
+      <div class="card compact-removed" style="margin-bottom:16px;">
         <div class="checkin-head">
           <div>
             <h3 class="section-title" style="margin-bottom:5px;">完整计划完成日历</h3>
@@ -4506,7 +4527,7 @@
         <div class="full-checkin-calendar" id="fullCheckinCalendar"></div>
       </div>
 
-      <div class="grid stats-grid">
+      <div class="grid stats-grid compact-removed">
         <div class="card metric">
           <div class="label">当前待复习</div>
           <div class="value" id="dueMetric">0</div>
@@ -4555,6 +4576,44 @@
     </section>
 
 
+
+
+    <section class="view" id="learningHubView">
+      <div class="hub-head"><h3>学习</h3><p>常用学习功能集中在这里，入口全部直接显示。</p></div>
+      <div class="hub-grid">
+        <button class="hub-card" data-open-view="review"><strong>今日学习</strong><span>新词、到期复习和继续上次进度</span></button>
+        <button class="hub-card" data-open-view="quiz"><strong>选择题训练</strong><span>真题词组选择题与错题重做</span></button>
+        <button class="hub-card" data-open-view="library"><strong>词组库</strong><span>浏览、筛选和编辑全部词组</span></button>
+        <button class="hub-card" data-open-view="studyPlan"><strong>学习计划</strong><span>日历、每日任务和手动勾选</span></button>
+      </div>
+    </section>
+
+    <section class="view" id="reviewHubView">
+      <div class="hub-head"><h3>复习中心</h3><p>错题、标记和搜索合并到一个入口页。</p></div>
+      <div class="hub-grid">
+        <button class="hub-card" data-open-view="mistakes"><strong>错词本</strong><span>查看错误次数多和需要复习的词组</span></button>
+        <button class="hub-card" data-open-view="myMarks"><strong>我的标记</strong><span>查看已经标记的词组与备注</span></button>
+        <button class="hub-card" data-open-view="search"><strong>全局搜索</strong><span>搜索英文、中文、年份和标记</span></button>
+        <button class="hub-card" data-open-view="marks"><strong>管理标记</strong><span>创建、修改和整理标记名称</span></button>
+      </div>
+    </section>
+
+    <section class="view" id="writingHubView">
+      <div class="hub-head"><h3>作文</h3><p>大作文、小作文和历史记录集中在这里。</p></div>
+      <div class="hub-grid hub-grid-two">
+        <button class="hub-card" data-open-view="bigEssay"><strong>大作文</strong><span>逐句写译、句子仿写、整篇练习和历史对照</span></button>
+        <button class="hub-card" data-open-view="smallEssay"><strong>小作文</strong><span>格式、逐句写译、句子仿写和历史对照</span></button>
+      </div>
+    </section>
+
+    <section class="view" id="settingsHubView">
+      <div class="hub-head"><h3>设置与数据</h3><p>设置、统计和同步集中管理。</p></div>
+      <div class="hub-grid">
+        <button class="hub-card" data-open-view="settings"><strong>学习设置</strong><span>每日数量、考试日期、导入导出和离线设置</span></button>
+        <button class="hub-card" data-open-view="stats"><strong>数据统计</strong><span>学习进度、正确率和覆盖情况</span></button>
+        <button class="hub-card" data-open-view="account"><strong>账号同步</strong><span>登录、云同步和同步状态</span></button>
+      </div>
+    </section>
 
     <section class="view" id="studyPlanView">
       <div class="card calendar-plan-hero">
@@ -4624,7 +4683,7 @@
             </div>
           </div>
           <div class="plan-day-detail-body">
-            <div class="plan-section-heading">当日学习 / 当日复习 <span>浅绿色表示核心完成</span></div>
+            <div class="plan-section-heading">当日学习 / 当日复习 <span>浅绿色表示已手动勾选</span></div>
             <div class="auto-plan-scrollbox auto-plan-scrollbox-detail">
               <div class="auto-plan-list" id="selectedPlanTasks" style="display:block;margin-top:0;"></div>
             </div>
@@ -4651,7 +4710,7 @@
       <div class="card" style="margin-top:16px;">
         <h3 class="section-title">四个阶段</h3>
         <div class="muted" style="line-height:1.75;">
-          计划任务仍会根据日期自动切换强度；任务进度会自动统计，但不会再自动替你打卡。
+          计划会按日期自动调整，实际进度自动统计；每项是否完成必须由你手动勾选。
         </div>
         <div class="phase-timeline-v17" id="studyPhaseTimeline"></div>
       </div>
@@ -4932,18 +4991,6 @@
 
 
     <section class="view" id="myMarksView">
-      <div class="card manual-plan-action-card" style="margin-bottom:16px;">
-        <div>
-          <h3 class="section-title" style="margin-bottom:5px;">手动确认：整理我的标记</h3>
-          <div class="muted">打开本页不会自动计数。完成实际整理后，再点击“确认完成”。</div>
-        </div>
-        <div class="button-row">
-          <button class="primary-btn" data-manual-plan-activity="marks">确认今天已整理</button>
-          <button class="ghost-btn" data-manual-plan-clear="marks">取消今天记录</button>
-          <span class="manual-plan-status" data-manual-plan-status="marks">今天尚未确认</span>
-        </div>
-      </div>
-
       <div class="grid marked-summary-grid">
         <div class="card metric">
           <div class="label">已标记词组</div>
@@ -4997,18 +5044,6 @@
     </section>
 
     <section class="view" id="marksView">
-      <div class="card manual-plan-action-card" style="margin-bottom:16px;">
-        <div>
-          <h3 class="section-title" style="margin-bottom:5px;">手动确认：整理我的标记</h3>
-          <div class="muted">打开本页不会自动计数。完成实际整理后，再点击“确认完成”。</div>
-        </div>
-        <div class="button-row">
-          <button class="primary-btn" data-manual-plan-activity="marks">确认今天已整理</button>
-          <button class="ghost-btn" data-manual-plan-clear="marks">取消今天记录</button>
-          <span class="manual-plan-status" data-manual-plan-status="marks">今天尚未确认</span>
-        </div>
-      </div>
-
       <div class="card">
         <h3 class="section-title">自定义标记与分组</h3>
         <div class="muted" style="line-height:1.9;">
@@ -5079,18 +5114,6 @@
     </section>
 
     <section class="view" id="mistakesView">
-      <div class="card manual-plan-action-card" style="margin-bottom:16px;">
-        <div>
-          <h3 class="section-title" style="margin-bottom:5px;">手动确认：回看错词本</h3>
-          <div class="muted">打开本页不会自动计数。实际回看并处理错词后，再点击“确认完成”。</div>
-        </div>
-        <div class="button-row">
-          <button class="primary-btn" data-manual-plan-activity="mistakes">确认今天已回看</button>
-          <button class="ghost-btn" data-manual-plan-clear="mistakes">取消今天记录</button>
-          <span class="manual-plan-status" data-manual-plan-status="mistakes">今天尚未确认</span>
-        </div>
-      </div>
-
       <div class="toolbar">
         <input id="mistakeSearch" placeholder="搜索错词" />
         <select id="mistakeYear"><option value="all">全部年份</option></select>
@@ -5245,7 +5268,7 @@
             <input id="checkinStartDateInput" type="date" value="2026-07-30" />
           </div>
           <div class="field">
-            <label>新日期默认达标标准（不会自动打卡）</label>
+            <label>每日需要手动勾选的任务数</label>
             <input id="manualCheckinTargetSettingInput" type="number" min="1" max="999" value="1" />
           </div>
         </div>
@@ -5619,6 +5642,10 @@
   const $ = (id) => document.getElementById(id);
   const views = {
     dashboard: $("dashboardView"),
+    learningHub: $("learningHubView"),
+    reviewHub: $("reviewHubView"),
+    writingHub: $("writingHubView"),
+    settingsHub: $("settingsHubView"),
     studyPlan: $("studyPlanView"),
     review: $("reviewView"),
     quiz: $("quizView"),
@@ -6166,7 +6193,7 @@
       const load=todayDueLoad();
       const supplementAlreadyStarted=planActivityCount(localDateKey(),"supplementReview")>0;
       if((load===0&&planActivityCount(localDateKey(),"review")===0)||supplementAlreadyStarted){
-        reviewNotice="今天没有到期词组。这只表示当前没有到期内容，不代表你已经复习过。今天的词组核心任务已替换为实际完成“错词／重点词补充练习”；学习任务进度会单独统计，但不会计入手动打卡。";
+        reviewNotice="今天没有到期词组。这只表示当前没有到期内容，不代表你已经复习过。今天的词组核心任务已替换为实际完成“错词／重点词补充练习”；实际学习进度会单独统计，但不会自动勾选任务。";
         add("supplementReview",baseReviewTarget(phase.id,weekday));
       }else{
         if(load<reviewTarget)reviewTarget=load;
@@ -6235,8 +6262,25 @@
     const count=planActivityCount(dateKey,task.activity);
     return task.target>0&&count>=task.target;
   }
-  function refreshPlanTaskCompletions(dateKey=localDateKey()){if(!state.planTaskCompletions||typeof state.planTaskCompletions!=="object")state.planTaskCompletions={};if(!state.planTaskCompletions[dateKey])state.planTaskCompletions[dateKey]={};const plan=studyPlanForDate(dateKey);let changed=false;plan.tasks.forEach(task=>{if(!state.planTaskCompletions[dateKey][task.id]&&planTaskConditionMet(dateKey,task)){state.planTaskCompletions[dateKey][task.id]=true;changed=true}});return changed}
-  function planTaskDone(dateKey,task){return Boolean(state.planTaskCompletions?.[dateKey]?.[task.id])||planTaskConditionMet(dateKey,task)}
+  function refreshPlanTaskCompletions(dateKey=localDateKey()){
+    if(!state.manualTaskChecks||typeof state.manualTaskChecks!=="object")state.manualTaskChecks={};
+    if(!state.manualTaskChecks[dateKey]||typeof state.manualTaskChecks[dateKey]!=="object")state.manualTaskChecks[dateKey]={};
+    return false;
+  }
+  function planTaskDone(dateKey,task){return Boolean(state.manualTaskChecks?.[dateKey]?.[task.id])}
+  function togglePlanTaskCompletion(dateKey,taskId){
+    const plan=studyPlanForDate(dateKey),task=plan.tasks.find(item=>item.id===taskId);if(!task)return;
+    refreshPlanTaskCompletions(dateKey);
+    const bucket=state.manualTaskChecks[dateKey];
+    if(bucket[taskId]) delete bucket[taskId]; else bucket[taskId]=true;
+    if(!state.manualCheckins||typeof state.manualCheckins!=="object")state.manualCheckins={};
+    const fallback=Math.max(1,Math.floor(Number(state.settings?.manualCheckinTarget)||1));
+    state.manualCheckins[dateKey]={...(state.manualCheckins[dateKey]||{}),target:Math.min(Math.max(1,fallback),Math.max(1,plan.tasks.length)),updatedAt:new Date().toISOString()};
+    saveState();
+    if(currentView==="dashboard")renderDashboard();
+    else if(currentView==="studyPlan")renderStudyPlanView();
+    showToast(bucket[taskId]?"已手动勾选完成":"已取消手动勾选");
+  }
 
   function writingActivityTotals(dateKey){
     const big=["bigSentence","bigImitation","bigPattern","bigParagraph","bigWhole","bigDictation"].reduce((s,a)=>s+planActivityCount(dateKey,a),0);
@@ -6256,7 +6300,7 @@
 
   function planDayStatus(value){const date=value instanceof Date?new Date(value):dateFromKey(value),key=localDateKey(date),plan=studyPlanForDate(date),done=plan.tasks.filter(t=>planTaskDone(key,t)).length,coreComplete=plan.tasks.length>0&&done===plan.tasks.length,bonus=bonusTasksForDate(date),bonusDone=bonus.filter(t=>t.done).length,fullComplete=coreComplete&&bonusDone===bonus.length;return{key,plan,done,total:plan.tasks.length,complete:coreComplete,coreComplete,bonus,bonusDone,bonusTotal:bonus.length,fullComplete,percent:plan.tasks.length?Math.round(done/plan.tasks.length*100):0,overallPercent:Math.round((done+bonusDone)/(plan.tasks.length+bonus.length)*100)}}
 
-  function recordPlanActivity(activity,amount=1,saveNow=false){const key=localDateKey();if(!state.planActivities||typeof state.planActivities!=="object")state.planActivities={};if(!state.planActivities[key])state.planActivities[key]={};const visits=new Set(["smallFormat","mistakes","marks"]),old=Math.max(0,Number(state.planActivities[key][activity])||0);state.planActivities[key][activity]=visits.has(activity)?Math.max(1,old):old+Math.max(0,Number(amount)||0);refreshPlanTaskCompletions(key);if(saveNow){saveState();if(currentView==="dashboard")renderDashboard();if(currentView==="studyPlan")renderStudyPlanView()}}
+  function recordPlanActivity(activity,amount=1,saveNow=false){const key=localDateKey();if(!state.planActivities||typeof state.planActivities!=="object")state.planActivities={};if(!state.planActivities[key])state.planActivities[key]={};const old=Math.max(0,Number(state.planActivities[key][activity])||0);state.planActivities[key][activity]=old+Math.max(0,Number(amount)||0);if(saveNow){saveState();if(currentView==="dashboard")renderDashboard();if(currentView==="studyPlan")renderStudyPlanView()}}
   function planActivityForBigWriting(kind){return({study:"bigSentence",sentence300:"bigImitation",inline:"bigImitation",pattern:"bigPattern",paragraph:"bigParagraph",whole:"bigWhole",dictation:"bigDictation"})[kind]||""}
   function planActivityForSmallWriting(kind){return({study:"smallSentence",original:"smallSentence",imitation:"smallImitation",whole:"smallWhole",dictation:"smallDictation",function:"smallFunction"})[kind]||""}
   function planTaskButton(task){return`<button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button>`}
@@ -6269,9 +6313,12 @@
   }
 
   function taskCardHtml(task,status,isToday,showActions,detailMode){
-    const count=planActivityCount(status.key,task.activity),done=planTaskDone(status.key,task),shown=Math.min(count,task.target),pct=done?100:Math.min(100,Math.round(shown/Math.max(1,task.target)*100));
-    if(detailMode)return`<div class="plan-detail-task ${done?"done":""}"><span class="plan-detail-icon">${done?"✓":escapeHtml(task.icon)}</span><div><div class="plan-detail-title-row"><div class="plan-detail-title">${escapeHtml(task.displayLabel)}</div><span class="plan-detail-time">${task.minutes}分钟</span></div><div class="plan-detail-method">${escapeHtml(task.method)}</div><div class="plan-detail-progress-row"><div class="plan-detail-progress"><span style="width:${pct}%"></span></div><div class="plan-detail-value">${done?"已完成":`${shown}/${task.target}${task.unit}`}</div></div>${showActions&&isToday&&!done?`<div class="plan-detail-actions">${planTaskButton(task)}</div>`:""}</div></div>`;
-    return`<div class="auto-plan-task ${done?"done":""}"><span class="auto-plan-check">${done?"✓":escapeHtml(task.icon)}</span><div><div class="auto-plan-task-title">${escapeHtml(task.displayLabel)}</div><div class="auto-plan-task-sub">${escapeHtml(task.description)}</div><div class="auto-plan-task-progress"><span style="width:${pct}%"></span></div><div class="auto-plan-task-value">${done?"进度已完成":`${shown}/${task.target}${task.unit} · 约${task.minutes}分钟`}</div></div>${showActions&&isToday&&!done?planTaskButton(task):""}</div>`;
+    const count=planActivityCount(status.key,task.activity),done=planTaskDone(status.key,task),shown=Math.min(count,task.target),pct=Math.min(100,Math.round(shown/Math.max(1,task.target)*100));
+    const go=isToday?planTaskButton(task):"";
+    const check=`<button class="task-check-btn ${done?"checked":""}" data-plan-check-date="${escapeHtml(status.key)}" data-plan-check-task="${escapeHtml(task.id)}"><span class="box">${done?"✓":""}</span>${done?"已手动完成":"手动完成"}</button>`;
+    const actions=showActions?`<div class="task-manual-actions">${go}${check}</div>`:"";
+    if(detailMode)return`<div class="plan-detail-task ${done?"done manual-done":""}"><span class="plan-detail-icon">${done?"✓":escapeHtml(task.icon)}</span><div><div class="plan-detail-title-row"><div class="plan-detail-title">${escapeHtml(task.displayLabel)}</div><span class="plan-detail-time">${task.minutes}分钟</span></div><div class="plan-detail-method">${escapeHtml(task.method)}</div><div class="plan-detail-progress-row"><div class="plan-detail-progress"><span style="width:${pct}%"></span></div><div class="plan-detail-value">实际进度 ${shown}/${task.target}${task.unit}</div></div></div>${actions}</div>`;
+    return`<div class="auto-plan-task ${done?"done manual-done":""}"><span class="auto-plan-check">${done?"✓":escapeHtml(task.icon)}</span><div><div class="auto-plan-task-title">${escapeHtml(task.displayLabel)}</div><div class="auto-plan-task-sub">${escapeHtml(task.description)}</div><div class="auto-plan-task-progress"><span style="width:${pct}%"></span></div><div class="auto-plan-task-value">实际进度 ${shown}/${task.target}${task.unit} · 约${task.minutes}分钟</div></div>${actions}</div>`;
   }
 
   function planBucketStats(status,bucket){
@@ -6310,13 +6357,13 @@
 
   function renderStudyPlanCalendar(){const grid=$("planCalendarGrid");if(!grid)return;const y=studyPlanCalendarCursor.getFullYear(),m=studyPlanCalendarCursor.getMonth(),first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),start=planStartDate(),end=planEndDate(),todayKey=localDateKey(),today=dateFromKey(todayKey);$("planCalendarMonthTitle").textContent=`${y}年${m+1}月`;const dates=[];for(let d=1;d<=days;d++){const x=new Date(y,m,d);if(x>=start&&x<=end)dates.push(x)}const core=dates.filter(d=>planDayStatus(d).coreComplete).length,full=dates.filter(d=>planDayStatus(d).fullComplete).length;$("planCalendarMonthSummary").textContent=`本月核心完成${core}天 · 90分钟完成${full}天`;const cells=[];for(let b=0;b<first.getDay();b++)cells.push('<span class="plan-calendar-cell blank"></span>');for(let d=1;d<=days;d++){const date=new Date(y,m,d),key=localDateKey(date),inPlan=date>=start&&date<=end;if(!inPlan){cells.push(`<span class="plan-calendar-cell outside-plan"><div class="calendar-cell-head"><span class="calendar-cell-date">${d}</span></div></span>`);continue}const st=planDayStatus(date),isToday=key===todayKey,isSelected=key===selectedStudyPlanDateKey,isPast=date<today,classes=["plan-calendar-cell",isToday?"today":"",isSelected?"selected":"",st.coreComplete?"core-complete":"",st.fullComplete?"full-complete":"",isPast&&!st.coreComplete?"missed":""].filter(Boolean).join(" "),stateText=st.fullComplete?"90分钟":st.coreComplete?"核心完成":isToday?`${st.done}/${st.total}`:isPast?"未完成":`${st.total}项`,badges=planCalendarBadges(st).map(i=>`<span class="calendar-mini-badge ${i.key} ${i.done?"done":""}"><span>${escapeHtml(i.label)}</span><b>${escapeHtml(i.text)}</b></span>`).join("");cells.push(`<button class="${classes}" data-plan-date="${escapeHtml(key)}"><div class="calendar-cell-head"><span class="calendar-cell-date">${d}</span><span class="calendar-cell-state">${escapeHtml(stateText)}</span></div><div class="calendar-cell-focus">大：${escapeHtml(st.plan.focus.big.title)}<br>小：${escapeHtml(st.plan.focus.small.title)}</div><div class="calendar-mini-badges">${badges}</div><div class="calendar-cell-progress"><span style="width:${st.overallPercent}%"></span></div></button>`)}grid.innerHTML=cells.join("");const sm=new Date(start.getFullYear(),start.getMonth(),1),em=new Date(end.getFullYear(),end.getMonth(),1);$("planPrevMonthBtn").disabled=studyPlanCalendarCursor<=sm;$("planNextMonthBtn").disabled=studyPlanCalendarCursor>=em}
 
-  function renderSelectedPlanDay(){const date=dateFromKey(selectedStudyPlanDateKey),st=planDayStatus(date),weeks=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],isToday=st.key===localDateKey();$("selectedPlanDate").textContent=`${date.getMonth()+1}月${date.getDate()}日 · ${weeks[date.getDay()]}`;$("selectedPlanPhase").textContent=`${st.plan.phase.name} · 目标90分钟`;$("selectedPlanStatus").textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;$("selectedPlanStatus").classList.toggle("done",st.coreComplete);$("selectedPlanFocus").innerHTML=`<strong>本周大作文：</strong>${escapeHtml(st.plan.focus.big.title)}<br><strong>本周小作文：</strong>${escapeHtml(st.plan.focus.small.title)}（${escapeHtml(st.plan.focus.small.type)}）<br><span>建议顺序：到期词组或重点词补充 → 选择题 → 新词 → 大作文 → 小作文 → 90分钟加练。</span>`;renderPlanTaskList("selectedPlanTasks",date,isToday,true);renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday)}
+  function renderSelectedPlanDay(){const date=dateFromKey(selectedStudyPlanDateKey),st=planDayStatus(date),weeks=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],isToday=st.key===localDateKey();$("selectedPlanDate").textContent=`${date.getMonth()+1}月${date.getDate()}日 · ${weeks[date.getDay()]}`;$("selectedPlanPhase").textContent=`${st.plan.phase.name} · 目标90分钟`;$("selectedPlanStatus").textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;$("selectedPlanStatus").classList.toggle("done",st.coreComplete);$("selectedPlanFocus").innerHTML=`<strong>本周大作文：</strong>${escapeHtml(st.plan.focus.big.title)}<br><strong>本周小作文：</strong>${escapeHtml(st.plan.focus.small.title)}（${escapeHtml(st.plan.focus.small.type)}）<br><span>建议顺序：到期词组或重点词补充 → 选择题 → 新词 → 大作文 → 小作文 → 90分钟加练。</span>`;renderPlanTaskList("selectedPlanTasks",date,true,true);renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday)}
 
   function renderStudyWeekBlueprint(){const selected=dateFromKey(selectedStudyPlanDateKey),monday=mondayOfWeek(selected),focus=focusForPlanDate(selected),names=["周一","周二","周三","周四","周五","周六","周日"],todayKey=localDateKey();$("studyWeekFocus").innerHTML=`第${focus.weekIndex+1}周 · 大作文重点：<strong>${escapeHtml(focus.big.title)}</strong>；小作文重点：<strong>${escapeHtml(focus.small.title)}</strong>。普通工作日约10—12个作文单位，周六综合输出，周日复盘。`;const arr=[];for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const p=studyPlanForDate(d),writing=p.tasks.filter(t=>["big","small","review"].includes(t.category)).map(t=>t.displayLabel.replace(` · ${t.focus}`,"")).join("＋")||"词组复习";arr.push(`<div class="week-blueprint-day ${localDateKey(d)===todayKey?"today":""}"><strong>${names[i]} · ${d.getMonth()+1}/${d.getDate()}</strong><span>${escapeHtml(writing)}</span></div>`)}$("studyWeekBlueprint").innerHTML=arr.join("")}
 
-  function renderTodayAutoPlan(){const changed=refreshPlanTaskCompletions();if(changed)saveState();const st=planDayStatus(new Date()),learn=planBucketStats(st,"learn"),review=planBucketStats(st,"review"),actual=todayLearningModeStats();$("todayPlanPhase").textContent=st.plan.phase.name;$("todayPlanMeta").textContent=`本周大作文：${st.plan.focus.big.title}；小作文：${st.plan.focus.small.title}。系统会按日期和覆盖进度调整任务量，但不会自动打卡。`;$("todayPlanDoneCount").textContent=st.done;$("todayPlanTaskCount").textContent=st.total;$("todayPlanMinutes").textContent=90;$("todayPlanPercent").textContent=`${st.overallPercent}%`;$("todayLearnHeadline").textContent=`${actual.learning}项`;$("todayLearnSub").textContent=`真正首次接触 · 计划${learn.done}/${learn.total}项`;$("todayReviewHeadline").textContent=`${actual.review}项`;$("todayReviewSub").textContent=`已经学过后再次巩固 · 计划${review.done}/${review.total}项`;const badge=$("todayAutoPlanStatus");badge.textContent=st.fullComplete?"90分钟全部完成":st.coreComplete?`核心完成 · 加练${st.bonusDone}/${st.bonusTotal}`:`核心${st.done}/${st.total}`;badge.classList.toggle("done",st.coreComplete);badge.classList.toggle("auto-plan-status-core",st.coreComplete&&!st.fullComplete);badge.classList.toggle("auto-plan-status-full",st.fullComplete);renderPlanTaskList("todayAutoPlanTasks",new Date(),true,false);renderBonusTaskList("todayBonusTasks","todayBonusPanel","todayBonusStatus",new Date(),true)}
+  function renderTodayAutoPlan(){refreshPlanTaskCompletions();const st=planDayStatus(new Date()),manual=manualCheckinRecord(new Date()),learn=planBucketStats(st,"learn"),review=planBucketStats(st,"review"),actual=todayLearningModeStats();$("todayPlanPhase").textContent=st.plan.phase.name;$("todayPlanMeta").textContent=`本周大作文：${st.plan.focus.big.title}；小作文：${st.plan.focus.small.title}。实际进度自动记录，完成状态只认手动勾选。`;$("todayPlanDoneCount").textContent=manual.count;$("todayPlanTaskCount").textContent=st.total;$("todayPlanMinutes").textContent=90;$("todayPlanPercent").textContent=`${manual.percent}%`;$("todayLearnHeadline").textContent=`${actual.learning}项`;$("todayLearnSub").textContent=`真正首次接触 · 已手动勾选${learn.done}/${learn.total}项`;$("todayReviewHeadline").textContent=`${actual.review}项`;$("todayReviewSub").textContent=`已经学过后再次巩固 · 已手动勾选${review.done}/${review.total}项`;const badge=$("todayAutoPlanStatus");badge.textContent=manual.complete?`已达标 ${manual.count}/${manual.target}`:`已勾选 ${manual.count}/${manual.target}`;badge.classList.toggle("done",manual.complete);badge.classList.toggle("auto-plan-status-core",manual.complete);badge.classList.remove("auto-plan-status-full");if($("todayManualTaskTargetInput"))$("todayManualTaskTargetInput").value=manual.target;renderPlanTaskList("todayAutoPlanTasks",new Date(),true,false);renderBonusTaskList("todayBonusTasks","todayBonusPanel","todayBonusStatus",new Date(),true)}
 
-  function renderStudyPlanView(){refreshPlanTaskCompletions();const stats=checkinPlanStats(),today=planDayStatus(new Date()),manual=manualCheckinRecord(new Date()),sm=new Date(stats.start.getFullYear(),stats.start.getMonth(),1),em=new Date(stats.end.getFullYear(),stats.end.getMonth(),1);if(studyPlanCalendarCursor<sm||studyPlanCalendarCursor>em){const s=dateFromKey(clampStudyPlanDateKey(selectedStudyPlanDateKey));studyPlanCalendarCursor=new Date(s.getFullYear(),s.getMonth(),1)}selectedStudyPlanDateKey=clampStudyPlanDateKey(selectedStudyPlanDateKey);$("studyPlanRangeText").textContent=`从${stats.start.toLocaleDateString("zh-CN")}到${stats.end.toLocaleDateString("zh-CN")}。日历中的学习任务进度自动统计，但手动打卡需在首页点击。`;$("studyPlanTotalDays").textContent=stats.total;$("studyPlanCompletedDays").textContent=stats.checked;$("studyPlanCurrentStreak").textContent=calculateCheckinStreak();$("studyPlanOverallPercent").textContent=`${stats.progress}%`;$("studyPlanOverallStatus").textContent=manual.complete?`今天已手动打卡 ${manual.count}/${manual.target}`:`今天未达标 ${manual.count}/${manual.target}`;$("studyPlanOverallStatus").classList.toggle("done",manual.complete);$("studyPlanCurrentPhase").textContent=today.plan.phase.name;$("studyPhaseTimeline").innerHTML=STUDY_PHASES.map(p=>`<div class="phase-card ${p.id===today.plan.phase.id?"current":""}"><strong>${escapeHtml(p.name)}</strong><span>${p.start.slice(5).replace("-","/")}—${p.id==="sprint"?"考试前一天":p.end.slice(5).replace("-","/")}</span><span>${escapeHtml(p.summary)}</span><em>${escapeHtml(p.result)}</em></div>`).join("");renderStudyPlanCalendar();renderSelectedPlanDay();renderStudyWeekBlueprint()}
+  function renderStudyPlanView(){refreshPlanTaskCompletions();const stats=checkinPlanStats(),today=planDayStatus(new Date()),manual=manualCheckinRecord(new Date()),sm=new Date(stats.start.getFullYear(),stats.start.getMonth(),1),em=new Date(stats.end.getFullYear(),stats.end.getMonth(),1);if(studyPlanCalendarCursor<sm||studyPlanCalendarCursor>em){const s=dateFromKey(clampStudyPlanDateKey(selectedStudyPlanDateKey));studyPlanCalendarCursor=new Date(s.getFullYear(),s.getMonth(),1)}selectedStudyPlanDateKey=clampStudyPlanDateKey(selectedStudyPlanDateKey);$("studyPlanRangeText").textContent=`从${stats.start.toLocaleDateString("zh-CN")}到${stats.end.toLocaleDateString("zh-CN")}。实际学习进度会自动统计；任务是否完成只看你手动勾选。`;$("studyPlanTotalDays").textContent=stats.total;$("studyPlanCompletedDays").textContent=stats.checked;$("studyPlanCurrentStreak").textContent=calculateCheckinStreak();$("studyPlanOverallPercent").textContent=`${stats.progress}%`;$("studyPlanOverallStatus").textContent=manual.complete?`今天已勾选达标 ${manual.count}/${manual.target}`:`今天已勾选 ${manual.count}/${manual.target}`;$("studyPlanOverallStatus").classList.toggle("done",manual.complete);$("studyPlanCurrentPhase").textContent=today.plan.phase.name;$("studyPhaseTimeline").innerHTML=STUDY_PHASES.map(p=>`<div class="phase-card ${p.id===today.plan.phase.id?"current":""}"><strong>${escapeHtml(p.name)}</strong><span>${p.start.slice(5).replace("-","/")}—${p.id==="sprint"?"考试前一天":p.end.slice(5).replace("-","/")}</span><span>${escapeHtml(p.summary)}</span><em>${escapeHtml(p.result)}</em></div>`).join("");renderStudyPlanCalendar();renderSelectedPlanDay();renderStudyWeekBlueprint()}
 
   function goToPlanActivity(activity){
     const task=studyPlanForDate(new Date()).tasks.find(t=>t.activity===activity),m=PLAN_ACTIVITY_META[activity];if(!m)return;
@@ -6334,11 +6381,13 @@
 
   function manualCheckinRecord(value = new Date()) {
     const key = value instanceof Date ? localDateKey(value) : String(value);
+    const plan = studyPlanForDate(key);
+    const count = plan.tasks.filter(task => planTaskDone(key, task)).length;
     const stored = state.manualCheckins?.[key] || {};
-    const fallbackTarget = Math.max(1, Math.min(999, Math.floor(Number(state.settings?.manualCheckinTarget) || 1)));
-    const count = Math.max(0, Math.floor(Number(stored.count) || 0));
-    const target = Math.max(1, Math.min(999, Math.floor(Number(stored.target) || fallbackTarget)));
-    return { key, count, target, complete: count >= target, percent: Math.min(100, Math.round(count / target * 100)) };
+    const fallbackTarget = Math.max(1, Math.floor(Number(state.settings?.manualCheckinTarget) || 1));
+    const requested = Math.max(1, Math.floor(Number(stored.target) || fallbackTarget));
+    const target = Math.min(requested, Math.max(1, plan.tasks.length));
+    return { key, count, target, total: plan.tasks.length, complete: count >= target, percent: Math.min(100, Math.round(count / target * 100)) };
   }
 
   function selectedManualCheckinKey() {
@@ -6807,6 +6856,7 @@
       dailyStudy: {},
       planActivities: {},
       planTaskCompletions: {},
+      manualTaskChecks: {},
       manualCheckins: {},
       coverage: normalizeCoverage({}, []),
       dailyModes: {},
@@ -6839,6 +6889,7 @@
         dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
         planActivities: normalizePlanActivities(parsed.planActivities),
         planTaskCompletions: normalizePlanTaskCompletions(parsed.planTaskCompletions),
+        manualTaskChecks: normalizePlanTaskCompletions(parsed.manualTaskChecks),
         manualCheckins: normalizeManualCheckins(parsed.manualCheckins),
         coverage: normalizeCoverage(parsed.coverage, sessionLog),
         dailyModes: normalizeDailyModes(parsed.dailyModes),
@@ -7211,6 +7262,7 @@
       dailyStudy: state.dailyStudy,
       planActivities: state.planActivities,
       planTaskCompletions: state.planTaskCompletions,
+      manualTaskChecks: state.manualTaskChecks,
       manualCheckins: state.manualCheckins,
       coverage: state.coverage,
       dailyModes: state.dailyModes,
@@ -7370,6 +7422,7 @@
           dailyStudy: normalizeDailyStudy(data.data.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(data.data.planActivities),
           planTaskCompletions: normalizePlanTaskCompletions(data.data.planTaskCompletions),
+          manualTaskChecks: normalizePlanTaskCompletions(data.data.manualTaskChecks),
           manualCheckins: normalizeManualCheckins(data.data.manualCheckins),
           coverage: normalizeCoverage(data.data.coverage, sessionLog),
           dailyModes: normalizeDailyModes(data.data.dailyModes),
@@ -9186,27 +9239,16 @@
 
   function switchView(viewName) {
     currentView = viewName;
-    Object.entries(views).forEach(([name, el]) => el.classList.toggle("active", name === viewName));
-    document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.toggle("active", btn.dataset.view === viewName));
+    Object.entries(views).forEach(([name, el]) => el && el.classList.toggle("active", name === viewName));
+    const parentNav = ({studyPlan:"learningHub",review:"learningHub",quiz:"learningHub",library:"learningHub",mistakes:"reviewHub",myMarks:"reviewHub",marks:"reviewHub",search:"reviewHub",bigEssay:"writingHub",smallEssay:"writingHub",settings:"settingsHub",stats:"settingsHub",account:"settingsHub"})[viewName] || viewName;
+    document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.toggle("active", btn.dataset.view === parentNav));
     const titles = {
-      dashboard: "学习首页",
-      studyPlan: "学习计划",
-      review: "今日学习",
-      quiz: "选择题训练",
-      bigEssay: "大作文训练",
-      smallEssay: "小作文",
-      search: "全局搜索",
-      myMarks: "我的标记",
-      marks: "标记管理",
-      library: "词组库",
-      mistakes: "错词本",
-      stats: "数据统计",
-      account: "账号与云同步",
-      settings: "设置"
+      dashboard: "学习首页", learningHub:"学习", reviewHub:"复习中心", writingHub:"作文", settingsHub:"设置与数据",
+      studyPlan: "学习计划", review: "今日学习", quiz: "选择题训练", bigEssay: "大作文训练", smallEssay: "小作文",
+      search: "全局搜索", myMarks: "我的标记", marks: "标记管理", library: "词组库", mistakes: "错词本",
+      stats: "数据统计", account: "账号与云同步", settings: "设置"
     };
-    $("pageTitle").textContent = titles[viewName];
-    if (viewName === "mistakes") recordPlanActivity("mistakes", 1, true);
-    if (viewName === "myMarks" || viewName === "marks") recordPlanActivity("marks", 1, true);
+    $("pageTitle").textContent = titles[viewName] || "学习工具";
     if (viewName === "dashboard") renderDashboard();
     if (viewName === "studyPlan") renderStudyPlanView();
     if (viewName === "review") showReviewLanding();
@@ -11622,73 +11664,38 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       ));
     }
 
-    // 13. 防止“没做却变绿”
-    let falseCompletions = 0;
-    let checkedV24Completions = 0;
-
-    Object.entries(state.planTaskCompletions || {}).forEach(([dateKey, completionMap]) => {
-      if (!completionMap || typeof completionMap !== "object") return;
-
-      let plan;
-      try {
-        plan = studyPlanForDate(dateKey);
-      } catch (_) {
-        return;
-      }
-
-      const byId = new Map((plan.tasks || []).map(task => [task.id, task]));
-
+    // 13. 手动勾选数据检查
+    let checkedManualTasks = 0;
+    let invalidManualTasks = 0;
+    Object.entries(state.manualTaskChecks || {}).forEach(([dateKey, completionMap]) => {
+      if (!completionMap || typeof completionMap !== "object") { invalidManualTasks += 1; return; }
+      let validIds = new Set();
+      try { validIds = new Set(studyPlanForDate(dateKey).tasks.map(task => task.id)); } catch (_) {}
       Object.entries(completionMap).forEach(([taskId, done]) => {
-        if (!done || !String(taskId).startsWith("v24-core-")) return;
-        const task = byId.get(taskId);
-        if (!task) return;
-        checkedV24Completions += 1;
-        const actual = planActivityCount(dateKey, task.activity);
-        if (actual < task.target) falseCompletions += 1;
+        if (!done) return;
+        checkedManualTasks += 1;
+        if (!validIds.has(taskId)) invalidManualTasks += 1;
       });
     });
+    results.push(consistencyItem(
+      invalidManualTasks ? "warn" : "pass",
+      "手动任务勾选",
+      invalidManualTasks
+        ? `已保存 ${checkedManualTasks} 个手动勾选，其中 ${invalidManualTasks} 个已不在当前计划中。`
+        : `已保存 ${checkedManualTasks} 个手动勾选；勾选状态与实际学习数量相互独立。`
+    ));
 
-    if (falseCompletions) {
-      results.push(consistencyItem(
-        "error",
-        "发现可能的错误绿色完成状态",
-        `检查了 ${checkedV24Completions} 个V24核心完成标记，其中 ${falseCompletions} 个的实际完成数量低于任务目标。`
-      ));
-    } else {
-      results.push(consistencyItem(
-        "pass",
-        "日历完成状态",
-        `检查了 ${checkedV24Completions} 个V24核心完成标记，没有发现“数量未达标却被标记完成”的情况。`
-      ));
-    }
-
-    // 14. 今日显示状态再核对
+    // 14. 今日手动状态核对
     try {
       const today = planDayStatus(new Date());
-      const unmet = today.plan.tasks.filter(task => {
-        const count = planActivityCount(today.key, task.activity);
-        return count < task.target;
-      });
-
-      if (today.coreComplete && unmet.length) {
-        results.push(consistencyItem(
-          "error",
-          "今日核心状态与实际数量冲突",
-          `页面判定核心完成，但仍有 ${unmet.length} 项实际数量未达标。`
-        ));
-      } else {
-        results.push(consistencyItem(
-          "pass",
-          "今日计划状态",
-          `今日核心完成 ${today.done}/${today.total} 项，状态与当前任务数量没有发现直接冲突。`
-        ));
-      }
-    } catch (error) {
+      const manual = manualCheckinRecord(new Date());
       results.push(consistencyItem(
-        "error",
-        "今日计划状态无法计算",
-        String(error.message || error)
+        "pass",
+        "今日手动完成状态",
+        `今日已手动勾选 ${today.done}/${today.total} 项；达标标准为 ${manual.target} 项。实际学习进度不会自动改变勾选。`
       ));
+    } catch (error) {
+      results.push(consistencyItem("error", "今日手动状态无法计算", String(error.message || error)));
     }
 
     // 15. 设置/日期
@@ -11708,7 +11715,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       results.push(consistencyItem(
         "pass",
         "日期设置",
-        `考试日期 ${state.settings.examDate}，打卡开始日期 ${state.settings.checkinStartDate}，默认每日手动打卡 ${state.settings.manualCheckinTarget} 次，格式正常。`
+        `考试日期 ${state.settings.examDate}，打卡开始日期 ${state.settings.checkinStartDate}，每日需手动勾选 ${state.settings.manualCheckinTarget} 次，格式正常。`
       ));
     }
 
@@ -11895,7 +11902,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   function exportData() {
     const payload = {
       app: "考研英语词组记忆器",
-      version: 28,
+      version: 29,
       exportedAt: new Date().toISOString(),
       ...state
     };
@@ -11927,6 +11934,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
           dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(parsed.planActivities),
           planTaskCompletions: normalizePlanTaskCompletions(parsed.planTaskCompletions),
+          manualTaskChecks: normalizePlanTaskCompletions(parsed.manualTaskChecks),
           manualCheckins: normalizeManualCheckins(parsed.manualCheckins),
           coverage: normalizeCoverage(parsed.coverage, sessionLog),
           dailyModes: normalizeDailyModes(parsed.dailyModes),
@@ -11982,6 +11990,9 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     state.smallEssayPractice = {};
     state.coverage = normalizeCoverage({}, []);
     state.dailyModes = {};
+    state.planActivities = {};
+    state.planTaskCompletions = {};
+    state.manualTaskChecks = {};
     state.manualCheckins = {};
     state.lastLearning = null;
     state.sessionLog = [];
@@ -12208,6 +12219,12 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     });
 
     document.addEventListener("click", event => {
+      const hubButton = event.target.closest("[data-open-view]");
+      if (hubButton) { switchView(hubButton.dataset.openView); return; }
+
+      const checkButton = event.target.closest("[data-plan-check-task]");
+      if (checkButton) { togglePlanTaskCompletion(checkButton.dataset.planCheckDate, checkButton.dataset.planCheckTask); return; }
+
       const dateButton = event.target.closest("[data-plan-date]");
       if (dateButton) {
         setStudyPlanSelectedDate(dateButton.dataset.planDate, false);
@@ -12220,6 +12237,16 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     });
 
     $("manualCheckinDateInput").addEventListener("change", () => renderDashboard());
+    $("saveTodayManualTaskTargetBtn").addEventListener("click", () => {
+      const today = localDateKey();
+      const plan = studyPlanForDate(today);
+      const raw = Math.max(1, Math.floor(Number($("todayManualTaskTargetInput").value) || 1));
+      const target = Math.min(raw, Math.max(1, plan.tasks.length));
+      state.settings.manualCheckinTarget = target;
+      if(!state.manualCheckins||typeof state.manualCheckins!=="object")state.manualCheckins={};
+      state.manualCheckins[today] = {...(state.manualCheckins[today]||{}), target, updatedAt:new Date().toISOString()};
+      saveState(); renderDashboard(); showToast(`今天需要手动勾选 ${target} 项`);
+    });
     $("saveManualCheckinBtn").addEventListener("click", saveManualCheckinFromForm);
     $("clearManualCheckinBtn").addEventListener("click", clearManualCheckinFromForm);
     $("checkinReviewBtn").addEventListener("click", () => startReview(false));
@@ -12551,7 +12578,7 @@ function runSmallCorrection(kind,id){const ctx=smallContext(kind,id);if(!ctx)ret
 function adoptSmallCorrection(kind,id){const ctx=smallContext(kind,id);if(!ctx)return;const input=$(ctx.inputId);if(!input)return;input.value=ctx.reference;if(kind==="study")smallStudyDraft=ctx.reference;runSmallCorrection(kind,id);input.focus();showToast("修正版已放入输入框，并重新批改")}
 function saveSmallImitationNote(id){const input=$("smallSentenceImitationUserNote");if(!input)return;const bucket=state.smallEssayPractice.sentenceImitation||(state.smallEssayPractice.sentenceImitation={}),old=bucket[id]||{};bucket[id]={...old,userNote:input.value.trim(),noteUpdatedAt:new Date().toISOString()};saveState();showToast("小作文句子仿写备注已保存")}
 function checkSmallContainer(id){const c=$(id);if(!c)return;let n=0;c.querySelectorAll('[data-small-action="check"]').forEach(b=>{const ctx=smallContext(b.dataset.kind,b.dataset.id),input=ctx?$(ctx.inputId):null;if(input?.value.trim()){runSmallCorrection(b.dataset.kind,b.dataset.id);n++}});showToast(n?`已批改${n}个已填写项目`:"当前还没有填写内容")}
-function setSmallTab(tab){currentSmallTab=tab;if(tab==="functions")recordPlanActivity("smallFormat",1,true);document.querySelectorAll('[data-small-tab]').forEach(b=>b.classList.toggle('active',b.dataset.smallTab===tab));renderSmallEssay()}
+function setSmallTab(tab){currentSmallTab=tab;document.querySelectorAll('[data-small-tab]').forEach(b=>b.classList.toggle('active',b.dataset.smallTab===tab));renderSmallEssay()}
 function fillSmallSelect(){const s=$("smallEssaySelect");if(!s)return;s.innerHTML=state.smallEssays.filter(x=>!x.archived).map(x=>`<option value="${escapeHtml(x.id)}">${x.number}. ${escapeHtml(x.title)} · ${escapeHtml(x.subtype)}</option>`).join("");if([...s.options].some(o=>o.value===currentSmallEssayId))s.value=currentSmallEssayId;else if(s.options.length){currentSmallEssayId=s.options[0].value;s.value=currentSmallEssayId}}
 function smallMetrics(){$("smallEssayCountMetric").textContent=state.smallEssays.length;$("smallEssaySentenceMetric").textContent=smallRefs().length;$("smallEssayMasteredMetric").textContent=smallMastered();$("smallEssayDueMetric").textContent=smallDueCount()}
 function renderSmallLibrary(){const c={};state.smallEssays.forEach(x=>c[x.type]=(c[x.type]||0)+1);return`<div class="small-type-summary"><span>通知 ${c["通知"]||0}篇</span><span>邮件或书信 ${c["邮件或书信"]||0}篇</span><span>会议纪要 ${c["会议纪要"]||0}篇</span><span>公告 ${c["公告"]||0}篇</span></div><div class="essay-library-grid" style="margin-top:14px">${state.smallEssays.map(e=>{const total=e.paragraphs.reduce((s,p)=>s+p.length,0),m=smallMastered(e.id),pct=total?Math.round(m/total*100):0;return`<article class="essay-library-card"><div><h3>${e.number}. ${escapeHtml(e.title)}</h3><div class="essay-meta-row" style="margin-top:8px"><span class="essay-chip">${escapeHtml(e.type)}</span><span class="essay-chip">${escapeHtml(e.subtype)}</span><span class="essay-chip confirmed">用户确认稿</span></div></div><div class="muted">${escapeHtml(e.theme)}</div><div class="essay-card-progress"><div class="muted" style="font-size:12px">已掌握 ${m}/${total}句 · 待复习 ${smallDueCount(e.id)}句</div><div class="essay-progress-line"><span style="width:${pct}%"></span></div></div><div class="button-row"><button class="primary-btn" data-small-action="open-reading" data-id="${escapeHtml(e.id)}">全文＋逐句练习</button><button class="secondary-btn" data-small-action="open-study" data-id="${escapeHtml(e.id)}">逐句写译</button><button class="secondary-btn" data-small-action="open-imitation" data-id="${escapeHtml(e.id)}">本篇4道仿写</button><button class="secondary-btn" data-small-action="open-whole" data-id="${escapeHtml(e.id)}">整篇逐句仿写</button></div></article>`}).join("")}</div>`}
@@ -12919,28 +12946,6 @@ function bindSmallModule(){
     return html.slice(0, insertAt) + panelHtml + html.slice(insertAt);
   }
 
-  ensureCurrentSentenceImitationTask = function() {
-    const filtered = filteredSentenceImitationTasks();
-    if (!filtered.length) return null;
-    const current = filtered.find(task => task.id === currentSentenceImitationId);
-    if (current) return current;
-    const bucket = state.bigEssayPractice.sentenceImitation || {};
-    const unfinished = filtered.filter(task => !hasPracticeAnswer(bucket[task.id]));
-    currentSentenceImitationId = (unfinished[0] || filtered[0]).id;
-    return filtered.find(task => task.id === currentSentenceImitationId) || filtered[0];
-  };
-
-  ensureSmallTask = function() {
-    const filtered = filteredSmallTasks();
-    if (!filtered.length) return null;
-    const current = filtered.find(task => task.id === currentSmallSentenceTaskId);
-    if (current) return current;
-    const bucket = state.smallEssayPractice.sentenceImitation || {};
-    const unfinished = filtered.filter(task => !hasPracticeAnswer(bucket[task.id]));
-    currentSmallSentenceTaskId = (unfinished[0] || filtered[0]).id;
-    return filtered.find(task => task.id === currentSmallSentenceTaskId) || filtered[0];
-  };
-
   const v28BaseRenderSentenceImitation = renderSentenceImitation;
   renderSentenceImitation = function() {
     let html = v28BaseRenderSentenceImitation();
@@ -12983,122 +12988,18 @@ function bindSmallModule(){
     return v28InsertAfterTextareaField(html, "smallStudyDraftInput", v28RenderMemoryPanel("small", context));
   };
 
-  function v28SetManualPlanActivity(activity, complete) {
-    const key = localDateKey();
-    if (!state.planActivities || typeof state.planActivities !== "object") state.planActivities = {};
-    if (!state.planActivities[key]) state.planActivities[key] = {};
-    if (complete) state.planActivities[key][activity] = Math.max(1, Number(state.planActivities[key][activity]) || 0);
-    else delete state.planActivities[key][activity];
-    refreshPlanTaskCompletions(key);
-    saveState();
-    refreshManualPlanActionButtons();
-    if (currentView === "dashboard") renderDashboard();
-    if (currentView === "studyPlan") renderStudyPlanView();
-    if (currentView === "smallEssay" && currentSmallTab === "functions") renderSmallEssay();
-    showToast(complete ? "已手动确认今天完成该任务" : "已取消今天的手动完成记录");
-  }
 
-  function refreshManualPlanActionButtons() {
-    const key = localDateKey();
-    document.querySelectorAll("[data-manual-plan-status]").forEach(status => {
-      const activity = status.dataset.manualPlanStatus;
-      const done = planActivityCount(key, activity) >= 1;
-      status.textContent = done ? "今天已手动确认" : "今天尚未确认";
-      status.classList.toggle("done", done);
-    });
-  }
-
-  recordPlanActivity = function(activity, amount = 1, saveNow = false) {
-    const key = localDateKey();
-    if (!state.planActivities || typeof state.planActivities !== "object") state.planActivities = {};
-    if (!state.planActivities[key]) state.planActivities[key] = {};
-    const old = Math.max(0, Number(state.planActivities[key][activity]) || 0);
-    state.planActivities[key][activity] = old + Math.max(0, Number(amount) || 0);
-    refreshPlanTaskCompletions(key);
-    if (saveNow) {
-      saveState();
-      if (currentView === "dashboard") renderDashboard();
-      if (currentView === "studyPlan") renderStudyPlanView();
-    }
-  };
-
-  Object.assign(PLAN_ACTIVITY_META.smallFormat, {
-    description: "打开格式页不会计数；完成实际复习后，点击页面上的手动确认按钮。",
-    method: "不看答案说出标题/称呼、三段职责、结束语和署名，再手动确认完成。"
-  });
-  Object.assign(PLAN_ACTIVITY_META.mistakes, {
-    description: "打开错词本不会计数；实际回看并处理后，点击页面上的手动确认按钮。",
-    method: "优先处理连续错2次以上、介词错误和熟词新义，再手动确认完成。"
-  });
-  Object.assign(PLAN_ACTIVITY_META.marks, {
-    description: "打开标记页不会计数；实际整理标记后，点击页面上的手动确认按钮。",
-    method: "重点回看作文可用、重点背诵和易混淆，整理完成后手动确认。"
-  });
-
-  const v28BaseRenderSmallFunctions = renderSmallFunctions;
-  renderSmallFunctions = function() {
-    const done = planActivityCount(localDateKey(), "smallFormat") >= 1;
-    const card = `<div class="card manual-plan-action-card" style="margin-bottom:16px;">
-      <div><h3 class="section-title" style="margin-bottom:5px;">手动确认：复习小作文格式</h3><div class="muted">打开本页不会自动计数。实际完成格式复习后，再点击确认。</div></div>
-      <div class="button-row"><button class="primary-btn" data-manual-plan-activity="smallFormat">确认今天已复习</button><button class="ghost-btn" data-manual-plan-clear="smallFormat">取消今天记录</button><span class="manual-plan-status ${done ? "done" : ""}" data-manual-plan-status="smallFormat">${done ? "今天已手动确认" : "今天尚未确认"}</span></div>
-    </div>`;
-    return `<div>${card}${v28BaseRenderSmallFunctions().replace(/^<div>/, "").replace(/<\/div>$/, "")}</div>`;
-  };
-
-  setSmallTab = function(tab) {
-    currentSmallTab = tab;
-    document.querySelectorAll('[data-small-tab]').forEach(button => button.classList.toggle('active', button.dataset.smallTab === tab));
-    renderSmallEssay();
-  };
-
-  switchView = function(viewName) {
-    currentView = viewName;
-    Object.entries(views).forEach(([name, element]) => element.classList.toggle("active", name === viewName));
-    document.querySelectorAll(".nav-btn").forEach(button => button.classList.toggle("active", button.dataset.view === viewName));
-    const titles = {
-      dashboard: "学习首页", studyPlan: "学习计划", review: "今日学习", quiz: "选择题训练",
-      bigEssay: "大作文训练", smallEssay: "小作文", search: "全局搜索", myMarks: "我的标记",
-      marks: "标记管理", library: "词组库", mistakes: "错词本", stats: "数据统计",
-      account: "账号与云同步", settings: "设置"
-    };
-    $("pageTitle").textContent = titles[viewName];
-    if (viewName === "dashboard") renderDashboard();
-    if (viewName === "studyPlan") renderStudyPlanView();
-    if (viewName === "review") showReviewLanding();
-    if (viewName === "quiz") renderQuizSetup();
-    if (viewName === "bigEssay") renderBigEssay();
-    if (viewName === "search") renderGlobalSearch();
-    if (viewName === "myMarks") renderMyMarks();
-    if (viewName === "marks") renderMarkManager();
-    if (viewName === "library") renderLibrary();
-    if (viewName === "mistakes") renderMistakes();
-    if (viewName === "stats") renderStats();
-    if (viewName === "account") renderAccount();
-    if (viewName === "settings") renderSettings();
-    refreshManualPlanActionButtons();
-  };
 
   document.addEventListener("click", event => {
     const memoryButton = event.target.closest("[data-essay-memory-action]");
-    if (memoryButton) {
-      v28SaveMemoryField(
-        memoryButton.dataset.scope,
-        memoryButton.dataset.kind,
-        memoryButton.dataset.id,
-        memoryButton.dataset.essayMemoryAction === "save-final" ? "final" : "alternatives"
-      );
-      return;
-    }
-    const completeButton = event.target.closest("[data-manual-plan-activity]");
-    if (completeButton) {
-      v28SetManualPlanActivity(completeButton.dataset.manualPlanActivity, true);
-      return;
-    }
-    const clearButton = event.target.closest("[data-manual-plan-clear]");
-    if (clearButton) v28SetManualPlanActivity(clearButton.dataset.manualPlanClear, false);
+    if (!memoryButton) return;
+    v28SaveMemoryField(
+      memoryButton.dataset.scope,
+      memoryButton.dataset.kind,
+      memoryButton.dataset.id,
+      memoryButton.dataset.essayMemoryAction === "save-final" ? "final" : "alternatives"
+    );
   });
-
-  refreshManualPlanActionButtons();
 
 
   /* SMALL_ESSAY_MODULE_EMBEDDED_V15 */
@@ -13119,7 +13020,7 @@ function bindSmallModule(){
   }
 
 
-  window.__KAOYAN_BUILD__ = "V28-manual-checkin-writing-history-2026-08-04";
+  window.__KAOYAN_BUILD__ = "V29-compact-manual-task-check-2026-08-04";
   init();
 })();
 </script>

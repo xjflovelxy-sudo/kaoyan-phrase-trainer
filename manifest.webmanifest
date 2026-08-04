@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "V25",
-  "short_name": "V25",
-  "description": "V25：新增只读的完整数据一致性检查，不修改任何学习逻辑。",
+  "name": "V26 手动打卡版",
+  "short_name": "V26",
+  "description": "V26：打卡改为手动操作，数量由用户设置；大小作文句子仿写新增个人备注。",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",

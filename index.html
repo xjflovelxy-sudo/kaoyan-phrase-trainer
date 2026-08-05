@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="V29" />
+  <meta name="application-name" content="V30" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="V29" />
+  <meta name="apple-mobile-web-app-title" content="V30" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V29 精简手动勾选版</title>
+  <title>V30 自定义题量与作文备注版</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -4253,13 +4253,38 @@
   }
 </style>
 
+
+<style id="v30-user-controlled-settings-styles">
+  .settings-help{padding:12px 14px;margin-bottom:14px;border:1px solid #cbd7ff;border-radius:12px;background:#f4f7ff;color:#42506a;line-height:1.7}
+  .task-target-settings{display:grid;gap:14px}
+  .task-target-group{padding:15px;border:1px solid #e0e6f2;border-radius:14px;background:#fbfcff}
+  .task-target-group h4{margin:0 0 12px;font-size:15px;color:#24324a}
+  .essay-memory-grid{grid-template-columns:1fr!important}
+  .essay-memory-panel .essay-memory-field textarea{min-height:92px}
+  .day-actual-record{margin-bottom:14px;padding:14px;border:1px solid #bcd0ff;border-radius:14px;background:#f7f9ff}
+  .day-actual-record h4{margin:0 0 10px;font-size:15px}
+  .day-actual-summary{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+  .day-actual-summary span{padding:6px 9px;border-radius:999px;background:#eaf0ff;color:#28498f;font-size:12px;font-weight:750}
+  .day-actual-list{display:grid;gap:7px}
+  .day-actual-item{padding:9px 10px;border-radius:10px;background:#fff;border:1px solid #e1e7f3;line-height:1.65;font-size:13px}
+  .day-actual-item strong{color:#263b73}
+  .day-actual-empty{padding:10px;border-radius:10px;background:#fff;color:#6b7589;font-size:13px}
+  .essay-history-record{padding:12px}
+  .essay-history-record .essay-history-block{margin-top:8px}
+  @media(max-width:700px){.task-target-group .form-grid{grid-template-columns:1fr}.day-actual-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+
+<style id="v30-hide-fixed-bonus-styles">
+#todayBonusPanel,#selectedBonusPanel{display:none!important}
+.plan-auto-note{display:none!important}
+</style>
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>V29</h1>
-      <p>精简导航 · 任务手动勾选 · 作文历史</p>
+      <h1>V30</h1>
+      <p>题量自定义 · 任务手动勾选 · 写作备注历史</p>
     </div>
     <nav>
       <button class="nav-btn active" data-view="dashboard">首页</button>
@@ -5247,30 +5272,50 @@
 
       <div class="card settings-block">
         <h3 class="section-title">学习设置</h3>
-        <div class="form-grid">
-          <div class="field">
-            <label>每天新词数量</label>
-            <input id="dailyNewInput" type="number" min="1" max="50" value="10" />
-          </div>
-          <div class="field">
-            <label>默认复习方向</label>
-            <select id="defaultModeSelect">
-              <option value="zh-en">中文 → 英文</option>
-              <option value="en-zh">英文 → 中文</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>考试日期</label>
-            <input id="examDateInput" type="date" value="2026-12-21" />
-          </div>
-          <div class="field">
-            <label>打卡开始日期</label>
-            <input id="checkinStartDateInput" type="date" value="2026-07-30" />
-          </div>
-          <div class="field">
-            <label>每日需要手动勾选的任务数</label>
-            <input id="manualCheckinTargetSettingInput" type="number" min="1" max="999" value="1" />
-          </div>
+        <div class="settings-help">下面每一项都由你自己设置；填 <strong>0</strong> 表示当天不安排。系统不会再按阶段或日期自动增加题量。</div>
+        <div class="task-target-settings">
+          <section class="task-target-group">
+            <h4>词组与选择题</h4>
+            <div class="form-grid">
+              <div class="field"><label>每天新词组</label><input id="dailyNewInput" type="number" min="0" max="300" value="10" /></div>
+              <div class="field"><label>每天到期词组复习</label><input id="dailyReviewInput" type="number" min="0" max="500" value="20" /></div>
+              <div class="field"><label>无到期词时补充复习</label><input id="dailySupplementReviewInput" type="number" min="0" max="500" value="10" /></div>
+              <div class="field"><label>每天选择题</label><input id="dailyQuizInput" type="number" min="0" max="500" value="20" /></div>
+            </div>
+          </section>
+          <section class="task-target-group">
+            <h4>大作文</h4>
+            <div class="form-grid">
+              <div class="field"><label>逐句写译</label><input id="dailyBigSentenceInput" type="number" min="0" max="100" value="3" /></div>
+              <div class="field"><label>句子仿写</label><input id="dailyBigImitationInput" type="number" min="0" max="100" value="3" /></div>
+              <div class="field"><label>句型仿写</label><input id="dailyBigPatternInput" type="number" min="0" max="100" value="0" /></div>
+              <div class="field"><label>段落仿写（按句）</label><input id="dailyBigParagraphInput" type="number" min="0" max="100" value="0" /></div>
+              <div class="field"><label>整篇仿写（按句）</label><input id="dailyBigWholeInput" type="number" min="0" max="100" value="0" /></div>
+              <div class="field"><label>分段默写（按句）</label><input id="dailyBigDictationInput" type="number" min="0" max="100" value="0" /></div>
+            </div>
+          </section>
+          <section class="task-target-group">
+            <h4>小作文</h4>
+            <div class="form-grid">
+              <div class="field"><label>逐句写译</label><input id="dailySmallSentenceInput" type="number" min="0" max="100" value="3" /></div>
+              <div class="field"><label>句子仿写</label><input id="dailySmallImitationInput" type="number" min="0" max="100" value="3" /></div>
+              <div class="field"><label>整篇仿写（按项）</label><input id="dailySmallWholeInput" type="number" min="0" max="100" value="0" /></div>
+              <div class="field"><label>分段默写（按句）</label><input id="dailySmallDictationInput" type="number" min="0" max="100" value="0" /></div>
+              <div class="field"><label>功能句</label><input id="dailySmallFunctionInput" type="number" min="0" max="100" value="0" /></div>
+              <div class="field"><label>格式复习次数</label><input id="dailySmallFormatInput" type="number" min="0" max="20" value="0" /></div>
+            </div>
+          </section>
+          <section class="task-target-group">
+            <h4>复盘与打卡</h4>
+            <div class="form-grid">
+              <div class="field"><label>错词本复盘次数</label><input id="dailyMistakesInput" type="number" min="0" max="20" value="0" /></div>
+              <div class="field"><label>我的标记整理次数</label><input id="dailyMarksInput" type="number" min="0" max="20" value="0" /></div>
+              <div class="field"><label>每日达标需手动勾选任务数</label><input id="manualCheckinTargetSettingInput" type="number" min="1" max="999" value="1" /></div>
+              <div class="field"><label>默认复习方向</label><select id="defaultModeSelect"><option value="zh-en">中文 → 英文</option><option value="en-zh">英文 → 中文</option></select></div>
+              <div class="field"><label>考试日期</label><input id="examDateInput" type="date" value="2026-12-21" /></div>
+              <div class="field"><label>打卡开始日期</label><input id="checkinStartDateInput" type="date" value="2026-07-30" /></div>
+            </div>
+          </section>
         </div>
         <div class="button-row">
           <button class="primary-btn" id="saveSettingsBtn">保存设置</button>
@@ -5601,7 +5646,13 @@
     defaultMode: "zh-en",
     examDate: "2026-12-21",
     checkinStartDate: "2026-07-30",
-    manualCheckinTarget: 1
+    manualCheckinTarget: 1,
+    taskTargets: {
+      newWords: 10, review: 20, supplementReview: 10, quiz: 20,
+      bigSentence: 3, bigImitation: 3, bigPattern: 0, bigParagraph: 0, bigWhole: 0, bigDictation: 0,
+      smallSentence: 3, smallImitation: 3, smallWhole: 0, smallDictation: 0, smallFunction: 0, smallFormat: 0,
+      mistakes: 0, marks: 0
+    }
   };
 
   let state = loadState();
@@ -5865,7 +5916,8 @@
       if (!/^\d{4}-\d{2}-\d{2}$/.test(key)) return;
       result[key] = {
         learningIds:[...new Set(Array.isArray(item?.learningIds) ? item.learningIds.map(String) : [])],
-        reviewIds:[...new Set(Array.isArray(item?.reviewIds) ? item.reviewIds.map(String) : [])]
+        reviewIds:[...new Set(Array.isArray(item?.reviewIds) ? item.reviewIds.map(String) : [])],
+        assignedNewIds:[...new Set(Array.isArray(item?.assignedNewIds) ? item.assignedNewIds.map(String) : [])]
       };
     });
     return result;
@@ -5883,7 +5935,7 @@
     if (!contentId) return;
     const key = localDateKey();
     if (!state.dailyModes || typeof state.dailyModes !== "object") state.dailyModes = {};
-    if (!state.dailyModes[key]) state.dailyModes[key] = {learningIds:[],reviewIds:[]};
+    if (!state.dailyModes[key]) state.dailyModes[key] = {learningIds:[],reviewIds:[],assignedNewIds:[]};
     const field = mode === "learning" ? "learningIds" : "reviewIds";
     if (!state.dailyModes[key][field].includes(contentId)) state.dailyModes[key][field].push(contentId);
   }
@@ -6885,7 +6937,7 @@
         cards: mergeCardsWithSeed(parsed.cards),
         markGroups,
         customMarks: loadCustomMarks(parsed.customMarks, markGroups),
-        settings: { ...defaultSettings, ...(parsed.settings || {}) },
+        settings: { ...defaultSettings, ...(parsed.settings || {}), taskTargets:{...defaultSettings.taskTargets,...(parsed.settings?.taskTargets||{})} },
         dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
         planActivities: normalizePlanActivities(parsed.planActivities),
         planTaskCompletions: normalizePlanTaskCompletions(parsed.planTaskCompletions),
@@ -7418,7 +7470,7 @@
           cards: mergeCardsWithSeed(data.data.cards),
           markGroups,
           customMarks: loadCustomMarks(data.data.customMarks, markGroups),
-          settings: { ...defaultSettings, ...(data.data.settings || {}) },
+          settings: { ...defaultSettings, ...(data.data.settings || {}), taskTargets:{...defaultSettings.taskTargets,...(data.data.settings?.taskTargets||{})} },
           dailyStudy: normalizeDailyStudy(data.data.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(data.data.planActivities),
           planTaskCompletions: normalizePlanTaskCompletions(data.data.planTaskCompletions),
@@ -11050,7 +11102,16 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
   }
 
   function renderSettings() {
-    $("dailyNewInput").value = state.settings.dailyNew;
+    const targets = {...defaultSettings.taskTargets, ...(state.settings.taskTargets || {})};
+    const map = {
+      dailyNewInput:"newWords", dailyReviewInput:"review", dailySupplementReviewInput:"supplementReview", dailyQuizInput:"quiz",
+      dailyBigSentenceInput:"bigSentence", dailyBigImitationInput:"bigImitation", dailyBigPatternInput:"bigPattern",
+      dailyBigParagraphInput:"bigParagraph", dailyBigWholeInput:"bigWhole", dailyBigDictationInput:"bigDictation",
+      dailySmallSentenceInput:"smallSentence", dailySmallImitationInput:"smallImitation", dailySmallWholeInput:"smallWhole",
+      dailySmallDictationInput:"smallDictation", dailySmallFunctionInput:"smallFunction", dailySmallFormatInput:"smallFormat",
+      dailyMistakesInput:"mistakes", dailyMarksInput:"marks"
+    };
+    Object.entries(map).forEach(([id,key]) => { if ($(id)) $(id).value = Math.max(0, Number(targets[key]) || 0); });
     $("defaultModeSelect").value = state.settings.defaultMode;
     $("examDateInput").value = state.settings.examDate || defaultSettings.examDate;
     $("checkinStartDateInput").value = state.settings.checkinStartDate || defaultSettings.checkinStartDate;
@@ -11930,7 +11991,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
           cards: mergeCardsWithSeed(parsed.cards),
           markGroups,
           customMarks: loadCustomMarks(parsed.customMarks, markGroups),
-          settings: {...defaultSettings, ...(parsed.settings || {})},
+          settings: {...defaultSettings, ...(parsed.settings || {}), taskTargets:{...defaultSettings.taskTargets,...(parsed.settings?.taskTargets||{})}},
           dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(parsed.planActivities),
           planTaskCompletions: normalizePlanTaskCompletions(parsed.planTaskCompletions),
@@ -12436,7 +12497,16 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     $("cardForm").addEventListener("submit", saveCardFromForm);
 
     $("saveSettingsBtn").addEventListener("click", () => {
-      state.settings.dailyNew = Math.min(50, Math.max(1, Number($("dailyNewInput").value) || 10));
+      const readTarget = id => Math.max(0, Math.min(500, Math.floor(Number($(id)?.value) || 0)));
+      state.settings.taskTargets = {
+        newWords:readTarget("dailyNewInput"), review:readTarget("dailyReviewInput"), supplementReview:readTarget("dailySupplementReviewInput"), quiz:readTarget("dailyQuizInput"),
+        bigSentence:readTarget("dailyBigSentenceInput"), bigImitation:readTarget("dailyBigImitationInput"), bigPattern:readTarget("dailyBigPatternInput"),
+        bigParagraph:readTarget("dailyBigParagraphInput"), bigWhole:readTarget("dailyBigWholeInput"), bigDictation:readTarget("dailyBigDictationInput"),
+        smallSentence:readTarget("dailySmallSentenceInput"), smallImitation:readTarget("dailySmallImitationInput"), smallWhole:readTarget("dailySmallWholeInput"),
+        smallDictation:readTarget("dailySmallDictationInput"), smallFunction:readTarget("dailySmallFunctionInput"), smallFormat:readTarget("dailySmallFormatInput"),
+        mistakes:readTarget("dailyMistakesInput"), marks:readTarget("dailyMarksInput")
+      };
+      state.settings.dailyNew = state.settings.taskTargets.newWords;
       state.settings.defaultMode = $("defaultModeSelect").value;
       state.settings.examDate = $("examDateInput").value || defaultSettings.examDate;
       state.settings.checkinStartDate = $("checkinStartDateInput").value || defaultSettings.checkinStartDate;
@@ -12650,7 +12720,7 @@ function bindSmallModule(){
       suggestedAnswer: String(source.suggestedAnswer || source.referenceAnswer || ""),
       finalAnswer: String(source.finalAnswer || ""),
       acceptedAlternatives: v28StringArray(source.acceptedAlternatives),
-      grade: Number.isFinite(Number(source.grade)) ? Number(source.grade) : null
+      grade: source.grade === null || source.grade === undefined || source.grade === "" ? null : (Number.isFinite(Number(source.grade)) ? Number(source.grade) : null)
     };
   }
 
@@ -13020,7 +13090,342 @@ function bindSmallModule(){
   }
 
 
-  window.__KAOYAN_BUILD__ = "V29-compact-manual-task-check-2026-08-04";
+
+
+  /* V30_USER_CONTROLLED_TARGETS_NOTES_AND_DAILY_HISTORY */
+  const V30_TARGET_KEYS = [
+    "newWords","review","supplementReview","quiz",
+    "bigSentence","bigImitation","bigPattern","bigParagraph","bigWhole","bigDictation",
+    "smallSentence","smallImitation","smallWhole","smallDictation","smallFunction","smallFormat",
+    "mistakes","marks"
+  ];
+
+  function v30TaskTargets(){
+    const merged={...defaultSettings.taskTargets,...(state.settings?.taskTargets||{})};
+    V30_TARGET_KEYS.forEach(key=>merged[key]=Math.max(0,Math.min(500,Math.floor(Number(merged[key])||0))));
+    state.settings.taskTargets=merged;
+    state.settings.dailyNew=merged.newWords;
+    return merged;
+  }
+  v30TaskTargets();
+
+  function v30Target(activity){return v30TaskTargets()[activity]||0}
+
+  // Keep the original composite exercise id so note/history buttons can reopen the same sentence.
+  const v30BaseResolveWritingContextForMemory = resolveWritingContext;
+  resolveWritingContext = function(kind,id){
+    const context=v30BaseResolveWritingContextForMemory(kind,id);
+    if(context)context.resolverId=String(id);
+    return context;
+  };
+  const v30BaseSmallContextForMemory = smallContext;
+  smallContext = function(kind,id){
+    const context=v30BaseSmallContextForMemory(kind,id);
+    if(context)context.resolverId=String(id);
+    return context;
+  };
+
+  studyPlanForDate = function(value){
+    const date=value instanceof Date?new Date(value):dateFromKey(value);
+    if(!date)return{date:new Date(),phase:STUDY_PHASES[0],focus:focusForPlanDate(new Date()),tasks:[],bonusTasks:[],estimatedMinutes:0,targetMinutes:0};
+    date.setHours(0,0,0,0);
+    const phase=studyPhaseForDate(date),focus=focusForPlanDate(date),targets=v30TaskTargets(),tasks=[];
+    const add=(activity,target,kind="")=>{
+      target=Math.max(0,Math.floor(Number(target)||0));
+      if(!target)return;
+      const f=kind==="big"?focus.big:kind==="small"?focus.small:null;
+      tasks.push(makePlanTask(activity,target,{focus:f?.title||"",focusId:f?.id||""}));
+    };
+    let reviewNotice="";
+    const key=localDateKey(date),isToday=key===localDateKey();
+    if(targets.review>0){
+      if(isToday){
+        const load=todayDueLoad();
+        if(load>0)add("review",Math.min(targets.review,load));
+        else if(targets.supplementReview>0){add("supplementReview",targets.supplementReview);reviewNotice="今天没有到期旧词，已按你设置的“补充复习”数量安排错词或重点词。"}
+      }else add("review",targets.review);
+    }else if(isToday&&targets.supplementReview>0&&todayDueLoad()===0){
+      add("supplementReview",targets.supplementReview);reviewNotice="今天没有设置到期复习，当前显示你自定的补充复习任务。";
+    }
+    add("quiz",targets.quiz);
+    add("newWords",targets.newWords);
+    add("bigSentence",targets.bigSentence,"big");
+    add("bigImitation",targets.bigImitation,"big");
+    add("bigPattern",targets.bigPattern,"big");
+    add("bigParagraph",targets.bigParagraph,"big");
+    add("bigWhole",targets.bigWhole,"big");
+    add("bigDictation",targets.bigDictation,"big");
+    add("smallSentence",targets.smallSentence,"small");
+    add("smallImitation",targets.smallImitation,"small");
+    add("smallWhole",targets.smallWhole,"small");
+    add("smallDictation",targets.smallDictation,"small");
+    add("smallFunction",targets.smallFunction,"small");
+    add("smallFormat",targets.smallFormat,"small");
+    add("mistakes",targets.mistakes);
+    add("marks",targets.marks);
+    const minutes=tasks.reduce((sum,task)=>sum+task.minutes,0);
+    return{date,phase,focus,tasks,reviewNotice,estimatedMinutes:minutes,targetMinutes:minutes};
+  };
+
+  STUDY_PHASES.forEach(phase=>{
+    phase.summary="每日题量由你在设置中决定；阶段只用于轮换作文重点。";
+    phase.result="目标：按你自己的数量完成任务，并手动勾选。";
+  });
+
+  function v30Hash(text){let h=2166136261;for(const ch of String(text)){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+  function v30EnsureDailyMode(key){
+    if(!state.dailyModes||typeof state.dailyModes!=="object")state.dailyModes={};
+    if(!state.dailyModes[key])state.dailyModes[key]={learningIds:[],reviewIds:[],assignedNewIds:[]};
+    if(!Array.isArray(state.dailyModes[key].assignedNewIds))state.dailyModes[key].assignedNewIds=[];
+    return state.dailyModes[key];
+  }
+  function v30RecentAssigned(exceptKey,days=30){
+    const keys=Object.keys(state.dailyModes||{}).filter(key=>key!==exceptKey).sort().slice(-days);
+    return new Set(keys.flatMap(key=>state.dailyModes[key]?.assignedNewIds||[]));
+  }
+  function v30BalancedNewPool(cards,dateKey){
+    const groups=new Map();
+    cards.forEach(card=>{const y=Number(card.year)||0;if(!groups.has(y))groups.set(y,[]);groups.get(y).push(card)});
+    const years=[...groups.keys()].sort((a,b)=>a-b);
+    if(!years.length)return[];
+    const yearShift=v30Hash(dateKey)%years.length;
+    const order=years.slice(yearShift).concat(years.slice(0,yearShift));
+    order.forEach(year=>{
+      const list=groups.get(year).sort((a,b)=>String(a.section).localeCompare(String(b.section))||String(a.createdAt).localeCompare(String(b.createdAt))||String(a.id).localeCompare(String(b.id)));
+      const shift=list.length?v30Hash(`${dateKey}-${year}`)%list.length:0;
+      groups.set(year,list.slice(shift).concat(list.slice(0,shift)));
+    });
+    const result=[];let added=true,index=0;
+    while(added){added=false;for(const year of order){const list=groups.get(year);if(index<list.length){result.push(list[index]);added=true}}index++}
+    return result;
+  }
+  function v30DailyNewAssignment(target,dateKey=localDateKey()){
+    target=Math.max(0,Math.floor(Number(target)||0));
+    if(!target)return[];
+    const bucket=v30EnsureDailyMode(dateKey),valid=new Map(state.cards.filter(card=>isNew(card)&&!card.suspended).map(card=>[card.id,card]));
+    let ids=[...new Set(bucket.assignedNewIds)].filter(id=>valid.has(id)).slice(0,target);
+    if(ids.length<target){
+      const recent=v30RecentAssigned(dateKey),used=new Set(ids),all=[...valid.values()].filter(card=>!used.has(card.id));
+      const fresh=v30BalancedNewPool(all.filter(card=>!recent.has(card.id)),dateKey);
+      const fallback=v30BalancedNewPool(all.filter(card=>recent.has(card.id)),`${dateKey}-fallback`);
+      for(const card of [...fresh,...fallback]){if(ids.length>=target)break;if(!used.has(card.id)){ids.push(card.id);used.add(card.id)}}
+    }
+    const changed=JSON.stringify(ids)!==JSON.stringify(bucket.assignedNewIds);
+    bucket.assignedNewIds=ids;
+    if(changed)saveState({sync:false});
+    return ids.map(id=>valid.get(id)).filter(Boolean);
+  }
+
+  getReviewQueue = function(includeNew=false){
+    if(includeNew)return v30DailyNewAssignment(v30Target("newWords"));
+    const limit=v30Target("review");
+    if(!limit)return[];
+    return state.cards.filter(card=>isDue(card)&&!isNew(card)&&!card.suspended)
+      .sort((a,b)=>new Date(a.due)-new Date(b.due)||b.lapses-a.lapses||b.year-a.year)
+      .slice(0,limit);
+  };
+
+  const v30BaseRenderQuizSetup=renderQuizSetup;
+  renderQuizSetup=function(){
+    v30BaseRenderQuizSetup();
+    const select=$("quizCount"),target=v30Target("quiz");
+    if(select&&target>0&&!activeQuizSession()){
+      let option=[...select.options].find(item=>Number(item.value)===target);
+      if(!option){option=document.createElement("option");option.value=String(target);option.textContent=`${target}题（设置）`;select.prepend(option)}
+      select.value=String(target);
+    }
+  };
+
+  const v30BaseGoToPlanActivity=goToPlanActivity;
+  goToPlanActivity=function(activity){
+    if(activity==="quiz"){
+      switchView("quiz");
+      setTimeout(()=>renderQuizSetup(),0);
+      return;
+    }
+    return v30BaseGoToPlanActivity(activity);
+  };
+
+  startEssayStudy=function(mode="due"){
+    const target=Math.max(1,v30Target("bigSentence")||1);
+    let refs=allEssaySentenceRefs(currentEssayId);
+    if(mode==="due"){
+      refs=refs.filter(ref=>isEssaySentenceDue(ref.sentence.id));
+      if(!refs.length){showToast(`本篇当前没有到期句子，已改为随机练习${target}句`);refs=shuffleArray(allEssaySentenceRefs(currentEssayId)).slice(0,target)}
+      else refs=refs.slice(0,target);
+    }else if(mode==="random")refs=shuffleArray(refs).slice(0,Math.min(target,refs.length));
+    else if(mode!=="all")refs=refs.slice(0,target);
+    essayStudyQueue=refs;essayStudyIndex=0;essayStudyRevealed=false;renderBigEssay();
+  };
+
+  startSmallStudy=function(mode="due"){
+    const target=Math.max(1,v30Target("smallSentence")||1);
+    let refs=smallRefs(currentSmallEssayId);
+    if(mode==="due"){
+      refs=refs.filter(ref=>smallDue(ref.sentence.id));
+      if(!refs.length){showToast(`本篇当前没有到期句子，已改为随机练习${target}句`);refs=shuffleArray(smallRefs(currentSmallEssayId)).slice(0,target)}
+      else refs=refs.slice(0,target);
+    }else if(mode==="random")refs=shuffleArray(refs).slice(0,Math.min(target,refs.length));
+    else if(mode!=="all")refs=refs.slice(0,target);
+    smallStudyQueue=refs;smallStudyIndex=0;smallStudyRevealed=false;smallStudyDraft="";renderSmallEssay();
+  };
+
+  v28HistoryEnabled=function(scope,kind){
+    return scope==="big"
+      ? ["study","sentence300","inline","pattern","paragraph","whole","dictation"].includes(kind)
+      : ["study","original","imitation","whole","dictation","function"].includes(kind);
+  };
+
+  v28RenderHistoryRecord=function(record,index){
+    const correctRows=[
+      ...record.passed.map(item=>`<div class="essay-history-item good"><b>✓</b><div><strong>${escapeHtml(item.label)}</strong>${item.detail?`<br>${escapeHtml(item.detail)}`:""}</div></div>`),
+      ...record.correctPhrases.map(item=>`<div class="essay-history-item good"><b>✓</b><div>正确词组：${escapeHtml(item)}</div></div>`)
+    ];
+    const wrongRows=[
+      ...record.failed.map(item=>`<div class="essay-history-item bad"><b>!</b><div><strong>${escapeHtml(item.label)}</strong>${item.detail?`<br>${escapeHtml(item.detail)}`:""}</div></div>`),
+      ...record.spelling.map(item=>`<div class="essay-history-item bad"><b>拼</b><div>疑似拼写：${escapeHtml(item.wrong)} → ${escapeHtml(item.correct)}</div></div>`),
+      ...(record.orderWords.length?[`<div class="essay-history-item bad"><b>序</b><div>词序需检查：${record.orderWords.map(escapeHtml).join("、")}</div></div>`]:[]),
+      ...(record.missing.length?[`<div class="essay-history-item bad"><b>缺</b><div>参考答案中有、原句中缺少：${record.missing.map(escapeHtml).join("、")}</div></div>`]:[]),
+      ...(record.extra.length?[`<div class="essay-history-item bad"><b>多</b><div>原句中多出或建议替换：${record.extra.map(escapeHtml).join("、")}</div></div>`]:[])
+    ];
+    const alternatives=record.acceptedAlternatives.length?`<div class="essay-alternative-list">${record.acceptedAlternatives.map(item=>`<div>${escapeHtml(item)}</div>`).join("")}</div>`:`<div class="essay-history-text">当时没有保存备注或其他正确表达。</div>`;
+    return `<article class="essay-history-record">
+      <div class="essay-history-record-head"><strong>${index===0?"上一次练习记录":`更早练习记录 ${index}`}</strong><span>${escapeHtml(v28HistoryDate(record))} · 当日第${record.attemptOfDay}次 · ${escapeHtml(record.level||"未评级")} · ${record.score}%${record.grade===null?"":` · 自评：${escapeHtml(v28GradeLabel(record.grade))}`}</span></div>
+      <div class="essay-history-block"><div class="essay-history-label">我当时写的内容</div><div class="essay-history-text">${escapeHtml(record.originalAnswer||"（空）")}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">${escapeHtml(record.referenceLabel||"标准／辅助答案")}</div><div class="essay-history-text standard">${escapeHtml(record.referenceAnswer||record.suggestedAnswer||"（无）")}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">逐词对照</div><div class="correction-diff">${renderCorrectionDiff(record.originalAnswer,record.referenceAnswer||record.suggestedAnswer)}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">写对的地方</div><div class="essay-history-list">${correctRows.length?correctRows.join(""):'<div class="essay-history-item info"><b>i</b><div>当时没有通过预设检查的项目。</div></div>'}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">写错或需要修改的地方</div><div class="essay-history-list">${wrongRows.length?wrongRows.join(""):'<div class="essay-history-item good"><b>✓</b><div>当时未发现预设问题。</div></div>'}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">系统修改建议</div><div class="essay-history-text standard">${escapeHtml(record.suggestedAnswer||record.referenceAnswer||"（无）")}</div></div>
+      <div class="essay-history-block"><div class="essay-history-label">我的备注／其他正确表达</div>${alternatives}</div>
+    </article>`;
+  };
+
+  v28RenderMemoryPanel=function(scope,context){
+    if(!v28HistoryEnabled(scope,context.kind))return"";
+    const entry=v28PracticeEntry(scope,context),history=entry.history.slice().sort((a,b)=>new Date(b.checkedAt)-new Date(a.checkedAt)),commonErrors=v28CommonErrorCounts(history),alternativesId=v28MemoryInputId(scope,context,"alternatives");
+    return `<section class="essay-memory-panel" id="${escapeHtml(v28MemoryPanelId(scope,context))}">
+      <div class="essay-memory-head"><div><strong>我的备注与以前练习</strong><span>可以写与标准答案不同但正确的句子，也可以记录老师意见；不会被批改覆盖。</span></div><span>${history.length}次记录</span></div>
+      <div class="essay-memory-body">
+        <div class="essay-memory-reference"><strong>${escapeHtml(context.referenceLabel||"标准／辅助答案")}：</strong>${escapeHtml(context.reference||"")}</div>
+        <div class="essay-memory-grid"><div class="essay-memory-field"><label>备注／其他正确表达（每行一条）</label><textarea id="${escapeHtml(alternativesId)}" placeholder="例如：另一种正确完整句子；老师批注；需要注意的语法。">${escapeHtml(entry.acceptedAlternatives.join("\n"))}</textarea><div class="button-row" style="margin-top:9px"><button class="secondary-btn" data-essay-memory-action="save-alternatives" data-scope="${scope}" data-kind="${escapeHtml(context.kind)}" data-id="${escapeHtml(context.resolverId || context.id)}">保存备注</button></div></div></div>
+        <div class="essay-memory-section"><div class="essay-memory-section-title">本题常见错误</div>${commonErrors.length?`<div class="essay-common-errors">${commonErrors.map(([label,count])=>`<span class="essay-error-chip">${escapeHtml(label)} <b>${count}次</b></span>`).join("")}</div>`:'<div class="essay-history-empty">完成一次批改后，这里会统计错误。</div>'}</div>
+        <div class="essay-memory-section"><div class="essay-memory-section-title">以前的练习记录</div>${history.length?`<div>${history.map(v28RenderHistoryRecord).join("")}</div>`:'<div class="essay-history-empty">还没有记录。第一次批改后会保存你写的内容、正确部分和错误部分。</div>'}</div>
+      </div>
+    </section>`;
+  };
+
+  v28SaveMemoryField=function(scope,kind,id,field){
+    const context=v28ResolveContext(scope,kind,id);if(!context)return showToast("没有找到本句记录");
+    const entry=v28PracticeEntry(scope,context),input=document.getElementById(v28MemoryInputId(scope,context,"alternatives"));
+    entry.acceptedAlternatives=v28StringArray(input?.value||"");entry.userNote=entry.acceptedAlternatives.join("\n");entry.noteUpdatedAt=new Date().toISOString();
+    const latest=entry.history.slice().sort((a,b)=>new Date(b.checkedAt)-new Date(a.checkedAt))[0];if(latest)latest.acceptedAlternatives=[...entry.acceptedAlternatives];
+    saveState();v28RefreshMemoryPanel(scope,context);showToast("备注已保存");
+  };
+
+  function v30InjectPanels(html,scope,contexts){
+    let result=html;
+    contexts.filter(Boolean).forEach(context=>{
+      if(!result.includes(v28MemoryPanelId(scope,context)))result=v28InsertAfterTextareaField(result,context.inputId,v28RenderMemoryPanel(scope,context));
+    });
+    return result;
+  }
+
+  const v30BaseRenderEssayReading=renderEssayReading;
+  renderEssayReading=function(){const essay=getBigEssayById(currentEssayId);return v30InjectPanels(v30BaseRenderEssayReading(),"big",essay.paragraphs.flatMap(p=>p.sentences.map(s=>resolveWritingContext("inline",s.id))))};
+  const v30BaseRenderParagraphImitation=renderParagraphImitation;
+  renderParagraphImitation=function(){const task=PARAGRAPH_IMITATION_TASKS.find(x=>x.id===currentParagraphImitationId)||PARAGRAPH_IMITATION_TASKS[0],contexts=paragraphImitationSentenceSet(task).map((s,i)=>resolveWritingContext("paragraph",`${task.id}::${i}`));return v30InjectPanels(v30BaseRenderParagraphImitation(),"big",contexts)};
+  const v30BaseRenderWholeImitation=renderWholeImitation;
+  renderWholeImitation=function(){const task=WHOLE_IMITATION_TASKS.find(x=>x.id===currentWholeImitationId)||WHOLE_IMITATION_TASKS[0],contexts=wholeImitationSentenceSet(task).map(s=>resolveWritingContext("whole",`${task.id}::${s.id}`));return v30InjectPanels(v30BaseRenderWholeImitation(),"big",contexts)};
+  const v30BaseRenderEssayDictation=renderEssayDictation;
+  renderEssayDictation=function(){const essay=getBigEssayById(currentEssayId),paragraph=essay.paragraphs[currentDictationParagraph-1]||essay.paragraphs[0],contexts=dictationSentenceSet(essay,paragraph).map((s,i)=>resolveWritingContext("dictation",`${essay.id}::${paragraph.number}::${i}`));return v30InjectPanels(v30BaseRenderEssayDictation(),"big",contexts)};
+  const v30BaseRenderEssayPatterns=renderEssayPatterns;
+  renderEssayPatterns=function(){return v30InjectPanels(v30BaseRenderEssayPatterns(),"big",BIG_ESSAY_PATTERNS.map(p=>resolveWritingContext("pattern",p.id)))};
+
+  const v30BaseRenderSmallReading=renderSmallReading;
+  renderSmallReading=function(){const essay=getSmallEssay(currentSmallEssayId),contexts=essay.paragraphs.flatMap(p=>p.map(s=>smallContext("original",s.id)));return v30InjectPanels(v30BaseRenderSmallReading(),"small",contexts)};
+  const v30BaseRenderSmallWhole=renderSmallWhole;
+  renderSmallWhole=function(){const task=SMALL_WHOLE.find(x=>x.id===currentSmallWholeId)||SMALL_WHOLE[0],contexts=task.units.map(u=>smallContext("whole",`${task.id}::${u.id}`));return v30InjectPanels(v30BaseRenderSmallWhole(),"small",contexts)};
+  const v30BaseRenderSmallDictation=renderSmallDictation;
+  renderSmallDictation=function(){const essay=getSmallEssay(currentSmallEssayId),paragraph=essay.paragraphs[currentSmallDictationParagraph-1]||essay.paragraphs[0];return v30InjectPanels(v30BaseRenderSmallDictation(),"small",paragraph.map(s=>smallContext("dictation",s.id)))};
+  const v30BaseRenderSmallFunctions=renderSmallFunctions;
+  renderSmallFunctions=function(){return v30InjectPanels(v30BaseRenderSmallFunctions(),"small",SMALL_FUNCTIONS.map(t=>smallContext("function",t.id)))};
+
+  const v30BaseRenderEssaySentenceStudy=renderEssaySentenceStudy;
+  renderEssaySentenceStudy=function(){return v30BaseRenderEssaySentenceStudy().replace("随机写5句",`随机写${Math.max(1,v30Target("bigSentence")||1)}句`)};
+  const v30BaseRenderSmallStudy=renderSmallStudy;
+  renderSmallStudy=function(){return v30BaseRenderSmallStudy().replace("随机写5句",`随机写${Math.max(1,v30Target("smallSentence")||1)}句`)};
+
+  function v30DescribeContentId(id){
+    const text=String(id||"");
+    if(text.startsWith("word:")){const card=state.cards.find(c=>c.id===text.slice(5));return card?`词组：${card.phrase}（${card.year}年 ${card.section}）`:text}
+    const parts=text.split(":");
+    if(parts[0]==="big"&&parts.length>=3){const category=parts[1],storageId=parts.slice(2).join(":"),entry=state.bigEssayPractice?.[category]?.[storageId],labels={sentenceImitation:"大作文句子仿写",patternImitation:"大作文句型仿写",paragraphImitation:"大作文段落仿写",wholeImitation:"大作文整篇仿写",dictation:"大作文写译／默写"};return `${labels[category]||"大作文练习"}${entry?.answer?`：${String(entry.answer).slice(0,90)}`:""}`}
+    if(parts[0]==="small"&&parts.length>=3){const category=parts[1],storageId=parts.slice(2).join(":"),entry=state.smallEssayPractice?.[category]?.[storageId],labels={inline:"小作文逐句练习",sentenceImitation:"小作文句子仿写",wholeImitation:"小作文整篇仿写",dictation:"小作文写译／默写",functionPractice:"小作文功能句"};return `${labels[category]||"小作文练习"}${entry?.answer?`：${String(entry.answer).slice(0,90)}`:""}`}
+    return text;
+  }
+  function v30RenderDayActual(key,plan){
+    const mode=state.dailyModes?.[key]||{learningIds:[],reviewIds:[]},activities=state.planActivities?.[key]||{},checked=plan.tasks.filter(task=>planTaskDone(key,task)).map(task=>task.displayLabel),content=[...new Set([...(mode.learningIds||[]),...(mode.reviewIds||[])])],logs=(state.sessionLog||[]).filter(log=>{const d=new Date(log.time);return !Number.isNaN(d.getTime())&&localDateKey(d)===key});
+    const activityRows=Object.entries(activities).filter(([,count])=>Number(count)>0).map(([activity,count])=>`${PLAN_ACTIVITY_META[activity]?.label||activity}：${count}${PLAN_ACTIVITY_META[activity]?.unit||""}`);
+    const logRows=logs.slice(-30).map(log=>{const card=state.cards.find(c=>c.id===log.cardId);return card?`词组记录：${card.phrase} · ${["完全不会","错误较多","基本正确","熟练掌握"][log.grade]||"已完成"}`:""}).filter(Boolean);
+    const details=[...content.map(v30DescribeContentId),...logRows];
+    return `<section class="day-actual-record"><h4>这一天实际做了什么</h4><div class="day-actual-summary"><span>手动勾选 ${checked.length}/${plan.tasks.length}项</span>${activityRows.map(row=>`<span>${escapeHtml(row)}</span>`).join("")}</div>${checked.length?`<div class="day-actual-list"><div class="day-actual-item"><strong>手动勾选：</strong>${checked.map(escapeHtml).join("、")}</div></div>`:""}${details.length?`<div class="day-actual-list" style="margin-top:8px">${details.map(item=>`<div class="day-actual-item">${escapeHtml(item)}</div>`).join("")}</div>`:'<div class="day-actual-empty">这一天还没有保存实际练习内容。只打开页面不会产生记录。</div>'}</section>`;
+  }
+
+  renderSelectedPlanDay=function(){
+    const date=dateFromKey(selectedStudyPlanDateKey),st=planDayStatus(date),weeks=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],isToday=st.key===localDateKey();
+    $("selectedPlanDate").textContent=`${date.getMonth()+1}月${date.getDate()}日 · ${weeks[date.getDay()]}`;
+    $("selectedPlanPhase").textContent=`${st.plan.phase.name} · 数量按你的设置`;
+    $("selectedPlanStatus").textContent=st.coreComplete?`已手动完成 ${st.done}/${st.total}`:`已手动勾选 ${st.done}/${st.total}`;
+    $("selectedPlanStatus").classList.toggle("done",st.coreComplete);
+    $("selectedPlanFocus").innerHTML=`<strong>本周大作文：</strong>${escapeHtml(st.plan.focus.big.title)}<br><strong>本周小作文：</strong>${escapeHtml(st.plan.focus.small.title)}（${escapeHtml(st.plan.focus.small.type)}）<br><span>题量全部来自“设置 → 学习设置”，不会按年份或阶段自动加题。</span>`;
+    renderPlanTaskList("selectedPlanTasks",date,true,true);
+    const container=$("selectedPlanTasks");if(container)container.insertAdjacentHTML("afterbegin",v30RenderDayActual(st.key,st.plan));
+    renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday);
+  };
+
+  const v30BaseRenderTodayAutoPlan=renderTodayAutoPlan;
+  renderTodayAutoPlan=function(){v30BaseRenderTodayAutoPlan();if($("todayPlanMinutes"))$("todayPlanMinutes").textContent=studyPlanForDate(new Date()).estimatedMinutes;if($("todayPlanMeta"))$("todayPlanMeta").textContent="任务数量全部由你在设置中填写；实际学习只更新进度，完成仍需手动勾选。"};
+
+  const v30BaseRenderCoverageDashboard=renderCoverageDashboard;
+  renderCoverageDashboard=function(){v30BaseRenderCoverageDashboard();if($("paceOverallMessage"))$("paceOverallMessage").textContent="覆盖率只做统计，今天的题量不会自动增加；全部以你的设置为准。";if($("paceAdjustNote"))$("paceAdjustNote").innerHTML="今日数量由你在“设置 → 学习设置”中填写，系统不再自动提高新词、选择题或作文题量。"};
+
+
+
+  /* V30_REMOVE_FIXED_BONUS_AND_CLARIFY_USER_TARGETS */
+  Object.assign(PLAN_ACTIVITY_META.newWords,{description:"每天的新词数量完全由你在设置中填写；每日分配会跨年份轮换，避免连续出现同一批2021年词组。"});
+  Object.assign(PLAN_ACTIVITY_META.review,{description:"每天最多复习多少到期旧词由你设置；系统只负责按到期时间排序。"});
+  Object.assign(PLAN_ACTIVITY_META.quiz,{description:"每天选择题数量由你设置；错题仍会自动记录。"});
+  ["bigSentence","bigImitation","bigPattern","bigParagraph","bigWhole","bigDictation","smallSentence","smallImitation","smallWhole","smallDictation","smallFunction","smallFormat","mistakes","marks"].forEach(activity=>{
+    if(PLAN_ACTIVITY_META[activity])PLAN_ACTIVITY_META[activity].description=`当天目标数量由你在设置中填写；实际练习只更新进度，完成需要手动勾选。`;
+  });
+
+  bonusTasksForDate=function(){return[]};
+  renderBonusTaskList=function(containerId,panelId,statusId){
+    const c=$(containerId),p=$(panelId),s=$(statusId);if(c)c.innerHTML="";if(p)p.style.display="none";if(s)s.textContent="";
+  };
+
+  const v30BaseRenderStudyPlanCalendar=renderStudyPlanCalendar;
+  renderStudyPlanCalendar=function(){
+    v30BaseRenderStudyPlanCalendar();
+    const y=studyPlanCalendarCursor.getFullYear(),m=studyPlanCalendarCursor.getMonth(),days=new Date(y,m+1,0).getDate(),start=planStartDate(),end=planEndDate();
+    let complete=0;
+    for(let d=1;d<=days;d++){const date=new Date(y,m,d);if(date>=start&&date<=end&&planDayStatus(date).coreComplete)complete++}
+    if($("planCalendarMonthSummary"))$("planCalendarMonthSummary").textContent=`本月手动完成 ${complete} 天`;
+    document.querySelectorAll("[data-plan-date]").forEach(button=>{
+      const st=planDayStatus(button.dataset.planDate),label=button.querySelector(".calendar-cell-state");
+      if(label)label.textContent=st.coreComplete?"已完成":`${st.done}/${st.total}`;
+      button.classList.remove("full-complete");
+    });
+  };
+
+  const v30BaseRenderStudyWeekBlueprint=renderStudyWeekBlueprint;
+  renderStudyWeekBlueprint=function(){
+    v30BaseRenderStudyWeekBlueprint();
+    if($("studyWeekFocus"))$("studyWeekFocus").innerHTML=`本周作文主题会自动轮换，但<strong>所有题目数量都以你的设置为准</strong>；填0的项目不会进入每日计划。`;
+  };
+
+  window.__KAOYAN_BUILD__ = "V30-user-controlled-targets-notes-history-2026-08-04";
   init();
 })();
 </script>

@@ -1,0 +1,3285 @@
+{
+  "source": "用户提供的2007—2026年考研英语（一）PDF真题与考研小作文Excel模板",
+  "note": "共13篇真题小作文；2004年试卷没有Part A小作文。正文依据题目要求重写，建议信与通知沿用Excel模板句式，邀请信与回复咨询信采用用户确认的新模板。整篇仿写、52道句子仿写和25道功能句为网页训练辅助内容。",
+  "essays": [
+    {
+      "id": "small-2007-library-suggestions",
+      "number": 1,
+      "title": "2007年｜给大学图书馆提出改进建议",
+      "type": "邮件或书信",
+      "subtype": "建议信",
+      "theme": "图书馆服务",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear Sir or Madam,",
+          "chinesePrompt": "称呼写Dear Sir or Madam,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2007-library-suggestions-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "I am writing to offer some suggestions on improving the service of our university library.",
+            "chinesePrompt": "我写信是想就改善我校图书馆服务提出一些建议。",
+            "role": "写信目的",
+            "kind": "body",
+            "id": "small-2007-library-suggestions-p1-s1",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "Firstly, it would be better if the library extended its opening hours, particularly during examination periods.",
+            "chinesePrompt": "首先，如果图书馆能延长开放时间，特别是在考试期间，会更好。",
+            "role": "第一条建议",
+            "kind": "body",
+            "id": "small-2007-library-suggestions-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Secondly, I suggest that more up-to-date academic books and electronic resources be provided.",
+            "chinesePrompt": "其次，我建议提供更多最新的学术书籍和电子资源。",
+            "role": "第二条建议",
+            "kind": "body",
+            "id": "small-2007-library-suggestions-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Last but not least, it is advisable to improve the online reservation system and create additional quiet study areas.",
+            "chinesePrompt": "最后但同样重要的是，最好改进在线预约系统并增设安静学习区。",
+            "role": "第三条建议",
+            "kind": "body",
+            "id": "small-2007-library-suggestions-p2-s3",
+            "paragraph": 2
+          },
+          {
+            "text": "These measures would make the library more convenient and efficient for students.",
+            "chinesePrompt": "这些措施将使图书馆对学生而言更加便利和高效。",
+            "role": "建议效果",
+            "kind": "body",
+            "id": "small-2007-library-suggestions-p2-s4",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I hope my suggestions will be of some help, and I am looking forward to seeing better library services.",
+            "chinesePrompt": "我希望这些建议能有所帮助，并期待看到更好的图书馆服务。",
+            "role": "总结与期待",
+            "kind": "body",
+            "id": "small-2007-library-suggestions-p3-s1",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2007-library-suggestions-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2007-library-suggestions-f2"
+        }
+      ]
+    },
+    {
+      "id": "small-2012-welcome-advice",
+      "number": 2,
+      "title": "2012年｜欢迎国际学生并提出校园生活建议",
+      "type": "邮件或书信",
+      "subtype": "欢迎＋建议信",
+      "theme": "校园生活与国际学生",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear International Students,",
+          "chinesePrompt": "称呼写Dear International Students,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2012-welcome-advice-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "On behalf of the Students’ Union, I would like to extend our warmest welcome to you.",
+            "chinesePrompt": "我谨代表学生会向你们表示最热烈的欢迎。",
+            "role": "表示欢迎",
+            "kind": "body",
+            "id": "small-2012-welcome-advice-p1-s1",
+            "paragraph": 1
+          },
+          {
+            "text": "I am writing to offer some suggestions on your campus life here.",
+            "chinesePrompt": "我写信是想就你们在这里的校园生活提出一些建议。",
+            "role": "写信目的",
+            "kind": "body",
+            "id": "small-2012-welcome-advice-p1-s2",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "Firstly, it would be better if you attended the orientation program to learn about university facilities and regulations.",
+            "chinesePrompt": "首先，如果你们参加迎新活动以了解学校设施和规章制度，会更好。",
+            "role": "第一条建议",
+            "kind": "body",
+            "id": "small-2012-welcome-advice-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Secondly, I suggest that you join student clubs and communicate actively with Chinese students.",
+            "chinesePrompt": "其次，我建议你们加入学生社团并积极与中国学生交流。",
+            "role": "第二条建议",
+            "kind": "body",
+            "id": "small-2012-welcome-advice-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Last but not least, it is advisable to contact the International Student Office whenever you encounter difficulties.",
+            "chinesePrompt": "最后但同样重要的是，遇到困难时最好联系国际学生办公室。",
+            "role": "第三条建议",
+            "kind": "body",
+            "id": "small-2012-welcome-advice-p2-s3",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I hope my suggestions will be of some help, and I am looking forward to your arrival.",
+            "chinesePrompt": "我希望这些建议能有所帮助，并期待你们的到来。",
+            "role": "总结与期待",
+            "kind": "body",
+            "id": "small-2012-welcome-advice-p3-s1",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2012-welcome-advice-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2012-welcome-advice-f2"
+        }
+      ]
+    },
+    {
+      "id": "small-2013-speech-judge-invitation",
+      "number": 3,
+      "title": "2013年｜邀请外籍教师担任演讲比赛评委",
+      "type": "邮件或书信",
+      "subtype": "邀请信",
+      "theme": "英语演讲比赛",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear Professor,",
+          "chinesePrompt": "称呼写Dear Professor,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2013-speech-judge-invitation-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "On behalf of the organizing committee, I am writing to cordially invite you to serve as a judge for the upcoming English speech contest, which will be held in the university auditorium at 2:00 p.m. next Friday.",
+            "chinesePrompt": "我谨代表组委会诚挚邀请您担任即将举行的英语演讲比赛评委；比赛将于下周五下午2点在大学礼堂举行。",
+            "role": "邀请目的、时间与地点",
+            "kind": "body",
+            "id": "small-2013-speech-judge-invitation-p1-s1",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "The contest, themed “Youth and Responsibility,” is intended to improve students’ spoken English.",
+            "chinesePrompt": "本次比赛以“青春与责任”为主题，旨在提高学生的英语口语水平。",
+            "role": "活动主题与目的",
+            "kind": "body",
+            "id": "small-2013-speech-judge-invitation-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Ten finalists will deliver five-minute speeches.",
+            "chinesePrompt": "十名决赛选手将分别进行五分钟演讲。",
+            "role": "活动安排",
+            "kind": "body",
+            "id": "small-2013-speech-judge-invitation-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Given your extensive experience in English teaching, we would be greatly honored if you could evaluate their pronunciation, content and overall performance.",
+            "chinesePrompt": "鉴于您丰富的英语教学经验，如能请您从发音、内容和整体表现方面进行评判，我们将深感荣幸。",
+            "role": "邀请理由与职责",
+            "kind": "body",
+            "id": "small-2013-speech-judge-invitation-p2-s3",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I would be most grateful if you could accept our invitation.",
+            "chinesePrompt": "如您能接受邀请，我将不胜感激。",
+            "role": "请求接受邀请",
+            "kind": "body",
+            "id": "small-2013-speech-judge-invitation-p3-s1",
+            "paragraph": 3
+          },
+          {
+            "text": "Please let me know whether you will be available.",
+            "chinesePrompt": "请告知您届时是否有空。",
+            "role": "期待回复",
+            "kind": "body",
+            "id": "small-2013-speech-judge-invitation-p3-s2",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2013-speech-judge-invitation-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2013-speech-judge-invitation-f2"
+        }
+      ]
+    },
+    {
+      "id": "small-2016-library-notice",
+      "number": 4,
+      "title": "2016年｜向国际新生介绍图书馆",
+      "type": "通知",
+      "subtype": "通知",
+      "theme": "图书馆服务",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Notice",
+          "chinesePrompt": "标题写Notice。",
+          "role": "标题",
+          "kind": "format",
+          "id": "small-2016-library-notice-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "This is to inform all newly enrolled international students that the university library provides a wide range of books, journals and electronic resources.",
+            "chinesePrompt": "现通知所有新入学的国际学生：学校图书馆提供种类丰富的图书、期刊和电子资源。",
+            "role": "通知事项",
+            "kind": "body",
+            "id": "small-2016-library-notice-p1-s1",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "The library is located beside the main teaching building and is open from 8:00 a.m. to 10:00 p.m.",
+            "chinesePrompt": "图书馆位于主教学楼旁，开放时间为上午8点至晚上10点。",
+            "role": "地点与开放时间",
+            "kind": "body",
+            "id": "small-2016-library-notice-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Students are required to enter with their student cards and may borrow up to five books for thirty days.",
+            "chinesePrompt": "学生须凭学生卡入馆，每次最多可借五本书，借期三十天。",
+            "role": "入馆与借阅规定",
+            "kind": "body",
+            "id": "small-2016-library-notice-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Those who are interested in using the electronic databases are required to activate their accounts at the information desk.",
+            "chinesePrompt": "希望使用电子数据库的学生须在咨询台激活账户。",
+            "role": "电子资源要求",
+            "kind": "body",
+            "id": "small-2016-library-notice-p2-s3",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "Please make sure to return books on time.",
+            "chinesePrompt": "请务必按时归还图书。",
+            "role": "提醒",
+            "kind": "body",
+            "id": "small-2016-library-notice-p3-s1",
+            "paragraph": 3
+          },
+          {
+            "text": "For further information, please contact the library office.",
+            "chinesePrompt": "如需更多信息，请联系图书馆办公室。",
+            "role": "咨询方式",
+            "kind": "body",
+            "id": "small-2016-library-notice-p3-s2",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2016-library-notice-f1"
+        }
+      ]
+    },
+    {
+      "id": "small-2018-graduation-invitation",
+      "number": 5,
+      "title": "2018年｜邀请国际专家参加毕业典礼",
+      "type": "邮件或书信",
+      "subtype": "邀请信",
+      "theme": "毕业典礼",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear International Experts,",
+          "chinesePrompt": "称呼写Dear International Experts,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2018-graduation-invitation-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "On behalf of our university, I am writing to cordially invite you to attend the graduation ceremony, which will be held in the university auditorium at 9:00 a.m. on June 28.",
+            "chinesePrompt": "我谨代表学校诚挚邀请各位参加毕业典礼；典礼将于6月28日上午9点在大学礼堂举行。",
+            "role": "邀请目的、时间与地点",
+            "kind": "body",
+            "id": "small-2018-graduation-invitation-p1-s1",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "The ceremony will include speeches by the university president and graduate representatives, the conferring of degrees and a group photograph.",
+            "chinesePrompt": "典礼将包括校长和毕业生代表致辞、学位授予以及集体合影。",
+            "role": "典礼安排",
+            "kind": "body",
+            "id": "small-2018-graduation-invitation-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "As distinguished members of our academic community, your presence would make this important occasion more meaningful.",
+            "chinesePrompt": "作为学校学术共同体的重要成员，各位的出席将使这一重要时刻更有意义。",
+            "role": "邀请理由",
+            "kind": "body",
+            "id": "small-2018-graduation-invitation-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Please arrive twenty minutes in advance and take your seats in the designated guest area.",
+            "chinesePrompt": "请提前二十分钟到场，并在指定嘉宾区就座。",
+            "role": "注意事项",
+            "kind": "body",
+            "id": "small-2018-graduation-invitation-p2-s3",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I would be most grateful if you could accept our invitation.",
+            "chinesePrompt": "如各位能接受邀请，我将不胜感激。",
+            "role": "请求接受邀请",
+            "kind": "body",
+            "id": "small-2018-graduation-invitation-p3-s1",
+            "paragraph": 3
+          },
+          {
+            "text": "We are sincerely looking forward to your presence.",
+            "chinesePrompt": "我们真诚期待各位的莅临。",
+            "role": "期待出席",
+            "kind": "body",
+            "id": "small-2018-graduation-invitation-p3-s2",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2018-graduation-invitation-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2018-graduation-invitation-f2"
+        }
+      ]
+    },
+    {
+      "id": "small-2019-rural-school-reply",
+      "number": 6,
+      "title": "2019年｜回复农村小学支教项目咨询",
+      "type": "邮件或书信",
+      "subtype": "回复咨询信",
+      "theme": "志愿服务与农村教育",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear Sir or Madam,",
+          "chinesePrompt": "称呼写Dear Sir or Madam,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2019-rural-school-reply-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "Thank you for your interest in the “Aiding Rural Primary School” project.",
+            "chinesePrompt": "感谢你对“支援农村小学”项目感兴趣。",
+            "role": "感谢与回应",
+            "kind": "body",
+            "id": "small-2019-rural-school-reply-p1-s1",
+            "paragraph": 1
+          },
+          {
+            "text": "I am writing to provide you with the information you requested concerning the program.",
+            "chinesePrompt": "我写信是想提供你所询问的项目相关信息。",
+            "role": "回复目的",
+            "kind": "body",
+            "id": "small-2019-rural-school-reply-p1-s2",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "The project will run for two weeks in July at a rural primary school near our city.",
+            "chinesePrompt": "该项目将于七月在本市附近的一所农村小学开展，为期两周。",
+            "role": "时间与地点",
+            "kind": "body",
+            "id": "small-2019-rural-school-reply-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Volunteers will teach basic English, organize reading and sports activities, and help local teachers prepare materials.",
+            "chinesePrompt": "志愿者将教授基础英语、组织阅读和体育活动，并帮助当地教师准备材料。",
+            "role": "项目任务",
+            "kind": "body",
+            "id": "small-2019-rural-school-reply-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Accommodation and meals will be provided.",
+            "chinesePrompt": "项目将提供住宿和餐食。",
+            "role": "保障条件",
+            "kind": "body",
+            "id": "small-2019-rural-school-reply-p2-s3",
+            "paragraph": 2
+          },
+          {
+            "text": "Applicants should be responsible, patient and able to communicate effectively with children.",
+            "chinesePrompt": "申请者应有责任心、耐心，并能与儿童有效沟通。",
+            "role": "申请要求",
+            "kind": "body",
+            "id": "small-2019-rural-school-reply-p2-s4",
+            "paragraph": 2
+          },
+          {
+            "text": "Please submit your application before June 20.",
+            "chinesePrompt": "请在6月20日前提交申请。",
+            "role": "申请截止时间",
+            "kind": "body",
+            "id": "small-2019-rural-school-reply-p2-s5",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I hope the above information will be helpful.",
+            "chinesePrompt": "我希望以上信息能有所帮助。",
+            "role": "总结",
+            "kind": "body",
+            "id": "small-2019-rural-school-reply-p3-s1",
+            "paragraph": 3
+          },
+          {
+            "text": "Please feel free to contact me if you need any further details.",
+            "chinesePrompt": "如需更多细节，请随时与我联系。",
+            "role": "进一步咨询",
+            "kind": "body",
+            "id": "small-2019-rural-school-reply-p3-s2",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2019-rural-school-reply-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2019-rural-school-reply-f2"
+        }
+      ]
+    },
+    {
+      "id": "small-2020-singing-contest-notice",
+      "number": 7,
+      "title": "2020年｜通知国际学生参加歌唱比赛",
+      "type": "通知",
+      "subtype": "通知",
+      "theme": "校园歌唱比赛",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Notice",
+          "chinesePrompt": "标题写Notice。",
+          "role": "标题",
+          "kind": "format",
+          "id": "small-2020-singing-contest-notice-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "This is to inform all international students that a campus singing contest will be held to enrich campus life and promote cultural communication.",
+            "chinesePrompt": "现通知所有国际学生：学校将举办校园歌唱比赛，以丰富校园生活并促进文化交流。",
+            "role": "通知事项与目的",
+            "kind": "body",
+            "id": "small-2020-singing-contest-notice-p1-s1",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "The event will be held in the university auditorium at 7:00 p.m. on October 18.",
+            "chinesePrompt": "活动将于10月18日晚上7点在大学礼堂举行。",
+            "role": "时间与地点",
+            "kind": "body",
+            "id": "small-2020-singing-contest-notice-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Those who are interested in participating are required to submit their names, student numbers and selected songs to the Students’ Union before October 10.",
+            "chinesePrompt": "有意参加者须在10月10日前向学生会提交姓名、学号和参赛歌曲。",
+            "role": "报名要求",
+            "kind": "body",
+            "id": "small-2020-singing-contest-notice-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Both individual and group performances are welcome, and each performance should last no longer than five minutes.",
+            "chinesePrompt": "个人和团体表演均可，每个节目不得超过五分钟。",
+            "role": "参赛规定",
+            "kind": "body",
+            "id": "small-2020-singing-contest-notice-p2-s3",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "Please make sure to attend the rehearsal on October 16, and we are looking forward to your active participation.",
+            "chinesePrompt": "请务必参加10月16日的彩排，我们期待大家积极参与。",
+            "role": "提醒与期待",
+            "kind": "body",
+            "id": "small-2020-singing-contest-notice-p3-s1",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "The Students’ Union",
+          "chinesePrompt": "发布单位写The Students’ Union。",
+          "role": "发布单位",
+          "kind": "format",
+          "id": "small-2020-singing-contest-notice-f1"
+        }
+      ]
+    },
+    {
+      "id": "small-2021-job-advice",
+      "number": 8,
+      "title": "2021年｜为在中国求职提出建议",
+      "type": "邮件或书信",
+      "subtype": "建议信",
+      "theme": "求职与职场适应",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear Friend,",
+          "chinesePrompt": "称呼写Dear Friend,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2021-job-advice-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "I am writing to offer some suggestions on finding a suitable job in China after graduation.",
+            "chinesePrompt": "我写信是想就毕业后在中国寻找合适工作提出一些建议。",
+            "role": "写信目的",
+            "kind": "body",
+            "id": "small-2021-job-advice-p1-s1",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "Firstly, it would be better if you learned about the Chinese job market and selected positions related to your major.",
+            "chinesePrompt": "首先，如果你了解中国就业市场并选择与专业相关的职位，会更好。",
+            "role": "第一条建议",
+            "kind": "body",
+            "id": "small-2021-job-advice-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Secondly, I suggest that you prepare a clear résumé highlighting your education, practical experience and language skills.",
+            "chinesePrompt": "其次，我建议你准备一份清晰的简历，突出教育背景、实践经验和语言能力。",
+            "role": "第二条建议",
+            "kind": "body",
+            "id": "small-2021-job-advice-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Last but not least, it is advisable to improve your Chinese and become familiar with local workplace culture before attending interviews.",
+            "chinesePrompt": "最后但同样重要的是，面试前最好提高汉语水平并熟悉当地职场文化。",
+            "role": "第三条建议",
+            "kind": "body",
+            "id": "small-2021-job-advice-p2-s3",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I hope my suggestions will be of some help, and I am looking forward to hearing good news about your job search.",
+            "chinesePrompt": "我希望这些建议能有所帮助，并期待听到你求职成功的好消息。",
+            "role": "总结与期待",
+            "kind": "body",
+            "id": "small-2021-job-advice-p3-s1",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2021-job-advice-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2021-job-advice-f2"
+        }
+      ]
+    },
+    {
+      "id": "small-2022-innovation-team-invitation",
+      "number": 9,
+      "title": "2022年｜邀请教授组织国际创新竞赛队伍",
+      "type": "邮件或书信",
+      "subtype": "邀请信",
+      "theme": "国际创新竞赛",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear Professor,",
+          "chinesePrompt": "称呼写Dear Professor,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2022-innovation-team-invitation-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "On behalf of the organizing committee, I am writing to cordially invite you to organize a team for the international innovation contest to be held at our university.",
+            "chinesePrompt": "我谨代表组委会诚挚邀请您组织一支队伍，参加将在我校举行的国际创新竞赛。",
+            "role": "邀请目的",
+            "kind": "body",
+            "id": "small-2022-innovation-team-invitation-p1-s1",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "The contest is intended to encourage young people to develop creative solutions to practical problems.",
+            "chinesePrompt": "竞赛旨在鼓励青年人为现实问题提出创新解决方案。",
+            "role": "竞赛目的",
+            "kind": "body",
+            "id": "small-2022-innovation-team-invitation-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Each team should consist of four to six students and submit a project proposal before September 20.",
+            "chinesePrompt": "每支队伍应由四至六名学生组成，并在9月20日前提交项目方案。",
+            "role": "参赛要求",
+            "kind": "body",
+            "id": "small-2022-innovation-team-invitation-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Given your extensive experience in innovation education, we would be greatly honored if you could select interested students and guide them in preparing their project.",
+            "chinesePrompt": "鉴于您在创新教育方面经验丰富，如能选拔有兴趣的学生并指导他们准备项目，我们将深感荣幸。",
+            "role": "邀请理由与任务",
+            "kind": "body",
+            "id": "small-2022-innovation-team-invitation-p2-s3",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I would be most grateful if you could accept our invitation.",
+            "chinesePrompt": "如您能接受邀请，我将不胜感激。",
+            "role": "请求接受邀请",
+            "kind": "body",
+            "id": "small-2022-innovation-team-invitation-p3-s1",
+            "paragraph": 3
+          },
+          {
+            "text": "I am looking forward to your reply.",
+            "chinesePrompt": "期待您的回复。",
+            "role": "期待回复",
+            "kind": "body",
+            "id": "small-2022-innovation-team-invitation-p3-s2",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2022-innovation-team-invitation-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2022-innovation-team-invitation-f2"
+        }
+      ]
+    },
+    {
+      "id": "small-2023-sports-assistant-notice",
+      "number": 10,
+      "title": "2023年｜招聘校园体育研究项目学生助理",
+      "type": "通知",
+      "subtype": "通知",
+      "theme": "校园体育研究",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Notice",
+          "chinesePrompt": "标题写Notice。",
+          "role": "标题",
+          "kind": "format",
+          "id": "small-2023-sports-assistant-notice-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "This is to inform all students that Professor Smith’s research project on campus sports activities is recruiting one student assistant.",
+            "chinesePrompt": "现通知全体学生：史密斯教授的校园体育活动研究项目正在招聘一名学生助理。",
+            "role": "招聘事项",
+            "kind": "body",
+            "id": "small-2023-sports-assistant-notice-p1-s1",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "The project will be carried out from March to May.",
+            "chinesePrompt": "该项目将于三月至五月开展。",
+            "role": "项目时间",
+            "kind": "body",
+            "id": "small-2023-sports-assistant-notice-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Those who are interested in the position are required to distribute questionnaires, interview students and organize research data.",
+            "chinesePrompt": "有意应聘者须发放问卷、采访学生并整理研究数据。",
+            "role": "工作职责",
+            "kind": "body",
+            "id": "small-2023-sports-assistant-notice-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Applicants should be responsible, patient and proficient in basic computer operations.",
+            "chinesePrompt": "申请者应有责任心、耐心，并熟练掌握基本计算机操作。",
+            "role": "基本要求",
+            "kind": "body",
+            "id": "small-2023-sports-assistant-notice-p2-s3",
+            "paragraph": 2
+          },
+          {
+            "text": "They should also be available for two afternoons each week.",
+            "chinesePrompt": "申请者每周还应能安排两个下午工作。",
+            "role": "时间要求",
+            "kind": "body",
+            "id": "small-2023-sports-assistant-notice-p2-s4",
+            "paragraph": 2
+          },
+          {
+            "text": "Previous research experience and an interest in sports are preferred.",
+            "chinesePrompt": "有研究经验并对体育感兴趣者优先。",
+            "role": "优先条件",
+            "kind": "body",
+            "id": "small-2023-sports-assistant-notice-p2-s5",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "Please submit a brief application to the Students’ Union before Friday.",
+            "chinesePrompt": "请在周五前向学生会提交一份简短申请。",
+            "role": "申请方式与截止时间",
+            "kind": "body",
+            "id": "small-2023-sports-assistant-notice-p3-s1",
+            "paragraph": 3
+          },
+          {
+            "text": "For further information, please contact our office.",
+            "chinesePrompt": "如需更多信息，请联系办公室。",
+            "role": "咨询方式",
+            "kind": "body",
+            "id": "small-2023-sports-assistant-notice-p3-s2",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2023-sports-assistant-notice-f1"
+        }
+      ]
+    },
+    {
+      "id": "small-2024-scientist-report-advice",
+      "number": 11,
+      "title": "2024年｜回复如何准备中国古代科学家口头报告",
+      "type": "邮件或书信",
+      "subtype": "回复建议信",
+      "theme": "口头报告准备",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear Paul,",
+          "chinesePrompt": "称呼写Dear Paul,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2024-scientist-report-advice-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "I am writing to offer some suggestions on preparing your oral report on an ancient Chinese scientist.",
+            "chinesePrompt": "我写信是想就准备中国古代科学家口头报告提出一些建议。",
+            "role": "写信目的",
+            "kind": "body",
+            "id": "small-2024-scientist-report-advice-p1-s1",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "Firstly, it would be better if you chose a representative figure such as Zhang Heng and collected reliable information about his life and achievements.",
+            "chinesePrompt": "首先，如果你选择张衡等有代表性的科学家，并收集其生平与成就的可靠资料，会更好。",
+            "role": "第一条建议",
+            "kind": "body",
+            "id": "small-2024-scientist-report-advice-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "Secondly, I suggest that you organize the report into three parts: a brief introduction, his major discoveries and their historical influence.",
+            "chinesePrompt": "其次，我建议把报告分为三部分：简要介绍、主要发现及其历史影响。",
+            "role": "第二条建议",
+            "kind": "body",
+            "id": "small-2024-scientist-report-advice-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "Last but not least, it is advisable to use several pictures and practise the presentation repeatedly before class.",
+            "chinesePrompt": "最后但同样重要的是，最好使用几张图片，并在课前反复练习展示。",
+            "role": "第三条建议",
+            "kind": "body",
+            "id": "small-2024-scientist-report-advice-p2-s3",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I hope my suggestions will be of some help, and I am looking forward to your excellent performance.",
+            "chinesePrompt": "我希望这些建议能有所帮助，并期待你的精彩表现。",
+            "role": "总结与期待",
+            "kind": "body",
+            "id": "small-2024-scientist-report-advice-p3-s1",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2024-scientist-report-advice-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2024-scientist-report-advice-f2"
+        }
+      ]
+    },
+    {
+      "id": "small-2025-craft-reply",
+      "number": 12,
+      "title": "2025年｜回复校园创新手工艺展示咨询",
+      "type": "邮件或书信",
+      "subtype": "回复咨询信",
+      "theme": "传统手工艺创新展示",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear Paul,",
+          "chinesePrompt": "称呼写Dear Paul,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2025-craft-reply-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "Thank you for your interest in the campus craft demonstration and for your kind offer to help.",
+            "chinesePrompt": "感谢你对校园手工艺展示感兴趣，并主动提出帮忙。",
+            "role": "感谢与回应",
+            "kind": "body",
+            "id": "small-2025-craft-reply-p1-s1",
+            "paragraph": 1
+          },
+          {
+            "text": "I am writing to provide you with the information you requested.",
+            "chinesePrompt": "我写信是想提供你所询问的信息。",
+            "role": "回复目的",
+            "kind": "body",
+            "id": "small-2025-craft-reply-p1-s2",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "The young craftsmen will demonstrate bamboo weaving, wood carving and kite making.",
+            "chinesePrompt": "年轻手工艺人将展示竹编、木雕和风筝制作。",
+            "role": "展示内容",
+            "kind": "body",
+            "id": "small-2025-craft-reply-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "They will also explain how traditional techniques can be combined with modern designs and environmentally friendly materials.",
+            "chinesePrompt": "他们还将说明传统技艺如何与现代设计及环保材料相结合。",
+            "role": "创新特点",
+            "kind": "body",
+            "id": "small-2025-craft-reply-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "With regard to the preparation work, you may help design posters, arrange display tables, check tools and guide visitors.",
+            "chinesePrompt": "关于准备工作，你可以帮助设计海报、布置展台、检查工具并引导参观者。",
+            "role": "协助事项",
+            "kind": "body",
+            "id": "small-2025-craft-reply-p2-s3",
+            "paragraph": 2
+          },
+          {
+            "text": "Your English skills could also help introduce the craftsmen to international students.",
+            "chinesePrompt": "你的英语能力还可以帮助向国际学生介绍这些手工艺人。",
+            "role": "补充帮助",
+            "kind": "body",
+            "id": "small-2025-craft-reply-p2-s4",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I hope the above information will be helpful.",
+            "chinesePrompt": "我希望以上信息能有所帮助。",
+            "role": "总结",
+            "kind": "body",
+            "id": "small-2025-craft-reply-p3-s1",
+            "paragraph": 3
+          },
+          {
+            "text": "I am looking forward to working with you.",
+            "chinesePrompt": "我期待与你合作。",
+            "role": "期待合作",
+            "kind": "body",
+            "id": "small-2025-craft-reply-p3-s2",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2025-craft-reply-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2025-craft-reply-f2"
+        }
+      ]
+    },
+    {
+      "id": "small-2026-family-letters-reply",
+      "number": 13,
+      "title": "2026年｜回复中国家庭手写家书及展览咨询",
+      "type": "邮件或书信",
+      "subtype": "回复咨询信",
+      "theme": "家书与公共展览",
+      "version": "根据PDF题目与Excel模板修订稿",
+      "sourceNote": "题目来自用户提供的考研英语（一）PDF；正文结构与功能句依据用户提供的Excel模板，并结合已确认的邀请信、回复咨询信模板。",
+      "builtIn": true,
+      "archived": false,
+      "header": [
+        {
+          "text": "Dear Paul,",
+          "chinesePrompt": "称呼写Dear Paul,。",
+          "role": "称呼",
+          "kind": "format",
+          "id": "small-2026-family-letters-reply-h1"
+        }
+      ],
+      "paragraphs": [
+        [
+          {
+            "text": "Thank you for your interest in the handwritten letters.",
+            "chinesePrompt": "感谢你对这些手写信件感兴趣。",
+            "role": "感谢与回应",
+            "kind": "body",
+            "id": "small-2026-family-letters-reply-p1-s1",
+            "paragraph": 1
+          },
+          {
+            "text": "I am writing to provide you with the information you requested concerning the handwritten letters.",
+            "chinesePrompt": "我写信是想提供你所询问的关于这些手写信件的信息。",
+            "role": "回复目的",
+            "kind": "body",
+            "id": "small-2026-family-letters-reply-p1-s2",
+            "paragraph": 1
+          }
+        ],
+        [
+          {
+            "text": "The letters were collected from several Chinese families and written by parents, children and grandparents at different times.",
+            "chinesePrompt": "这些信件收集自多个中国家庭，由父母、子女和祖父母在不同时期写成。",
+            "role": "信件来源",
+            "kind": "body",
+            "id": "small-2026-family-letters-reply-p2-s1",
+            "paragraph": 2
+          },
+          {
+            "text": "They record ordinary family life, express deep affection and reflect social changes in China.",
+            "chinesePrompt": "它们记录日常家庭生活、表达深厚感情，并反映中国社会的变化。",
+            "role": "信件内容与意义",
+            "kind": "body",
+            "id": "small-2026-family-letters-reply-p2-s2",
+            "paragraph": 2
+          },
+          {
+            "text": "As for your question about the exhibition, they are currently on public display at the City Museum.",
+            "chinesePrompt": "关于你所问的展览，这些信件目前正在市博物馆公开展出。",
+            "role": "是否公开及地点",
+            "kind": "body",
+            "id": "small-2026-family-letters-reply-p2-s3",
+            "paragraph": 2
+          },
+          {
+            "text": "The exhibition will remain open until the end of this month.",
+            "chinesePrompt": "展览将持续至本月底。",
+            "role": "展览时间",
+            "kind": "body",
+            "id": "small-2026-family-letters-reply-p2-s4",
+            "paragraph": 2
+          }
+        ],
+        [
+          {
+            "text": "I hope the above information will be helpful.",
+            "chinesePrompt": "我希望以上信息能有所帮助。",
+            "role": "总结",
+            "kind": "body",
+            "id": "small-2026-family-letters-reply-p3-s1",
+            "paragraph": 3
+          },
+          {
+            "text": "I would be delighted to visit the exhibition with you this Saturday.",
+            "chinesePrompt": "我很乐意本周六和你一起参观展览。",
+            "role": "进一步回应",
+            "kind": "body",
+            "id": "small-2026-family-letters-reply-p3-s2",
+            "paragraph": 3
+          }
+        ]
+      ],
+      "footer": [
+        {
+          "text": "Yours sincerely,",
+          "chinesePrompt": "结束语写Yours sincerely,。",
+          "role": "结束语",
+          "kind": "format",
+          "id": "small-2026-family-letters-reply-f1"
+        },
+        {
+          "text": "Li Ming",
+          "chinesePrompt": "署名写Li Ming。",
+          "role": "署名",
+          "kind": "format",
+          "id": "small-2026-family-letters-reply-f2"
+        }
+      ]
+    }
+  ],
+  "wholeImitationTasks": [
+    {
+      "id": "whole-small-2007-library-suggestions",
+      "sourceEssayId": "small-2007-library-suggestions",
+      "title": "2007年｜给大学图书馆提出改进建议｜整篇逐句仿写",
+      "prompt": "请按照建议信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2007-library-suggestions-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear Sir or Madam,。",
+          "reference": "Dear Sir or Madam,"
+        },
+        {
+          "id": "small-2007-library-suggestions-whole-2",
+          "section": "正文",
+          "role": "写信目的",
+          "prompt": "我写信是想就改善我校图书馆服务提出一些建议。",
+          "reference": "I am writing to offer some suggestions on improving the service of our university library."
+        },
+        {
+          "id": "small-2007-library-suggestions-whole-3",
+          "section": "正文",
+          "role": "第一条建议",
+          "prompt": "首先，如果图书馆能延长开放时间，特别是在考试期间，会更好。",
+          "reference": "Firstly, it would be better if the library extended its opening hours, particularly during examination periods."
+        },
+        {
+          "id": "small-2007-library-suggestions-whole-4",
+          "section": "正文",
+          "role": "第二条建议",
+          "prompt": "其次，我建议提供更多最新的学术书籍和电子资源。",
+          "reference": "Secondly, I suggest that more up-to-date academic books and electronic resources be provided."
+        },
+        {
+          "id": "small-2007-library-suggestions-whole-5",
+          "section": "正文",
+          "role": "第三条建议",
+          "prompt": "最后但同样重要的是，最好改进在线预约系统并增设安静学习区。",
+          "reference": "Last but not least, it is advisable to improve the online reservation system and create additional quiet study areas."
+        },
+        {
+          "id": "small-2007-library-suggestions-whole-6",
+          "section": "正文",
+          "role": "建议效果",
+          "prompt": "这些措施将使图书馆对学生而言更加便利和高效。",
+          "reference": "These measures would make the library more convenient and efficient for students."
+        },
+        {
+          "id": "small-2007-library-suggestions-whole-7",
+          "section": "正文",
+          "role": "总结与期待",
+          "prompt": "我希望这些建议能有所帮助，并期待看到更好的图书馆服务。",
+          "reference": "I hope my suggestions will be of some help, and I am looking forward to seeing better library services."
+        },
+        {
+          "id": "small-2007-library-suggestions-whole-8",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2007-library-suggestions-whole-9",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2012-welcome-advice",
+      "sourceEssayId": "small-2012-welcome-advice",
+      "title": "2012年｜欢迎国际学生并提出校园生活建议｜整篇逐句仿写",
+      "prompt": "请按照欢迎＋建议信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2012-welcome-advice-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear International Students,。",
+          "reference": "Dear International Students,"
+        },
+        {
+          "id": "small-2012-welcome-advice-whole-2",
+          "section": "正文",
+          "role": "表示欢迎",
+          "prompt": "我谨代表学生会向你们表示最热烈的欢迎。",
+          "reference": "On behalf of the Students’ Union, I would like to extend our warmest welcome to you."
+        },
+        {
+          "id": "small-2012-welcome-advice-whole-3",
+          "section": "正文",
+          "role": "写信目的",
+          "prompt": "我写信是想就你们在这里的校园生活提出一些建议。",
+          "reference": "I am writing to offer some suggestions on your campus life here."
+        },
+        {
+          "id": "small-2012-welcome-advice-whole-4",
+          "section": "正文",
+          "role": "第一条建议",
+          "prompt": "首先，如果你们参加迎新活动以了解学校设施和规章制度，会更好。",
+          "reference": "Firstly, it would be better if you attended the orientation program to learn about university facilities and regulations."
+        },
+        {
+          "id": "small-2012-welcome-advice-whole-5",
+          "section": "正文",
+          "role": "第二条建议",
+          "prompt": "其次，我建议你们加入学生社团并积极与中国学生交流。",
+          "reference": "Secondly, I suggest that you join student clubs and communicate actively with Chinese students."
+        },
+        {
+          "id": "small-2012-welcome-advice-whole-6",
+          "section": "正文",
+          "role": "第三条建议",
+          "prompt": "最后但同样重要的是，遇到困难时最好联系国际学生办公室。",
+          "reference": "Last but not least, it is advisable to contact the International Student Office whenever you encounter difficulties."
+        },
+        {
+          "id": "small-2012-welcome-advice-whole-7",
+          "section": "正文",
+          "role": "总结与期待",
+          "prompt": "我希望这些建议能有所帮助，并期待你们的到来。",
+          "reference": "I hope my suggestions will be of some help, and I am looking forward to your arrival."
+        },
+        {
+          "id": "small-2012-welcome-advice-whole-8",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2012-welcome-advice-whole-9",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2013-speech-judge-invitation",
+      "sourceEssayId": "small-2013-speech-judge-invitation",
+      "title": "2013年｜邀请外籍教师担任演讲比赛评委｜整篇逐句仿写",
+      "prompt": "请按照邀请信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2013-speech-judge-invitation-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear Professor,。",
+          "reference": "Dear Professor,"
+        },
+        {
+          "id": "small-2013-speech-judge-invitation-whole-2",
+          "section": "正文",
+          "role": "邀请目的、时间与地点",
+          "prompt": "我谨代表组委会诚挚邀请您担任即将举行的英语演讲比赛评委；比赛将于下周五下午2点在大学礼堂举行。",
+          "reference": "On behalf of the organizing committee, I am writing to cordially invite you to serve as a judge for the upcoming English speech contest, which will be held in the university auditorium at 2:00 p.m. next Friday."
+        },
+        {
+          "id": "small-2013-speech-judge-invitation-whole-3",
+          "section": "正文",
+          "role": "活动主题与目的",
+          "prompt": "本次比赛以“青春与责任”为主题，旨在提高学生的英语口语水平。",
+          "reference": "The contest, themed “Youth and Responsibility,” is intended to improve students’ spoken English."
+        },
+        {
+          "id": "small-2013-speech-judge-invitation-whole-4",
+          "section": "正文",
+          "role": "活动安排",
+          "prompt": "十名决赛选手将分别进行五分钟演讲。",
+          "reference": "Ten finalists will deliver five-minute speeches."
+        },
+        {
+          "id": "small-2013-speech-judge-invitation-whole-5",
+          "section": "正文",
+          "role": "邀请理由与职责",
+          "prompt": "鉴于您丰富的英语教学经验，如能请您从发音、内容和整体表现方面进行评判，我们将深感荣幸。",
+          "reference": "Given your extensive experience in English teaching, we would be greatly honored if you could evaluate their pronunciation, content and overall performance."
+        },
+        {
+          "id": "small-2013-speech-judge-invitation-whole-6",
+          "section": "正文",
+          "role": "请求接受邀请",
+          "prompt": "如您能接受邀请，我将不胜感激。",
+          "reference": "I would be most grateful if you could accept our invitation."
+        },
+        {
+          "id": "small-2013-speech-judge-invitation-whole-7",
+          "section": "正文",
+          "role": "期待回复",
+          "prompt": "请告知您届时是否有空。",
+          "reference": "Please let me know whether you will be available."
+        },
+        {
+          "id": "small-2013-speech-judge-invitation-whole-8",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2013-speech-judge-invitation-whole-9",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2016-library-notice",
+      "sourceEssayId": "small-2016-library-notice",
+      "title": "2016年｜向国际新生介绍图书馆｜整篇逐句仿写",
+      "prompt": "请按照通知格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2016-library-notice-whole-1",
+          "section": "格式",
+          "role": "标题",
+          "prompt": "标题写Notice。",
+          "reference": "Notice"
+        },
+        {
+          "id": "small-2016-library-notice-whole-2",
+          "section": "正文",
+          "role": "通知事项",
+          "prompt": "现通知所有新入学的国际学生：学校图书馆提供种类丰富的图书、期刊和电子资源。",
+          "reference": "This is to inform all newly enrolled international students that the university library provides a wide range of books, journals and electronic resources."
+        },
+        {
+          "id": "small-2016-library-notice-whole-3",
+          "section": "正文",
+          "role": "地点与开放时间",
+          "prompt": "图书馆位于主教学楼旁，开放时间为上午8点至晚上10点。",
+          "reference": "The library is located beside the main teaching building and is open from 8:00 a.m. to 10:00 p.m."
+        },
+        {
+          "id": "small-2016-library-notice-whole-4",
+          "section": "正文",
+          "role": "入馆与借阅规定",
+          "prompt": "学生须凭学生卡入馆，每次最多可借五本书，借期三十天。",
+          "reference": "Students are required to enter with their student cards and may borrow up to five books for thirty days."
+        },
+        {
+          "id": "small-2016-library-notice-whole-5",
+          "section": "正文",
+          "role": "电子资源要求",
+          "prompt": "希望使用电子数据库的学生须在咨询台激活账户。",
+          "reference": "Those who are interested in using the electronic databases are required to activate their accounts at the information desk."
+        },
+        {
+          "id": "small-2016-library-notice-whole-6",
+          "section": "正文",
+          "role": "提醒",
+          "prompt": "请务必按时归还图书。",
+          "reference": "Please make sure to return books on time."
+        },
+        {
+          "id": "small-2016-library-notice-whole-7",
+          "section": "正文",
+          "role": "咨询方式",
+          "prompt": "如需更多信息，请联系图书馆办公室。",
+          "reference": "For further information, please contact the library office."
+        },
+        {
+          "id": "small-2016-library-notice-whole-8",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2018-graduation-invitation",
+      "sourceEssayId": "small-2018-graduation-invitation",
+      "title": "2018年｜邀请国际专家参加毕业典礼｜整篇逐句仿写",
+      "prompt": "请按照邀请信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2018-graduation-invitation-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear International Experts,。",
+          "reference": "Dear International Experts,"
+        },
+        {
+          "id": "small-2018-graduation-invitation-whole-2",
+          "section": "正文",
+          "role": "邀请目的、时间与地点",
+          "prompt": "我谨代表学校诚挚邀请各位参加毕业典礼；典礼将于6月28日上午9点在大学礼堂举行。",
+          "reference": "On behalf of our university, I am writing to cordially invite you to attend the graduation ceremony, which will be held in the university auditorium at 9:00 a.m. on June 28."
+        },
+        {
+          "id": "small-2018-graduation-invitation-whole-3",
+          "section": "正文",
+          "role": "典礼安排",
+          "prompt": "典礼将包括校长和毕业生代表致辞、学位授予以及集体合影。",
+          "reference": "The ceremony will include speeches by the university president and graduate representatives, the conferring of degrees and a group photograph."
+        },
+        {
+          "id": "small-2018-graduation-invitation-whole-4",
+          "section": "正文",
+          "role": "邀请理由",
+          "prompt": "作为学校学术共同体的重要成员，各位的出席将使这一重要时刻更有意义。",
+          "reference": "As distinguished members of our academic community, your presence would make this important occasion more meaningful."
+        },
+        {
+          "id": "small-2018-graduation-invitation-whole-5",
+          "section": "正文",
+          "role": "注意事项",
+          "prompt": "请提前二十分钟到场，并在指定嘉宾区就座。",
+          "reference": "Please arrive twenty minutes in advance and take your seats in the designated guest area."
+        },
+        {
+          "id": "small-2018-graduation-invitation-whole-6",
+          "section": "正文",
+          "role": "请求接受邀请",
+          "prompt": "如各位能接受邀请，我将不胜感激。",
+          "reference": "I would be most grateful if you could accept our invitation."
+        },
+        {
+          "id": "small-2018-graduation-invitation-whole-7",
+          "section": "正文",
+          "role": "期待出席",
+          "prompt": "我们真诚期待各位的莅临。",
+          "reference": "We are sincerely looking forward to your presence."
+        },
+        {
+          "id": "small-2018-graduation-invitation-whole-8",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2018-graduation-invitation-whole-9",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2019-rural-school-reply",
+      "sourceEssayId": "small-2019-rural-school-reply",
+      "title": "2019年｜回复农村小学支教项目咨询｜整篇逐句仿写",
+      "prompt": "请按照回复咨询信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2019-rural-school-reply-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear Sir or Madam,。",
+          "reference": "Dear Sir or Madam,"
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-2",
+          "section": "正文",
+          "role": "感谢与回应",
+          "prompt": "感谢你对“支援农村小学”项目感兴趣。",
+          "reference": "Thank you for your interest in the “Aiding Rural Primary School” project."
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-3",
+          "section": "正文",
+          "role": "回复目的",
+          "prompt": "我写信是想提供你所询问的项目相关信息。",
+          "reference": "I am writing to provide you with the information you requested concerning the program."
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-4",
+          "section": "正文",
+          "role": "时间与地点",
+          "prompt": "该项目将于七月在本市附近的一所农村小学开展，为期两周。",
+          "reference": "The project will run for two weeks in July at a rural primary school near our city."
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-5",
+          "section": "正文",
+          "role": "项目任务",
+          "prompt": "志愿者将教授基础英语、组织阅读和体育活动，并帮助当地教师准备材料。",
+          "reference": "Volunteers will teach basic English, organize reading and sports activities, and help local teachers prepare materials."
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-6",
+          "section": "正文",
+          "role": "保障条件",
+          "prompt": "项目将提供住宿和餐食。",
+          "reference": "Accommodation and meals will be provided."
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-7",
+          "section": "正文",
+          "role": "申请要求",
+          "prompt": "申请者应有责任心、耐心，并能与儿童有效沟通。",
+          "reference": "Applicants should be responsible, patient and able to communicate effectively with children."
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-8",
+          "section": "正文",
+          "role": "申请截止时间",
+          "prompt": "请在6月20日前提交申请。",
+          "reference": "Please submit your application before June 20."
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-9",
+          "section": "正文",
+          "role": "总结",
+          "prompt": "我希望以上信息能有所帮助。",
+          "reference": "I hope the above information will be helpful."
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-10",
+          "section": "正文",
+          "role": "进一步咨询",
+          "prompt": "如需更多细节，请随时与我联系。",
+          "reference": "Please feel free to contact me if you need any further details."
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-11",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2019-rural-school-reply-whole-12",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2020-singing-contest-notice",
+      "sourceEssayId": "small-2020-singing-contest-notice",
+      "title": "2020年｜通知国际学生参加歌唱比赛｜整篇逐句仿写",
+      "prompt": "请按照通知格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2020-singing-contest-notice-whole-1",
+          "section": "格式",
+          "role": "标题",
+          "prompt": "标题写Notice。",
+          "reference": "Notice"
+        },
+        {
+          "id": "small-2020-singing-contest-notice-whole-2",
+          "section": "正文",
+          "role": "通知事项与目的",
+          "prompt": "现通知所有国际学生：学校将举办校园歌唱比赛，以丰富校园生活并促进文化交流。",
+          "reference": "This is to inform all international students that a campus singing contest will be held to enrich campus life and promote cultural communication."
+        },
+        {
+          "id": "small-2020-singing-contest-notice-whole-3",
+          "section": "正文",
+          "role": "时间与地点",
+          "prompt": "活动将于10月18日晚上7点在大学礼堂举行。",
+          "reference": "The event will be held in the university auditorium at 7:00 p.m. on October 18."
+        },
+        {
+          "id": "small-2020-singing-contest-notice-whole-4",
+          "section": "正文",
+          "role": "报名要求",
+          "prompt": "有意参加者须在10月10日前向学生会提交姓名、学号和参赛歌曲。",
+          "reference": "Those who are interested in participating are required to submit their names, student numbers and selected songs to the Students’ Union before October 10."
+        },
+        {
+          "id": "small-2020-singing-contest-notice-whole-5",
+          "section": "正文",
+          "role": "参赛规定",
+          "prompt": "个人和团体表演均可，每个节目不得超过五分钟。",
+          "reference": "Both individual and group performances are welcome, and each performance should last no longer than five minutes."
+        },
+        {
+          "id": "small-2020-singing-contest-notice-whole-6",
+          "section": "正文",
+          "role": "提醒与期待",
+          "prompt": "请务必参加10月16日的彩排，我们期待大家积极参与。",
+          "reference": "Please make sure to attend the rehearsal on October 16, and we are looking forward to your active participation."
+        },
+        {
+          "id": "small-2020-singing-contest-notice-whole-7",
+          "section": "格式",
+          "role": "发布单位",
+          "prompt": "发布单位写The Students’ Union。",
+          "reference": "The Students’ Union"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2021-job-advice",
+      "sourceEssayId": "small-2021-job-advice",
+      "title": "2021年｜为在中国求职提出建议｜整篇逐句仿写",
+      "prompt": "请按照建议信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2021-job-advice-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear Friend,。",
+          "reference": "Dear Friend,"
+        },
+        {
+          "id": "small-2021-job-advice-whole-2",
+          "section": "正文",
+          "role": "写信目的",
+          "prompt": "我写信是想就毕业后在中国寻找合适工作提出一些建议。",
+          "reference": "I am writing to offer some suggestions on finding a suitable job in China after graduation."
+        },
+        {
+          "id": "small-2021-job-advice-whole-3",
+          "section": "正文",
+          "role": "第一条建议",
+          "prompt": "首先，如果你了解中国就业市场并选择与专业相关的职位，会更好。",
+          "reference": "Firstly, it would be better if you learned about the Chinese job market and selected positions related to your major."
+        },
+        {
+          "id": "small-2021-job-advice-whole-4",
+          "section": "正文",
+          "role": "第二条建议",
+          "prompt": "其次，我建议你准备一份清晰的简历，突出教育背景、实践经验和语言能力。",
+          "reference": "Secondly, I suggest that you prepare a clear résumé highlighting your education, practical experience and language skills."
+        },
+        {
+          "id": "small-2021-job-advice-whole-5",
+          "section": "正文",
+          "role": "第三条建议",
+          "prompt": "最后但同样重要的是，面试前最好提高汉语水平并熟悉当地职场文化。",
+          "reference": "Last but not least, it is advisable to improve your Chinese and become familiar with local workplace culture before attending interviews."
+        },
+        {
+          "id": "small-2021-job-advice-whole-6",
+          "section": "正文",
+          "role": "总结与期待",
+          "prompt": "我希望这些建议能有所帮助，并期待听到你求职成功的好消息。",
+          "reference": "I hope my suggestions will be of some help, and I am looking forward to hearing good news about your job search."
+        },
+        {
+          "id": "small-2021-job-advice-whole-7",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2021-job-advice-whole-8",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2022-innovation-team-invitation",
+      "sourceEssayId": "small-2022-innovation-team-invitation",
+      "title": "2022年｜邀请教授组织国际创新竞赛队伍｜整篇逐句仿写",
+      "prompt": "请按照邀请信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2022-innovation-team-invitation-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear Professor,。",
+          "reference": "Dear Professor,"
+        },
+        {
+          "id": "small-2022-innovation-team-invitation-whole-2",
+          "section": "正文",
+          "role": "邀请目的",
+          "prompt": "我谨代表组委会诚挚邀请您组织一支队伍，参加将在我校举行的国际创新竞赛。",
+          "reference": "On behalf of the organizing committee, I am writing to cordially invite you to organize a team for the international innovation contest to be held at our university."
+        },
+        {
+          "id": "small-2022-innovation-team-invitation-whole-3",
+          "section": "正文",
+          "role": "竞赛目的",
+          "prompt": "竞赛旨在鼓励青年人为现实问题提出创新解决方案。",
+          "reference": "The contest is intended to encourage young people to develop creative solutions to practical problems."
+        },
+        {
+          "id": "small-2022-innovation-team-invitation-whole-4",
+          "section": "正文",
+          "role": "参赛要求",
+          "prompt": "每支队伍应由四至六名学生组成，并在9月20日前提交项目方案。",
+          "reference": "Each team should consist of four to six students and submit a project proposal before September 20."
+        },
+        {
+          "id": "small-2022-innovation-team-invitation-whole-5",
+          "section": "正文",
+          "role": "邀请理由与任务",
+          "prompt": "鉴于您在创新教育方面经验丰富，如能选拔有兴趣的学生并指导他们准备项目，我们将深感荣幸。",
+          "reference": "Given your extensive experience in innovation education, we would be greatly honored if you could select interested students and guide them in preparing their project."
+        },
+        {
+          "id": "small-2022-innovation-team-invitation-whole-6",
+          "section": "正文",
+          "role": "请求接受邀请",
+          "prompt": "如您能接受邀请，我将不胜感激。",
+          "reference": "I would be most grateful if you could accept our invitation."
+        },
+        {
+          "id": "small-2022-innovation-team-invitation-whole-7",
+          "section": "正文",
+          "role": "期待回复",
+          "prompt": "期待您的回复。",
+          "reference": "I am looking forward to your reply."
+        },
+        {
+          "id": "small-2022-innovation-team-invitation-whole-8",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2022-innovation-team-invitation-whole-9",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2023-sports-assistant-notice",
+      "sourceEssayId": "small-2023-sports-assistant-notice",
+      "title": "2023年｜招聘校园体育研究项目学生助理｜整篇逐句仿写",
+      "prompt": "请按照通知格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2023-sports-assistant-notice-whole-1",
+          "section": "格式",
+          "role": "标题",
+          "prompt": "标题写Notice。",
+          "reference": "Notice"
+        },
+        {
+          "id": "small-2023-sports-assistant-notice-whole-2",
+          "section": "正文",
+          "role": "招聘事项",
+          "prompt": "现通知全体学生：史密斯教授的校园体育活动研究项目正在招聘一名学生助理。",
+          "reference": "This is to inform all students that Professor Smith’s research project on campus sports activities is recruiting one student assistant."
+        },
+        {
+          "id": "small-2023-sports-assistant-notice-whole-3",
+          "section": "正文",
+          "role": "项目时间",
+          "prompt": "该项目将于三月至五月开展。",
+          "reference": "The project will be carried out from March to May."
+        },
+        {
+          "id": "small-2023-sports-assistant-notice-whole-4",
+          "section": "正文",
+          "role": "工作职责",
+          "prompt": "有意应聘者须发放问卷、采访学生并整理研究数据。",
+          "reference": "Those who are interested in the position are required to distribute questionnaires, interview students and organize research data."
+        },
+        {
+          "id": "small-2023-sports-assistant-notice-whole-5",
+          "section": "正文",
+          "role": "基本要求",
+          "prompt": "申请者应有责任心、耐心，并熟练掌握基本计算机操作。",
+          "reference": "Applicants should be responsible, patient and proficient in basic computer operations."
+        },
+        {
+          "id": "small-2023-sports-assistant-notice-whole-6",
+          "section": "正文",
+          "role": "时间要求",
+          "prompt": "申请者每周还应能安排两个下午工作。",
+          "reference": "They should also be available for two afternoons each week."
+        },
+        {
+          "id": "small-2023-sports-assistant-notice-whole-7",
+          "section": "正文",
+          "role": "优先条件",
+          "prompt": "有研究经验并对体育感兴趣者优先。",
+          "reference": "Previous research experience and an interest in sports are preferred."
+        },
+        {
+          "id": "small-2023-sports-assistant-notice-whole-8",
+          "section": "正文",
+          "role": "申请方式与截止时间",
+          "prompt": "请在周五前向学生会提交一份简短申请。",
+          "reference": "Please submit a brief application to the Students’ Union before Friday."
+        },
+        {
+          "id": "small-2023-sports-assistant-notice-whole-9",
+          "section": "正文",
+          "role": "咨询方式",
+          "prompt": "如需更多信息，请联系办公室。",
+          "reference": "For further information, please contact our office."
+        },
+        {
+          "id": "small-2023-sports-assistant-notice-whole-10",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2024-scientist-report-advice",
+      "sourceEssayId": "small-2024-scientist-report-advice",
+      "title": "2024年｜回复如何准备中国古代科学家口头报告｜整篇逐句仿写",
+      "prompt": "请按照回复建议信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2024-scientist-report-advice-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear Paul,。",
+          "reference": "Dear Paul,"
+        },
+        {
+          "id": "small-2024-scientist-report-advice-whole-2",
+          "section": "正文",
+          "role": "写信目的",
+          "prompt": "我写信是想就准备中国古代科学家口头报告提出一些建议。",
+          "reference": "I am writing to offer some suggestions on preparing your oral report on an ancient Chinese scientist."
+        },
+        {
+          "id": "small-2024-scientist-report-advice-whole-3",
+          "section": "正文",
+          "role": "第一条建议",
+          "prompt": "首先，如果你选择张衡等有代表性的科学家，并收集其生平与成就的可靠资料，会更好。",
+          "reference": "Firstly, it would be better if you chose a representative figure such as Zhang Heng and collected reliable information about his life and achievements."
+        },
+        {
+          "id": "small-2024-scientist-report-advice-whole-4",
+          "section": "正文",
+          "role": "第二条建议",
+          "prompt": "其次，我建议把报告分为三部分：简要介绍、主要发现及其历史影响。",
+          "reference": "Secondly, I suggest that you organize the report into three parts: a brief introduction, his major discoveries and their historical influence."
+        },
+        {
+          "id": "small-2024-scientist-report-advice-whole-5",
+          "section": "正文",
+          "role": "第三条建议",
+          "prompt": "最后但同样重要的是，最好使用几张图片，并在课前反复练习展示。",
+          "reference": "Last but not least, it is advisable to use several pictures and practise the presentation repeatedly before class."
+        },
+        {
+          "id": "small-2024-scientist-report-advice-whole-6",
+          "section": "正文",
+          "role": "总结与期待",
+          "prompt": "我希望这些建议能有所帮助，并期待你的精彩表现。",
+          "reference": "I hope my suggestions will be of some help, and I am looking forward to your excellent performance."
+        },
+        {
+          "id": "small-2024-scientist-report-advice-whole-7",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2024-scientist-report-advice-whole-8",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2025-craft-reply",
+      "sourceEssayId": "small-2025-craft-reply",
+      "title": "2025年｜回复校园创新手工艺展示咨询｜整篇逐句仿写",
+      "prompt": "请按照回复咨询信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2025-craft-reply-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear Paul,。",
+          "reference": "Dear Paul,"
+        },
+        {
+          "id": "small-2025-craft-reply-whole-2",
+          "section": "正文",
+          "role": "感谢与回应",
+          "prompt": "感谢你对校园手工艺展示感兴趣，并主动提出帮忙。",
+          "reference": "Thank you for your interest in the campus craft demonstration and for your kind offer to help."
+        },
+        {
+          "id": "small-2025-craft-reply-whole-3",
+          "section": "正文",
+          "role": "回复目的",
+          "prompt": "我写信是想提供你所询问的信息。",
+          "reference": "I am writing to provide you with the information you requested."
+        },
+        {
+          "id": "small-2025-craft-reply-whole-4",
+          "section": "正文",
+          "role": "展示内容",
+          "prompt": "年轻手工艺人将展示竹编、木雕和风筝制作。",
+          "reference": "The young craftsmen will demonstrate bamboo weaving, wood carving and kite making."
+        },
+        {
+          "id": "small-2025-craft-reply-whole-5",
+          "section": "正文",
+          "role": "创新特点",
+          "prompt": "他们还将说明传统技艺如何与现代设计及环保材料相结合。",
+          "reference": "They will also explain how traditional techniques can be combined with modern designs and environmentally friendly materials."
+        },
+        {
+          "id": "small-2025-craft-reply-whole-6",
+          "section": "正文",
+          "role": "协助事项",
+          "prompt": "关于准备工作，你可以帮助设计海报、布置展台、检查工具并引导参观者。",
+          "reference": "With regard to the preparation work, you may help design posters, arrange display tables, check tools and guide visitors."
+        },
+        {
+          "id": "small-2025-craft-reply-whole-7",
+          "section": "正文",
+          "role": "补充帮助",
+          "prompt": "你的英语能力还可以帮助向国际学生介绍这些手工艺人。",
+          "reference": "Your English skills could also help introduce the craftsmen to international students."
+        },
+        {
+          "id": "small-2025-craft-reply-whole-8",
+          "section": "正文",
+          "role": "总结",
+          "prompt": "我希望以上信息能有所帮助。",
+          "reference": "I hope the above information will be helpful."
+        },
+        {
+          "id": "small-2025-craft-reply-whole-9",
+          "section": "正文",
+          "role": "期待合作",
+          "prompt": "我期待与你合作。",
+          "reference": "I am looking forward to working with you."
+        },
+        {
+          "id": "small-2025-craft-reply-whole-10",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2025-craft-reply-whole-11",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    },
+    {
+      "id": "whole-small-2026-family-letters-reply",
+      "sourceEssayId": "small-2026-family-letters-reply",
+      "title": "2026年｜回复中国家庭手写家书及展览咨询｜整篇逐句仿写",
+      "prompt": "请按照回复咨询信格式，根据中文提示完成整篇写作。",
+      "units": [
+        {
+          "id": "small-2026-family-letters-reply-whole-1",
+          "section": "格式",
+          "role": "称呼",
+          "prompt": "称呼写Dear Paul,。",
+          "reference": "Dear Paul,"
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-2",
+          "section": "正文",
+          "role": "感谢与回应",
+          "prompt": "感谢你对这些手写信件感兴趣。",
+          "reference": "Thank you for your interest in the handwritten letters."
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-3",
+          "section": "正文",
+          "role": "回复目的",
+          "prompt": "我写信是想提供你所询问的关于这些手写信件的信息。",
+          "reference": "I am writing to provide you with the information you requested concerning the handwritten letters."
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-4",
+          "section": "正文",
+          "role": "信件来源",
+          "prompt": "这些信件收集自多个中国家庭，由父母、子女和祖父母在不同时期写成。",
+          "reference": "The letters were collected from several Chinese families and written by parents, children and grandparents at different times."
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-5",
+          "section": "正文",
+          "role": "信件内容与意义",
+          "prompt": "它们记录日常家庭生活、表达深厚感情，并反映中国社会的变化。",
+          "reference": "They record ordinary family life, express deep affection and reflect social changes in China."
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-6",
+          "section": "正文",
+          "role": "是否公开及地点",
+          "prompt": "关于你所问的展览，这些信件目前正在市博物馆公开展出。",
+          "reference": "As for your question about the exhibition, they are currently on public display at the City Museum."
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-7",
+          "section": "正文",
+          "role": "展览时间",
+          "prompt": "展览将持续至本月底。",
+          "reference": "The exhibition will remain open until the end of this month."
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-8",
+          "section": "正文",
+          "role": "总结",
+          "prompt": "我希望以上信息能有所帮助。",
+          "reference": "I hope the above information will be helpful."
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-9",
+          "section": "正文",
+          "role": "进一步回应",
+          "prompt": "我很乐意本周六和你一起参观展览。",
+          "reference": "I would be delighted to visit the exhibition with you this Saturday."
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-10",
+          "section": "格式",
+          "role": "结束语",
+          "prompt": "结束语写Yours sincerely,。",
+          "reference": "Yours sincerely,"
+        },
+        {
+          "id": "small-2026-family-letters-reply-whole-11",
+          "section": "格式",
+          "role": "署名",
+          "prompt": "署名写Li Ming。",
+          "reference": "Li Ming"
+        }
+      ]
+    }
+  ],
+  "sentenceImitationTasks": [
+    {
+      "id": "imit-2007-1",
+      "sourceEssayId": "small-2007-library-suggestions",
+      "category": "建议信",
+      "pattern": "提出建议目的",
+      "title": "2007年｜给大学图书馆提出改进建议｜提出建议目的",
+      "prompt": "我写信是想就改善学校食堂服务提出一些建议。",
+      "reference": "I am writing to offer some suggestions on improving the service of the university canteen.",
+      "frame": "I am writing to offer some suggestions on...",
+      "keywords": [
+        "writing",
+        "offer",
+        "suggestions"
+      ]
+    },
+    {
+      "id": "imit-2007-2",
+      "sourceEssayId": "small-2007-library-suggestions",
+      "category": "建议信",
+      "pattern": "第一条建议",
+      "title": "2007年｜给大学图书馆提出改进建议｜第一条建议",
+      "prompt": "首先，如果食堂能在午餐高峰期增加服务窗口，会更好。",
+      "reference": "Firstly, it would be better if the canteen opened more service counters during the lunch rush.",
+      "frame": "Firstly, it would be better if...",
+      "keywords": [
+        "firstly",
+        "would",
+        "better"
+      ]
+    },
+    {
+      "id": "imit-2007-3",
+      "sourceEssayId": "small-2007-library-suggestions",
+      "category": "建议信",
+      "pattern": "第二条建议",
+      "title": "2007年｜给大学图书馆提出改进建议｜第二条建议",
+      "prompt": "其次，我建议提供更多健康且价格合理的饭菜。",
+      "reference": "Secondly, I suggest that more healthy and reasonably priced meals be provided.",
+      "frame": "Secondly, I suggest that...",
+      "keywords": [
+        "secondly",
+        "suggest"
+      ]
+    },
+    {
+      "id": "imit-2007-4",
+      "sourceEssayId": "small-2007-library-suggestions",
+      "category": "建议信",
+      "pattern": "总结期待",
+      "title": "2007年｜给大学图书馆提出改进建议｜总结期待",
+      "prompt": "我希望这些建议能有所帮助，并期待看到更好的食堂服务。",
+      "reference": "I hope my suggestions will be of some help, and I am looking forward to seeing better canteen services.",
+      "frame": "I hope my suggestions will be of some help...",
+      "keywords": [
+        "suggestions"
+      ]
+    },
+    {
+      "id": "imit-2012-1",
+      "sourceEssayId": "small-2012-welcome-advice",
+      "category": "欢迎＋建议信",
+      "pattern": "代表欢迎",
+      "title": "2012年｜欢迎国际学生并提出校园生活建议｜代表欢迎",
+      "prompt": "我谨代表学生会向所有交换生表示最热烈的欢迎。",
+      "reference": "On behalf of the Students’ Union, I would like to extend our warmest welcome to all exchange students.",
+      "frame": "On behalf of..., I would like to extend...",
+      "keywords": [
+        "behalf",
+        "would",
+        "extend"
+      ]
+    },
+    {
+      "id": "imit-2012-2",
+      "sourceEssayId": "small-2012-welcome-advice",
+      "category": "欢迎＋建议信",
+      "pattern": "第一条建议",
+      "title": "2012年｜欢迎国际学生并提出校园生活建议｜第一条建议",
+      "prompt": "首先，如果你们参加校园参观活动，会更快熟悉学校。",
+      "reference": "Firstly, it would be better if you joined the campus tour to become familiar with the university more quickly.",
+      "frame": "Firstly, it would be better if...",
+      "keywords": [
+        "firstly",
+        "would",
+        "better"
+      ]
+    },
+    {
+      "id": "imit-2012-3",
+      "sourceEssayId": "small-2012-welcome-advice",
+      "category": "欢迎＋建议信",
+      "pattern": "第二条建议",
+      "title": "2012年｜欢迎国际学生并提出校园生活建议｜第二条建议",
+      "prompt": "其次，我建议你们参加语言伙伴项目。",
+      "reference": "Secondly, I suggest that you take part in the language partner program.",
+      "frame": "Secondly, I suggest that...",
+      "keywords": [
+        "secondly",
+        "suggest"
+      ]
+    },
+    {
+      "id": "imit-2012-4",
+      "sourceEssayId": "small-2012-welcome-advice",
+      "category": "欢迎＋建议信",
+      "pattern": "联系帮助",
+      "title": "2012年｜欢迎国际学生并提出校园生活建议｜联系帮助",
+      "prompt": "最后但同样重要的是，遇到问题时最好向学生服务中心求助。",
+      "reference": "Last but not least, it is advisable to seek help from the Student Service Center whenever you encounter problems.",
+      "frame": "Last but not least, it is advisable to...",
+      "keywords": [
+        "least",
+        "advisable"
+      ]
+    },
+    {
+      "id": "imit-2013-1",
+      "sourceEssayId": "small-2013-speech-judge-invitation",
+      "category": "邀请信",
+      "pattern": "正式邀请",
+      "title": "2013年｜邀请外籍教师担任演讲比赛评委｜正式邀请",
+      "prompt": "我谨代表学生会诚挚邀请您担任校园辩论赛评委。",
+      "reference": "On behalf of the Students’ Union, I am writing to cordially invite you to serve as a judge for the campus debate contest.",
+      "frame": "On behalf of..., I am writing to cordially invite...",
+      "keywords": [
+        "behalf",
+        "writing",
+        "cordially",
+        "invite"
+      ]
+    },
+    {
+      "id": "imit-2013-2",
+      "sourceEssayId": "small-2013-speech-judge-invitation",
+      "category": "邀请信",
+      "pattern": "时间地点",
+      "title": "2013年｜邀请外籍教师担任演讲比赛评委｜时间地点",
+      "prompt": "比赛将于下周三下午3点在学生活动中心举行。",
+      "reference": "The contest will be held in the Student Activity Center at 3:00 p.m. next Wednesday.",
+      "frame": "The contest will be held...",
+      "keywords": [
+        "contest"
+      ]
+    },
+    {
+      "id": "imit-2013-3",
+      "sourceEssayId": "small-2013-speech-judge-invitation",
+      "category": "邀请信",
+      "pattern": "邀请理由",
+      "title": "2013年｜邀请外籍教师担任演讲比赛评委｜邀请理由",
+      "prompt": "鉴于您丰富的公共演讲经验，如能给予选手专业点评，我们将深感荣幸。",
+      "reference": "Given your extensive experience in public speaking, we would be greatly honored if you could offer professional comments to the contestants.",
+      "frame": "Given your extensive experience in..., we would be greatly honored if...",
+      "keywords": [
+        "given",
+        "extensive",
+        "experience",
+        "would"
+      ]
+    },
+    {
+      "id": "imit-2013-4",
+      "sourceEssayId": "small-2013-speech-judge-invitation",
+      "category": "邀请信",
+      "pattern": "请求回复",
+      "title": "2013年｜邀请外籍教师担任演讲比赛评委｜请求回复",
+      "prompt": "如您能接受邀请，我将不胜感激。请告知您届时是否有空。",
+      "reference": "I would be most grateful if you could accept our invitation. Please let me know whether you will be available.",
+      "frame": "I would be most grateful if...",
+      "keywords": [
+        "would",
+        "grateful"
+      ]
+    },
+    {
+      "id": "imit-2016-1",
+      "sourceEssayId": "small-2016-library-notice",
+      "category": "通知",
+      "pattern": "通知事项",
+      "title": "2016年｜向国际新生介绍图书馆｜通知事项",
+      "prompt": "现通知所有新生：学校体育中心提供健身房、篮球场和游泳池。",
+      "reference": "This is to inform all freshmen that the university sports center provides a gym, basketball courts and a swimming pool.",
+      "frame": "This is to inform all...that...",
+      "keywords": [
+        "inform"
+      ]
+    },
+    {
+      "id": "imit-2016-2",
+      "sourceEssayId": "small-2016-library-notice",
+      "category": "通知",
+      "pattern": "开放时间",
+      "title": "2016年｜向国际新生介绍图书馆｜开放时间",
+      "prompt": "体育中心工作日开放时间为上午7点至晚上9点。",
+      "reference": "The sports center is open from 7:00 a.m. to 9:00 p.m. on weekdays.",
+      "frame": "...is open from...to...",
+      "keywords": []
+    },
+    {
+      "id": "imit-2016-3",
+      "sourceEssayId": "small-2016-library-notice",
+      "category": "通知",
+      "pattern": "使用要求",
+      "title": "2016年｜向国际新生介绍图书馆｜使用要求",
+      "prompt": "希望使用游泳池的学生须提前在线预约。",
+      "reference": "Those who are interested in using the swimming pool are required to make an online reservation in advance.",
+      "frame": "Those who are interested in...are required to...",
+      "keywords": [
+        "those",
+        "interested",
+        "required"
+      ]
+    },
+    {
+      "id": "imit-2016-4",
+      "sourceEssayId": "small-2016-library-notice",
+      "category": "通知",
+      "pattern": "咨询方式",
+      "title": "2016年｜向国际新生介绍图书馆｜咨询方式",
+      "prompt": "如需更多信息，请联系体育中心办公室。",
+      "reference": "For further information, please contact the sports center office.",
+      "frame": "For further information, please contact...",
+      "keywords": [
+        "further",
+        "information",
+        "please",
+        "contact"
+      ]
+    },
+    {
+      "id": "imit-2018-1",
+      "sourceEssayId": "small-2018-graduation-invitation",
+      "category": "邀请信",
+      "pattern": "邀请出席",
+      "title": "2018年｜邀请国际专家参加毕业典礼｜邀请出席",
+      "prompt": "我谨代表学院诚挚邀请您参加新学期开学典礼。",
+      "reference": "On behalf of the college, I am writing to cordially invite you to attend the opening ceremony for the new semester.",
+      "frame": "On behalf of..., I am writing to cordially invite...",
+      "keywords": [
+        "behalf",
+        "writing",
+        "cordially",
+        "invite"
+      ]
+    },
+    {
+      "id": "imit-2018-2",
+      "sourceEssayId": "small-2018-graduation-invitation",
+      "category": "邀请信",
+      "pattern": "活动安排",
+      "title": "2018年｜邀请国际专家参加毕业典礼｜活动安排",
+      "prompt": "典礼将包括院长致辞、新生代表发言和合影。",
+      "reference": "The ceremony will include a speech by the dean, an address by a freshman representative and a group photograph.",
+      "frame": "The ceremony will include...",
+      "keywords": [
+        "ceremony",
+        "include"
+      ]
+    },
+    {
+      "id": "imit-2018-3",
+      "sourceEssayId": "small-2018-graduation-invitation",
+      "category": "邀请信",
+      "pattern": "出席意义",
+      "title": "2018年｜邀请国际专家参加毕业典礼｜出席意义",
+      "prompt": "作为学院的重要合作伙伴，您的出席将使这一活动更有意义。",
+      "reference": "As an important partner of our college, your presence would make the event more meaningful.",
+      "frame": "As..., your presence would...",
+      "keywords": [
+        "presence",
+        "would"
+      ]
+    },
+    {
+      "id": "imit-2018-4",
+      "sourceEssayId": "small-2018-graduation-invitation",
+      "category": "邀请信",
+      "pattern": "提醒与期待",
+      "title": "2018年｜邀请国际专家参加毕业典礼｜提醒与期待",
+      "prompt": "请提前十五分钟到场，我们真诚期待您的莅临。",
+      "reference": "Please arrive fifteen minutes in advance, and we are sincerely looking forward to your presence.",
+      "frame": "Please arrive...and we are sincerely looking forward to...",
+      "keywords": [
+        "please",
+        "arrive",
+        "sincerely",
+        "looking"
+      ]
+    },
+    {
+      "id": "imit-2019-1",
+      "sourceEssayId": "small-2019-rural-school-reply",
+      "category": "回复咨询信",
+      "pattern": "感谢咨询",
+      "title": "2019年｜回复农村小学支教项目咨询｜感谢咨询",
+      "prompt": "感谢你对社区志愿服务项目感兴趣。",
+      "reference": "Thank you for your interest in the community volunteer service project.",
+      "frame": "Thank you for your interest in...",
+      "keywords": [
+        "thank",
+        "interest"
+      ]
+    },
+    {
+      "id": "imit-2019-2",
+      "sourceEssayId": "small-2019-rural-school-reply",
+      "category": "回复咨询信",
+      "pattern": "回复目的",
+      "title": "2019年｜回复农村小学支教项目咨询｜回复目的",
+      "prompt": "我写信是想提供你所询问的项目相关信息。",
+      "reference": "I am writing to provide you with the information you requested concerning the project.",
+      "frame": "I am writing to provide you with...",
+      "keywords": [
+        "writing",
+        "provide"
+      ]
+    },
+    {
+      "id": "imit-2019-3",
+      "sourceEssayId": "small-2019-rural-school-reply",
+      "category": "回复咨询信",
+      "pattern": "项目任务",
+      "title": "2019年｜回复农村小学支教项目咨询｜项目任务",
+      "prompt": "志愿者将帮助老年人使用智能手机，并组织周末文化活动。",
+      "reference": "Volunteers will help elderly residents use smartphones and organize cultural activities at weekends.",
+      "frame": "Volunteers will...",
+      "keywords": [
+        "volunteers"
+      ]
+    },
+    {
+      "id": "imit-2019-4",
+      "sourceEssayId": "small-2019-rural-school-reply",
+      "category": "回复咨询信",
+      "pattern": "进一步咨询",
+      "title": "2019年｜回复农村小学支教项目咨询｜进一步咨询",
+      "prompt": "我希望以上信息能有所帮助。如需更多细节，请随时与我联系。",
+      "reference": "I hope the above information will be helpful. Please feel free to contact me if you need any further details.",
+      "frame": "I hope the above information will be helpful...",
+      "keywords": [
+        "above",
+        "information",
+        "helpful"
+      ]
+    },
+    {
+      "id": "imit-2020-1",
+      "sourceEssayId": "small-2020-singing-contest-notice",
+      "category": "通知",
+      "pattern": "通知比赛",
+      "title": "2020年｜通知国际学生参加歌唱比赛｜通知比赛",
+      "prompt": "现通知所有学生：学校将举办摄影比赛，以丰富校园文化生活。",
+      "reference": "This is to inform all students that a photography contest will be held to enrich campus cultural life.",
+      "frame": "This is to inform all...that...",
+      "keywords": [
+        "inform"
+      ]
+    },
+    {
+      "id": "imit-2020-2",
+      "sourceEssayId": "small-2020-singing-contest-notice",
+      "category": "通知",
+      "pattern": "时间地点",
+      "title": "2020年｜通知国际学生参加歌唱比赛｜时间地点",
+      "prompt": "活动将于11月6日下午2点在图书馆展厅举行。",
+      "reference": "The event will be held in the library exhibition hall at 2:00 p.m. on November 6.",
+      "frame": "The event will be held...",
+      "keywords": [
+        "event"
+      ]
+    },
+    {
+      "id": "imit-2020-3",
+      "sourceEssayId": "small-2020-singing-contest-notice",
+      "category": "通知",
+      "pattern": "报名要求",
+      "title": "2020年｜通知国际学生参加歌唱比赛｜报名要求",
+      "prompt": "有意参加者须在10月30日前提交姓名、学号和一张参赛照片。",
+      "reference": "Those who are interested in participating are required to submit their names, student numbers and one photograph before October 30.",
+      "frame": "Those who are interested...are required to...",
+      "keywords": [
+        "those",
+        "interested",
+        "required"
+      ]
+    },
+    {
+      "id": "imit-2020-4",
+      "sourceEssayId": "small-2020-singing-contest-notice",
+      "category": "通知",
+      "pattern": "提醒期待",
+      "title": "2020年｜通知国际学生参加歌唱比赛｜提醒期待",
+      "prompt": "请务必按时提交作品，我们期待大家积极参与。",
+      "reference": "Please make sure to submit your work on time, and we are looking forward to your active participation.",
+      "frame": "Please make sure to...and we are looking forward to...",
+      "keywords": [
+        "please",
+        "looking",
+        "forward"
+      ]
+    },
+    {
+      "id": "imit-2021-1",
+      "sourceEssayId": "small-2021-job-advice",
+      "category": "建议信",
+      "pattern": "求职建议目的",
+      "title": "2021年｜为在中国求职提出建议｜求职建议目的",
+      "prompt": "我写信是想就寻找实习机会提出一些建议。",
+      "reference": "I am writing to offer some suggestions on finding an internship.",
+      "frame": "I am writing to offer some suggestions on...",
+      "keywords": [
+        "writing",
+        "offer",
+        "suggestions"
+      ]
+    },
+    {
+      "id": "imit-2021-2",
+      "sourceEssayId": "small-2021-job-advice",
+      "category": "建议信",
+      "pattern": "了解市场",
+      "title": "2021年｜为在中国求职提出建议｜了解市场",
+      "prompt": "首先，如果你先了解目标行业和公司，会更好。",
+      "reference": "Firstly, it would be better if you learned about the target industry and companies in advance.",
+      "frame": "Firstly, it would be better if...",
+      "keywords": [
+        "firstly",
+        "would",
+        "better"
+      ]
+    },
+    {
+      "id": "imit-2021-3",
+      "sourceEssayId": "small-2021-job-advice",
+      "category": "建议信",
+      "pattern": "准备材料",
+      "title": "2021年｜为在中国求职提出建议｜准备材料",
+      "prompt": "其次，我建议你准备一份突出项目经历和专业技能的简历。",
+      "reference": "Secondly, I suggest that you prepare a résumé highlighting your project experience and professional skills.",
+      "frame": "Secondly, I suggest that...",
+      "keywords": [
+        "secondly",
+        "suggest"
+      ]
+    },
+    {
+      "id": "imit-2021-4",
+      "sourceEssayId": "small-2021-job-advice",
+      "category": "建议信",
+      "pattern": "提高能力",
+      "title": "2021年｜为在中国求职提出建议｜提高能力",
+      "prompt": "最后但同样重要的是，面试前最好练习口语并了解职场礼仪。",
+      "reference": "Last but not least, it is advisable to practise spoken English and learn about workplace etiquette before interviews.",
+      "frame": "Last but not least, it is advisable to...",
+      "keywords": [
+        "least",
+        "advisable"
+      ]
+    },
+    {
+      "id": "imit-2022-1",
+      "sourceEssayId": "small-2022-innovation-team-invitation",
+      "category": "邀请信",
+      "pattern": "邀请组队",
+      "title": "2022年｜邀请教授组织国际创新竞赛队伍｜邀请组队",
+      "prompt": "我谨代表组委会诚挚邀请您组织一支队伍参加国际创业竞赛。",
+      "reference": "On behalf of the organizing committee, I am writing to cordially invite you to organize a team for the international entrepreneurship contest.",
+      "frame": "On behalf of..., I am writing to cordially invite...",
+      "keywords": [
+        "behalf",
+        "writing",
+        "cordially",
+        "invite"
+      ]
+    },
+    {
+      "id": "imit-2022-2",
+      "sourceEssayId": "small-2022-innovation-team-invitation",
+      "category": "邀请信",
+      "pattern": "活动目的",
+      "title": "2022年｜邀请教授组织国际创新竞赛队伍｜活动目的",
+      "prompt": "竞赛旨在鼓励学生为社会问题提出可行的商业方案。",
+      "reference": "The contest is intended to encourage students to develop practical business solutions to social problems.",
+      "frame": "The contest is intended to...",
+      "keywords": [
+        "contest",
+        "intended"
+      ]
+    },
+    {
+      "id": "imit-2022-3",
+      "sourceEssayId": "small-2022-innovation-team-invitation",
+      "category": "邀请信",
+      "pattern": "参赛要求",
+      "title": "2022年｜邀请教授组织国际创新竞赛队伍｜参赛要求",
+      "prompt": "每支队伍应由三至五名学生组成，并在月底前提交商业计划。",
+      "reference": "Each team should consist of three to five students and submit a business plan before the end of the month.",
+      "frame": "Each team should consist of...and submit...",
+      "keywords": [
+        "should",
+        "consist",
+        "submit"
+      ]
+    },
+    {
+      "id": "imit-2022-4",
+      "sourceEssayId": "small-2022-innovation-team-invitation",
+      "category": "邀请信",
+      "pattern": "邀请理由",
+      "title": "2022年｜邀请教授组织国际创新竞赛队伍｜邀请理由",
+      "prompt": "鉴于您丰富的创业教育经验，如能指导学生准备项目，我们将深感荣幸。",
+      "reference": "Given your extensive experience in entrepreneurship education, we would be greatly honored if you could guide the students in preparing their project.",
+      "frame": "Given your extensive experience in..., we would be greatly honored if...",
+      "keywords": [
+        "given",
+        "extensive",
+        "experience",
+        "would"
+      ]
+    },
+    {
+      "id": "imit-2023-1",
+      "sourceEssayId": "small-2023-sports-assistant-notice",
+      "category": "通知",
+      "pattern": "招聘通知",
+      "title": "2023年｜招聘校园体育研究项目学生助理｜招聘通知",
+      "prompt": "现通知全体学生：图书馆数字化项目正在招聘一名学生助理。",
+      "reference": "This is to inform all students that the library digitization project is recruiting one student assistant.",
+      "frame": "This is to inform all students that...",
+      "keywords": [
+        "inform",
+        "students"
+      ]
+    },
+    {
+      "id": "imit-2023-2",
+      "sourceEssayId": "small-2023-sports-assistant-notice",
+      "category": "通知",
+      "pattern": "工作职责",
+      "title": "2023年｜招聘校园体育研究项目学生助理｜工作职责",
+      "prompt": "有意应聘者须扫描旧资料、整理文件并更新电子目录。",
+      "reference": "Those who are interested in the position are required to scan old materials, organize files and update the electronic catalogue.",
+      "frame": "Those who are interested...are required to...",
+      "keywords": [
+        "those",
+        "interested",
+        "required"
+      ]
+    },
+    {
+      "id": "imit-2023-3",
+      "sourceEssayId": "small-2023-sports-assistant-notice",
+      "category": "通知",
+      "pattern": "应聘要求",
+      "title": "2023年｜招聘校园体育研究项目学生助理｜应聘要求",
+      "prompt": "申请者应认真负责，并熟练掌握基本计算机操作。",
+      "reference": "Applicants should be responsible and proficient in basic computer operations.",
+      "frame": "Applicants should be...",
+      "keywords": [
+        "applicants",
+        "should"
+      ]
+    },
+    {
+      "id": "imit-2023-4",
+      "sourceEssayId": "small-2023-sports-assistant-notice",
+      "category": "通知",
+      "pattern": "申请方式",
+      "title": "2023年｜招聘校园体育研究项目学生助理｜申请方式",
+      "prompt": "请在周四前向图书馆办公室提交一份简短申请。",
+      "reference": "Please submit a brief application to the library office before Thursday.",
+      "frame": "Please submit...before...",
+      "keywords": [
+        "please",
+        "submit",
+        "before"
+      ]
+    },
+    {
+      "id": "imit-2024-1",
+      "sourceEssayId": "small-2024-scientist-report-advice",
+      "category": "回复建议信",
+      "pattern": "建议目的",
+      "title": "2024年｜回复如何准备中国古代科学家口头报告｜建议目的",
+      "prompt": "我写信是想就准备一份关于中国古代发明的课堂展示提出一些建议。",
+      "reference": "I am writing to offer some suggestions on preparing a class presentation about an ancient Chinese invention.",
+      "frame": "I am writing to offer some suggestions on...",
+      "keywords": [
+        "writing",
+        "offer",
+        "suggestions"
+      ]
+    },
+    {
+      "id": "imit-2024-2",
+      "sourceEssayId": "small-2024-scientist-report-advice",
+      "category": "回复建议信",
+      "pattern": "选择主题",
+      "title": "2024年｜回复如何准备中国古代科学家口头报告｜选择主题",
+      "prompt": "首先，如果你选择造纸术并收集可靠资料，会更好。",
+      "reference": "Firstly, it would be better if you chose papermaking and collected reliable information.",
+      "frame": "Firstly, it would be better if...",
+      "keywords": [
+        "firstly",
+        "would",
+        "better"
+      ]
+    },
+    {
+      "id": "imit-2024-3",
+      "sourceEssayId": "small-2024-scientist-report-advice",
+      "category": "回复建议信",
+      "pattern": "组织结构",
+      "title": "2024年｜回复如何准备中国古代科学家口头报告｜组织结构",
+      "prompt": "其次，我建议把展示分为发明背景、制作过程和历史影响三部分。",
+      "reference": "Secondly, I suggest that you organize the presentation into three parts: its background, production process and historical influence.",
+      "frame": "Secondly, I suggest that...",
+      "keywords": [
+        "secondly",
+        "suggest"
+      ]
+    },
+    {
+      "id": "imit-2024-4",
+      "sourceEssayId": "small-2024-scientist-report-advice",
+      "category": "回复建议信",
+      "pattern": "练习展示",
+      "title": "2024年｜回复如何准备中国古代科学家口头报告｜练习展示",
+      "prompt": "最后但同样重要的是，最好使用图片并在课前反复练习。",
+      "reference": "Last but not least, it is advisable to use pictures and practise repeatedly before class.",
+      "frame": "Last but not least, it is advisable to...",
+      "keywords": [
+        "least",
+        "advisable"
+      ]
+    },
+    {
+      "id": "imit-2025-1",
+      "sourceEssayId": "small-2025-craft-reply",
+      "category": "回复咨询信",
+      "pattern": "感谢与帮助",
+      "title": "2025年｜回复校园创新手工艺展示咨询｜感谢与帮助",
+      "prompt": "感谢你对校园传统音乐展示感兴趣，并主动提出帮忙。",
+      "reference": "Thank you for your interest in the campus traditional music demonstration and for your kind offer to help.",
+      "frame": "Thank you for your interest in...and for your kind offer to help.",
+      "keywords": [
+        "thank",
+        "interest",
+        "offer"
+      ]
+    },
+    {
+      "id": "imit-2025-2",
+      "sourceEssayId": "small-2025-craft-reply",
+      "category": "回复咨询信",
+      "pattern": "展示内容",
+      "title": "2025年｜回复校园创新手工艺展示咨询｜展示内容",
+      "prompt": "年轻音乐人将演奏古筝、二胡和竹笛。",
+      "reference": "The young musicians will perform on the guzheng, erhu and bamboo flute.",
+      "frame": "The...will demonstrate/perform...",
+      "keywords": [
+        "demonstrate",
+        "perform"
+      ]
+    },
+    {
+      "id": "imit-2025-3",
+      "sourceEssayId": "small-2025-craft-reply",
+      "category": "回复咨询信",
+      "pattern": "创新特点",
+      "title": "2025年｜回复校园创新手工艺展示咨询｜创新特点",
+      "prompt": "他们还将说明传统音乐如何与现代编曲相结合。",
+      "reference": "They will also explain how traditional music can be combined with modern arrangements.",
+      "frame": "They will also explain how...can be combined with...",
+      "keywords": [
+        "explain",
+        "combined"
+      ]
+    },
+    {
+      "id": "imit-2025-4",
+      "sourceEssayId": "small-2025-craft-reply",
+      "category": "回复咨询信",
+      "pattern": "协助准备",
+      "title": "2025年｜回复校园创新手工艺展示咨询｜协助准备",
+      "prompt": "关于准备工作，你可以帮助设计海报、布置座位并引导观众。",
+      "reference": "With regard to the preparation work, you may help design posters, arrange the seats and guide the audience.",
+      "frame": "With regard to..., you may help...",
+      "keywords": [
+        "regard"
+      ]
+    },
+    {
+      "id": "imit-2026-1",
+      "sourceEssayId": "small-2026-family-letters-reply",
+      "category": "回复咨询信",
+      "pattern": "感谢兴趣",
+      "title": "2026年｜回复中国家庭手写家书及展览咨询｜感谢兴趣",
+      "prompt": "感谢你对这些老照片感兴趣。",
+      "reference": "Thank you for your interest in the old photographs.",
+      "frame": "Thank you for your interest in...",
+      "keywords": [
+        "thank",
+        "interest"
+      ]
+    },
+    {
+      "id": "imit-2026-2",
+      "sourceEssayId": "small-2026-family-letters-reply",
+      "category": "回复咨询信",
+      "pattern": "资料内容",
+      "title": "2026年｜回复中国家庭手写家书及展览咨询｜资料内容",
+      "prompt": "这些照片记录普通家庭生活，并反映城市数十年来的变化。",
+      "reference": "The photographs record ordinary family life and reflect changes in the city over several decades.",
+      "frame": "The...record...and reflect...",
+      "keywords": [
+        "record",
+        "reflect"
+      ]
+    },
+    {
+      "id": "imit-2026-3",
+      "sourceEssayId": "small-2026-family-letters-reply",
+      "category": "回复咨询信",
+      "pattern": "公开展览",
+      "title": "2026年｜回复中国家庭手写家书及展览咨询｜公开展览",
+      "prompt": "关于你所问的展览，这些照片目前正在市美术馆公开展出。",
+      "reference": "As for your question about the exhibition, the photographs are currently on public display at the City Art Gallery.",
+      "frame": "As for your question about..., ...are currently on public display at...",
+      "keywords": [
+        "question",
+        "about",
+        "currently",
+        "public"
+      ]
+    },
+    {
+      "id": "imit-2026-4",
+      "sourceEssayId": "small-2026-family-letters-reply",
+      "category": "回复咨询信",
+      "pattern": "陪同参观",
+      "title": "2026年｜回复中国家庭手写家书及展览咨询｜陪同参观",
+      "prompt": "我很乐意本周日和你一起参观展览。",
+      "reference": "I would be delighted to visit the exhibition with you this Sunday.",
+      "frame": "I would be delighted to...",
+      "keywords": [
+        "would",
+        "delighted"
+      ]
+    }
+  ],
+  "formatGuides": [
+    {
+      "id": "format-advice",
+      "title": "建议信",
+      "order": [
+        "Dear ___,",
+        "第一段：I am writing to offer some suggestions on ___.",
+        "第二段：Firstly... / Secondly... / Last but not least...",
+        "第三段：I hope my suggestions will be of some help, and I am looking forward to ___.",
+        "Yours sincerely,",
+        "Li Ming"
+      ],
+      "example": "Dear ___, → 写信目的 → 三条建议 → 总结与期待 → Yours sincerely, → Li Ming"
+    },
+    {
+      "id": "format-notice",
+      "title": "通知 Notice",
+      "order": [
+        "Notice",
+        "第一段：This is to inform all ___ that ___.",
+        "第二段：时间、地点、内容、职责或要求",
+        "第三段：提醒、报名方式、截止时间或咨询方式",
+        "发布单位或Li Ming"
+      ],
+      "example": "Notice → 三段正文 → The Students’ Union / Li Ming"
+    },
+    {
+      "id": "format-invitation",
+      "title": "邀请信",
+      "order": [
+        "Dear ___,",
+        "第一段：On behalf of ___, I am writing to cordially invite you to ___.",
+        "第二段：活动目的、时间地点、具体安排及邀请理由",
+        "第三段：I would be most grateful if you could accept our invitation.",
+        "Yours sincerely,",
+        "Li Ming"
+      ],
+      "example": "Dear ___, → 正式邀请 → 活动细节与邀请理由 → 请求接受邀请 → Yours sincerely, → Li Ming"
+    },
+    {
+      "id": "format-reply-inquiry",
+      "title": "回复咨询信",
+      "order": [
+        "Dear ___,",
+        "第一段：Thank you for your interest in ___. I am writing to provide you with ___.",
+        "第二段：逐项回答对方提出的问题",
+        "第三段：I hope the above information will be helpful. / Please feel free to contact me...",
+        "Yours sincerely,",
+        "Li Ming"
+      ],
+      "example": "Dear ___, → 感谢与回复目的 → 逐项回答 → 总结或进一步帮助 → Yours sincerely, → Li Ming"
+    },
+    {
+      "id": "format-welcome-advice",
+      "title": "欢迎＋建议信",
+      "order": [
+        "Dear International Students,",
+        "第一段：On behalf of ___, I would like to extend our warmest welcome to you.",
+        "第一段补充：I am writing to offer some suggestions on ___.",
+        "第二段：Firstly... / Secondly... / Last but not least...",
+        "第三段：I hope my suggestions will be of some help...",
+        "Yours sincerely, / Li Ming"
+      ],
+      "example": "欢迎 → 写信目的 → 三条建议 → 总结与期待 → Yours sincerely, → Li Ming"
+    }
+  ],
+  "functionTasks": [
+    {
+      "id": "func-01",
+      "title": "建议信—写信目的",
+      "prompt": "我写信是想就改善校园交通提出一些建议。",
+      "reference": "I am writing to offer some suggestions on improving campus transportation.",
+      "frame": "I am writing to offer some suggestions on...",
+      "keywords": [
+        "writing",
+        "suggestions"
+      ]
+    },
+    {
+      "id": "func-02",
+      "title": "建议信—第一条建议",
+      "prompt": "首先，如果学校能增加校车班次，会更好。",
+      "reference": "Firstly, it would be better if the university increased the frequency of shuttle buses.",
+      "frame": "Firstly, it would be better if...",
+      "keywords": [
+        "firstly",
+        "better"
+      ]
+    },
+    {
+      "id": "func-03",
+      "title": "建议信—第二条建议",
+      "prompt": "其次，我建议设置更多自行车停放区。",
+      "reference": "Secondly, I suggest that more bicycle parking areas be provided.",
+      "frame": "Secondly, I suggest that...",
+      "keywords": [
+        "secondly",
+        "suggest"
+      ]
+    },
+    {
+      "id": "func-04",
+      "title": "建议信—第三条建议",
+      "prompt": "最后但同样重要的是，最好改善晚间照明。",
+      "reference": "Last but not least, it is advisable to improve the lighting at night.",
+      "frame": "Last but not least, it is advisable to...",
+      "keywords": [
+        "advisable"
+      ]
+    },
+    {
+      "id": "func-05",
+      "title": "建议信—总结期待",
+      "prompt": "我希望这些建议能有所帮助，并期待看到更安全的校园交通。",
+      "reference": "I hope my suggestions will be of some help, and I am looking forward to seeing safer campus transportation.",
+      "frame": "I hope my suggestions will be of some help...",
+      "keywords": [
+        "suggestions",
+        "looking"
+      ]
+    },
+    {
+      "id": "func-06",
+      "title": "通知—通知事项",
+      "prompt": "现通知所有学生：学校将举办校园读书节。",
+      "reference": "This is to inform all students that a campus reading festival will be held.",
+      "frame": "This is to inform all...that...",
+      "keywords": [
+        "inform",
+        "students"
+      ]
+    },
+    {
+      "id": "func-07",
+      "title": "通知—时间地点",
+      "prompt": "活动将于本周六上午9点在图书馆广场举行。",
+      "reference": "The event will be held in the library square at 9:00 a.m. this Saturday.",
+      "frame": "The event will be held...",
+      "keywords": [
+        "event",
+        "held"
+      ]
+    },
+    {
+      "id": "func-08",
+      "title": "通知—参加要求",
+      "prompt": "有意参加者须在周四前在线报名。",
+      "reference": "Those who are interested in participating are required to register online before Thursday.",
+      "frame": "Those who are interested...are required to...",
+      "keywords": [
+        "interested",
+        "required"
+      ]
+    },
+    {
+      "id": "func-09",
+      "title": "通知—提醒事项",
+      "prompt": "请务必携带学生证。",
+      "reference": "Please make sure to bring your student card.",
+      "frame": "Please make sure to...",
+      "keywords": [
+        "please",
+        "sure"
+      ]
+    },
+    {
+      "id": "func-10",
+      "title": "通知—期待参与",
+      "prompt": "我们期待大家积极参与。",
+      "reference": "We are looking forward to your active participation.",
+      "frame": "We are looking forward to...",
+      "keywords": [
+        "looking",
+        "participation"
+      ]
+    },
+    {
+      "id": "func-11",
+      "title": "邀请信—正式邀请",
+      "prompt": "我谨代表学生会诚挚邀请您参加国际文化节。",
+      "reference": "On behalf of the Students’ Union, I am writing to cordially invite you to attend the International Culture Festival.",
+      "frame": "On behalf of..., I am writing to cordially invite you to...",
+      "keywords": [
+        "behalf",
+        "cordially",
+        "invite"
+      ]
+    },
+    {
+      "id": "func-12",
+      "title": "邀请信—活动时间地点",
+      "prompt": "活动将于5月10日下午2点在大学礼堂举行。",
+      "reference": "The event will be held in the university auditorium at 2:00 p.m. on May 10.",
+      "frame": "The event will be held...",
+      "keywords": [
+        "event",
+        "held"
+      ]
+    },
+    {
+      "id": "func-13",
+      "title": "邀请信—活动目的",
+      "prompt": "本次活动旨在促进不同文化背景学生之间的交流。",
+      "reference": "The event is intended to promote communication among students from different cultural backgrounds.",
+      "frame": "The event is intended to...",
+      "keywords": [
+        "intended",
+        "promote"
+      ]
+    },
+    {
+      "id": "func-14",
+      "title": "邀请信—邀请理由",
+      "prompt": "鉴于您丰富的跨文化交流经验，如能发表简短致辞，我们将深感荣幸。",
+      "reference": "Given your extensive experience in intercultural communication, we would be greatly honored if you could deliver a brief speech.",
+      "frame": "Given your extensive experience in..., we would be greatly honored if...",
+      "keywords": [
+        "given",
+        "honored"
+      ]
+    },
+    {
+      "id": "func-15",
+      "title": "邀请信—请求回复",
+      "prompt": "如您能接受邀请，我将不胜感激。请告知您届时是否有空。",
+      "reference": "I would be most grateful if you could accept our invitation. Please let me know whether you will be available.",
+      "frame": "I would be most grateful if...",
+      "keywords": [
+        "grateful",
+        "invitation"
+      ]
+    },
+    {
+      "id": "func-16",
+      "title": "回复咨询—感谢兴趣",
+      "prompt": "感谢你对校园志愿服务项目感兴趣。",
+      "reference": "Thank you for your interest in the campus volunteer service project.",
+      "frame": "Thank you for your interest in...",
+      "keywords": [
+        "thank",
+        "interest"
+      ]
+    },
+    {
+      "id": "func-17",
+      "title": "回复咨询—回复目的",
+      "prompt": "我写信是想提供你所询问的项目相关信息。",
+      "reference": "I am writing to provide you with the information you requested concerning the project.",
+      "frame": "I am writing to provide you with...",
+      "keywords": [
+        "writing",
+        "provide",
+        "requested"
+      ]
+    },
+    {
+      "id": "func-18",
+      "title": "回复咨询—逐项回答",
+      "prompt": "志愿者将负责登记来宾、整理材料并协助现场活动。",
+      "reference": "Volunteers will be responsible for registering guests, organizing materials and assisting with on-site activities.",
+      "frame": "Volunteers will be responsible for...",
+      "keywords": [
+        "volunteers",
+        "responsible"
+      ]
+    },
+    {
+      "id": "func-19",
+      "title": "回复咨询—补充说明",
+      "prompt": "关于你所问的住宿，学校将免费提供宿舍。",
+      "reference": "As for your question about accommodation, the university will provide dormitory rooms free of charge.",
+      "frame": "As for your question about..., ...",
+      "keywords": [
+        "question",
+        "accommodation"
+      ]
+    },
+    {
+      "id": "func-20",
+      "title": "回复咨询—礼貌收尾",
+      "prompt": "我希望以上信息能有所帮助。如需更多细节，请随时与我联系。",
+      "reference": "I hope the above information will be helpful. Please feel free to contact me if you need any further details.",
+      "frame": "I hope the above information will be helpful...",
+      "keywords": [
+        "helpful",
+        "contact"
+      ]
+    },
+    {
+      "id": "func-21",
+      "title": "欢迎＋建议—表示欢迎",
+      "prompt": "我谨代表学生会向所有国际新生表示最热烈的欢迎。",
+      "reference": "On behalf of the Students’ Union, I would like to extend our warmest welcome to all international freshmen.",
+      "frame": "On behalf of..., I would like to extend...",
+      "keywords": [
+        "behalf",
+        "extend",
+        "welcome"
+      ]
+    },
+    {
+      "id": "func-22",
+      "title": "欢迎＋建议—说明目的",
+      "prompt": "我写信是想就你们的校园生活提出一些建议。",
+      "reference": "I am writing to offer some suggestions on your campus life.",
+      "frame": "I am writing to offer some suggestions on...",
+      "keywords": [
+        "writing",
+        "suggestions"
+      ]
+    },
+    {
+      "id": "func-23",
+      "title": "欢迎＋建议—参加迎新",
+      "prompt": "首先，如果你们参加迎新活动，会更快熟悉学校。",
+      "reference": "Firstly, it would be better if you attended the orientation activities to become familiar with the university more quickly.",
+      "frame": "Firstly, it would be better if...",
+      "keywords": [
+        "firstly",
+        "orientation"
+      ]
+    },
+    {
+      "id": "func-24",
+      "title": "欢迎＋建议—加入社团",
+      "prompt": "其次，我建议你们加入学生社团并结交新朋友。",
+      "reference": "Secondly, I suggest that you join student clubs and make new friends.",
+      "frame": "Secondly, I suggest that...",
+      "keywords": [
+        "secondly",
+        "suggest"
+      ]
+    },
+    {
+      "id": "func-25",
+      "title": "欢迎＋建议—总结期待",
+      "prompt": "我希望这些建议能有所帮助，并期待你们的到来。",
+      "reference": "I hope my suggestions will be of some help, and I am looking forward to your arrival.",
+      "frame": "I hope my suggestions will be of some help...",
+      "keywords": [
+        "suggestions",
+        "arrival"
+      ]
+    }
+  ]
+}

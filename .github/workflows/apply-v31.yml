@@ -13,14 +13,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Install patch tool
+        run: sudo apt-get update && sudo apt-get install -y zstd
       - name: Apply approved V31 package
         shell: bash
         run: |
-          cat .v31_upload/script-*.txt > /tmp/apply_v31.py
-          python /tmp/apply_v31.py
+          base64 -d .v31_upload/v31_delta.tar.zst.b64 > /tmp/v31_delta.tar.zst
+          zstd -q -d -c /tmp/v31_delta.tar.zst | tar -xf -
+          bash v31_delta/apply.sh
           rm -rf .v31_upload
           rm -rf v31-deploy-payload
-          rm -f small_essay_data_14_confirmed.json
+          rm -rf v31_delta_parts
           rm -f .github/workflows/apply-v31.yml
       - name: Commit V31 website
         shell: bash

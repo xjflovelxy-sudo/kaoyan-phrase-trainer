@@ -12,24 +12,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: v31-deploy
           fetch-depth: 0
       - name: Install patch tool
-        run: sudo apt-get update && sudo apt-get install -y zstd
-      - name: Apply approved V31 package
+        run: sudo apt-get update -qq && sudo apt-get install -y zstd
+      - name: Rebuild and apply V31
         shell: bash
         run: |
-          base64 -d .v31_upload/v31_delta.tar.zst.b64 > /tmp/v31_delta.tar.zst
+          set -euo pipefail
+          cat .v31_upload/chunk-00.txt .v31_upload/chunk-01.txt .v31_upload/chunk-02.txt .v31_upload/chunk-03.txt .v31_upload/chunk-04.txt > /tmp/v31_delta.tar.zst.b64
+          echo 'b3157076e0dd9de90ede75cf5e06e0dce4c26fd3ef50d47dd2672bb2d2a5dad6  /tmp/v31_delta.tar.zst.b64' | sha256sum -c -
+          base64 -d /tmp/v31_delta.tar.zst.b64 > /tmp/v31_delta.tar.zst
           zstd -q -d -c /tmp/v31_delta.tar.zst | tar -xf -
           bash v31_delta/apply.sh
-          rm -rf .v31_upload
-          rm -rf v31-deploy-payload
-          rm -rf v31_delta_parts
-          rm -f .github/workflows/apply-v31.yml
-      - name: Commit V31 website
+          mkdir -p /tmp/v31-output
+          cp index.html manifest.webmanifest service-worker.js small_essay_module.js 'PWA安装与更新说明.txt' small_essay_data_13_exam_template.json 'V31更新说明.txt' /tmp/v31-output/
+      - name: Publish clean V31 to main
         shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          set -euo pipefail
+          git checkout main
+          cp /tmp/v31-output/* ./
+          rm -f small_essay_data_14_confirmed.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m "Deploy V31 website"
-          git push origin HEAD:v31-deploy
+          git commit -m 'Deploy V31 website'
+          git push origin main

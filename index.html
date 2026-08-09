@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#3559e0" />
   <meta name="description" content="考研英语真题词组记忆、间隔复习、错词统计与多设备云同步。" />
-  <meta name="application-name" content="V34" />
+  <meta name="application-name" content="V43" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="V34" />
+  <meta name="apple-mobile-web-app-title" content="V43" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V40 底层存储增强版</title>
+  <title>V43 考研英语训练</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -323,6 +323,74 @@
 
     .category-card button {
       justify-self: start;
+    }
+
+    /* V43 分类专项学习进度：仅作用于首页分类卡，不影响选择题分类卡 */
+    .category-study-card {
+      align-content: start;
+      gap: 10px;
+    }
+
+    .category-study-total {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .category-study-total strong {
+      color: var(--text);
+      font-size: 26px;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .category-study-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .category-study-stats strong {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .category-study-progress-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .category-study-progress-row .progress {
+      height: 8px;
+    }
+
+    .category-study-percent {
+      min-width: 34px;
+      text-align: right;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .category-overview-summary {
+      margin: -2px 0 14px;
+      padding: 11px 13px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8faff;
+      color: #46526a;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .category-overview-summary strong {
+      color: var(--text);
     }
 
     .memory-note {
@@ -4160,7 +4228,7 @@
   .v41-legacy{margin:10px 12px 12px;padding:10px 11px;border:1px dashed #d8dfeb;border-radius:10px;background:#fff;color:#6c7789;font-size:10px;line-height:1.65}
   @media(max-width:700px){.v41-archive-group>summary{grid-template-columns:30px minmax(0,1fr) auto}.v41-item-head{display:block}.v41-item-head time{display:block;margin-top:3px}}
   @media(max-width:700px){.v37-plan-row{grid-template-columns:30px minmax(0,1fr)}.v37-plan-actions{grid-column:1/-1;flex-direction:row}.v37-plan-actions>*{flex:1}.v37-event{grid-template-columns:40px 7px minmax(0,1fr)}}
-  /* V42：日期详情改为明确双标签；学习档案按具体记录直接展开。 */
+  /* V43：保留V42学习档案；同一网址支持多账号，本机与云端数据按账号隔离。 */
   .v42-day-tabs{display:flex;gap:6px;padding:10px 12px 0;background:#fbfcff;position:sticky;top:0;z-index:3}
   .v42-day-tab{border:1px solid #d8e0ee;background:#fff;color:#5d6980;border-radius:10px;padding:8px 12px;font-size:11px;font-weight:850;cursor:pointer;transition:.15s ease}
   .v42-day-tab.active{background:#3559e0;border-color:#3559e0;color:#fff;box-shadow:0 4px 12px rgba(53,89,224,.16)}
@@ -4411,7 +4479,7 @@
 <div class="app">
   <aside>
     <div class="brand">
-      <h1>V34</h1>
+      <h1>V43</h1>
       <p>每题本机秒存 · 云端后台合并同步 · 写作备注历史</p>
     </div>
     <nav>
@@ -4725,6 +4793,7 @@
         <div class="muted" style="line-height:1.8;margin-bottom:14px;">
           每张卡都标明真题年份。完形、阅读、写作均已按年份和部分标注；熟词新义与同义替换是跨类别重点标签。
         </div>
+        <div class="category-overview-summary" id="categoryOverviewSummary"></div>
         <div class="category-grid" id="categoryGrid"></div>
       </div>
     </section>
@@ -5364,6 +5433,9 @@
 
         <div class="card" id="loginCard">
           <h3 class="section-title">登录或注册</h3>
+          <div class="notice" style="margin-bottom:14px;line-height:1.75;">
+            每个人使用自己的邮箱账号。网页地址可以共用，但本机进度和云端进度会按账号分别保存，互不混用。
+          </div>
           <div class="field">
             <label>邮箱</label>
             <input id="authEmail" type="email" autocomplete="email" placeholder="name@example.com" />
@@ -5777,6 +5849,11 @@
   const V40_META_KEY = "kaoyan_phrase_v40_meta";
   const V40_DEVICE_KEY = "kaoyan_phrase_v40_device";
   const V40_MIGRATION_KEY = "kaoyan_phrase_v40_migrated";
+  const V43_LEGACY_CLAIM_KEY = "kaoyan_phrase_v43_legacy_claim";
+  const V43_KNOWN_USERS_KEY = "kaoyan_phrase_v43_known_users";
+  const V43_ACTIVE_OWNER_KEY = "kaoyan_phrase_v43_active_owner";
+  let activeLocalOwner = "guest";
+  let v43AccountEpoch = 0;
   const V40_CLOUD_TABLE = "study_progress_items";
   const V40_CHECKPOINT_DELAY_MS = 10000;
   const SUPABASE_CONFIG_KEY = "kaoyan_phrase_supabase_config_v1";
@@ -7122,7 +7199,8 @@
 
   function loadLocalSessionBackup() {
     try {
-      const raw = localStorage.getItem(SESSION_BACKUP_KEY);
+      let raw = localStorage.getItem(v43ScopedKey(SESSION_BACKUP_KEY));
+      if (!raw && activeLocalOwner === "guest") raw = localStorage.getItem(SESSION_BACKUP_KEY);
       if (!raw) return { reviewSession: null, quizSession: null, translationPractice: null };
       const parsed = JSON.parse(raw);
       return {
@@ -7145,10 +7223,10 @@
       const translationPractice = normalizeTranslationPractice(sourceState?.translationPractice);
       const keepTranslation = hasTranslationBackup(translationPractice);
       if (!reviewSession && !quizSession && !keepTranslation) {
-        localStorage.removeItem(SESSION_BACKUP_KEY);
+        localStorage.removeItem(v43ScopedKey(SESSION_BACKUP_KEY));
         return true;
       }
-      localStorage.setItem(SESSION_BACKUP_KEY, JSON.stringify({
+      localStorage.setItem(v43ScopedKey(SESSION_BACKUP_KEY), JSON.stringify({
         version: 40,
         reviewSession,
         quizSession,
@@ -7182,13 +7260,178 @@
   }
 
 
+  /* ========== V43：同网址多账号，本机数据按账号隔离 ========== */
+  function v43OwnerToken(owner = activeLocalOwner) {
+    const raw = String(owner || "guest").trim();
+    return raw && raw !== "null" && raw !== "undefined" ? raw.replace(/[^a-zA-Z0-9_-]/g, "_") : "guest";
+  }
+  function v43ScopedKey(base, owner = activeLocalOwner) {
+    return `${base}::u:${v43OwnerToken(owner)}`;
+  }
+  function v43V40Prefix(owner = activeLocalOwner) {
+    return `${V40_ITEM_PREFIX}u:${v43OwnerToken(owner)}:`;
+  }
+  function v43LegacyV40All() {
+    const out = [];
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (!k || !k.startsWith(V40_ITEM_PREFIX)) continue;
+        const suffix = k.slice(V40_ITEM_PREFIX.length);
+        if (suffix.startsWith("u:")) continue;
+        const env = v40Json(localStorage.getItem(k), null);
+        if (env && typeof env === "object") out.push([suffix, env]);
+      }
+    } catch (error) { console.warn("读取V40旧逐项数据失败", error); }
+    return out;
+  }
+  function v43ApplyLegacyOverlay(dst) {
+    v43LegacyV40All()
+      .sort((a,b)=>safeTimestamp(a[1]?.updatedAt)-safeTimestamp(b[1]?.updatedAt))
+      .forEach(([k,e])=>{ if(!e?.deleted && e.data) v40Apply(dst,k,e.data); });
+    return dst;
+  }
+  function v43HasScopedData(owner) {
+    try {
+      if (localStorage.getItem(v43ScopedKey(STORAGE_KEY, owner))) return true;
+      const prefix = v43V40Prefix(owner);
+      for (let i=0;i<localStorage.length;i++) {
+        const k=localStorage.key(i);
+        if(k && k.startsWith(prefix)) return true;
+      }
+    } catch (_) {}
+    return false;
+  }
+  function v43KnownUsers() {
+    try {
+      const arr = v40Json(localStorage.getItem(V43_KNOWN_USERS_KEY), []);
+      return Array.isArray(arr) ? arr.map(String).filter(Boolean) : [];
+    } catch (_) { return []; }
+  }
+  function v43RememberUser(userId) {
+    if (!userId || userId === "guest") return;
+    const users = new Set(v43KnownUsers());
+    users.add(String(userId));
+    try { localStorage.setItem(V43_KNOWN_USERS_KEY, JSON.stringify([...users])); } catch (_) {}
+  }
+  function v43LegacyClaimedBy() {
+    try { return String(localStorage.getItem(V43_LEGACY_CLAIM_KEY) || ""); } catch (_) { return ""; }
+  }
+  function v43CloneLegacyToOwner(owner) {
+    owner = v43OwnerToken(owner);
+    if (!owner || owner === "guest" || v43HasScopedData(owner)) return false;
+    let copied = false;
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) { localStorage.setItem(v43ScopedKey(STORAGE_KEY, owner), raw); copied = true; }
+      const backup = localStorage.getItem(SESSION_BACKUP_KEY);
+      if (backup) localStorage.setItem(v43ScopedKey(SESSION_BACKUP_KEY, owner), backup);
+      const meta = localStorage.getItem(V40_META_KEY);
+      if (meta) localStorage.setItem(v43ScopedKey(V40_META_KEY, owner), meta);
+      const migration = localStorage.getItem(V40_MIGRATION_KEY);
+      if (migration) localStorage.setItem(v43ScopedKey(V40_MIGRATION_KEY, owner), migration);
+      const targetPrefix = v43V40Prefix(owner);
+      v43LegacyV40All().forEach(([key, env]) => {
+        localStorage.setItem(targetPrefix + key, JSON.stringify(env));
+        copied = true;
+      });
+      if (copied) localStorage.setItem(V43_LEGACY_CLAIM_KEY, owner);
+    } catch (error) { console.error("V43旧数据迁移失败", error); }
+    return copied;
+  }
+  function v43CloneOwnerToOwner(fromOwner, toOwner) {
+    fromOwner=v43OwnerToken(fromOwner);toOwner=v43OwnerToken(toOwner);
+    if(fromOwner===toOwner || v43HasScopedData(toOwner)) return false;
+    let copied=false;
+    try {
+      [STORAGE_KEY,SESSION_BACKUP_KEY,V40_META_KEY,V40_MIGRATION_KEY].forEach(base=>{
+        const raw=localStorage.getItem(v43ScopedKey(base,fromOwner));
+        if(raw){localStorage.setItem(v43ScopedKey(base,toOwner),raw);copied=true;}
+      });
+      const sourcePrefix=v43V40Prefix(fromOwner),targetPrefix=v43V40Prefix(toOwner);
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);if(!k||!k.startsWith(sourcePrefix))continue;
+        const suffix=k.slice(sourcePrefix.length),raw=localStorage.getItem(k);
+        if(raw!=null){localStorage.setItem(targetPrefix+suffix,raw);copied=true;}
+      }
+    }catch(error){console.error("V43本机试用进度迁移失败",error)}
+    return copied;
+  }
+  function v43ClearCloudRuntime() {
+    v43AccountEpoch += 1;
+    if (cloudSaveTimer) { clearTimeout(cloudSaveTimer); cloudSaveTimer = null; }
+    cloudDirtyKeys.clear();
+    cloudPendingSave = false;
+    cloudPendingChanges = 0;
+    cloudBatchStartedAt = 0;
+    cloudPullPending = false;
+    cloudSyncing = false;
+    cloudGranularMode = "unknown";
+    cloudGranularCheckedAt = 0;
+  }
+  function v43ResetStudyRuntime() {
+    reviewQueue=[];reviewIndex=0;reviewSessionKind="";
+    quizQueue=[];quizIndex=0;quizWrongIds=[];quizCorrectCount=0;
+    currentEssayId=state.bigEssays?.[0]?.id || BIG_ESSAY_SEED[0]?.id || "";
+    try { currentSmallEssayId=""; currentSmallSentenceTaskId=""; currentSmallWholeId=""; } catch (_) {}
+    try { trLastSelection=null; } catch (_) {}
+  }
+  function v43RefreshAllViews() {
+    try {
+      populateYearSelects();populateCustomMarkSelects();renderDashboard();
+      if(currentView==="quiz")renderQuizSetup();
+      else if(currentView==="review")resumeAnyReviewSession();
+      else if(currentView==="bigEssay")renderBigEssay();
+      else if(currentView==="smallEssay"&&typeof renderSmallEssay==="function")renderSmallEssay();
+      else if(currentView==="translation"&&typeof renderTranslationModule==="function")renderTranslationModule();
+      else if(currentView==="studyPlan")renderStudyPlanView();
+      else if(currentView==="search")renderGlobalSearch();
+      else if(currentView==="myMarks")renderMyMarks();
+      else if(currentView==="marks")renderMarkManager();
+      else if(currentView==="library")renderLibrary();
+      else if(currentView==="mistakes")renderMistakes();
+      else if(currentView==="stats")renderStats();
+    } catch (error) { console.warn("V43切换账号后刷新失败", error); }
+  }
+  function v43PrepareOwner(owner, options={}) {
+    owner=v43OwnerToken(owner);
+    const { allowLegacyClaim=false }=options;
+    if(owner!=="guest" && !v43HasScopedData(owner)){
+      const claim=v43LegacyClaimedBy();
+      if(allowLegacyClaim && !claim){
+        // V42及更早版本只有一个本机数据空间：只允许第一位登录用户认领一次。
+        // 不自动把“游客试用区”复制给账号，避免在新设备上覆盖该账号已有云端进度。
+        v43CloneLegacyToOwner(owner);
+      }
+    }
+  }
+  function v43SwitchLocalOwner(owner, options={}) {
+    const next=v43OwnerToken(owner);
+    if(next===activeLocalOwner && options.force!==true) return false;
+    try {
+      if(typeof flushTranslationSave==="function") flushTranslationSave(false);
+      persistLocalSessionBackup(state);
+      v40Checkpoint();
+    } catch (_) {}
+    v43PrepareOwner(next, options);
+    activeLocalOwner=next;
+    try { localStorage.setItem(V43_ACTIVE_OWNER_KEY,next); } catch (_) {}
+    v43ClearCloudRuntime();
+    state=loadState({allowLegacy:false});
+    v43ResetStudyRuntime();
+    if(next!=="guest")v43RememberUser(next);
+    v43RefreshAllViews();
+    return true;
+  }
+  /* ========== V43 end ========== */
+
   /* ========== V40: 逐项本机 WAL + 逐项云同步 ========== */
   function v40Json(raw, fallback=null){try{return raw?JSON.parse(raw):fallback}catch(_){return fallback}}
   function v40DeviceId(){let id="";try{id=localStorage.getItem(V40_DEVICE_KEY)||""}catch(_){}if(!id){id=`dev-${cryptoId()}`;try{localStorage.setItem(V40_DEVICE_KEY,id)}catch(_){}}return id}
-  function v40StorageKey(key){return V40_ITEM_PREFIX+String(key||"core")}
+  function v40StorageKey(key){return v43V40Prefix()+String(key||"core")}
   function v40Read(key){try{const x=v40Json(localStorage.getItem(v40StorageKey(key)),null);return x&&typeof x==="object"?x:null}catch(_){return null}}
   function v40Write(key,env){try{localStorage.setItem(v40StorageKey(key),JSON.stringify(env));return true}catch(e){console.error("V40逐项本机保存失败",key,e);return false}}
-  function v40All(){const out=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!k||!k.startsWith(V40_ITEM_PREFIX))continue;const key=k.slice(V40_ITEM_PREFIX.length),env=v40Read(key);if(env)out.push([key,env])}}catch(e){console.warn("V40逐项读取失败",e)}return out}
+  function v40All(){const out=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);const prefix=v43V40Prefix();if(!k||!k.startsWith(prefix))continue;const key=k.slice(prefix.length),env=v40Read(key);if(env)out.push([key,env])}}catch(e){console.warn("V40逐项读取失败",e)}return out}
   function v40ResolveKey(syncKey="state"){
     const raw=String(syncKey||"state");
     if(raw!=="state"&&raw!=="manual"&&raw!=="reconnect")return raw;
@@ -7242,10 +7485,10 @@
     const old=v40Read(key),now=stamp||new Date().toISOString(),env={schema:40,itemKey:key,version:Math.max(0,Number(old?.version)||0)+1,deviceId:v40DeviceId(),updatedAt:now,deleted:false,data:v40Extract(key,src)};return v40Write(key,env)
   }
   function v40Related(primary){const out=new Set([primary,"core"]);if(primary.startsWith("card:")||["review-session","quiz-session","big-essay","small-essay","study-plan"].includes(primary))out.add("activity");if(primary.startsWith("translation:"))out.add("translation:meta");return[...out]}
-  function v40PersistForSave(syncKey,src=state){const primary=v40ResolveKey(syncKey),keys=v40Related(primary);let ok=true;keys.forEach(k=>{if(!v40PersistOne(k,src))ok=false});try{localStorage.setItem(V40_META_KEY,JSON.stringify({schema:40,lastWriteAt:new Date().toISOString(),deviceId:v40DeviceId()}))}catch(_){}return{ok,primary,keys}}
+  function v40PersistForSave(syncKey,src=state){const primary=v40ResolveKey(syncKey),keys=v40Related(primary);let ok=true;keys.forEach(k=>{if(!v40PersistOne(k,src))ok=false});try{localStorage.setItem(v43ScopedKey(V40_META_KEY),JSON.stringify({schema:40,lastWriteAt:new Date().toISOString(),deviceId:v40DeviceId()}))}catch(_){}return{ok,primary,keys}}
   function v40Overlay(dst){v40All().sort((a,b)=>safeTimestamp(a[1]?.updatedAt)-safeTimestamp(b[1]?.updatedAt)).forEach(([k,e])=>{if(!e?.deleted&&e.data)v40Apply(dst,k,e.data)});return dst}
-  function v40MarkMigration(){try{if(!localStorage.getItem(V40_MIGRATION_KEY))localStorage.setItem(V40_MIGRATION_KEY,JSON.stringify({schema:40,migratedAt:new Date().toISOString(),legacySnapshotKept:true}))}catch(_){}}
-  function v40Checkpoint(){if(v40CheckpointInProgress)return true;v40CheckpointInProgress=true;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(buildLocalPayload()));localStorage.setItem(V40_META_KEY,JSON.stringify({schema:40,lastWriteAt:new Date().toISOString(),lastCheckpointAt:new Date().toISOString(),deviceId:v40DeviceId()}));return true}catch(e){console.error("V40兼容快照保存失败",e);return false}finally{v40CheckpointInProgress=false}}
+  function v40MarkMigration(){try{if(!localStorage.getItem(v43ScopedKey(V40_MIGRATION_KEY)))localStorage.setItem(v43ScopedKey(V40_MIGRATION_KEY),JSON.stringify({schema:40,migratedAt:new Date().toISOString(),legacySnapshotKept:true}))}catch(_){}}
+  function v40Checkpoint(){if(v40CheckpointInProgress)return true;v40CheckpointInProgress=true;try{localStorage.setItem(v43ScopedKey(STORAGE_KEY),JSON.stringify(buildLocalPayload()));localStorage.setItem(v43ScopedKey(V40_META_KEY),JSON.stringify({schema:40,lastWriteAt:new Date().toISOString(),lastCheckpointAt:new Date().toISOString(),deviceId:v40DeviceId()}));return true}catch(e){console.error("V40兼容快照保存失败",e);return false}finally{v40CheckpointInProgress=false}}
   function v40ScheduleCheckpoint(delay=V40_CHECKPOINT_DELAY_MS){if(v40CheckpointTimer)clearTimeout(v40CheckpointTimer);v40CheckpointTimer=setTimeout(()=>{v40CheckpointTimer=null;v40Checkpoint()},Math.max(500,Number(delay)||V40_CHECKPOINT_DELAY_MS))}
   function v40Cmp(a,b){const at=safeTimestamp(a?.updatedAt),bt=safeTimestamp(b?.updatedAt);if(at!==bt)return at-bt;const av=Number(a?.version)||0,bv=Number(b?.version)||0;if(av!==bv)return av-bv;return String(a?.deviceId||"").localeCompare(String(b?.deviceId||""))}
   function v40Remote(row){return{schema:40,itemKey:String(row?.item_key||""),version:Number(row?.version)||0,deviceId:String(row?.device_id||""),updatedAt:String(row?.updated_at||""),deleted:Boolean(row?.deleted),data:row?.data??null}}
@@ -7254,18 +7497,18 @@
     const keys=["core","activity","study-plan","review-session","quiz-session","big-essay","small-essay","cards-meta","translation:meta"],tr=normalizeTranslationPractice(state.translationPractice);Object.keys(tr.entries||{}).forEach(id=>keys.push(`translation:${id}`));
     keys.forEach(k=>{if(remoteKeys.has(k)||v40Read(k))return;if(v40PersistOne(k,state))markCloudDirty(k)})
   }
-  async function v40Upload(keys){const all=[...new Set((keys||[]).map(v40ResolveKey).flatMap(v40Related))],rows=[];all.forEach(k=>{let e=v40Read(k);if(!e){v40PersistOne(k);e=v40Read(k)}if(e)rows.push({user_id:cloudUser.id,item_key:k,data:e.data,updated_at:e.updatedAt,version:e.version,device_id:e.deviceId,deleted:Boolean(e.deleted)})});if(!rows.length)return{error:null};return withCloudTimeout(supabaseClient.from(V40_CLOUD_TABLE).upsert(rows,{onConflict:"user_id,item_key"}),"逐项上传",20000)}
+  async function v40Upload(keys){const userId=cloudUser?.id;if(!userId||activeLocalOwner!==v43OwnerToken(userId))return{error:new Error("账号已切换，已取消旧账号逐项上传")};const all=[...new Set((keys||[]).map(v40ResolveKey).flatMap(v40Related))],rows=[];all.forEach(k=>{let e=v40Read(k);if(!e){v40PersistOne(k);e=v40Read(k)}if(e)rows.push({user_id:userId,item_key:k,data:e.data,updated_at:e.updatedAt,version:e.version,device_id:e.deviceId,deleted:Boolean(e.deleted)})});if(!rows.length)return{error:null};return withCloudTimeout(supabaseClient.from(V40_CLOUD_TABLE).upsert(rows,{onConflict:"user_id,item_key"}),"逐项上传",20000)}
   function v40Refresh(){populateYearSelects();populateCustomMarkSelects();renderDashboard();try{if(currentView==="quiz"){quizQueue=[];quizIndex=0;if(!restoreQuizSession())renderQuizSetup()}else if(currentView==="review"){reviewQueue=[];reviewIndex=0;resumeAnyReviewSession()}else if(currentView==="bigEssay")renderBigEssay();else if(currentView==="smallEssay"&&typeof renderSmallEssay==="function")renderSmallEssay();else if(currentView==="translation"&&typeof renderTranslationModule==="function")renderTranslationModule();else if(currentView==="studyPlan")renderStudyPlanView();else if(currentView==="search")renderGlobalSearch();else if(currentView==="myMarks")renderMyMarks();else if(currentView==="marks")renderMarkManager();else if(currentView==="library")renderLibrary();else if(currentView==="mistakes")renderMistakes();else if(currentView==="stats")renderStats()}catch(e){console.warn("V40同步后刷新失败",e)}}
   async function v40SyncCloud(){
-    if(!supabaseClient||!cloudUser)return false;if(cloudSyncing){cloudPullPending=true;return false}cloudSyncing=true;cloudPullPending=false;setSyncStatus("busy","本机已保存 · 正在逐项核对云端");
-    try{const{data,error}=await withCloudTimeout(supabaseClient.from(V40_CLOUD_TABLE).select("item_key,data,updated_at,version,device_id,deleted").eq("user_id",cloudUser.id),"逐项下载",20000);if(error)throw error;
+    if(!supabaseClient||!cloudUser)return false;const syncUserId=cloudUser.id,syncEpoch=v43AccountEpoch;if(activeLocalOwner!==v43OwnerToken(syncUserId))return false;if(cloudSyncing){cloudPullPending=true;return false}cloudSyncing=true;cloudPullPending=false;setSyncStatus("busy","本机已保存 · 正在逐项核对云端");
+    try{const{data,error}=await withCloudTimeout(supabaseClient.from(V40_CLOUD_TABLE).select("item_key,data,updated_at,version,device_id,deleted").eq("user_id",syncUserId),"逐项下载",20000);if(error)throw error;if(cloudUser?.id!==syncUserId||activeLocalOwner!==v43OwnerToken(syncUserId))return false;
       const rows=[...(data||[])].sort((a,b)=>safeTimestamp(a?.updated_at)-safeTimestamp(b?.updated_at)),remoteKeys=new Set(rows.map(r=>String(r?.item_key||"")).filter(Boolean));let applied=0;
       for(const row of rows){const r=v40Remote(row),k=r.itemKey;if(!k)continue;const l=v40Read(k);if(!l||v40Cmp(r,l)>0){v40Write(k,r);if(!r.deleted&&r.data)v40Apply(state,k,r.data);applied++}else if(v40Cmp(l,r)>0)markCloudDirty(k)}
       if(applied){persistLocalSessionBackup(state);v40Checkpoint();v40Refresh()}v40Bootstrap(remoteKeys);refreshCloudPendingState();
       if(cloudPendingSave){const keys=takeCloudDirtySnapshot(),res=await v40Upload(keys);if(res?.error){restoreCloudDirtySnapshot(keys);throw res.error}}
       refreshCloudPendingState();setSyncStatus(cloudPendingSave?"busy":"ok",cloudPendingSave?pendingSyncText("已合并逐项云端"):"本地与云端已逐项同步");setAuthMessage("");return true
     }catch(e){console.error(e);setSyncStatus("error",pendingSyncText("本机已保存 · 云端失败"));setAuthMessage(`云端同步失败，本地记录仍然安全：${e.message||e}`);return false}
-    finally{cloudSyncing=false;renderAccount();refreshCloudPendingState();if(cloudPullPending){cloudPullPending=false;setTimeout(()=>syncFromCloud(),250)}else if(cloudPendingSave&&navigator.onLine!==false)schedulePendingCloudSave(CLOUD_IDLE_SYNC_MS,{replace:true})}
+    finally{if(v43AccountEpoch===syncEpoch){cloudSyncing=false;if(cloudUser?.id===syncUserId&&activeLocalOwner===v43OwnerToken(syncUserId)){renderAccount();refreshCloudPendingState();if(cloudPullPending){cloudPullPending=false;setTimeout(()=>syncFromCloud(),250)}else if(cloudPendingSave&&navigator.onLine!==false)schedulePendingCloudSave(CLOUD_IDLE_SYNC_MS,{replace:true})}}}
   }
   /* ========== V40 end ========== */
 
@@ -7297,10 +7540,17 @@
     };
   }
 
-  function loadState() {
+  function loadState(options = {}) {
+    const allowLegacy = options.allowLegacy !== false && activeLocalOwner === "guest";
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) { const fresh=mergeLocalSessionBackup(initialState()); v40MarkMigration(); return v40Overlay(fresh); }
+      let raw = localStorage.getItem(v43ScopedKey(STORAGE_KEY));
+      let usingLegacy = false;
+      if (!raw && allowLegacy) { raw = localStorage.getItem(STORAGE_KEY); usingLegacy = Boolean(raw); }
+      if (!raw) {
+        const fresh=mergeLocalSessionBackup(initialState());
+        v40MarkMigration();
+        return allowLegacy ? v43ApplyLegacyOverlay(v40Overlay(fresh)) : v40Overlay(fresh);
+      }
       const parsed = JSON.parse(raw);
       const markGroups = loadMarkGroups(parsed.markGroups);
       const sessionLog = Array.isArray(parsed.sessionLog) ? parsed.sessionLog : [];
@@ -7330,7 +7580,7 @@
         updatedAt: parsed.updatedAt || new Date().toISOString()
       });
       v40MarkMigration();
-      return v40Overlay(restored);
+      return usingLegacy ? v43ApplyLegacyOverlay(restored) : v40Overlay(restored);
     } catch (error) {
       console.error(error);
       return initialState();
@@ -7446,6 +7696,7 @@
     if (cloudUser) {
       $("accountStatus").innerHTML = `
         已登录：<strong>${escapeHtml(cloudUser.email || cloudUser.id)}</strong><br>
+        本机数据：<strong>账号独立空间</strong> · 不与其他账号混用<br>
         用户ID：<span class="muted">${escapeHtml(cloudUser.id)}</span><br>
         本地最后更新：${formatDateTime(state.updatedAt)}
       `;
@@ -7457,7 +7708,7 @@
       if (changePasswordCard) changePasswordCard.style.display = "";
     } else {
       $("accountStatus").innerHTML =
-        "云端服务已内置，当前尚未登录。登录后即可在手机、平板和电脑之间同步学习进度。";
+        "当前使用本机试用空间。登录后会切换到该账号自己的独立数据空间，并可在手机、平板和电脑之间同步。";
       $("logoutBtn").style.display = "none";
       $("syncNowBtn").style.display = "none";
       if ($("quickSyncBtn")) $("quickSyncBtn").style.display = "none";
@@ -7503,9 +7754,21 @@
       const { data, error } = await supabaseClient.auth.getSession();
       if (error) throw error;
       cloudUser = data.session?.user || null;
+      if (cloudUser) {
+        v43SwitchLocalOwner(cloudUser.id, { allowLegacyClaim:true, force:true });
+      } else {
+        v43SwitchLocalOwner("guest", { force:true });
+      }
 
       const listener = supabaseClient.auth.onAuthStateChange((event, session) => {
-        cloudUser = session?.user || null;
+        const nextUser = session?.user || null;
+        const previousUserId = cloudUser?.id || null;
+        cloudUser = nextUser;
+        if (cloudUser) {
+          v43SwitchLocalOwner(cloudUser.id, { allowLegacyClaim:true, force:previousUserId!==cloudUser.id });
+        } else {
+          v43SwitchLocalOwner("guest", { force:activeLocalOwner!=="guest" });
+        }
         renderAccount();
 
         if (cloudUser) {
@@ -7649,8 +7912,9 @@
       return;
     }
     cloudUser = null;
+    v43SwitchLocalOwner("guest", { force:activeLocalOwner!=="guest" });
     setSyncStatus("", "已退出云端");
-    setAuthMessage("已退出账号，本地学习记录仍然保留。", true);
+    setAuthMessage("已退出账号。该账号的本机记录仍保存在独立空间，当前已切换到本机试用空间。", true);
     renderAccount();
   }
 
@@ -7721,10 +7985,12 @@
   }
 
   async function performCloudUpload(keys = []) {
+    const userId = cloudUser?.id;
+    if (!userId || activeLocalOwner !== v43OwnerToken(userId)) return { error:new Error("账号已切换，已取消旧账号上传") };
     if (await v40DetectCloud()) return v40Upload(keys);
     const payload = buildCloudPayload();
     return withCloudTimeout(
-      supabaseClient.from("study_state").upsert({user_id:cloudUser.id,data:payload,updated_at:state.updatedAt||new Date().toISOString()},{onConflict:"user_id"}),
+      supabaseClient.from("study_state").upsert({user_id:userId,data:payload,updated_at:state.updatedAt||new Date().toISOString()},{onConflict:"user_id"}),
       "上传",20000
     );
   }
@@ -7794,6 +8060,10 @@
   async function saveToCloud(options = {}) {
     const { force = false } = options;
     if (!supabaseClient || !cloudUser || navigator.onLine === false) return false;
+    const syncUserId = cloudUser.id;
+    const syncOwner = activeLocalOwner;
+    const syncEpoch = v43AccountEpoch;
+    if (syncOwner !== v43OwnerToken(syncUserId)) return false;
     refreshCloudPendingState();
     if (!force && !cloudPendingSave) return true;
 
@@ -7816,6 +8086,7 @@
     let ok = false;
     try {
       const { error } = await performCloudUpload(uploadingKeys);
+      if (cloudUser?.id !== syncUserId || activeLocalOwner !== syncOwner) return false;
       if (error) throw error;
       ok = true;
       refreshCloudPendingState();
@@ -7825,17 +8096,21 @@
       );
       setAuthMessage("");
     } catch (error) {
+      if (cloudUser?.id !== syncUserId || activeLocalOwner !== syncOwner) return false;
       console.error(error);
       restoreCloudDirtySnapshot(uploadingKeys.length ? uploadingKeys : ["state"]);
       setSyncStatus("error", pendingSyncText("本机已保存 · 云端失败"));
       setAuthMessage(`云端上传失败，本机记录仍已保存：${error.message || error}`);
     } finally {
+      if (v43AccountEpoch !== syncEpoch) return;
       cloudSyncing = false;
-      if (cloudPullPending) {
-        cloudPullPending = false;
-        setTimeout(() => syncFromCloud(), 0);
-      } else if (cloudPendingSave && navigator.onLine !== false) {
-        schedulePendingCloudSave(ok ? CLOUD_IDLE_SYNC_MS : 30 * 1000, { replace: true });
+      if (cloudUser?.id === syncUserId && activeLocalOwner === syncOwner) {
+        if (cloudPullPending) {
+          cloudPullPending = false;
+          setTimeout(() => syncFromCloud(), 0);
+        } else if (cloudPendingSave && navigator.onLine !== false) {
+          schedulePendingCloudSave(ok ? CLOUD_IDLE_SYNC_MS : 30 * 1000, { replace: true });
+        }
       }
     }
     return ok;
@@ -7863,6 +8138,9 @@
 
   async function syncFromCloud() {
     if (!supabaseClient || !cloudUser) return;
+    const syncUserId = cloudUser.id;
+    const syncEpoch = v43AccountEpoch;
+    if (activeLocalOwner !== v43OwnerToken(syncUserId)) return;
     if (await v40DetectCloud()) return v40SyncCloud();
 
     if (cloudSyncing) {
@@ -7879,12 +8157,13 @@
         supabaseClient
           .from("study_state")
           .select("data, updated_at")
-          .eq("user_id", cloudUser.id)
+          .eq("user_id", syncUserId)
           .maybeSingle(),
         "下载",
         20000
       );
       if (error) throw error;
+      if (cloudUser?.id !== syncUserId || activeLocalOwner !== v43OwnerToken(syncUserId)) return;
 
       if (!data) {
         const uploadingKeys = takeCloudDirtySnapshot();
@@ -8049,6 +8328,7 @@
       setSyncStatus("error", "本机已保存 · 云端失败");
       setAuthMessage(`云端同步失败，本地记录仍然安全：${error.message || error}`);
     } finally {
+      if (v43AccountEpoch !== syncEpoch) return;
       suppressCloudSave = false;
       cloudSyncing = false;
       renderAccount();
@@ -11017,15 +11297,53 @@
     renderUpcomingCheckinDays();
 
     renderFullCheckinCalendar();
-$("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
-      const count = state.cards.filter(card => hasCategory(card, category)).length;
-      return `<div class="category-card">
+const categorizedUniqueCards = state.cards.filter(card =>
+      CATEGORY_ORDER.some(category => hasCategory(card, category))
+    );
+    const categoryUniqueTotal = categorizedUniqueCards.length;
+    const categoryUniqueStudied = categorizedUniqueCards.filter(card => !isNew(card)).length;
+    const categoryUniqueUnstudied = Math.max(0, categoryUniqueTotal - categoryUniqueStudied);
+    const categoryUniquePercent = categoryUniqueTotal
+      ? Math.round(categoryUniqueStudied / categoryUniqueTotal * 100)
+      : 0;
+
+    const categoryOverviewSummary = $("categoryOverviewSummary");
+    if (categoryOverviewSummary) {
+      categoryOverviewSummary.innerHTML = `
+        全部分类（去重）：总计 <strong>${categoryUniqueTotal}</strong> ·
+        已学 <strong>${categoryUniqueStudied}</strong> ·
+        未学 <strong>${categoryUniqueUnstudied}</strong> ·
+        学习进度 <strong>${categoryUniquePercent}%</strong>
+      `;
+    }
+
+    $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
+      const cards = state.cards.filter(card => hasCategory(card, category));
+      const totalCount = cards.length;
+      const studiedCount = cards.filter(card => !isNew(card)).length;
+      const unstudiedCount = Math.max(0, totalCount - studiedCount);
+      const pct = totalCount ? Math.round(studiedCount / totalCount * 100) : 0;
+      const actionLabel = studiedCount === 0
+        ? "开始专项"
+        : studiedCount >= totalCount
+          ? "重新学习"
+          : "继续学习";
+
+      return `<div class="category-card category-study-card">
         <span class="pill ${categoryClass(category)}">${escapeHtml(category)}</span>
-        <div class="category-count">${count}</div>
+        <div class="category-study-total">总计 <strong>${totalCount}</strong></div>
+        <div class="category-study-stats">
+          <span>已学 <strong>${studiedCount}</strong></span>
+          <span>未学 <strong>${unstudiedCount}</strong></span>
+        </div>
+        <div class="category-study-progress-row">
+          <div class="progress"><span style="width:${pct}%"></span></div>
+          <span class="category-study-percent">${pct}%</span>
+        </div>
         <div class="muted" style="font-size:12px;line-height:1.6;">
           ${escapeHtml(CATEGORY_DESCRIPTIONS[category] || "")}
         </div>
-        <button class="mini-btn" data-category-study="${escapeHtml(category)}">开始专项</button>
+        <button class="mini-btn" data-category-study="${escapeHtml(category)}">${actionLabel}</button>
       </div>`;
     }).join("");
 
@@ -11891,7 +12209,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
 
     // 2. localStorage 主状态
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(v43ScopedKey(STORAGE_KEY));
       if (!raw) {
         results.push(consistencyItem("error", "本地主学习数据", "localStorage 中没有找到主学习状态。"));
       } else {
@@ -12162,7 +12480,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
 
     // 11. 独立断点备份
     try {
-      const rawBackup = localStorage.getItem(SESSION_BACKUP_KEY);
+      const rawBackup = localStorage.getItem(v43ScopedKey(SESSION_BACKUP_KEY));
       if (!rawBackup) {
         if (state.reviewSession || state.quizSession) {
           results.push(consistencyItem(
@@ -14251,7 +14569,8 @@ function bindSmallModule(){
   };
 
   window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
-  window.__KAOYAN_BUILD__ = "V42-clear-day-tabs-detailed-archive-2026-08-09";
+  window.__KAOYAN_V43_ACCOUNTS__={owner:()=>activeLocalOwner,knownUsers:()=>v43KnownUsers(),scopedKey:(k)=>v43ScopedKey(k),hasData:(u)=>v43HasScopedData(u)};
+  window.__KAOYAN_BUILD__ = "V43-multi-account-isolation-2026-08-09";
   init();
   initTranslationModule();
 })();

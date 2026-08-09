@@ -4129,19 +4129,60 @@
   .v37-plan-progress{margin-top:6px;color:#5b677e;font-size:10px;font-weight:750}
   .v37-plan-actions{display:flex;flex-direction:column;gap:5px;align-items:stretch}
   .v37-plan-actions .mini-btn,.v37-plan-actions .task-check-btn{min-height:30px;padding:5px 8px;font-size:9px;border-radius:8px}
-  .v37-actual-summary{display:flex;flex-wrap:wrap;gap:6px;padding:11px 12px 4px}
-  .v37-actual-summary span{padding:5px 8px;border-radius:999px;background:#eef3ff;color:#31509b;font-size:10px;font-weight:800}
-  .v37-timeline{display:grid;gap:0;padding:5px 12px 12px}
-  .v37-event{display:grid;grid-template-columns:44px 7px minmax(0,1fr);gap:8px;align-items:start;padding:8px 0;border-bottom:1px solid #eef1f6}
-  .v37-event:last-child{border-bottom:0}
-  .v37-event-time{color:#7a8496;font-size:10px;font-variant-numeric:tabular-nums;padding-top:2px}
-  .v37-event-dot{width:7px;height:7px;border-radius:50%;background:#5d75dd;margin-top:5px}
-  .v37-event-body strong{display:block;color:#273858;font-size:11px;margin-bottom:2px}
-  .v37-event-body span{display:block;color:#596579;font-size:11px;line-height:1.55;overflow-wrap:anywhere}
-  .v37-event-body em{display:inline-block;margin-top:4px;padding:2px 6px;border-radius:999px;background:#f1f4f9;color:#667186;font-size:9px;font-style:normal}
-  .v37-empty{margin:10px 12px 12px;padding:11px 12px;border:1px dashed #d7dfed;border-radius:11px;background:#fff;color:#6c7789;font-size:11px;line-height:1.65}
-  .v37-history-note{margin:4px 12px 11px;color:#7a8495;font-size:9px;line-height:1.55}
+  .v41-archive-list{display:grid;gap:8px;padding:10px 12px 12px}
+  .v41-archive-group{border:1px solid #e1e7f1;border-radius:12px;background:#fff;overflow:hidden}
+  .v41-archive-group>summary{list-style:none;display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:9px;align-items:center;padding:10px 11px;cursor:pointer}
+  .v41-archive-group>summary::-webkit-details-marker{display:none}
+  .v41-archive-group[open]>summary{background:#f7f9fd;border-bottom:1px solid #e7ecf4}
+  .v41-archive-icon{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#edf2ff;color:#3559e0;font-size:11px;font-weight:900}
+  .v41-archive-summary-main{min-width:0}
+  .v41-archive-summary-main strong{display:block;color:#273858;font-size:12px}
+  .v41-archive-summary-main span{display:block;margin-top:2px;color:#6b768a;font-size:10px;line-height:1.45}
+  .v41-archive-open{color:#52627f;font-size:10px;font-weight:800;white-space:nowrap}
+  .v41-archive-group[open] .v41-archive-open::after{content:'收起'}
+  .v41-archive-group:not([open]) .v41-archive-open::after{content:'查看'}
+  .v41-archive-body{padding:4px 11px 10px}
+  .v41-archive-item{padding:10px 0;border-bottom:1px solid #edf1f6}
+  .v41-archive-item:last-child{border-bottom:0}
+  .v41-item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px}
+  .v41-item-head strong{color:#273858;font-size:11px;line-height:1.55}
+  .v41-item-head time{color:#8791a1;font-size:9px;white-space:nowrap}
+  .v41-badges{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 7px}
+  .v41-badge{padding:2px 6px;border-radius:999px;background:#f0f3f8;color:#657086;font-size:9px;font-weight:800}
+  .v41-badge.warn{background:#fff2e8;color:#a65718}.v41-badge.good{background:#eaf7ef;color:#257246}.v41-badge.change{background:#eef0ff;color:#4f55ad}
+  .v41-detail-block{margin-top:7px;padding:8px 9px;border-radius:9px;background:#f8faff;color:#4f5d73;font-size:10px;line-height:1.65;overflow-wrap:anywhere}
+  .v41-detail-block strong{color:#31415f}
+  .v41-detail-block.answer{background:#f7fbff}.v41-detail-block.error{background:#fff7f3}.v41-detail-block.change{background:#f7f6ff}
+  .v41-error-line{margin-top:3px;color:#8a4b2c}.v41-error-line:first-child{margin-top:0}
+  .v41-change-row{padding:7px 0;border-top:1px dashed #e1e6ef}.v41-change-row:first-child{border-top:0;padding-top:0}
+  .v41-change-row b{display:block;color:#4c529c;margin-bottom:3px}
+  .v41-source{font-family:Georgia,'Times New Roman',serif;color:#34405a;line-height:1.8}
+  .v41-legacy{margin:10px 12px 12px;padding:10px 11px;border:1px dashed #d8dfeb;border-radius:10px;background:#fff;color:#6c7789;font-size:10px;line-height:1.65}
+  @media(max-width:700px){.v41-archive-group>summary{grid-template-columns:30px minmax(0,1fr) auto}.v41-item-head{display:block}.v41-item-head time{display:block;margin-top:3px}}
   @media(max-width:700px){.v37-plan-row{grid-template-columns:30px minmax(0,1fr)}.v37-plan-actions{grid-column:1/-1;flex-direction:row}.v37-plan-actions>*{flex:1}.v37-event{grid-template-columns:40px 7px minmax(0,1fr)}}
+  /* V42：日期详情改为明确双标签；学习档案按具体记录直接展开。 */
+  .v42-day-tabs{display:flex;gap:6px;padding:10px 12px 0;background:#fbfcff;position:sticky;top:0;z-index:3}
+  .v42-day-tab{border:1px solid #d8e0ee;background:#fff;color:#5d6980;border-radius:10px;padding:8px 12px;font-size:11px;font-weight:850;cursor:pointer;transition:.15s ease}
+  .v42-day-tab.active{background:#3559e0;border-color:#3559e0;color:#fff;box-shadow:0 4px 12px rgba(53,89,224,.16)}
+  .v42-day-panel{display:none;padding-top:8px}
+  .v42-day-panel.active{display:block}
+  .v42-archive-flat{display:grid;gap:8px;padding:2px 12px 12px}
+  .v42-record{border:1px solid #e0e6f0;border-radius:12px;background:#fff;overflow:hidden}
+  .v42-record>summary{list-style:none;display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:9px;align-items:center;padding:10px 11px;cursor:pointer}
+  .v42-record>summary::-webkit-details-marker{display:none}
+  .v42-record[open]>summary{background:#f7f9fd;border-bottom:1px solid #e7ecf4}
+  .v42-record-icon{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#edf2ff;color:#3559e0;font-size:11px;font-weight:900}
+  .v42-record-main{min-width:0}
+  .v42-record-title{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;color:#273858;font-size:11px;line-height:1.55}
+  .v42-record-title strong{font-size:11px;color:#273858}
+  .v42-record-module{display:inline-flex;align-items:center;padding:1px 5px;border-radius:999px;background:#f0f3f9;color:#66728a;font-size:8px;font-style:normal;font-weight:850;white-space:nowrap}
+  .v42-record-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+  .v42-record-time{color:#8791a1;font-size:9px;white-space:nowrap}
+  .v42-record-body{padding:3px 11px 10px}
+  .v42-record .v41-detail-block{margin-top:7px}
+  .v42-empty{margin:2px 12px 12px;padding:11px;border:1px dashed #d8dfeb;border-radius:10px;background:#fff;color:#6c7789;font-size:10px;line-height:1.65}
+  @media(max-width:700px){.v42-record>summary{grid-template-columns:30px minmax(0,1fr)}.v42-record-time{grid-column:2}.v42-day-tabs{position:static}}
+
 </style>
 
 <style id="v28-writing-history-styles">
@@ -4797,7 +4838,7 @@
             </div>
           </div>
           <div class="plan-day-detail-body">
-            <div class="plan-section-heading">当日计划 / 实际记录 <span>点击左侧任意日期查看当天详情</span></div>
+            <div class="plan-section-heading">日期详情 <span>切换“当日计划 / 学习档案”查看</span></div>
             <div class="auto-plan-scrollbox auto-plan-scrollbox-detail">
               <div class="auto-plan-list" id="selectedPlanTasks" style="display:block;margin-top:0;"></div>
             </div>
@@ -10661,6 +10702,17 @@
     if(isCorrect)quizWrong.delete(card.id);else quizWrong.add(card.id);
     state.coverage.quizIds=[...quizIds];state.coverage.quizWrongIds=[...quizWrong];
     recordQuizResult(card,isCorrect,quizCurrentQuestion.direction);
+    // V41: 给“每日学习档案”补充这次选择题的具体作答；仍沿用 V40 activity 逐项同步。
+    const latestQuizLog=[...(state.sessionLog||[])].reverse().find(log=>log.cardId===card.id&&String(log.mode||"").startsWith("mcq-")&&Date.now()-safeTimestamp(log.time)<10000);
+    if(latestQuizLog){
+      const correctOption=quizCurrentQuestion.options.find(option=>option?.isCorrect);
+      latestQuizLog.quizPrompt=String(quizCurrentQuestion.prompt||"");
+      latestQuizLog.quizSelected=String(selected?.text||"");
+      latestQuizLog.quizCorrect=String(correctOption?.text||"");
+      latestQuizLog.quizDirection=String(quizCurrentQuestion.direction||"");
+      latestQuizLog.quizWasCorrect=Boolean(isCorrect);
+      saveState({syncKey:`card:${card.id}`});
+    }
 
     [...$("quizOptions").querySelectorAll(".quiz-option")].forEach((button,index)=>{
       button.disabled=true;
@@ -13999,6 +14051,32 @@ function bindSmallModule(){
   function initTranslationModule(){state.translationPractice=normalizeTranslationPractice(state.translationPractice);const view=$("translationView");if(!view)return;view.addEventListener("mouseup",event=>{if(event.target.closest("#translationInteractiveSource"))setTimeout(trCaptureSelection,0)});view.addEventListener("keyup",event=>{if(event.target.closest?.("#translationInteractiveSource"))setTimeout(trCaptureSelection,0)});view.addEventListener("input",event=>{if(event.target.id==="translationFinalInput")scheduleTranslationLocalSave();if(event.target.id==="translationDailyCount"){translationState().settings.dailyCount=Math.max(1,Math.min(10,Math.floor(Number(event.target.value)||2)));translationState().daily[translationDateKey()]=[];translationState().updatedAt=new Date().toISOString();saveState({syncKey:"translation:settings"});updateTranslationMetrics()}});view.addEventListener("change",event=>{if(event.target.matches("[data-tr-error]")){scheduleTranslationLocalSave();return}const map={translationYearFilter:"filterYear",translationStatusFilter:"filterStatus"};if(map[event.target.id]){flushTranslationSave(true);translationState().settings[map[event.target.id]]=event.target.value;saveState({touch:false,sync:false});renderTranslationModule()}});view.addEventListener("focusout",event=>{if(event.target.id==="translationFinalInput")flushTranslationSave(true)});view.addEventListener("click",event=>{const mark=event.target.closest("[data-tr-mark]");if(mark){const item=translationCurrentItem(),e=translationEntry(item.id);trApplyMark(item,e,mark.dataset.trMark);return}const tab=event.target.closest("[data-translation-tab]");if(tab){flushTranslationSave(true);translationState().settings.activeTab=tab.dataset.translationTab;saveState({touch:false,sync:false});renderTranslationModule();return}const mode=event.target.closest("[data-tr-mode]");if(mode){flushTranslationSave(true);translationState().settings.listMode=mode.dataset.trMode;saveState({touch:false,sync:false});renderTranslationModule();return}const open=event.target.closest("[data-tr-open]");if(open){flushTranslationSave(true);translationState().settings.currentId=open.dataset.trOpen;trLastSelection=null;saveState({touch:false,sync:false});renderTranslationModule();return}const btn=event.target.closest("[data-tr-action]");if(!btn)return;const action=btn.dataset.trAction;if(action==="start-today"){translationState().settings.activeTab="practice";translationState().settings.listMode="today";translationState().settings.currentId=translationTodayIds()[0]||TRANSLATION_ITEMS[0].id;saveState();renderTranslationModule();return}if(action==="open-all"){translationState().settings.activeTab="practice";translationState().settings.listMode="all";saveState();renderTranslationModule();return}if(action==="toggle-context"){translationState().settings.showContext=!translationState().settings.showContext;saveState({touch:false,sync:false});renderTranslationModule();return}if(action==="save"){flushTranslationSave(true);showToast("已保存到本机，云端会在后台同步最新状态");return}if(action==="previous"){translationMove(-1);return}if(action==="next"){translationMove(1);return}const item=translationCurrentItem(),e=translationEntry(item.id);if(action==="undo-mark"){trRestoreUndo(item,e);return}if(action==="clear-marks"){trPushUndo(item.id,e);e.annotations=[];e.stage=1;e.feedback={};e.hintStage=0;e.referenceRevealed=false;trTouch(e,true);renderTranslationModule();showToast("已清空本题拆句标记");return}if(action==="check-stage"){trCheckStage(item,e);return}if(action==="hint-stage"){trHint(item,e);return}if(action==="start-translate"){e.stage=6;trTouch(e,true);renderTranslationModule();return}if(action==="back-core"){e.stage=4;trTouch(e,true);renderTranslationModule();return}if(action==="reveal"){flushTranslationSave(true);if(!e.referenceRevealed&&!String(e.final||"").trim()){showToast("先写自己的完整译文，再看参考译文");return}e.referenceRevealed=!e.referenceRevealed;trTouch(e,true);renderTranslationModule();return}if(action==="complete"){flushTranslationSave(true);if(e.stage<6||!String(e.final||"").trim()){showToast("请先完成拆句步骤并写下完整译文");return}const now=new Date().toISOString();e.completed=true;e.attempts+=1;e.firstCompletedAt=e.firstCompletedAt||now;e.completedAt=now;e.updatedAt=now;translationState().updatedAt=now;saveState({syncKey:`translation:${item.id}`});schedulePendingCloudSave(0,{replace:true});renderTranslationModule();showToast("已完成本题：本机已保存，云端后台同步");return}if(action==="redo"){e.completed=false;e.completedAt="";e.referenceRevealed=false;e.stage=1;e.annotations=[];e.feedback={};e.hintStage=0;trTouch(e,true);renderTranslationModule();showToast("已重新开始：从拆句第1步做起");return}});document.addEventListener("visibilitychange",()=>{if(document.hidden&&translationLocalDirty)flushTranslationSave(true)})}
 
 
+  /* V41_MEANINGFUL_WRITING_CHANGE_HISTORY
+     只记录用户主动保存的“备注/其他正确表达”和“最终修改”；
+     不记录自动保存、高亮、打开页面等噪声。数据仍包含在 V40 big-essay/small-essay 逐项上传中。 */
+  const v41BaseSaveMemoryField=v28SaveMemoryField;
+  v28SaveMemoryField=function(scope,kind,id,field){
+    const context=v28ResolveContext(scope,kind,id);
+    let entry=null,before="";
+    if(context){
+      entry=v28PracticeEntry(scope,context);
+      before=field==="final"?String(entry.finalAnswer||""):String((entry.acceptedAlternatives||[]).join("\n"));
+    }
+    const result=v41BaseSaveMemoryField(scope,kind,id,field);
+    if(context&&entry){
+      const after=field==="final"?String(entry.finalAnswer||""):String((entry.acceptedAlternatives||[]).join("\n"));
+      if(after!==before){
+        const now=new Date().toISOString();
+        if(!Array.isArray(entry.changeHistory))entry.changeHistory=[];
+        entry.changeHistory.push({id:cryptoId(),stamp:now,dateKey:localDateKey(),field:field==="final"?"final":"note",before,after});
+        entry.changeHistory=entry.changeHistory.slice(-100);
+        saveState({syncKey:scope==="big"?"big-essay":"small-essay"});
+      }
+    }
+    return result;
+  };
+
+
   /* V37_SELECTED_DAY_PLAN_AND_REAL_HISTORY */
   function v37SameDateKey(stamp,key){
     if(!stamp)return false;const d=new Date(stamp);return !Number.isNaN(d.getTime())&&localDateKey(d)===key;
@@ -14068,13 +14146,98 @@ function bindSmallModule(){
     }).join("");
     return `<section class="v37-day-section"><div class="v37-day-section-head"><div><strong>当日计划</strong><span>这里仅显示这一天应该完成什么；完成状态仍由你手动勾选。</span></div><span>${status.done}/${status.total}项已勾选</span></div><div class="v37-plan-list">${rows||'<div class="v37-empty">这一天没有安排任务。</div>'}</div></section>`;
   }
-  function v37ActualHtml(status){
-    const key=status.key,events=v37CollectActualEvents(key),summary=v37ActivitySummary(key),checked=status.plan.tasks.filter(t=>planTaskDone(key,t)).length;
-    const summaries=[`手动完成 ${checked}/${status.total}项`,...summary];
-    const timeline=events.map(e=>`<div class="v37-event"><span class="v37-event-time">${escapeHtml(v37Time(e.stamp))}</span><span class="v37-event-dot"></span><div class="v37-event-body"><strong>${escapeHtml(e.type)}</strong><span>${escapeHtml(e.detail)}</span>${e.status?`<em>${escapeHtml(e.status)}</em>`:""}</div></div>`).join("");
-    const oldCountOnly=!events.length&&summary.length;
-    return `<section class="v37-day-section"><div class="v37-day-section-head"><div><strong>这一天实际做了什么</strong><span>点击左侧日期即可查看当天真实练习；计划数量和实际内容分开显示。</span></div><span>${events.length?`${events.length}条具体记录`:oldCountOnly?"有数量记录":"暂无记录"}</span></div>${summaries.length?`<div class="v37-actual-summary">${summaries.map(x=>`<span>${escapeHtml(x)}</span>`).join("")}</div>`:""}${timeline?`<div class="v37-timeline">${timeline}</div>`:`<div class="v37-empty">${oldCountOnly?"这个日期来自旧版记录：系统保存了完成数量，但当时没有保存到逐题／逐句明细。以后新产生的练习会尽可能显示具体题目和内容。":"这一天还没有真实学习记录。只打开页面、只勾计划都不会生成空白记录卡片。"}</div>`}${events.length&&summary.length?'<div class="v37-history-note">上面的数量是当日统计；下面的时间线来自已保存的逐题、逐句或写作记录。</div>':""}</section>`;
+  function v41HtmlLines(lines){return (lines||[]).filter(Boolean).map(x=>`<div class="v41-error-line">${escapeHtml(String(x))}</div>`).join("")}
+  function v41WritingErrors(record){
+    const out=[];
+    (record?.failed||[]).forEach(x=>out.push(x?.detail?`${x.label}：${x.detail}`:x?.label));
+    (record?.spelling||[]).forEach(x=>out.push(`拼写：${x.wrong||""}${x.correct?` → ${x.correct}`:""}`));
+    if(record?.orderWords?.length)out.push(`词序：${record.orderWords.join("、")}`);
+    if(record?.missing?.length)out.push(`缺少：${record.missing.join("、")}`);
+    if(record?.extra?.length)out.push(`多出/建议替换：${record.extra.join("、")}`);
+    return out.filter(Boolean);
   }
+  function v41WritingRecords(scope,key){
+    const root=scope==="big"?state.bigEssayPractice:state.smallEssayPractice,items=[];
+    Object.entries(root||{}).forEach(([category,bucket])=>Object.entries(bucket||{}).forEach(([storageId,raw])=>{
+      const entry=raw&&typeof raw==="object"?raw:{},hist=(entry.history||[]).filter(r=>String(r?.dateKey||"")===key||v37SameDateKey(r?.checkedAt,key));
+      const changes=(Array.isArray(entry.changeHistory)?entry.changeHistory:[]).filter(c=>String(c?.dateKey||"")===key||v37SameDateKey(c?.stamp,key));
+      const stampCandidates=[...hist.map(r=>r.checkedAt),...changes.map(c=>c.stamp),entry.correction?.checkedAt,entry.lastAt,entry.noteUpdatedAt,entry.finalAnswerUpdatedAt].filter(x=>v37SameDateKey(x,key));
+      if(!stampCandidates.length)return;
+      const contentId=`${scope}:${category}:${storageId}`,desc=v30DescribeContentId(contentId),errors=hist.flatMap(v41WritingErrors);
+      const legacyNote=v37SameDateKey(entry.noteUpdatedAt,key)&&!changes.some(c=>c.field==="note")?String(entry.userNote||""):"";
+      const legacyFinal=v37SameDateKey(entry.finalAnswerUpdatedAt,key)&&!changes.some(c=>c.field==="final")?String(entry.finalAnswer||""):"";
+      const hasChange=Boolean(changes.length||legacyNote||legacyFinal),hasPractice=Boolean(hist.length||(entry.answer&&v37SameDateKey(entry.lastAt,key)));
+      let detail="";
+      hist.forEach((record,index)=>{
+        const errs=v41WritingErrors(record);
+        detail+=`<div class="v41-detail-block answer"><strong>${hist.length>1?`当日第${index+1}次作答`:`我的作答`}</strong><br>${escapeHtml(record.originalAnswer||entry.answer||"（旧版未保存正文）")}</div>`;
+        if(errs.length)detail+=`<div class="v41-detail-block error"><strong>错句 / 需要修改</strong>${v41HtmlLines(errs)}</div>`;
+        const ref=record.suggestedAnswer||record.referenceAnswer||"";if(ref)detail+=`<div class="v41-detail-block"><strong>当时的修改参考</strong><br>${escapeHtml(ref)}</div>`;
+      });
+      if(!hist.length&&entry.answer&&v37SameDateKey(entry.lastAt,key))detail+=`<div class="v41-detail-block answer"><strong>当天保存的练习内容</strong><br>${escapeHtml(entry.answer)}</div>`;
+      if(changes.length){
+        detail+=`<div class="v41-detail-block change"><strong>当天补充 / 修改</strong>`+changes.map(c=>`<div class="v41-change-row"><b>${c.field==="final"?"最终修改":"备注 / 其他正确表达"}</b>${c.before?`修改前：${escapeHtml(c.before)}<br>`:""}修改后：${escapeHtml(c.after||"（清空）")}</div>`).join("")+`</div>`;
+      }else if(legacyNote||legacyFinal){
+        detail+=`<div class="v41-detail-block change"><strong>当天保存的补充</strong>${legacyNote?`<br>备注：${escapeHtml(legacyNote)}`:""}${legacyFinal?`<br>最终修改：${escapeHtml(legacyFinal)}`:""}<br><small>旧版没有保存修改前版本。</small></div>`;
+      }
+      if(!detail)detail=`<div class="v41-detail-block">旧版只保留了这篇作文当天有练习/修改的记录，没有保存更详细内容。</div>`;
+      const stamp=stampCandidates.sort((a,b)=>safeTimestamp(b)-safeTimestamp(a))[0];
+      items.push({stamp,module:scope==="big"?"大作文":"小作文",icon:scope==="big"?"大":"小",title:(!hasPractice&&hasChange?`补充 / 修改：${desc}`:desc),badges:[errors.length?`错句 ${errors.length}处`:"",hasChange?"有修改":""].filter(Boolean),detail});
+    }));
+    return items.sort((a,b)=>safeTimestamp(a.stamp)-safeTimestamp(b.stamp));
+  }
+  function v41TranslationRecords(key){
+    const out=[];
+    TRANSLATION_ITEMS.forEach(item=>{const e=translationState().entries?.[item.id];if(!e)return;const stamps=[e.firstCompletedAt,e.completedAt,e.lastPracticedAt,e.updatedAt].filter(x=>v37SameDateKey(x,key));if(!stamps.length)return;
+      const errMap={structure:"结构",logic:"逻辑",vocab:"词义",chinese:"中文表达"},errs=Object.entries(e.errors||{}).filter(([,v])=>v).map(([k])=>errMap[k]||k),markLabels={subject:"主语",predicate:"谓语",guide:"引导词",clause:"从句",weak:"弱化",strike:"划掉"},counts={};(e.annotations||[]).forEach(a=>counts[a.type]=(counts[a.type]||0)+1);
+      const markText=Object.entries(counts).map(([k,v])=>`${markLabels[k]||k}${v}处`).join("、");
+      let detail=`<div class="v41-detail-block"><strong>原句</strong><div class="v41-source">${escapeHtml(item.source)}</div></div>`;
+      if(e.annotations?.length)detail+=`<div class="v41-detail-block"><strong>我的拆句标记</strong><br>${escapeHtml(markText||`${e.annotations.length}处标记`)}</div>`;
+      if(String(e.final||"").trim())detail+=`<div class="v41-detail-block answer"><strong>我的译文</strong><br>${escapeHtml(e.final)}</div>`;
+      if(errs.length)detail+=`<div class="v41-detail-block error"><strong>我记录的错因</strong><br>${escapeHtml(errs.join("、"))}</div>`;
+      out.push({stamp:stamps.sort((a,b)=>safeTimestamp(b)-safeTimestamp(a))[0],module:"翻译",icon:"译",title:`${item.year}·${item.number} ${item.topic}`,badges:[e.completed?"已完成":"进行中",errs.length?`错因 ${errs.length}类`:""].filter(Boolean),detail});
+    });return out.sort((a,b)=>safeTimestamp(a.stamp)-safeTimestamp(b.stamp));
+  }
+  function v41WordQuizGroups(key){
+    const logs=(state.sessionLog||[]).filter(log=>v37SameDateKey(log?.time,key)),words=[],quiz=[];
+    logs.forEach(log=>{const card=state.cards.find(c=>c.id===log.cardId),isQuiz=String(log.mode||"").startsWith("mcq-");if(!card)return;
+      if(isQuiz){
+        let detail=`<div class="v41-detail-block"><strong>${escapeHtml(card.phrase)}</strong>${card.meaning?`<br>${escapeHtml(card.meaning)}`:""}</div>`;
+        if(log.quizPrompt)detail+=`<div class="v41-detail-block answer"><strong>题目</strong><br>${escapeHtml(log.quizPrompt)}${log.quizSelected?`<br><strong>我的答案：</strong>${escapeHtml(log.quizSelected)}`:""}${log.quizCorrect?`<br><strong>正确答案：</strong>${escapeHtml(log.quizCorrect)}`:""}</div>`;
+        quiz.push({stamp:log.time,module:"选择题",icon:"选",title:log.quizPrompt||`${card.phrase} · ${card.meaning||""}`,badges:[Number(log.grade)>=2?"正确":"错题"],detail});
+      }else{
+        const detail=`<div class="v41-detail-block"><strong>${escapeHtml(card.phrase)}</strong>${card.meaning?`<br>${escapeHtml(card.meaning)}`:""}${card.example?`<br><br>真题语境：${escapeHtml(card.example)}`:""}${card.userNote?`<br><br>备注：${escapeHtml(card.userNote)}`:""}</div>`;
+        words.push({stamp:log.time,module:"词组",icon:"词",title:`${card.phrase}${card.meaning?` · ${card.meaning}`:""}`,badges:[log.wasNew?"首次学习":"复习"],detail});
+      }
+    });return{words,quiz};
+  }
+  function v42AllArchiveItems(key){
+    const {words,quiz}=v41WordQuizGroups(key);
+    return [...words,...quiz,...v41TranslationRecords(key),...v41WritingRecords("big",key),...v41WritingRecords("small",key)]
+      .sort((a,b)=>safeTimestamp(a.stamp)-safeTimestamp(b.stamp));
+  }
+  function v42BadgeHtml(b){return `<span class="v41-badge ${/错/.test(b)?"warn":/修改|补充/.test(b)?"change":/完成|正确/.test(b)?"good":""}">${escapeHtml(b)}</span>`}
+  function v42ArchiveRecordHtml(item){
+    return `<details class="v42-record"><summary><span class="v42-record-icon">${escapeHtml(item.icon||"记")}</span><div class="v42-record-main"><div class="v42-record-title"><em class="v42-record-module">${escapeHtml(item.module||"记录")}</em><strong>${escapeHtml(item.title)}</strong></div>${item.badges?.length?`<div class="v42-record-meta">${item.badges.map(v42BadgeHtml).join("")}</div>`:""}</div><time class="v42-record-time">${escapeHtml(v37Time(item.stamp))}</time></summary><div class="v42-record-body">${item.detail||'<div class="v41-detail-block">旧版未保存详情。</div>'}</div></details>`;
+  }
+  function v42ArchiveHtml(status){
+    const key=status.key,items=v42AllArchiveItems(key),summary=v37ActivitySummary(key),oldCountOnly=!items.length&&summary.length;
+    if(items.length)return `<div class="v42-archive-flat">${items.map(v42ArchiveRecordHtml).join("")}</div>`;
+    return `<div class="v42-empty">${oldCountOnly?`旧版当天只保存了数量（${escapeHtml(summary.join("、"))}），没有保存逐题详情。V41之后产生的记录会保存具体内容。`:"这一天还没有保存真实学习内容。"}</div>`;
+  }
+  let v42ActiveDetailTab="plan",v42LastDetailDate="";
+  function v42DayDetailHtml(status,isToday){
+    if(v42LastDetailDate!==status.key){v42LastDetailDate=status.key;v42ActiveDetailTab=isToday?"plan":"archive";}
+    const archiveCount=v42AllArchiveItems(status.key).length;
+    return `<div class="v42-day-tabs" role="tablist"><button class="v42-day-tab ${v42ActiveDetailTab==="plan"?"active":""}" data-v42-tab="plan">当日计划</button><button class="v42-day-tab ${v42ActiveDetailTab==="archive"?"active":""}" data-v42-tab="archive">学习档案${archiveCount?` · ${archiveCount}`:""}</button></div><div class="v42-day-panel ${v42ActiveDetailTab==="plan"?"active":""}" data-v42-panel="plan">${v37PlanHtml(status,isToday)}</div><div class="v42-day-panel ${v42ActiveDetailTab==="archive"?"active":""}" data-v42-panel="archive">${v42ArchiveHtml(status)}</div>`;
+  }
+  document.addEventListener("click",event=>{
+    const btn=event.target.closest?.("[data-v42-tab]");if(!btn)return;
+    const shell=btn.closest("#selectedPlanTasks");if(!shell)return;
+    v42ActiveDetailTab=btn.dataset.v42Tab;
+    shell.querySelectorAll("[data-v42-tab]").forEach(x=>x.classList.toggle("active",x===btn));
+    shell.querySelectorAll("[data-v42-panel]").forEach(x=>x.classList.toggle("active",x.dataset.v42Panel===v42ActiveDetailTab));
+  });
 
   renderSelectedPlanDay=function(){
     const date=dateFromKey(selectedStudyPlanDateKey),st=planDayStatus(date),weeks=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],isToday=st.key===localDateKey();
@@ -14082,13 +14245,13 @@ function bindSmallModule(){
     $("selectedPlanPhase").textContent=`${st.plan.phase.name} · 数量按你的设置`;
     $("selectedPlanStatus").textContent=st.coreComplete?`已手动完成 ${st.done}/${st.total}`:`已手动勾选 ${st.done}/${st.total}`;
     $("selectedPlanStatus").classList.toggle("done",st.coreComplete);
-    $("selectedPlanFocus").innerHTML=`<strong>本周大作文：</strong>${escapeHtml(st.plan.focus.big.title)}<br><strong>本周小作文：</strong>${escapeHtml(st.plan.focus.small.title)}（${escapeHtml(st.plan.focus.small.type)}）<br><strong>每日翻译：</strong>${translationState().settings.dailyCount}句真题翻译<br><span>左侧点今天、昨天或更早日期，右侧都会切换到对应日期的计划与实际记录。</span>`;
-    const container=$("selectedPlanTasks");if(container)container.innerHTML=v37PlanHtml(st,isToday)+v37ActualHtml(st);
+    $("selectedPlanFocus").innerHTML=`<strong>本周大作文：</strong>${escapeHtml(st.plan.focus.big.title)}<br><strong>本周小作文：</strong>${escapeHtml(st.plan.focus.small.title)}（${escapeHtml(st.plan.focus.small.type)}）<br><strong>每日翻译：</strong>${translationState().settings.dailyCount}句真题翻译<br><span>左侧点今天、昨天或更早日期，右侧都会切换到对应日期的计划与学习档案。</span>`;
+    const container=$("selectedPlanTasks");if(container)container.innerHTML=v42DayDetailHtml(st,isToday);
     renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday);
   };
 
   window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
-  window.__KAOYAN_BUILD__ = "V40-granular-storage-sync-2026-08-09";
+  window.__KAOYAN_BUILD__ = "V42-clear-day-tabs-detailed-archive-2026-08-09";
   init();
   initTranslationModule();
 })();

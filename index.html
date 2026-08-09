@@ -5137,16 +5137,16 @@
             <span>大作文数量</span>
           </div>
           <div class="essay-metric">
-            <strong id="bigEssaySentenceMetric">73</strong>
-            <span>确认句子总数</span>
+            <strong id="bigEssaySentenceMetric">0 / 5</strong>
+            <span>完整作文已完成</span>
           </div>
           <div class="essay-metric">
-            <strong id="bigEssayMasteredMetric">0</strong>
-            <span>已掌握句子</span>
+            <strong id="bigEssayMasteredMetric">0 / 73</strong>
+            <span>句子已练</span>
           </div>
           <div class="essay-metric">
-            <strong id="bigEssayDueMetric">73</strong>
-            <span>当前待复习句子</span>
+            <strong id="bigEssayDueMetric">0 / 73</strong>
+            <span>句子已掌握</span>
           </div>
         </div>
 
@@ -8425,12 +8425,123 @@
     renderBigEssay();
   }
 
+  function bigEssayHasSavedAnswer(entry) {
+    if (!entry || typeof entry !== "object") return false;
+    if (hasPracticeAnswer(entry)) return true;
+    if (String(entry.finalAnswer || "").trim()) return true;
+    return Array.isArray(entry.history) && entry.history.some(item =>
+      String(item?.originalAnswer || item?.finalAnswer || "").trim()
+    );
+  }
+
+  function bigEssaySentencePracticeInfo(essayId = null) {
+    const refs = allEssaySentenceRefs(essayId);
+    const progressBucket = state.bigEssayProgress || {};
+    const practice = state.bigEssayPractice || {};
+    const inlineBucket = practice.sentenceImitation || {};
+    const dictationBucket = practice.dictation || {};
+    const practicedRefs = refs.filter(ref => {
+      const id = ref.sentence.id;
+      return Number(progressBucket?.[id]?.attempts || 0) > 0
+        || bigEssayHasSavedAnswer(inlineBucket[`inline-${id}`])
+        || bigEssayHasSavedAnswer(dictationBucket[`study-${id}`])
+        || bigEssayHasSavedAnswer(dictationBucket[id]);
+    });
+    return { total: refs.length, practiced: practicedRefs.length };
+  }
+
+  function bigEssayLatestPracticeTime(entries) {
+    let latest = 0;
+    entries.forEach(value => {
+      const time = safeTimestamp(value);
+      if (time > latest) latest = time;
+    });
+    return latest;
+  }
+
+  function bigEssayCompletionInfo(essayId) {
+    const refs = allEssaySentenceRefs(essayId);
+    const total = refs.length;
+    const practice = state.bigEssayPractice || {};
+    const inlineBucket = practice.sentenceImitation || {};
+    const dictationBucket = practice.dictation || {};
+    const progressBucket = state.bigEssayProgress || {};
+
+    const inlineEntries = refs.map(ref => inlineBucket[`inline-${ref.sentence.id}`]);
+    const inlineDone = inlineEntries.filter(bigEssayHasSavedAnswer).length;
+
+    const studyDoneRefs = refs.filter(ref => {
+      const id = ref.sentence.id;
+      return Number(progressBucket?.[id]?.attempts || 0) > 0
+        || bigEssayHasSavedAnswer(dictationBucket[`study-${id}`])
+        || bigEssayHasSavedAnswer(dictationBucket[id]);
+    });
+    const studyDone = studyDoneRefs.length;
+
+    const wholeTask = (typeof WHOLE_IMITATION_TASKS !== "undefined" ? WHOLE_IMITATION_TASKS : [])
+      .find(task => task.sourceEssayId === essayId);
+    const wholeSentences = wholeTask ? wholeImitationSentenceSet(wholeTask) : [];
+    const wholeEntries = wholeSentences.map(item => practice.wholeImitation?.[item.id]);
+    const wholeDone = wholeEntries.filter(bigEssayHasSavedAnswer).length;
+
+    const inlineComplete = total > 0 && inlineDone === total;
+    const studyComplete = total > 0 && studyDone === total;
+    const wholeComplete = wholeSentences.length > 0 && wholeDone === wholeSentences.length;
+    const completed = inlineComplete || studyComplete || wholeComplete;
+    const started = Math.max(inlineDone, studyDone, wholeDone) > 0;
+
+    const timeCandidates = [];
+    inlineEntries.forEach(item => {
+      if (item) {
+        timeCandidates.push(item.lastAt, item.firstAt, item.correction?.checkedAt);
+        (item.history || []).forEach(record => timeCandidates.push(record?.checkedAt));
+      }
+    });
+    refs.forEach(ref => {
+      const id = ref.sentence.id;
+      timeCandidates.push(progressBucket?.[id]?.lastReviewed);
+      const a = dictationBucket[`study-${id}`];
+      const b = dictationBucket[id];
+      if (a) {
+        timeCandidates.push(a.lastAt, a.firstAt, a.correction?.checkedAt);
+        (a.history || []).forEach(record => timeCandidates.push(record?.checkedAt));
+      }
+      if (b) {
+        timeCandidates.push(b.lastAt, b.firstAt, b.correction?.checkedAt);
+        (b.history || []).forEach(record => timeCandidates.push(record?.checkedAt));
+      }
+    });
+    wholeEntries.forEach(item => {
+      if (item) {
+        timeCandidates.push(item.lastAt, item.firstAt, item.correction?.checkedAt);
+        (item.history || []).forEach(record => timeCandidates.push(record?.checkedAt));
+      }
+    });
+
+    return {
+      completed,
+      started,
+      status: completed ? "已完成" : started ? "写作中" : "未开始",
+      completedAt: completed ? bigEssayLatestPracticeTime(timeCandidates) : 0
+    };
+  }
+
+  function formatBigEssayCompletionDate(timestamp) {
+    if (!timestamp) return "";
+    const date = new Date(timestamp);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" });
+  }
+
   function renderBigEssayMetrics() {
-    const total = allEssaySentenceRefs().length;
-    $("bigEssayCountMetric").textContent = state.bigEssays.filter(essay => !essay.archived).length;
-    $("bigEssaySentenceMetric").textContent = total;
-    $("bigEssayMasteredMetric").textContent = essayMasteredCount();
-    $("bigEssayDueMetric").textContent = essayDueCount();
+    const activeEssays = state.bigEssays.filter(essay => !essay.archived);
+    const sentenceInfo = bigEssaySentencePracticeInfo();
+    const mastered = essayMasteredCount();
+    const completedEssays = activeEssays.filter(essay => bigEssayCompletionInfo(essay.id).completed).length;
+    $("bigEssayCountMetric").textContent = activeEssays.length;
+    $("bigEssaySentenceMetric").textContent = `${completedEssays} / ${activeEssays.length}`;
+    $("bigEssayMasteredMetric").textContent = `${sentenceInfo.practiced} / ${sentenceInfo.total}`;
+    $("bigEssayDueMetric").textContent = `${mastered} / ${sentenceInfo.total}`;
   }
 
   function essayParagraphText(paragraph) {
@@ -8449,10 +8560,22 @@
       ${state.bigEssays.filter(essay => !essay.archived).map(essay => {
         const sentenceCount = essay.paragraphs.reduce((sum, paragraph) => sum + paragraph.sentences.length, 0);
         const mastered = essayMasteredCount(essay.id);
-        const progress = sentenceCount ? Math.round(mastered / sentenceCount * 100) : 0;
+        const practicedInfo = bigEssaySentencePracticeInfo(essay.id);
+        const practiceProgress = sentenceCount ? Math.round(practicedInfo.practiced / sentenceCount * 100) : 0;
+        const completion = bigEssayCompletionInfo(essay.id);
+        const completionDate = formatBigEssayCompletionDate(completion.completedAt);
+        const statusChipClass = completion.completed ? "essay-chip confirmed" : "essay-chip";
+        const completionLine = completion.completed
+          ? `<strong style="color:#16803b;">完整作文：✅ 已完成</strong>${completionDate ? `<span class="muted" style="font-size:12px;">最近完成：${escapeHtml(completionDate)}</span>` : ""}`
+          : completion.started
+            ? `<strong style="color:#3559e0;">完整作文：写作中</strong>`
+            : `<strong>完整作文：未开始</strong>`;
         return `<article class="essay-library-card">
           <div>
-            <h3>${escapeHtml(essay.title)}</h3>
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;">
+              <h3>${escapeHtml(essay.title)}</h3>
+              <span class="${statusChipClass}" style="white-space:nowrap;">${escapeHtml(completion.status)}</span>
+            </div>
             <div class="essay-meta-row" style="margin-top:8px;">
               <span class="essay-chip">${escapeHtml(essay.type)}</span>
               <span class="essay-chip">${escapeHtml(essay.theme)}</span>
@@ -8462,9 +8585,15 @@
           <div class="muted" style="line-height:1.75;font-size:13px;">
             ${escapeHtml(essay.sourceNote)}
           </div>
+          <div style="display:grid;gap:5px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fafbfe;">
+            ${completionLine}
+          </div>
           <div class="essay-card-progress">
-            <div class="muted" style="font-size:12px;">已掌握 ${mastered}/${sentenceCount}句 · 待复习 ${essayDueCount(essay.id)}句</div>
-            <div class="essay-progress-line"><span style="width:${progress}%;"></span></div>
+            <div style="display:grid;gap:4px;font-size:12px;line-height:1.6;">
+              <div><strong>句子训练：</strong>已练 ${practicedInfo.practiced} / ${sentenceCount}句 <span class="muted">· ${practiceProgress}%</span></div>
+              <div class="muted">已掌握 ${mastered} / ${sentenceCount}句 · 待复习 ${essayDueCount(essay.id)}句</div>
+            </div>
+            <div class="essay-progress-line"><span style="width:${practiceProgress}%;"></span></div>
           </div>
           <div class="button-row">
             <button class="primary-btn" data-big-essay-action="open-reading" data-id="${escapeHtml(essay.id)}">全文＋随文仿写</button>
@@ -14570,7 +14699,7 @@ function bindSmallModule(){
 
   window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
   window.__KAOYAN_V43_ACCOUNTS__={owner:()=>activeLocalOwner,knownUsers:()=>v43KnownUsers(),scopedKey:(k)=>v43ScopedKey(k),hasData:(u)=>v43HasScopedData(u)};
-  window.__KAOYAN_BUILD__ = "V43-multi-account-isolation-2026-08-09";
+  window.__KAOYAN_BUILD__ = "V43-big-essay-progress-2026-08-09";
   init();
   initTranslationModule();
 })();

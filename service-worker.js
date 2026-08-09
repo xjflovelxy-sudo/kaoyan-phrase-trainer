@@ -1,4 +1,4 @@
-const CACHE_VERSION = "kaoyan-phrase-pwa-v43-light-essay-year-progress";
+const CACHE_VERSION = "kaoyan-phrase-pwa-v43-unified-essay-light";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 

@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V35 拆句训练版</title>
+  <title>V37 学习历史增强版</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -4110,6 +4110,40 @@
 
   </style>
 
+
+<style id="v37-plan-history-styles">
+  .v37-day-section{margin-bottom:14px;border:1px solid #dbe4f4;border-radius:15px;background:#fbfcff;overflow:hidden}
+  .v37-day-section:last-child{margin-bottom:0}
+  .v37-day-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:12px 13px;border-bottom:1px solid #e6ebf4;background:#f4f7fd}
+  .v37-day-section-head strong{display:block;color:#23324f;font-size:14px}
+  .v37-day-section-head span{display:block;margin-top:3px;color:#6c778b;font-size:10px;line-height:1.5}
+  .v37-plan-list{display:grid;gap:0;padding:2px 12px 8px}
+  .v37-plan-row{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #edf1f7}
+  .v37-plan-row:last-child{border-bottom:0}
+  .v37-plan-icon{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#eef2fb;color:#3559e0;font-size:12px;font-weight:900}
+  .v37-plan-row.done .v37-plan-icon{background:#e3f5e9;color:#19713e}
+  .v37-plan-main{min-width:0}
+  .v37-plan-title{display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:#26334d;font-size:12px;font-weight:850;line-height:1.5}
+  .v37-plan-kind{padding:2px 6px;border-radius:999px;background:#eef2ff;color:#4960b5;font-size:9px;font-weight:800}
+  .v37-plan-method{margin-top:3px;color:#6a7488;font-size:10px;line-height:1.45;white-space:normal}
+  .v37-plan-progress{margin-top:6px;color:#5b677e;font-size:10px;font-weight:750}
+  .v37-plan-actions{display:flex;flex-direction:column;gap:5px;align-items:stretch}
+  .v37-plan-actions .mini-btn,.v37-plan-actions .task-check-btn{min-height:30px;padding:5px 8px;font-size:9px;border-radius:8px}
+  .v37-actual-summary{display:flex;flex-wrap:wrap;gap:6px;padding:11px 12px 4px}
+  .v37-actual-summary span{padding:5px 8px;border-radius:999px;background:#eef3ff;color:#31509b;font-size:10px;font-weight:800}
+  .v37-timeline{display:grid;gap:0;padding:5px 12px 12px}
+  .v37-event{display:grid;grid-template-columns:44px 7px minmax(0,1fr);gap:8px;align-items:start;padding:8px 0;border-bottom:1px solid #eef1f6}
+  .v37-event:last-child{border-bottom:0}
+  .v37-event-time{color:#7a8496;font-size:10px;font-variant-numeric:tabular-nums;padding-top:2px}
+  .v37-event-dot{width:7px;height:7px;border-radius:50%;background:#5d75dd;margin-top:5px}
+  .v37-event-body strong{display:block;color:#273858;font-size:11px;margin-bottom:2px}
+  .v37-event-body span{display:block;color:#596579;font-size:11px;line-height:1.55;overflow-wrap:anywhere}
+  .v37-event-body em{display:inline-block;margin-top:4px;padding:2px 6px;border-radius:999px;background:#f1f4f9;color:#667186;font-size:9px;font-style:normal}
+  .v37-empty{margin:10px 12px 12px;padding:11px 12px;border:1px dashed #d7dfed;border-radius:11px;background:#fff;color:#6c7789;font-size:11px;line-height:1.65}
+  .v37-history-note{margin:4px 12px 11px;color:#7a8495;font-size:9px;line-height:1.55}
+  @media(max-width:700px){.v37-plan-row{grid-template-columns:30px minmax(0,1fr)}.v37-plan-actions{grid-column:1/-1;flex-direction:row}.v37-plan-actions>*{flex:1}.v37-event{grid-template-columns:40px 7px minmax(0,1fr)}}
+</style>
+
 <style id="v28-writing-history-styles">
   .manual-plan-action-card {
     display: grid;
@@ -4262,11 +4296,11 @@
   .essay-memory-grid{grid-template-columns:1fr!important}
   .essay-memory-panel .essay-memory-field textarea{min-height:92px}
   .day-actual-record{margin-bottom:14px;padding:14px;border:1px solid #bcd0ff;border-radius:14px;background:#f7f9ff}
-  .day-actual-record h4{margin:0 0 10px;font-size:15px}
+  .day-actual-record h4{margin:0 0 10px;font-size:15px;color:#24324a}
   .day-actual-summary{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
   .day-actual-summary span{padding:6px 9px;border-radius:999px;background:#eaf0ff;color:#28498f;font-size:12px;font-weight:750}
   .day-actual-list{display:grid;gap:7px}
-  .day-actual-item{padding:9px 10px;border-radius:10px;background:#fff;border:1px solid #e1e7f3;line-height:1.65;font-size:13px}
+  .day-actual-item{padding:9px 10px;border-radius:10px;background:#fff;border:1px solid #e1e7f3;line-height:1.65;font-size:13px;color:#334155}
   .day-actual-item strong{color:#263b73}
   .day-actual-empty{padding:10px;border-radius:10px;background:#fff;color:#6b7589;font-size:13px}
   .essay-history-record{padding:12px}
@@ -4739,7 +4773,7 @@
             </div>
           </div>
           <div class="plan-day-detail-body">
-            <div class="plan-section-heading">当日学习 / 当日复习 <span>浅绿色表示已手动勾选</span></div>
+            <div class="plan-section-heading">当日计划 / 实际记录 <span>点击左侧任意日期查看当天详情</span></div>
             <div class="auto-plan-scrollbox auto-plan-scrollbox-detail">
               <div class="auto-plan-list" id="selectedPlanTasks" style="display:block;margin-top:0;"></div>
             </div>
@@ -5021,7 +5055,7 @@
             <h3>考研英语（一）翻译真题70句</h3>
             <p>只使用你提供的14个年份。每题先自动保存到本机；云端沿用V32的10次改动或60秒集中同步，不会在答题时等待上传。</p>
           </div>
-          <span class="translation-badge">V35 拆句训练</span>
+          <span class="translation-badge">V37 拆句训练</span>
         </div>
         <div class="translation-badges">
           <span class="translation-badge">2004、2007、2012、2013、2016、2018—2026</span>
@@ -13536,7 +13570,7 @@ function bindSmallModule(){
     const translationCount=translationCompletedCountForDate(key);if(translationCount>0)activities.translation=translationCount;
     const activityRows=Object.entries(activities).filter(([,count])=>Number(count)>0).map(([activity,count])=>`${PLAN_ACTIVITY_META[activity]?.label||activity}：${count}${PLAN_ACTIVITY_META[activity]?.unit||""}`);
     const logRows=logs.slice(-30).map(log=>{const card=state.cards.find(c=>c.id===log.cardId);return card?`词组记录：${card.phrase} · ${["完全不会","错误较多","基本正确","熟练掌握"][log.grade]||"已完成"}`:""}).filter(Boolean);
-    const details=[...content.map(v30DescribeContentId),...logRows];
+    const details=[...content.map(v30DescribeContentId),...logRows].map(item=>String(item||"").trim()).filter(Boolean);
     return `<section class="day-actual-record"><h4>这一天实际做了什么</h4><div class="day-actual-summary"><span>手动勾选 ${checked.length}/${plan.tasks.length}项</span>${activityRows.map(row=>`<span>${escapeHtml(row)}</span>`).join("")}</div>${checked.length?`<div class="day-actual-list"><div class="day-actual-item"><strong>手动勾选：</strong>${checked.map(escapeHtml).join("、")}</div></div>`:""}${details.length?`<div class="day-actual-list" style="margin-top:8px">${details.map(item=>`<div class="day-actual-item">${escapeHtml(item)}</div>`).join("")}</div>`:'<div class="day-actual-empty">这一天还没有保存实际练习内容。只打开页面不会产生记录。</div>'}</section>`;
   }
 
@@ -13915,7 +13949,96 @@ function bindSmallModule(){
     document.addEventListener("visibilitychange",()=>{if(document.hidden&&translationLocalDirty)flushTranslationSave(true);});
   }
 
-  window.__KAOYAN_BUILD__ = "V35-guided-translation-segmentation-local-first-batched-cloud-sync-2026-08-09";
+
+  /* V37_SELECTED_DAY_PLAN_AND_REAL_HISTORY */
+  function v37SameDateKey(stamp,key){
+    if(!stamp)return false;const d=new Date(stamp);return !Number.isNaN(d.getTime())&&localDateKey(d)===key;
+  }
+  function v37Time(stamp){
+    if(!stamp)return "—";const d=new Date(stamp);if(Number.isNaN(d.getTime()))return "—";return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+  }
+  function v37Short(text,max=110){const x=String(text||"").replace(/\s+/g," ").trim();return x.length>max?x.slice(0,max)+"…":x;}
+  function v37WritingEntry(contentId){
+    const parts=String(contentId||"").split(":"),scope=parts[0],category=parts[1],storageId=parts.slice(2).join(":");
+    if(scope==="big")return state.bigEssayPractice?.[category]?.[storageId]||null;
+    if(scope==="small")return state.smallEssayPractice?.[category]?.[storageId]||null;
+    return null;
+  }
+  function v37WritingStamp(contentId,key){
+    const entry=v37WritingEntry(contentId);if(!entry)return "";
+    const candidates=[entry.correction?.checkedAt,entry.lastAt,entry.noteUpdatedAt,entry.firstAt].filter(Boolean).filter(x=>v37SameDateKey(x,key));
+    return candidates.sort((a,b)=>new Date(b)-new Date(a))[0]||"";
+  }
+  function v37CollectActualEvents(key){
+    const events=[];let seq=0;
+    const push=(stamp,type,detail,status="")=>events.push({stamp:stamp||"",type:String(type||"学习记录"),detail:v37Short(detail,150),status:String(status||""),seq:seq++});
+
+    (state.sessionLog||[]).forEach(log=>{
+      if(!v37SameDateKey(log?.time,key))return;
+      const card=state.cards.find(c=>c.id===log.cardId),phrase=card?.phrase||`题目 ${log.cardId||""}`,mode=String(log.mode||""),isQuiz=mode.startsWith("mcq-");
+      if(isQuiz){push(log.time,"选择题",`${phrase}${card?.meaning?` · ${card.meaning}`:""}`,Number(log.grade)>=2?"正确":"错误");return;}
+      const labels=["完全不会","错误较多","基本正确","熟练掌握"];
+      push(log.time,log.wasNew?"新词学习":"词组复习",`${phrase}${card?.meaning?` · ${card.meaning}`:""}`,labels[Number(log.grade)]||"已练习");
+    });
+
+    const mode=state.dailyModes?.[key]||{learningIds:[],reviewIds:[]};
+    [["learningIds","学习"],["reviewIds","复习"]].forEach(([field,kind])=>{
+      [...new Set(mode[field]||[])].filter(id=>String(id).startsWith("big:")||String(id).startsWith("small:")).forEach(id=>{
+        const label=String(id).startsWith("big:")?"大作文":"小作文",detail=v30DescribeContentId(id),stamp=v37WritingStamp(id,key);
+        push(stamp,label,detail,kind);
+      });
+    });
+
+    TRANSLATION_ITEMS.forEach(item=>{
+      const e=translationState().entries?.[item.id];if(!e)return;
+      const firstDone=v37SameDateKey(e.firstCompletedAt,key),done=v37SameDateKey(e.completedAt,key),practiced=v37SameDateKey(e.lastPracticedAt||e.updatedAt,key);
+      if(!firstDone&&!done&&!practiced)return;
+      const stamp=(done?e.completedAt:firstDone?e.firstCompletedAt:(e.lastPracticedAt||e.updatedAt));
+      let status=(done||firstDone)?"已完成":"进行中";
+      if(firstDone&&!e.completed)status="当日完成过 · 现已重练";
+      const answer=v37Short(e.final||e.draft||e.polished||"",80);
+      push(stamp,"翻译训练",`${item.year}·${item.number} ${item.topic}${answer?` · 我的译文：${answer}`:""}`,status);
+    });
+
+    events.sort((a,b)=>{
+      const ta=a.stamp?new Date(a.stamp).getTime():Number.MAX_SAFE_INTEGER,tb=b.stamp?new Date(b.stamp).getTime():Number.MAX_SAFE_INTEGER;
+      return (ta-tb)||(a.seq-b.seq);
+    });
+    return events;
+  }
+  function v37ActivitySummary(key){
+    const activities={...(state.planActivities?.[key]||{})},trCount=translationCompletedCountForDate(key);if(trCount>0)activities.translation=trCount;
+    return Object.entries(activities).filter(([,count])=>Number(count)>0).map(([activity,count])=>`${PLAN_ACTIVITY_META[activity]?.label||activity} ${count}${PLAN_ACTIVITY_META[activity]?.unit||""}`);
+  }
+  function v37PlanHtml(status,isToday){
+    const rows=status.plan.tasks.map(task=>{
+      const current=Math.min(planActivityCount(status.key,task.activity),task.target),done=planTaskDone(status.key,task),kind=studyReviewBucket(task)==="learn"?"学习":"复习";
+      const go=isToday?`<button class="mini-btn" data-plan-go="${escapeHtml(task.activity)}">去完成</button>`:"";
+      const check=`<button class="task-check-btn ${done?"checked":""}" data-plan-check-date="${escapeHtml(status.key)}" data-plan-check-task="${escapeHtml(task.id)}"><span class="box">${done?"✓":""}</span>${done?"已完成":"手动完成"}</button>`;
+      return `<div class="v37-plan-row ${done?"done":""}"><span class="v37-plan-icon">${done?"✓":escapeHtml(task.icon)}</span><div class="v37-plan-main"><div class="v37-plan-title">${escapeHtml(task.displayLabel)}<span class="v37-plan-kind">${kind}</span></div><div class="v37-plan-method">${escapeHtml(task.method)}</div><div class="v37-plan-progress">实际 ${current}/${task.target}${escapeHtml(task.unit)} · 约${task.minutes}分钟</div></div><div class="v37-plan-actions">${go}${check}</div></div>`;
+    }).join("");
+    return `<section class="v37-day-section"><div class="v37-day-section-head"><div><strong>当日计划</strong><span>这里仅显示这一天应该完成什么；完成状态仍由你手动勾选。</span></div><span>${status.done}/${status.total}项已勾选</span></div><div class="v37-plan-list">${rows||'<div class="v37-empty">这一天没有安排任务。</div>'}</div></section>`;
+  }
+  function v37ActualHtml(status){
+    const key=status.key,events=v37CollectActualEvents(key),summary=v37ActivitySummary(key),checked=status.plan.tasks.filter(t=>planTaskDone(key,t)).length;
+    const summaries=[`手动完成 ${checked}/${status.total}项`,...summary];
+    const timeline=events.map(e=>`<div class="v37-event"><span class="v37-event-time">${escapeHtml(v37Time(e.stamp))}</span><span class="v37-event-dot"></span><div class="v37-event-body"><strong>${escapeHtml(e.type)}</strong><span>${escapeHtml(e.detail)}</span>${e.status?`<em>${escapeHtml(e.status)}</em>`:""}</div></div>`).join("");
+    const oldCountOnly=!events.length&&summary.length;
+    return `<section class="v37-day-section"><div class="v37-day-section-head"><div><strong>这一天实际做了什么</strong><span>点击左侧日期即可查看当天真实练习；计划数量和实际内容分开显示。</span></div><span>${events.length?`${events.length}条具体记录`:oldCountOnly?"有数量记录":"暂无记录"}</span></div>${summaries.length?`<div class="v37-actual-summary">${summaries.map(x=>`<span>${escapeHtml(x)}</span>`).join("")}</div>`:""}${timeline?`<div class="v37-timeline">${timeline}</div>`:`<div class="v37-empty">${oldCountOnly?"这个日期来自旧版记录：系统保存了完成数量，但当时没有保存到逐题／逐句明细。以后新产生的练习会尽可能显示具体题目和内容。":"这一天还没有真实学习记录。只打开页面、只勾计划都不会生成空白记录卡片。"}</div>`}${events.length&&summary.length?'<div class="v37-history-note">上面的数量是当日统计；下面的时间线来自已保存的逐题、逐句或写作记录。</div>':""}</section>`;
+  }
+
+  renderSelectedPlanDay=function(){
+    const date=dateFromKey(selectedStudyPlanDateKey),st=planDayStatus(date),weeks=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],isToday=st.key===localDateKey();
+    $("selectedPlanDate").textContent=`${date.getMonth()+1}月${date.getDate()}日 · ${weeks[date.getDay()]}`;
+    $("selectedPlanPhase").textContent=`${st.plan.phase.name} · 数量按你的设置`;
+    $("selectedPlanStatus").textContent=st.coreComplete?`已手动完成 ${st.done}/${st.total}`:`已手动勾选 ${st.done}/${st.total}`;
+    $("selectedPlanStatus").classList.toggle("done",st.coreComplete);
+    $("selectedPlanFocus").innerHTML=`<strong>本周大作文：</strong>${escapeHtml(st.plan.focus.big.title)}<br><strong>本周小作文：</strong>${escapeHtml(st.plan.focus.small.title)}（${escapeHtml(st.plan.focus.small.type)}）<br><strong>每日翻译：</strong>${translationState().settings.dailyCount}句真题翻译<br><span>左侧点今天、昨天或更早日期，右侧都会切换到对应日期的计划与实际记录。</span>`;
+    const container=$("selectedPlanTasks");if(container)container.innerHTML=v37PlanHtml(st,isToday)+v37ActualHtml(st);
+    renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday);
+  };
+
+  window.__KAOYAN_BUILD__ = "V37-study-plan-real-history-separated-2026-08-09";
   init();
   initTranslationModule();
 })();

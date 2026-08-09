@@ -4,7 +4,7 @@
 一、上传到GitHub
 ----------------
 1. 解压本压缩包。
-2. 打开仓库：xjflovelyx-sudo/kaoyan-phrase-trainer
+2. 打开仓库：xjflovelxy-sudo/kaoyan-phrase-trainer
 3. 点击 Add file → Upload files。
 4. 上传解压后的全部文件，不要只上传ZIP。至少包括：
    index.html
@@ -19,6 +19,7 @@
    small_essay_data_13_exam_template.json
    small_essay_module.css
    small_essay_module.js
+   translation_data_14years_70.json
 5. 点击 Commit changes。
 6. 等待 Actions 出现绿色对勾。
 7. Windows 按 Ctrl+F5；手机和平板关闭旧标签后重新打开。
@@ -61,7 +62,9 @@ Chrome右上角菜单 → 安装应用／添加到主屏幕。
 --------
 以后更新GitHub文件后，保持联网并重新打开应用即可逐步获取新版。
 如仍显示旧版：
-- 先确认网页左上角标题显示“V28”。
+- 先确认网页左上角标题显示“V35”。
 - Windows：退出已安装应用，在浏览器打开网站并按 Ctrl+F5。
 - Chrome/Edge仍旧时：网站设置 → 清除该网站的数据，然后重新打开。
 - 手机：关闭应用后重新打开；仍未更新时清除该网站缓存后重新添加到主屏幕。
+
+V35说明：翻译题输入先自动保存到本机；本题结束、切换题目或页面转入后台时加入云端集中同步批次。主学习数据仍按10次改动或60秒集中同步。

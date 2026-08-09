@@ -4474,6 +4474,73 @@
   @media(max-width:900px){.translation-overview-grid.v38-simple,.v38-practice-layout,.v38-review-grid{grid-template-columns:1fr}.v38-side{position:static}.v38-progress-stat{grid-template-columns:repeat(2,1fr)}.v38-source{font-size:18px}}
 </style>
 
+
+<style id="v43-light-essay-year-progress-styles">
+  /* V43：只改视觉层级，不改批改/复习/同步数据逻辑 */
+  .v43-year-learning-row{
+    grid-template-columns:64px minmax(0,1fr)!important;
+    align-items:start!important;
+    gap:12px!important;
+    margin:16px 0!important;
+  }
+  .v43-year-label{padding-top:1px;font-weight:760;color:#334155}
+  .v43-year-learning-main{display:grid;gap:7px;min-width:0}
+  .v43-year-learning-head{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:12px;color:#64748b}
+  .v43-year-learning-head strong{color:#23304a}
+  .v43-year-mastered-note{font-size:11px;color:#7b879b}
+
+  .v43-essay-light-shell .essay-reading-header{margin-bottom:10px}
+  .v43-essay-light-shell .all-writing-notice{padding:10px 12px;margin-top:10px;font-size:12px;line-height:1.7}
+  .v43-essay-toolbar-small{display:flex;align-items:center;gap:9px;flex-wrap:wrap;color:#64748b;font-size:12px}
+  .v43-essay-toggle{display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border-radius:9px;background:#f3f6fb;border:1px solid #e2e8f0;cursor:pointer}
+  .v43-inline-overview{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 12px;margin:10px 0 14px;border-radius:12px;background:#f7f9fd;border:1px solid #e2e8f0;color:#526079;font-size:12px}
+  .v43-inline-overview strong{color:#1f2a44}
+  .v43-inline-overview .progress{width:min(360px,42vw);min-width:160px}
+  .v43-light-sentence{padding:8px 0!important}
+  .v43-light-sentence.is-open{padding:12px 0!important}
+  .v43-light-sentence.is-done:not(.is-open){opacity:.94}
+  .v43-light-collapsed{
+    width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    border:0;background:transparent;padding:3px 0;cursor:pointer;text-align:left;color:inherit;
+  }
+  .v43-light-collapsed:hover .essay-sentence-text{color:#2446bd}
+  .v43-light-collapsed-main{min-width:0;display:grid;gap:4px}
+  .v43-light-collapsed .essay-sentence-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.6}
+  .v43-light-collapsed-meta{font-size:11px;color:#7a8699}
+  .v43-light-collapsed-status{flex:0 0 auto;font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#eef2f7;color:#667085}
+  .v43-light-collapsed-status.done{background:#eaf8ef;color:#167340}
+  .v43-inline-active{display:grid;gap:10px}
+  .v43-inline-task{padding:10px 12px;border-radius:11px;background:#f5f8ff;border:1px solid #dce6ff;line-height:1.75}
+  .v43-inline-task .training-label{margin-bottom:4px}
+  .v43-inline-active .sentence-writing-input{min-height:76px!important;margin-top:0!important}
+  .v43-inline-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .v43-inline-actions .primary-btn,.v43-inline-actions .secondary-btn{padding:9px 12px}
+  .v43-correction-summary{display:grid;gap:8px;padding:11px 12px;border:1px solid #cfe1d5;border-radius:12px;background:#f4fbf6}
+  .v43-correction-summary.bad{border-color:#f0d2b5;background:#fff9f1}
+  .v43-correction-summary-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+  .v43-correction-summary-head strong{font-size:14px}
+  .v43-correction-counts{font-size:11px;color:#5f6b7f}
+  .v43-correction-reference{font-size:12px;line-height:1.7;color:#374151}
+  .v43-details{border:1px solid #e2e8f0;border-radius:11px;background:#fff;overflow:hidden}
+  .v43-details>summary{list-style:none;cursor:pointer;padding:9px 11px;font-size:12px;font-weight:800;color:#3559e0;display:flex;justify-content:space-between;gap:10px;align-items:center}
+  .v43-details>summary::-webkit-details-marker{display:none}
+  .v43-details>summary::after{content:"展开";font-weight:650;color:#7a8699}
+  .v43-details[open]>summary::after{content:"收起"}
+  .v43-details-body{padding:0 10px 10px}
+  .v43-details .correction-report{margin-top:0}
+  .v43-memory-details .essay-memory-panel{margin-top:0;border-width:1px;border-radius:10px}
+  .v43-memory-details .essay-memory-head{display:none}
+  .v43-memory-details .essay-memory-body{padding:10px}
+  .v43-memory-details .essay-history-record{padding:10px}
+  @media(max-width:760px){
+    .v43-year-learning-row{grid-template-columns:48px minmax(0,1fr)!important}
+    .v43-year-learning-head{align-items:flex-start}
+    .v43-inline-overview .progress{width:100%}
+    .v43-light-collapsed-status{display:none}
+    .v43-light-collapsed .essay-sentence-text{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  }
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -4774,7 +4841,7 @@
 
       <div class="grid two-col" style="margin-top:16px;">
         <div class="card">
-          <h3 class="section-title">各年份掌握进度</h3>
+          <h3 class="section-title">各年份学习进度</h3>
           <div id="yearProgress"></div>
         </div>
         <div class="card">
@@ -11479,12 +11546,20 @@ const categorizedUniqueCards = state.cards.filter(card =>
     const years = [...new Set(state.cards.map(c => c.year))].sort();
     $("yearProgress").innerHTML = years.map(year => {
       const cards = state.cards.filter(c => c.year === year);
+      const studiedCount = cards.filter(card => !isNew(card)).length;
+      const unstudiedCount = Math.max(0, cards.length - studiedCount);
       const masteredCount = cards.filter(isMastered).length;
-      const pct = cards.length ? Math.round(masteredCount / cards.length * 100) : 0;
-      return `<div class="year-row">
-        <span>${year}</span>
-        <div class="progress"><span style="width:${pct}%"></span></div>
-        <span>${pct}%</span>
+      const pct = cards.length ? Math.round(studiedCount / cards.length * 100) : 0;
+      return `<div class="year-row v43-year-learning-row">
+        <span class="v43-year-label">${year}</span>
+        <div class="v43-year-learning-main">
+          <div class="v43-year-learning-head">
+            <span>已学 <strong>${studiedCount}</strong> / ${cards.length} · 未学 <strong>${unstudiedCount}</strong></span>
+            <strong>${pct}%</strong>
+          </div>
+          <div class="progress"><span style="width:${pct}%"></span></div>
+          <div class="v43-year-mastered-note">长期掌握 ${masteredCount}</div>
+        </div>
       </div>`;
     }).join("");
 
@@ -14697,9 +14772,119 @@ function bindSmallModule(){
     renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday);
   };
 
+
+  /* ========== V43 轻量作文批改 + 各年份学习进度：仅展示层 ========== */
+  let v43InlineFocusId = "";
+  const v43InlineDrafts = new Map();
+
+  function v43CaptureInlineDrafts(){
+    document.querySelectorAll("textarea[data-v43-inline-draft]").forEach(input=>v43InlineDrafts.set(input.dataset.v43InlineDraft,String(input.value||"")));
+  }
+  function v43InlineContextEntry(sentenceId){
+    const context=resolveWritingContext("inline",sentenceId);
+    if(!context)return{context:null,entry:{}};
+    const bucket=state.bigEssayPractice?.[context.storageCategory]||{};
+    return{context,entry:bucket[context.storageId]||{}};
+  }
+  function v43InlineChecked(sentenceId){
+    const {entry}=v43InlineContextEntry(sentenceId);
+    return Boolean(String(entry?.answer||"").trim()&&entry?.correction?.checkedAt);
+  }
+  function v43InlineAnalysis(context,entry){
+    const answer=String(entry?.answer||"").trim();
+    return answer&&entry?.correction?.checkedAt?writingCorrectionAnalysis(answer,context):null;
+  }
+  function v43InlineFlatSentences(essay){return essay.paragraphs.flatMap(p=>p.sentences)}
+  function v43InlineEnsureFocus(essay){
+    const all=v43InlineFlatSentences(essay);
+    if(!all.some(s=>s.id===v43InlineFocusId)){
+      const firstTodo=all.find(s=>!v43InlineChecked(s.id));
+      v43InlineFocusId=(firstTodo||all[0]||{}).id||"";
+    }
+    return v43InlineFocusId;
+  }
+  function v43InlineNextTodo(essay,currentId){
+    const all=v43InlineFlatSentences(essay),i=Math.max(0,all.findIndex(s=>s.id===currentId));
+    const after=all.slice(i+1).find(s=>!v43InlineChecked(s.id));
+    const before=all.slice(0,i).find(s=>!v43InlineChecked(s.id));
+    return (after||before||all[Math.min(i+1,all.length-1)]||all[i]||{}).id||currentId;
+  }
+  function v43InlineSummary(context,entry){
+    const analysis=v43InlineAnalysis(context,entry);if(!analysis)return"";
+    const d=analysis.details,problemCount=analysis.failed.length+d.spelling.length+d.missing.length+d.extra.length+d.orderWords.length;
+    const good=problemCount===0||analysis.level==="正确"||analysis.level==="基本正确";
+    return `<div class="v43-correction-summary ${good?"":"bad"}">
+      <div class="v43-correction-summary-head"><strong>${good?"✅":"⚠️"} ${escapeHtml(analysis.level)}</strong><span class="v43-correction-counts">拼写 ${d.spelling.length} · 缺词 ${d.missing.length} · 多词 ${d.extra.length} · 词序 ${d.orderWords.length} · 结构 ${analysis.failed.length}</span></div>
+      <div class="v43-correction-reference"><strong>推荐：</strong>${escapeHtml(context.reference||"")}</div>
+    </div>`;
+  }
+  function v43InlineDetails(context,entry){
+    const analysis=v43InlineAnalysis(context,entry);if(!analysis)return"";
+    return `<details class="v43-details"><summary>查看详细批改</summary><div class="v43-details-body">${renderDetailedWritingReport(context,String(entry.answer||""),analysis)}</div></details>`;
+  }
+  function v43InlineMemoryDetails(context){
+    const entry=v28PracticeEntry("big",context),history=Array.isArray(entry.history)?entry.history:[],noteCount=entry.acceptedAlternatives?.length||0;
+    return `<details class="v43-details v43-memory-details"><summary>📝 备注与历史 ${history.length+noteCount}条</summary><div class="v43-details-body">${v28RenderMemoryPanel("big",context)}</div></details>`;
+  }
+
+  renderEssayReading=function(){
+    const essay=getBigEssayById(currentEssayId),all=v43InlineFlatSentences(essay),focus=v43InlineEnsureFocus(essay);
+    const doneCount=all.filter(s=>v43InlineChecked(s.id)).length,total=all.length,pct=total?Math.round(doneCount/total*100):0;
+    return `<div class="v43-essay-light-shell">
+      <div class="essay-quick-actions">
+        <button class="essay-quick-card" data-big-essay-action="open-study" data-id="${escapeHtml(essay.id)}"><strong>① 逐句写译＋批改</strong><span class="muted">看中文、写英文、逐项检查。</span></button>
+        <button class="essay-quick-card" data-big-essay-action="open-imitation" data-id="${escapeHtml(essay.id)}"><strong>② 本篇60道句子仿写</strong><span class="muted">专项仿写训练。</span></button>
+        <button class="essay-quick-card" data-big-essay-action="open-whole-imitation" data-id="${escapeHtml(essay.id)}"><strong>③ 整篇逐句仿写</strong><span class="muted">按整篇顺序逐句完成。</span></button>
+      </div>
+      <div class="card">
+        <div class="essay-reading-header">
+          <div>
+            <h3 class="section-title">${escapeHtml(essay.title)}</h3>
+            <div class="essay-meta-row"><span class="essay-chip">${escapeHtml(essay.type)}</span><span class="essay-chip">${escapeHtml(essay.theme)}</span><span class="essay-chip confirmed">${escapeHtml(essay.version)}</span></div>
+            <div class="all-writing-notice">原文保留阅读；练习时默认只展开<strong>当前一句</strong>。批改后该句收起并自动进入下一句，详细批改、备注和历史需要时再展开。</div>
+          </div>
+          <div class="v43-essay-toolbar-small"><span>显示：</span><label class="v43-essay-toggle"><input type="checkbox" data-essay-toggle="types" ${essayShowTypes?"checked":""}>句型</label><label class="v43-essay-toggle"><input type="checkbox" data-essay-toggle="notes" ${essayShowNotes?"checked":""}>语法</label></div>
+        </div>
+        <div class="v43-inline-overview"><span><strong>随文仿写</strong> · 已批改 ${doneCount}/${total}句</span><div class="progress"><span style="width:${pct}%"></span></div><strong>${pct}%</strong></div>
+        <div class="essay-paragraphs">
+          ${essay.paragraphs.map(paragraph=>`<section class="essay-paragraph-card"><div class="essay-paragraph-title"><strong>${escapeHtml(paragraph.label)}</strong><span class="muted" style="font-size:12px">${["描述图画／图表并总结","分析原因、影响或意义","提出建议并总结"][paragraph.number-1]}</span></div>
+            ${paragraph.sentences.map((sentence,index)=>{
+              const task=inlineImitationTask(sentence.id),{context,entry}=v43InlineContextEntry(sentence.id),isOpen=sentence.id===focus,checked=v43InlineChecked(sentence.id),analysis=v43InlineAnalysis(context,entry);
+              if(!isOpen){
+                return `<div class="essay-sentence v43-light-sentence ${checked?"is-done":""}" data-v43-inline-row="${escapeHtml(sentence.id)}"><div class="essay-sentence-number">${index+1}</div><button class="v43-light-collapsed" data-v43-inline-open="${escapeHtml(sentence.id)}"><span class="v43-light-collapsed-main"><span class="essay-sentence-text">${essayShowTypes?`<span class="sentence-type">${escapeHtml(sentence.type)}</span>`:""}${escapeHtml(sentence.text)}</span><span class="v43-light-collapsed-meta">${checked?`${escapeHtml(analysis?.level||"已批改")} · 点击查看或修改`:"未完成 · 点击继续"}</span></span><span class="v43-light-collapsed-status ${checked?"done":""}">${checked?"✓ 已批改":"继续"}</span></button></div>`;
+              }
+              return `<div class="essay-sentence v43-light-sentence is-open ${checked?"is-done":""}" data-v43-inline-row="${escapeHtml(sentence.id)}"><div class="essay-sentence-number">${index+1}</div><div class="v43-inline-active"><div class="essay-sentence-text">${essayShowTypes?`<span class="sentence-type">${escapeHtml(sentence.type)}</span>`:""}${escapeHtml(sentence.text)}</div>${essayShowNotes&&sentence.note?`<div class="sentence-note">${formatEssayNote(sentence.note)}</div>`:""}<div class="v43-inline-task"><div class="training-label">仿写</div>${escapeHtml(task?.prompt||sentence.chinesePrompt)}</div><textarea class="sentence-writing-input" id="${escapeHtml(context.inputId)}" data-v43-inline-draft="${escapeHtml(sentence.id)}" spellcheck="true" placeholder="根据上面的中文写出英文……">${escapeHtml(v43InlineDrafts.has(sentence.id)?v43InlineDrafts.get(sentence.id):String(entry.answer||""))}</textarea><div class="v43-inline-actions"><button class="primary-btn" data-big-essay-action="check-writing" data-writing-kind="inline" data-writing-id="${escapeHtml(sentence.id)}">批改本句</button><button class="secondary-btn" data-big-essay-action="adopt-writing-correction" data-writing-kind="inline" data-writing-id="${escapeHtml(sentence.id)}">使用修正版</button></div>${checked?v43InlineSummary(context,entry):""}${checked?v43InlineDetails(context,entry):""}${v43InlineMemoryDetails(context)}</div></div>`;
+            }).join("")}</section>`).join("")}
+        </div>
+      </div>
+    </div>`;
+  };
+
+  const v43BaseRunWritingCorrection=runWritingCorrection;
+  runWritingCorrection=function(kind,id){
+    const result=v43BaseRunWritingCorrection(kind,id);
+    if(kind==="inline"&&result){
+      v43InlineDrafts.delete(id);
+      const essay=getBigEssayById(currentEssayId);
+      v43InlineFocusId=v43InlineNextTodo(essay,id);
+      renderBigEssay();
+      setTimeout(()=>document.querySelector(`[data-v43-inline-row="${CSS.escape(v43InlineFocusId)}"]`)?.scrollIntoView({behavior:"smooth",block:"center"}),30);
+    }
+    return result;
+  };
+
+  document.addEventListener("click",event=>{
+    const btn=event.target.closest?.("[data-v43-inline-open]");if(!btn)return;
+    v43CaptureInlineDrafts();
+    v43InlineFocusId=btn.dataset.v43InlineOpen||"";
+    renderBigEssay();
+    setTimeout(()=>document.querySelector(`[data-v43-inline-row="${CSS.escape(v43InlineFocusId)}"]`)?.scrollIntoView({behavior:"smooth",block:"center"}),20);
+  });
+  /* ========== V43 轻量作文批改 + 各年份学习进度 end ========== */
+
   window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
   window.__KAOYAN_V43_ACCOUNTS__={owner:()=>activeLocalOwner,knownUsers:()=>v43KnownUsers(),scopedKey:(k)=>v43ScopedKey(k),hasData:(u)=>v43HasScopedData(u)};
-  window.__KAOYAN_BUILD__ = "V43-big-essay-progress-2026-08-09";
+  window.__KAOYAN_BUILD__ = "V43-light-essay-year-progress-2026-08-09";
   init();
   initTranslationModule();
 })();

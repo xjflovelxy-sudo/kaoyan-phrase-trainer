@@ -9,7 +9,7 @@
     "source": "They sometimes travel more than sixty miles to find food or water, and are very good at working out where other elephants are — even when they are out of sight.",
     "contextBefore": "They move between a variety of habitats, including forests, grasslands, woodlands, wetlands and agricultural land.",
     "contextAfter": "Using tracking devices, researchers have shown that they have “remarkable spatial acuity.",
-    "segments": "They sometimes travel more than sixty miles to find food or water, / and are very good at working out where other elephants are / even when they are out of sight.",
+    "segments": "They sometimes travel more than sixty miles / to find food or water, / and are very good at working out / where other elephants are / even when they are out of sight.",
     "tags": [
       "定语从句",
       "状语从句",
@@ -35,6 +35,13 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "漏掉因果、让步、条件或时间关系。",
       "非谓语动作的逻辑主语判断错误。"
+    ],
+    "segmentParts": [
+      "They sometimes travel more than sixty miles",
+      "to find food or water,",
+      "and are very good at working out",
+      "where other elephants are",
+      "even when they are out of sight."
     ]
   },
   {
@@ -47,7 +54,7 @@
     "source": "The researchers are convinced that the elephants always know precisely where they are in relation to all the resources they need, and can therefore take shortcuts, as well as following familiar routes.",
     "contextBefore": "What is more, they almost always seem to choose the nearest waterhole.",
     "contextAfter": "Although the cues used by African elephants for long-distance navigation are not yet understood, smell may well play a part.",
-    "segments": "The researchers are convinced that the elephants always know precisely where they are in relation to all the resources they need, / and can therefore take shortcuts, / as well as following familiar routes.",
+    "segments": "The researchers are convinced / that the elephants always know precisely / where they are in relation to all the resources they need, / and can therefore take shortcuts, / as well as following familiar routes.",
     "tags": [
       "定语从句",
       "名词性从句",
@@ -73,6 +80,13 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "The researchers are convinced",
+      "that the elephants always know precisely",
+      "where they are in relation to all the resources they need,",
+      "and can therefore take shortcuts,",
+      "as well as following familiar routes."
     ]
   },
   {
@@ -85,7 +99,7 @@
     "source": "One possibility was that they merely used their eyes and tried out the plants they found, but that would probably result in a lot of wasted time and energy, not least because their eyesight is actually not very good.",
     "contextBefore": "Elephants are very choosy eaters, but until recently little was known about how they selected their food.",
     "contextAfter": "The volatile chemicals produced by plants can be carried a long way, and they are very characteristic: Each plant or tree has its own particular odor signature.",
-    "segments": "One possibility was that they merely used their eyes and tried out the plants they found, / but that would probably result in a lot of wasted time and energy, / not least / because their eyesight is actually not very good.",
+    "segments": "One possibility was / that they merely used their eyes / and tried out the plants they found, / but that would probably result in a lot of wasted time and energy, / not least because their eyesight is actually not very good.",
     "tags": [
       "状语从句",
       "并列与转折",
@@ -108,6 +122,13 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "漏掉因果、让步、条件或时间关系。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "One possibility was",
+      "that they merely used their eyes",
+      "and tried out the plants they found,",
+      "but that would probably result in a lot of wasted time and energy,",
+      "not least because their eyesight is actually not very good."
     ]
   },
   {
@@ -120,7 +141,7 @@
     "source": "The volatile chemicals produced by plants can be carried a long way, and they are very characteristic: Each plant or tree has its own particular odor signature.",
     "contextBefore": "(48) One possibility was that they merely used their eyes and tried out the plants they found, but that would probably result in a lot of wasted time and energy, not least because their eyesight is actually not very good.",
     "contextAfter": "What is more, they can be detected even when they are not actually visible.",
-    "segments": "The volatile chemicals produced by plants can be carried a long way, / and they are very characteristic: / Each plant or tree has its own particular odor signature.",
+    "segments": "The volatile chemicals produced by plants / can be carried a long way, / and they are very characteristic: / Each plant or tree has its own particular odor signature.",
     "tags": [
       "被动语态",
       "并列与转折",
@@ -141,6 +162,12 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "The volatile chemicals produced by plants",
+      "can be carried a long way,",
+      "and they are very characteristic:",
+      "Each plant or tree has its own particular odor signature."
     ]
   },
   {
@@ -153,7 +180,7 @@
     "source": "The experiment showed that elephants may well use smell to identify patches of trees that are good to eat, and secondly to assess the quality of the trees within each patch.",
     "contextBefore": "They then set up a “food station” experiment, in which they gave the elephants a series of choices based only on smell.",
     "contextAfter": "Free-ranging elephants presumably also use this information to locate their preferred food.",
-    "segments": "The experiment showed that elephants may well use smell to identify patches of trees that are good to eat, / and secondly to assess the quality of the trees within each patch.",
+    "segments": "The experiment showed / that elephants may well use smell / to identify patches of trees that are good to eat, / and secondly to assess the quality of the trees within each patch.",
     "tags": [
       "名词性从句",
       "并列与转折",
@@ -174,6 +201,12 @@
     "pitfalls": [
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "The experiment showed",
+      "that elephants may well use smell",
+      "to identify patches of trees that are good to eat,",
+      "and secondly to assess the quality of the trees within each patch."
     ]
   },
   {
@@ -207,6 +240,10 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Recent decades have seen science move into a convention where engagement in the subject can only be done through institutions,",
+      "such as a university."
     ]
   },
   {
@@ -219,7 +256,7 @@
     "source": "But by utilising the natural curiosity of the general public it is possible to overcome many of these challenges by engaging non-scientists directly in the research process.",
     "contextBefore": "In the information era, large data sets, small teams and financial restrictions have slowed scientific process.",
     "contextAfter": "Anyone can be a citizen scientist, regardless of age, nationality or academic experience.",
-    "segments": "But by utilising the natural curiosity of the general public it is possible to overcome many of these challenges by engaging non-scientists directly in the research process.",
+    "segments": "But by utilising the natural curiosity of the general public / it is possible to overcome many of these challenges / by engaging non-scientists directly in the research process.",
     "tags": [
       "并列与转折",
       "指代关系",
@@ -240,6 +277,11 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "But by utilising the natural curiosity of the general public",
+      "it is possible to overcome many of these challenges",
+      "by engaging non-scientists directly in the research process."
     ]
   },
   {
@@ -271,6 +313,10 @@
     "pitfalls": [
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Scientists have employed a variety of ways to engage the general public in their research,",
+      "such as making data analysis into an online game or sample collection into a smartphone application."
     ]
   },
   {
@@ -283,7 +329,7 @@
     "source": "These groups of people are part of a rapidly expanding biotechnological social movement of citizen scientists and professional scientists seeking to take discovery out of institutions and put it into the hands of anyone with the enthusiasm.",
     "contextBefore": "The rise of citizen science has grown alongside the rise of do-it-yourself biology laboratories around the world.",
     "contextAfter": "There are around 40 official do-it-yourself biology centres across the globe in locations including Paris, London, Sydney, and Tel Aviv.",
-    "segments": "These groups of people are part of a rapidly expanding biotechnological social movement of citizen scientists and professional scientists seeking to take discovery out of institutions and put it into the hands of anyone with the enthusiasm.",
+    "segments": "These groups of people are part of a rapidly expanding biotechnological social movement / of citizen scientists and professional scientists / seeking to take discovery out of institutions / and put it into the hands of anyone with the enthusiasm.",
     "tags": [
       "非谓语结构",
       "并列与转折",
@@ -307,6 +353,12 @@
       "非谓语动作的逻辑主语判断错误。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "These groups of people are part of a rapidly expanding biotechnological social movement",
+      "of citizen scientists and professional scientists",
+      "seeking to take discovery out of institutions",
+      "and put it into the hands of anyone with the enthusiasm."
     ]
   },
   {
@@ -342,6 +394,12 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "非谓语动作的逻辑主语判断错误。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "They pool resources,",
+      "collaborate,",
+      "think outside the box,",
+      "and find solutions and ways around obstacles to explore science for the sake of science without the traditional boundaries of working inside a formal setting."
     ]
   },
   {
@@ -354,7 +412,7 @@
     "source": "Those societies came out of the war with levels of enrollment that had been roughly constant at 3%-5% of the relevant age groups during the decades before the war.",
     "contextBefore": "World War Ⅱ was the watershed event for higher education in modern Western societies.",
     "contextAfter": "But after the war, great social and political changes arising out of the successful war against Fascism created a growing demand in European and American economies for increasing numbers of graduates with more than a secondary school education.",
-    "segments": "Those societies came out of the war with levels of enrollment that had been roughly constant at 3%-5% of the relevant age groups during the decades before the war.",
+    "segments": "Those societies came out of the war / with levels of enrollment / that had been roughly constant at 3%-5% of the relevant age groups / during the decades before the war.",
     "tags": [
       "指代关系"
     ],
@@ -372,6 +430,12 @@
     "pitfalls": [
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Those societies came out of the war",
+      "with levels of enrollment",
+      "that had been roughly constant at 3%-5% of the relevant age groups",
+      "during the decades before the war."
     ]
   },
   {
@@ -384,7 +448,7 @@
     "source": "And the demand that rose in those societies for entry to higher education extended to groups and social classes that had not thought of attending a university before the war.",
     "contextBefore": "But after the war, great social and political changes arising out of the successful war against Fascism created a growing demand in European and American economies for increasing numbers of graduates with more than a secondary school education.",
     "contextAfter": "These demands resulted in a very rapid expansion of the systems of higher education, beginning in the 1960s and developing very rapidly (though unevenly) during the 1970s and 1980s.",
-    "segments": "And the demand that rose in those societies for entry to higher education extended to groups and social classes that had not thought of attending a university before the war.",
+    "segments": "And the demand / that rose in those societies for entry to higher education / extended to groups and social classes / that had not thought of attending a university before the war.",
     "tags": [
       "并列与转折",
       "指代关系",
@@ -405,6 +469,12 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "And the demand",
+      "that rose in those societies for entry to higher education",
+      "extended to groups and social classes",
+      "that had not thought of attending a university before the war."
     ]
   },
   {
@@ -417,7 +487,7 @@
     "source": "in many countries of Western Europe, the numbers of students in higher education doubled within five-year periods during the 1960s and doubled again in seven, eight, or 10 years by the middle of the 1970s.",
     "contextBefore": "The growth of higher education manifests itself in at least three quite different ways, and these in turn have given rise to different sets of problems. There was first the rate of growth:",
     "contextAfter": "Second, growth obviously affected the absolute size both of systems and individual institutions.",
-    "segments": "in many countries of Western Europe, / the numbers of students in higher education doubled within five-year periods during the 1960s and doubled again in seven, / eight, / or 10 years by the middle of the 1970s.",
+    "segments": "in many countries of Western Europe, / the numbers of students in higher education doubled within five-year periods during the 1960s / and doubled again in seven, eight, or 10 years / by the middle of the 1970s.",
     "tags": [
       "并列与转折",
       "长定语拆分"
@@ -433,6 +503,12 @@
     ],
     "pitfalls": [
       "主干成分漏译，或为了通顺擅自增加原文没有的信息。"
+    ],
+    "segmentParts": [
+      "in many countries of Western Europe,",
+      "the numbers of students in higher education doubled within five-year periods during the 1960s",
+      "and doubled again in seven, eight, or 10 years",
+      "by the middle of the 1970s."
     ]
   },
   {
@@ -466,6 +542,10 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "漏掉因果、让步、条件或时间关系。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "and when the new staff are predominantly young men and women fresh from postgraduate study,",
+      "they largely define the norms of academic life in that faculty."
     ]
   },
   {
@@ -503,6 +583,10 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。"
+    ],
+    "segmentParts": [
+      "High growth rates increased the chances for academic innovation;",
+      "they also weakened the forms and processes by which teachers and students are admitted into a community of scholars during periods of stability or slow growth."
     ]
   },
   {
@@ -537,6 +621,11 @@
       "非谓语动作的逻辑主语判断错误。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "With the Church’s teachings and ways of thinking being eclipsed by the Renaissance,",
+      "the gap between the Medieval and modern periods had been bridged,",
+      "leading to new and unexplored intellectual territories."
     ]
   },
   {
@@ -570,6 +659,11 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "非谓语动作的逻辑主语判断错误。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Before each of their revelations,",
+      "many thinkers at the time had sustained more ancient ways of thinking,",
+      "including the geocentric view that the Earth was at the centre of our universe."
     ]
   },
   {
@@ -603,6 +697,10 @@
     "pitfalls": [
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Despite attempts by the Church to suppress this new generation of logicians and rationalists,",
+      "more explanations for how the universe functioned were being made at a rate that the people could no longer ignore."
     ]
   },
   {
@@ -638,6 +736,11 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "非谓语动作的逻辑主语判断错误。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "As many took on the duty of trying to integrate reasoning and scientific philosophies into the world,",
+      "the Renaissance was over and it was time for a new era",
+      "the Age of Reason."
     ]
   },
   {
@@ -650,7 +753,7 @@
     "source": "Such actions to seek knowledge and to understand what information we already knew were captured by the Latin phrase “sapere aude” or “dare to know”, after Immanuel Kant used it in his essay “An Answer to the Question: What is Enlightenment?”.",
     "contextBefore": "Scientific method, reductionism and the questioning of Church ideals was to be encouraged, as were ideas of liberty, tolerance and progress.",
     "contextAfter": "It was the purpose and responsibility of great minds to go forth and seek out the truth, which they believed to be founded in knowledge.",
-    "segments": "Such actions to seek knowledge and to understand what information we already knew were captured by the Latin phrase “sapere aude” or “dare to know”, / after Immanuel Kant used it in his essay “An Answer to the Question: / What is Enlightenment?”.",
+    "segments": "Such actions to seek knowledge / and to understand what information we already knew / were captured by the Latin phrase “sapere aude” or “dare to know”, / after Immanuel Kant used it in his essay “An Answer to the Question: What is Enlightenment?”.",
     "tags": [
       "名词性从句",
       "被动语态",
@@ -673,6 +776,12 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Such actions to seek knowledge",
+      "and to understand what information we already knew",
+      "were captured by the Latin phrase “sapere aude” or “dare to know”,",
+      "after Immanuel Kant used it in his essay “An Answer to the Question: What is Enlightenment?”."
     ]
   },
   {
@@ -706,6 +815,13 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "漏掉因果、让步、条件或时间关系。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。"
+    ],
+    "segmentParts": [
+      "yet when one looks at the photographs of the gardens created by the homeless,",
+      "it strikes one that,",
+      "for all their diversity of styles,",
+      "these gardens speak of various other fundamental urges,",
+      "beyond that of decoration and creative expression."
     ]
   },
   {
@@ -740,6 +856,13 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "A sacred place of peace,",
+      "however crude it may be,",
+      "is a distinctly human need,",
+      "as opposed to shelter,",
+      "which is a distinctly animal need."
     ]
   },
   {
@@ -773,6 +896,11 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "The gardens of the homeless,",
+      "which are in effect homeless gardens,",
+      "introduce form into an urban environment where it either didn’t exist or was not discernible as such."
     ]
   },
   {
@@ -810,6 +938,10 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "漏掉因果、让步、条件或时间关系。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "most of us give in to a demoralization of spirit which we usually blame on some psychological conditions,",
+      "until one day we find ourselves in a garden and feel the oppression vanish as if by magic."
     ]
   },
   {
@@ -842,6 +974,11 @@
     "pitfalls": [
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "It is this implicit or explicit reference to nature that fully justifies the use of the word garden,",
+      "though in a “liberated” sense,",
+      "to describe these synthetic constructions."
     ]
   },
   {
@@ -876,6 +1013,12 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "In physics,",
+      "one approach takes this impulse for unification to its extreme,",
+      "and seeks a theory of everything",
+      "a single generative equation for all we see."
     ]
   },
   {
@@ -911,6 +1054,12 @@
       "漏掉因果、让步、条件或时间关系。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。"
+    ],
+    "segmentParts": [
+      "Here,",
+      "Darwinism seems to offer justification,",
+      "for if all humans share common origins,",
+      "it seems reasonable to suppose that cultural diversity could also be traced to more constrained beginnings."
     ]
   },
   {
@@ -923,7 +1072,7 @@
     "source": "To filter out what is unique from what is shared might enable us to understand how complex cultural behavior arose and what guides it in evolutionary or cognitive terms.",
     "contextBefore": "Just as the bewildering variety of human courtship rituals might all be considered forms of sexual selection, perhaps the world’s languages, music, social and religious customs and even history are governed by universal features.",
     "contextAfter": "That, at least, is the hope.",
-    "segments": "To filter out what is unique from what is shared might enable us to understand how complex cultural behavior arose and what guides it in evolutionary or cognitive terms.",
+    "segments": "To filter out what is unique from what is shared / might enable us to understand / how complex cultural behavior arose / and what guides it in evolutionary or cognitive terms.",
     "tags": [
       "名词性从句",
       "非谓语结构",
@@ -948,6 +1097,12 @@
       "非谓语动作的逻辑主语判断错误。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "To filter out what is unique from what is shared",
+      "might enable us to understand",
+      "how complex cultural behavior arose",
+      "and what guides it in evolutionary or cognitive terms."
     ]
   },
   {
@@ -985,6 +1140,13 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "非谓语动作的逻辑主语判断错误。",
       "所有被动都硬译为“被”，导致中文生硬。"
+    ],
+    "segmentParts": [
+      "The second,",
+      "by Joshua Greenberg,",
+      "takes a more empirical approach to universality,",
+      "identifying traits (particularly in word order) shared by many languages,",
+      "which are considered to represent biases that result from cognitive constraints."
     ]
   },
   {
@@ -1019,6 +1181,10 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Chomsky’s grammar should show patterns of language change that are independent of the family tree or the pathway tracked through it,",
+      "whereas Greenbergian universality predicts strong co-dependencies between particular types of word-order relations."
     ]
   },
   {
@@ -1053,6 +1219,11 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "It was also,",
+      "and this is unknown even to many people well read about the period,",
+      "a battle between those who made codes and those who broke them."
     ]
   },
   {
@@ -1090,6 +1261,11 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "It listed many documents in code that had been captured from the French army of Spain,",
+      "and whose secrets had been revealed by the work of one George Scovell,",
+      "an officer in British headquarters."
     ]
   },
   {
@@ -1102,7 +1278,7 @@
     "source": "he could not analyze carefully what this obscure officer may or may not have contributed to that great struggle between nations or indeed tell us anything much about the man himself.",
     "contextBefore": "(47) It listed many documents in code that had been captured from the French army of Spain, and whose secrets had been revealed by the work of one George Scovell, an officer in British headquarters. Oman rated Scovell’s significance highly, but at the same time, the general nature of his History meant that",
     "contextAfter": "I was keen to read more, but was surprised to find that Oman’s appendix, published in 1914, was the only considered thing that had been written about this secret war.",
-    "segments": "he could not analyze carefully what this obscure officer may or may not have contributed to that great struggle between nations or indeed tell us anything much about the man himself.",
+    "segments": "he could not analyze carefully / what this obscure officer may or may not have contributed to that great struggle between nations / or indeed tell us anything much / about the man himself.",
     "tags": [
       "名词性从句",
       "并列与转折",
@@ -1123,6 +1299,12 @@
     "pitfalls": [
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "he could not analyze carefully",
+      "what this obscure officer may or may not have contributed to that great struggle between nations",
+      "or indeed tell us anything much",
+      "about the man himself."
     ]
   },
   {
@@ -1155,6 +1337,10 @@
     "pitfalls": [
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "There may have been many spies and intelligence officers during the Napoleonic Wars,",
+      "but it is usually extremely difficult to find the material they actually provided or worked on."
     ]
   },
   {
@@ -1186,6 +1372,10 @@
     "pitfalls": [
       "漏掉因果、让步、条件或时间关系。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Just as the code breaking has its wider relevance in the struggle for Spain,",
+      "so his attempts to make his way up the promotion ladder speak volumes about British society."
     ]
   },
   {
@@ -1198,7 +1388,7 @@
     "source": "AI can also be used to identify the lifestyle choices of customers regarding their hobbies, favourite celebrities, music choices, and fashions to provide unique content in marketing messages put out through social media.",
     "contextBefore": "For example, AI can be used to analyse what type of advertising content or copy would be appropriate to ‘speak’ to a specific target customer group by revealing information about trends and preferences through the analysis of big data.",
     "contextAfter": "At the same time AI can also be used to generate content for social media posts and chat sites.",
-    "segments": "AI can also be used to identify the lifestyle choices of customers regarding their hobbies, / favourite celebrities, / music choices, / and fashions to provide unique content in marketing messages put out through social media.",
+    "segments": "AI can also be used / to identify the lifestyle choices of customers / regarding their hobbies, favourite celebrities, music choices, and fashions / to provide unique content in marketing messages / put out through social media.",
     "tags": [
       "非谓语结构",
       "被动语态",
@@ -1221,6 +1411,13 @@
       "非谓语动作的逻辑主语判断错误。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "AI can also be used",
+      "to identify the lifestyle choices of customers",
+      "regarding their hobbies, favourite celebrities, music choices, and fashions",
+      "to provide unique content in marketing messages",
+      "put out through social media."
     ]
   },
   {
@@ -1257,6 +1454,10 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Some believe that AI is negatively impacting on the marketer’s role by reducing creativity and removing jobs,",
+      "but they are aware that it is a way of reducing costs and creating new information."
     ]
   },
   {
@@ -1294,6 +1495,10 @@
       "非谓语动作的逻辑主语判断错误。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Algorithms that are used to simulate human interactions are creating many of these concerns,",
+      "especially as no-one is quite sure what the outcomes of using AI to interact with customers will be."
     ]
   },
   {
@@ -1330,6 +1535,10 @@
       "所有被动都硬译为“被”，导致中文生硬。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "If customers are not willing to share data,",
+      "AI will be starved of essential information and will not be able to function effectively or employ machine learning to improve its marketing content and communication."
     ]
   },
   {
@@ -1342,7 +1551,7 @@
     "source": "The non-intrusive delivery of the marketing messages in a way that is sensitive to the needs of the target customer is one of the critical challenges to the digital marketer.",
     "contextBefore": "Data can be gathered on where the customer can be engaged, such as location, devices used, website interactions, and sites visited, to display marketing messages in appropriate forms, including emails, social media posts, pop-up advertisements, and banners at an appropriate frequency.",
     "contextAfter": "Understanding humans may be complicated, but we reveal a considerable amount about what appeals to us through our browsing history.",
-    "segments": "The non-intrusive delivery of the marketing messages in a way that is sensitive to the needs of the target customer is one of the critical challenges to the digital marketer.",
+    "segments": "The non-intrusive delivery of the marketing messages / in a way that is sensitive to the needs of the target customer / is one of the critical challenges / to the digital marketer.",
     "tags": [
       "主干识别"
     ],
@@ -1360,6 +1569,12 @@
     ],
     "pitfalls": [
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "The non-intrusive delivery of the marketing messages",
+      "in a way that is sensitive to the needs of the target customer",
+      "is one of the critical challenges",
+      "to the digital marketer."
     ]
   },
   {
@@ -1395,6 +1610,10 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "The Greeks assumed that the structure of language had some connection with the process of thought,",
+      "which took root in Europe long before people realized how diverse languages could be."
     ]
   },
   {
@@ -1431,6 +1650,11 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "漏掉因果、让步、条件或时间关系。",
       "所有被动都硬译为“被”，导致中文生硬。"
+    ],
+    "segmentParts": [
+      "We are obliged to them",
+      "because some of these languages have since vanished,",
+      "as the peoples who spoke them died out or became assimilated and lost their native languages."
     ]
   },
   {
@@ -1443,7 +1667,7 @@
     "source": "The newly described languages were often so strikingly different from the well studied languages of Europe and Southeast Asia that some scholars even accused Boas and Sapir of fabricating their data.",
     "contextBefore": "Other linguists in the earlier part of this century, however, who were less eager to deal with bizarre data from “exotic” language, were not always so grateful.",
     "contextAfter": "Native American languages are indeed different, so much so in fact that Navajo could be used by the US military as a code during World War II to send secret messages.",
-    "segments": "The newly described languages were often so strikingly different from the well studied languages of Europe and Southeast Asia that some scholars even accused Boas and Sapir of fabricating their data.",
+    "segments": "The newly described languages were often so strikingly different / from the well studied languages of Europe and Southeast Asia / that some scholars even accused Boas and Sapir / of fabricating their data.",
     "tags": [
       "被动语态",
       "并列与转折",
@@ -1466,6 +1690,12 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "The newly described languages were often so strikingly different",
+      "from the well studied languages of Europe and Southeast Asia",
+      "that some scholars even accused Boas and Sapir",
+      "of fabricating their data."
     ]
   },
   {
@@ -1502,6 +1732,10 @@
       "所有被动都硬译为“被”，导致中文生硬。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Being interested in the relationship of language and thought,",
+      "Whorf developed the idea that the structure of language determines the structure of habitual thought in a society."
     ]
   },
   {
@@ -1538,6 +1772,12 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Whorf came to believe in a sort of linguistic determinism which,",
+      "in its strongest form,",
+      "states that language imprisons the mind,",
+      "and that the grammatical patterns in a language can produce far-reaching consequences for the culture of a society."
     ]
   },
   {
@@ -1569,6 +1809,11 @@
     "pitfalls": [
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Traditionally,",
+      "legal learning has been viewed in such institutions as the special preserve of lawyers,",
+      "rather than a necessary part of the intellectual equipment of an educated person."
     ]
   },
   {
@@ -1581,7 +1826,7 @@
     "source": "On the other, it links these concepts to everyday realities in a manner which is parallel to the links journalists forge on a daily basis as they cover and comment on the news.",
     "contextBefore": "On the one hand, it provides opportunities to analyze such ideas as justice, democracy and freedom.",
     "contextAfter": "For example, notions of evidence and fact, of basic rights and public interest are at work in the process of journalistic judgment and production just as in courts of law.",
-    "segments": "On the other, / it links these concepts to everyday realities in a manner which is parallel to the links journalists forge on a daily basis as they cover and comment on the news.",
+    "segments": "On the other, it links these concepts to everyday realities / in a manner / which is parallel to the links / journalists forge on a daily basis / as they cover and comment on the news.",
     "tags": [
       "定语从句",
       "并列与转折",
@@ -1603,6 +1848,13 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "On the other, it links these concepts to everyday realities",
+      "in a manner",
+      "which is parallel to the links",
+      "journalists forge on a daily basis",
+      "as they cover and comment on the news."
     ]
   },
   {
@@ -1615,7 +1867,7 @@
     "source": "But the idea that the journalist must understand the law more profoundly than an ordinary citizen rests on an understanding of the established conventions and special responsibilities of the news media.",
     "contextBefore": "Sharpening judgment by absorbing and reflecting on law is a desirable component of a journalist’s intellectual preparation for his or her career.",
     "contextAfter": "Politics or, more broadly, the functioning of the state, is a major subject for journalists.",
-    "segments": "But the idea that the journalist must understand the law more profoundly than an ordinary citizen rests on an understanding of the established conventions and special responsibilities of the news media.",
+    "segments": "But the idea / that the journalist must understand the law more profoundly than an ordinary citizen / rests on an understanding / of the established conventions and special responsibilities of the news media.",
     "tags": [
       "名词性从句",
       "并列与转折",
@@ -1635,6 +1887,12 @@
     "pitfalls": [
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "But the idea",
+      "that the journalist must understand the law more profoundly than an ordinary citizen",
+      "rests on an understanding",
+      "of the established conventions and special responsibilities of the news media."
     ]
   },
   {
@@ -1647,7 +1905,7 @@
     "source": "In fact, it is difficult to see how journalists who do not have a clear grasp of the basic features of the Canadian Constitution can do a competent job on political stories.",
     "contextBefore": "The better informed they are about the way the state works, the better their reporting will be.",
     "contextAfter": "Furthermore, the legal system and the events which occur within it are primary subjects for journalists.",
-    "segments": "In fact, / it is difficult to see how journalists who do not have a clear grasp of the basic features of the Canadian Constitution can do a competent job on political stories.",
+    "segments": "In fact, / it is difficult to see / how journalists / who do not have a clear grasp of the basic features of the Canadian Constitution / can do a competent job on political stories.",
     "tags": [
       "定语从句",
       "名词性从句",
@@ -1668,6 +1926,13 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "In fact,",
+      "it is difficult to see",
+      "how journalists",
+      "who do not have a clear grasp of the basic features of the Canadian Constitution",
+      "can do a competent job on political stories."
     ]
   },
   {
@@ -1704,6 +1969,10 @@
       "漏掉因果、让步、条件或时间关系。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "While comment and reaction from lawyers may enhance stories,",
+      "it is preferable for journalists to rely on their own notions of significance and make their own judgments."
     ]
   },
   {
@@ -1737,6 +2006,10 @@
     "pitfalls": [
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "We don’t have to learn how to be mentally healthy;",
+      "it is built into us in the same way that our bodies know how to heal a cut or mend a broken bone."
     ]
   },
   {
@@ -1771,6 +2044,12 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Our mental health doesn’t really go anywhere;",
+      "like the sun behind a cloud,",
+      "it can be temporarily hidden from view,",
+      "but it is fully capable of being restored in an instant."
     ]
   },
   {
@@ -1807,6 +2086,11 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "漏掉因果、让步、条件或时间关系。",
       "非谓语动作的逻辑主语判断错误。"
+    ],
+    "segmentParts": [
+      "Mental health allows us to view others with sympathy if they are having troubles,",
+      "with kindness if they are in pain,",
+      "and with unconditional love no matter who they are."
     ]
   },
   {
@@ -1841,6 +2125,10 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "漏掉因果、让步、条件或时间关系。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Although mental health is the cure-all for living our lives,",
+      "it is perfectly ordinary as you will see that it has been there to direct you through all your difficult decisions."
     ]
   },
   {
@@ -1875,6 +2163,10 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "漏掉因果、让步、条件或时间关系。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "As you will come to see,",
+      "knowing that mental health is always available and knowing to trust it allow us to slow down to the moment and live life happily."
     ]
   },
   {
@@ -1904,6 +2196,10 @@
     ],
     "pitfalls": [
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "By the date of his birth Europe was witnessing the passing of the religious drama,",
+      "and the creation of new forms under the incentive of classical tragedy and comedy."
     ]
   },
   {
@@ -1916,7 +2212,7 @@
     "source": "no boy who went to a grammar school could be ignorant that the drama was a form of literature which gave glory to Greece and Rome and might yet bring honor to England.",
     "contextBefore": "These new forms were at first mainly written by scholars and performed by amateurs, but in England, as everywhere else in western Europe, the growth of a class of professional actors was threatening to make the drama popular, whether it should be new or old, classical or medieval, literary or farcical. Court, school, organizations of amateurs, and the traveling actors were all rivals in supplying a widespread desire for dramatic entertainment; and",
     "contextAfter": "When Shakespeare was twelve years old the first public playhouse was built in London.",
-    "segments": "no boy who went to a grammar school could be ignorant that the drama was a form of literature which gave glory to Greece and Rome and might yet bring honor to England.",
+    "segments": "no boy / who went to a grammar school / could be ignorant / that the drama was a form of literature / which gave glory to Greece and Rome / and might yet bring honor to England.",
     "tags": [
       "定语从句",
       "并列与转折",
@@ -1938,6 +2234,14 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "no boy",
+      "who went to a grammar school",
+      "could be ignorant",
+      "that the drama was a form of literature",
+      "which gave glory to Greece and Rome",
+      "and might yet bring honor to England."
     ]
   },
   {
@@ -1969,6 +2273,10 @@
     "pitfalls": [
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "But the professional companies prospered in their permanent theaters,",
+      "and university men with literary ambitions were quick to turn to these theaters as offering a means of livelihood."
     ]
   },
   {
@@ -2001,6 +2309,11 @@
     "pitfalls": [
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "A native literary drama had been created,",
+      "its alliance with the public playhouses established,",
+      "and at least some of its great traditions had been begun."
     ]
   },
   {
@@ -2039,6 +2352,11 @@
       "非谓语动作的逻辑主语判断错误。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "To realize how great was the dramatic activity,",
+      "we must remember further that hosts of plays have been lost,",
+      "and that probably there is no author of note whose entire work has survived."
     ]
   },
   {
@@ -2074,6 +2392,11 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "漏掉因果、让步、条件或时间关系。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "There is a great deal of this kind of nonsense in the medical journals which,",
+      "when taken up by broadcasters and the lay press,",
+      "generates both health scares and short-lived dietary enthusiasms."
     ]
   },
   {
@@ -2086,7 +2409,7 @@
     "source": "nowadays anyone applying for a research post has to have published twice the number of papers that would have been required for the same post only 10 years ago.",
     "contextBefore": "What is important is not truth, but publication, which has become almost an end in itself. There has been a kind of inflationary process at work:",
     "contextAfter": "Never mind the quality, then, count the number.",
-    "segments": "nowadays anyone applying for a research post has to have published twice the number of papers that would have been required for the same post only 10 years ago.",
+    "segments": "nowadays anyone applying for a research post / has to have published twice the number of papers / that would have been required for the same post / only 10 years ago.",
     "tags": [
       "被动语态",
       "比较与对应"
@@ -2106,6 +2429,12 @@
     "pitfalls": [
       "所有被动都硬译为“被”，导致中文生硬。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "nowadays anyone applying for a research post",
+      "has to have published twice the number of papers",
+      "that would have been required for the same post",
+      "only 10 years ago."
     ]
   },
   {
@@ -2143,6 +2472,12 @@
       "非谓语动作的逻辑主语判断错误。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Attempts have been made to curb this tendency,",
+      "for example,",
+      "by trying to incorporate some measure of quality",
+      "as well as quantity into the assessment of an applicant’s papers."
     ]
   },
   {
@@ -2178,6 +2513,10 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "漏掉因果、让步、条件或时间关系。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "This would be reasonable if it were not for the fact that scientists can easily arrange to cite themselves in their future publications,",
+      "or get associates to do so for them in return for similar favours."
     ]
   },
   {
@@ -2209,6 +2548,10 @@
     "pitfalls": [
       "漏掉因果、让步、条件或时间关系。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "If we are serious about ensuring that our science is both meaningful and reproducible,",
+      "we must ensure that our institutions encourage that kind of science."
     ]
   },
   {
@@ -2245,6 +2588,11 @@
       "漏掉因果、让步、条件或时间关系。",
       "非谓语动作的逻辑主语判断错误。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。"
+    ],
+    "segmentParts": [
+      "Tracing the history of the term,",
+      "we can see how the definition of scientific literacy has shifted over time,",
+      "muddying the waters when it comes to determining the goals of science education."
     ]
   },
   {
@@ -2281,6 +2629,11 @@
       "关系从句修饰对象判断错误，或连续堆出多个“的”。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "A return to that version of scientific literacy,",
+      "which focused more on teaching what science is and how it works and less on memorizing scientific facts,",
+      "seems like something society today desperately needs."
     ]
   },
   {
@@ -2293,7 +2646,7 @@
     "source": "Educators advanced the idea of having students complete detailed laboratory exercises in high schools in the belief that such work was beneficial primarily as a way to enhance logical reasoning and observational skills.",
     "contextBefore": "In the United States, the desire to provide the public with a general, nontechnical education in science originated as far back as the late 1800s.",
     "contextAfter": "The development in 1915 of the popular new subject “general science” was another effort to train students to apply the principles of science to everyday, nonscience problems.",
-    "segments": "Educators advanced the idea of having students complete detailed laboratory exercises in high schools in the belief that such work was beneficial primarily as a way to enhance logical reasoning and observational skills.",
+    "segments": "Educators advanced the idea / of having students complete detailed laboratory exercises in high schools / in the belief / that such work was beneficial primarily / as a way to enhance logical reasoning and observational skills.",
     "tags": [
       "非谓语结构",
       "并列与转折",
@@ -2314,6 +2667,13 @@
       "非谓语动作的逻辑主语判断错误。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "Educators advanced the idea",
+      "of having students complete detailed laboratory exercises in high schools",
+      "in the belief",
+      "that such work was beneficial primarily",
+      "as a way to enhance logical reasoning and observational skills."
     ]
   },
   {
@@ -2326,7 +2686,7 @@
     "source": "It wasn’t until the phrase “scientific literacy” came along in the 1940s that science had the formidable slogan it needed to command public attention and make improving science education an important national goal.",
     "contextBefore": "Although these efforts were aimed at the nonscience-bound student, they never really made their way into mainstream thought and public discourse as a means to rally widespread support for the importance of science teaching in schools.",
     "contextAfter": "The intense focus on scientific literacy in the United States originally grew out of the critical role of science and technology during World War II, as well as the perceived deficiencies of American soldiers.",
-    "segments": "It wasn’t until the phrase “scientific literacy” came along in the 1940s that science had the formidable slogan it needed to command public attention and make improving science education an important national goal.",
+    "segments": "It wasn’t until the phrase “scientific literacy” came along in the 1940s / that science had the formidable slogan / it needed / to command public attention / and make improving science education an important national goal.",
     "tags": [
       "并列与转折",
       "指代关系",
@@ -2348,6 +2708,13 @@
       "把代词机械译成“它／他们”，没有还原具体对象。",
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "It wasn’t until the phrase “scientific literacy” came along in the 1940s",
+      "that science had the formidable slogan",
+      "it needed",
+      "to command public attention",
+      "and make improving science education an important national goal."
     ]
   },
   {
@@ -2382,6 +2749,10 @@
     "pitfalls": [
       "抽象名词全部译成“……性／……化”，没有转成自然动作。",
       "固定搭配按单词逐个对应，造成词义偏差。"
+    ],
+    "segmentParts": [
+      "The intense focus on scientific literacy in the United States originally grew out of the critical role of science and technology during World War II,",
+      "as well as the perceived deficiencies of American soldiers."
     ]
   }
 ]

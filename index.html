@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V37 学习历史增强版</title>
+  <title>V39 安全保存与快速同步版</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -4342,8 +4342,8 @@
     @media(max-width:560px){.translation-hero{padding:18px}.translation-metrics{grid-template-columns:1fr 1fr}.translation-progress-years{grid-template-columns:1fr}.translation-main-card{padding:15px}.translation-source{font-size:17px}.translation-filter-grid{grid-template-columns:1fr}.translation-error-grid,.translation-error-checks{grid-template-columns:1fr}}
   </style>
 
-<style id="translationV38InteractiveStyles">
-  /* V38: 翻译模块从“答案型页面”改成“自己拆句的交互训练器” */
+<style id="translationV39InteractiveStyles">
+  /* V39: 交互式拆句 + 安全保存/后台合并同步 */
   .translation-overview-grid.v38-simple{grid-template-columns:1fr .85fr}
   .v38-flow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.v38-flow span{padding:8px 11px;border-radius:999px;background:#f2f5ff;border:1px solid #dfe6ff;font-size:12px;font-weight:850;color:#3047a9}
   .v38-clean-note{padding:13px 15px;border-radius:14px;background:#f8fafc;border:1px solid #e7ebf2;color:#52607a;line-height:1.8}
@@ -4371,7 +4371,7 @@
   <aside>
     <div class="brand">
       <h1>V34</h1>
-      <p>每题本机保存 · 云端集中同步 · 写作备注历史</p>
+      <p>每题本机秒存 · 云端后台合并同步 · 写作备注历史</p>
     </div>
     <nav>
       <button class="nav-btn active" data-view="dashboard">首页</button>
@@ -5079,7 +5079,7 @@
             <h3>考研英语（一）翻译真题70句</h3>
             <p>只使用你提供的14个年份。先自己在原句上找谓语、圈引导词、括从句、弱化修饰，再进入整句翻译；每一步自动保存到本机。</p>
           </div>
-          <span class="translation-badge">V38 交互式拆句训练</span>
+          <span class="translation-badge">V39 安全保存增强</span>
         </div>
         <div class="translation-badges">
           <span class="translation-badge">2004、2007、2012、2013、2016、2018—2026</span>
@@ -5371,9 +5371,9 @@
       <div class="card" style="margin-top:16px;">
         <h3 class="section-title">同步规则</h3>
         <div class="muted" style="line-height:1.9;">
-          每完成一道题，记录会立即写入本机，不等待网络，也不会因为云端较慢而卡住下一题。
-          云端改为集中同步：累计10次本机保存、距离首次待同步记录满60秒、切到后台，或手动点击“立即同步”时上传一次。
-          同步期间仍可继续答题；新产生的记录会留在下一批。离线时照常学习，恢复网络后自动安排同步。
+          每次操作先立即写入本机，答题不等待云端。相同题目的连续修改会自动合并成一个待同步项目，只上传最新状态。
+          停止操作约3秒会在后台尝试同步；累计5个不同待同步项目或连续操作满30秒也会触发一批同步。同步期间仍可继续答题，新产生的修改自动进入下一批。
+          翻译题额外保存独立断点；切后台、刷新或关闭页面前会强制抓取当前译文。离线时照常学习，恢复网络后自动补同步。
         </div>
       </div>
     </section>
@@ -5744,11 +5744,13 @@
   let cloudSyncing = false;
   let cloudPendingSave = false;
   let cloudPendingChanges = 0;
+  const cloudDirtyKeys = new Set();
   let cloudBatchStartedAt = 0;
   let cloudPullPending = false;
   let suppressCloudSave = false;
-  const CLOUD_BATCH_MAX_CHANGES = 10;
-  const CLOUD_BATCH_INTERVAL_MS = 60 * 1000;
+  const CLOUD_BATCH_MAX_CHANGES = 5;
+  const CLOUD_IDLE_SYNC_MS = 3 * 1000;
+  const CLOUD_BATCH_INTERVAL_MS = 30 * 1000;
 
   const BIG_ESSAY_SEED = [{"id":"big-essay-elderly-robots","type":"图表作文","theme":"科技、养老与产品接受度","version":"整理确认稿","sourceNote":"较早作文，根据当时已经确定的中文内容和句型整理为统一版本。","title":"养老机器人","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["图表清楚显示，消费者对养老机器人持有不同的态度。","39.3%的受访者完全接受，32.8%部分接受，27.9%不接受。","在主要关注点方面，46.3%关注安全，24.9%关注价格，10.7%关注便利性。","总体而言，超过70%的受访者至少部分接受养老机器人，而安全是他们最关心的问题。"],"sentences":[{"id":"big-essay-elderly-robots-p1-s1","type":"复合句","text":"As is clearly shown in the charts, consumers have different attitudes toward elderly-care robots.","chinesePrompt":"图表清楚显示，消费者对养老机器人持有不同的态度。","note":"","position":"描述与总结"},{"id":"big-essay-elderly-robots-p1-s2","type":"并列句","text":"39.3% of the respondents fully accept them, 32.8% partly accept them, and 27.9% do not accept them.","chinesePrompt":"39.3%的受访者完全接受，32.8%部分接受，27.9%不接受。","note":"","position":"描述与总结"},{"id":"big-essay-elderly-robots-p1-s3","type":"并列句","text":"As for their main concerns, 46.3% pay attention to safety, 24.9% focus on price, and 10.7% care about convenience.","chinesePrompt":"在主要关注点方面，46.3%关注安全，24.9%关注价格，10.7%关注便利性。","note":"","position":"描述与总结"},{"id":"big-essay-elderly-robots-p1-s4","type":"并列句","text":"In general, more than 70% of the respondents at least partly accept elderly-care robots, and safety is their greatest concern.","chinesePrompt":"总体而言，超过70%的受访者至少部分接受养老机器人，而安全是他们最关心的问题。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["养老机器人受到欢迎有几个原因。","一方面，人口老龄化增加了养老需求，机器人能够帮助减轻家庭和社会的压力。","另一方面，技术进步使这些机器人更加智能和便利。","然而，人们仍可能担心安全、隐私和价格，而这些因素会直接影响他们使用此类产品的意愿。"],"sentences":[{"id":"big-essay-elderly-robots-p2-s1","type":"简单句","text":"The popularity of elderly-care robots has several reasons.","chinesePrompt":"养老机器人受到欢迎有几个原因。","note":"","position":"分析与论证"},{"id":"big-essay-elderly-robots-p2-s2","type":"并列句","text":"On the one hand, population aging has increased the demand for elderly care, and robots can help relieve the pressure on families and society.","chinesePrompt":"一方面，人口老龄化增加了养老需求，机器人能够帮助减轻家庭和社会的压力。","note":"","position":"分析与论证"},{"id":"big-essay-elderly-robots-p2-s3","type":"简单句","text":"On the other hand, advances in technology have made these robots more intelligent and convenient.","chinesePrompt":"另一方面，技术进步使这些机器人更加智能和便利。","note":"","position":"分析与论证"},{"id":"big-essay-elderly-robots-p2-s4","type":"复合句","text":"However, people may still worry about safety, privacy, and price, which directly influence their willingness to use such products.","chinesePrompt":"然而，人们仍可能担心安全、隐私和价格，而这些因素会直接影响他们使用此类产品的意愿。","note":"","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，制造商应提高产品质量，并更加重视安全和隐私保护。","政府也应制定明确的标准并提供适当支持。","消费者应理性认识这些产品，而不是盲目拒绝或接受。","只有制造商、政府和消费者共同努力，养老机器人才能在社会中发挥更大的作用。"],"sentences":[{"id":"big-essay-elderly-robots-p3-s1","type":"简单句","text":"In my opinion, manufacturers should improve product quality and pay more attention to safety and privacy protection.","chinesePrompt":"在我看来，制造商应提高产品质量，并更加重视安全和隐私保护。","note":"虽然有`improve`和`pay attention to`两个动作，但共用一个主语`manufacturers`，所以仍然是简单句。","position":"建议与总结"},{"id":"big-essay-elderly-robots-p3-s2","type":"简单句","text":"The government should also establish clear standards and provide proper support.","chinesePrompt":"政府也应制定明确的标准并提供适当支持。","note":"","position":"建议与总结"},{"id":"big-essay-elderly-robots-p3-s3","type":"简单句","text":"Consumers should understand these products rationally instead of rejecting or accepting them blindly.","chinesePrompt":"消费者应理性认识这些产品，而不是盲目拒绝或接受。","note":"","position":"建议与总结"},{"id":"big-essay-elderly-robots-p3-s4","type":"复合句","text":"Only when manufacturers, the government, and consumers work together can elderly-care robots play a greater role in society.","chinesePrompt":"只有制造商、政府和消费者共同努力，养老机器人才能在社会中发挥更大的作用。","note":"","position":"建议与总结"}]}]},{"id":"big-essay-appliances","type":"图表作文","theme":"消费升级与家用电器","version":"整理确认稿","sourceNote":"较早作文，根据当时已经确定的中文内容和句型整理为统一版本。","title":"家用电器拥有量变化","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["如图表所示，2014年至2023年三类家用电器的拥有量均有所增加。","2014年，每百户拥有的空调、洗衣机和冰箱数量分别为75.2、83.7和85.5。","到2023年，这些数字分别增加到145.9、98.2和103.4。","空调拥有量增长最快。","总体而言，三类家用电器都呈上升趋势，这反映了人们生活条件的改善。"],"sentences":[{"id":"big-essay-appliances-p1-s1","type":"复合句","text":"As is shown in the chart, the ownership of three types of household appliances increased from 2014 to 2023.","chinesePrompt":"如图表所示，2014年至2023年三类家用电器的拥有量均有所增加。","note":"","position":"描述与总结"},{"id":"big-essay-appliances-p1-s2","type":"简单句","text":"In 2014, the numbers of air conditioners, washing machines, and refrigerators owned per one hundred households were 75.2, 83.7, and 85.5 respectively.","chinesePrompt":"2014年，每百户拥有的空调、洗衣机和冰箱数量分别为75.2、83.7和85.5。","note":"","position":"描述与总结"},{"id":"big-essay-appliances-p1-s3","type":"简单句","text":"By 2023, these figures had increased to 145.9, 98.2, and 103.4 respectively.","chinesePrompt":"到2023年，这些数字分别增加到145.9、98.2和103.4。","note":"","position":"描述与总结"},{"id":"big-essay-appliances-p1-s4","type":"简单句","text":"The ownership of air conditioners increased the fastest.","chinesePrompt":"空调拥有量增长最快。","note":"","position":"描述与总结"},{"id":"big-essay-appliances-p1-s5","type":"复合句","text":"Overall, all three types of household appliances showed an upward trend, which reflects an improvement in people’s living conditions.","chinesePrompt":"总体而言，三类家用电器都呈上升趋势，这反映了人们生活条件的改善。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["这一变化主要由生活水平和消费能力的提高造成。","随着收入提高，更多家庭能够购买家用电器，并更加关注舒适度和使用体验。","洗衣机和冰箱增长较慢，因为这些产品已在许多家庭中广泛使用。","相比之下，空调需求仍在持续增长。"],"sentences":[{"id":"big-essay-appliances-p2-s1","type":"简单句","text":"This change is mainly caused by improvements in living standards and consumer purchasing power.","chinesePrompt":"这一变化主要由生活水平和消费能力的提高造成。","note":"","position":"分析与论证"},{"id":"big-essay-appliances-p2-s2","type":"复合句","text":"As people’s incomes rise, more families can afford household appliances and pay greater attention to comfort and user experience.","chinesePrompt":"随着收入提高，更多家庭能够购买家用电器，并更加关注舒适度和使用体验。","note":"","position":"分析与论证"},{"id":"big-essay-appliances-p2-s3","type":"复合句","text":"The growth rates of washing machines and refrigerators are relatively slow because these products are already widely used in many households.","chinesePrompt":"洗衣机和冰箱增长较慢，因为这些产品已在许多家庭中广泛使用。","note":"","position":"分析与论证"},{"id":"big-essay-appliances-p2-s4","type":"简单句","text":"By contrast, the demand for air conditioners has continued to grow.","chinesePrompt":"相比之下，空调需求仍在持续增长。","note":"","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，制造商应提高产品质量，并开发节能、环保和智能的产品。","政府可以提供适当补贴并完善相关政策。","消费者应根据实际需要理性选择产品。","只有制造商、政府和消费者共同努力，家用电器才能给人们的生活带来更大便利。"],"sentences":[{"id":"big-essay-appliances-p3-s1","type":"简单句","text":"In my opinion, manufacturers should improve product quality and develop energy-saving, environmentally friendly, and intelligent products.","chinesePrompt":"在我看来，制造商应提高产品质量，并开发节能、环保和智能的产品。","note":"","position":"建议与总结"},{"id":"big-essay-appliances-p3-s2","type":"简单句","text":"The government can provide appropriate subsidies and improve relevant policies.","chinesePrompt":"政府可以提供适当补贴并完善相关政策。","note":"","position":"建议与总结"},{"id":"big-essay-appliances-p3-s3","type":"简单句","text":"Consumers should choose products rationally according to their actual needs.","chinesePrompt":"消费者应根据实际需要理性选择产品。","note":"","position":"建议与总结"},{"id":"big-essay-appliances-p3-s4","type":"复合句","text":"Only when manufacturers, the government, and consumers work together can household appliances bring greater convenience to people’s lives.","chinesePrompt":"只有制造商、政府和消费者共同努力，家用电器才能给人们的生活带来更大便利。","note":"","position":"建议与总结"}]}]},{"id":"big-essay-parks","type":"图画＋图表作文","theme":"公共服务、城市环境与居民幸福感","version":"整理确认稿","sourceNote":"较早作文，根据当时已经确定的中文内容和句型整理为统一版本。","title":"城市公园","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["如图所示，几位居民正在一座新建公园里休息和锻炼。","一个男孩说，他家附近的新公园非常好。","图表显示，该市公园数量从2020年至2022年持续增加。","2020年有406座公园，2021年有532座，2022年有670座。","总体而言，公园数量显著增加，居民也能更方便地享受公共绿色空间。"],"sentences":[{"id":"big-essay-parks-p1-s1","type":"复合句","text":"As is shown in the picture, several residents are resting and exercising in a newly built park.","chinesePrompt":"如图所示，几位居民正在一座新建公园里休息和锻炼。","note":"","position":"描述与总结"},{"id":"big-essay-parks-p1-s2","type":"复合句","text":"A boy says that the new park near his home is very good.","chinesePrompt":"一个男孩说，他家附近的新公园非常好。","note":"","position":"描述与总结"},{"id":"big-essay-parks-p1-s3","type":"复合句","text":"The chart shows that the number of parks in the city increased continuously from 2020 to 2022.","chinesePrompt":"图表显示，该市公园数量从2020年至2022年持续增加。","note":"","position":"描述与总结"},{"id":"big-essay-parks-p1-s4","type":"简单句","text":"There were 406 parks in 2020, 532 in 2021, and 670 in 2022.","chinesePrompt":"2020年有406座公园，2021年有532座，2022年有670座。","note":"","position":"描述与总结"},{"id":"big-essay-parks-p1-s5","type":"并列句","text":"Overall, the number of parks increased significantly, and residents can enjoy public green spaces more conveniently.","chinesePrompt":"总体而言，公园数量显著增加，居民也能更方便地享受公共绿色空间。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["总体而言，图画和图表反映了城市公共服务和生活环境正在不断改善。","一方面，更多公园能够为居民提供锻炼、散步和休息的场所，并改善身体健康和生活质量。","另一方面，公园是交流和放松的重要空间，能够使城市生活更加舒适。","此外，公园数量增加说明政府越来越重视居民的实际需要。","因此，这一变化不仅改善了城市环境，也增强了居民的幸福感。"],"sentences":[{"id":"big-essay-parks-p2-s1","type":"复合句","text":"In general, the picture and the chart reflect that urban public services and living environments are continuously improving.","chinesePrompt":"总体而言，图画和图表反映了城市公共服务和生活环境正在不断改善。","note":"","position":"分析与论证"},{"id":"big-essay-parks-p2-s2","type":"简单句","text":"On the one hand, more parks can provide residents with places for exercise, walking, and rest and improve their physical health and quality of life.","chinesePrompt":"一方面，更多公园能够为居民提供锻炼、散步和休息的场所，并改善身体健康和生活质量。","note":"虽然有两个动作`provide`和`improve`，但共用一个主语`more parks`，仍是简单句。","position":"分析与论证"},{"id":"big-essay-parks-p2-s3","type":"并列句","text":"On the other hand, parks are important spaces for communication and relaxation, and they can make urban life more comfortable.","chinesePrompt":"另一方面，公园是交流和放松的重要空间，能够使城市生活更加舒适。","note":"","position":"分析与论证"},{"id":"big-essay-parks-p2-s4","type":"复合句","text":"In addition, the increase in the number of parks shows that the government is paying greater attention to residents’ actual needs.","chinesePrompt":"此外，公园数量增加说明政府越来越重视居民的实际需要。","note":"","position":"分析与论证"},{"id":"big-essay-parks-p2-s5","type":"简单句","text":"Therefore, this change not only improves the urban environment but also increases residents’ sense of happiness.","chinesePrompt":"因此，这一变化不仅改善了城市环境，也增强了居民的幸福感。","note":"`not only...but also...`连接两个谓语，不是从句。","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，政府应继续合理建设公园，尤其是居民区附近的小型公园。","同时，有关部门应加强日常管理、保持环境清洁并确保公共设施安全。","居民也应保护植物和公共设施，并合理使用公园。","只有政府和居民共同努力，城市公园才能发挥更大的作用，并给个人、家庭和社会带来更多益处。"],"sentences":[{"id":"big-essay-parks-p3-s1","type":"简单句","text":"In my opinion, the government should continue to build parks reasonably, especially small parks near residential areas.","chinesePrompt":"在我看来，政府应继续合理建设公园，尤其是居民区附近的小型公园。","note":"","position":"建议与总结"},{"id":"big-essay-parks-p3-s2","type":"简单句","text":"At the same time, relevant departments should strengthen daily management, keep the environment clean, and ensure the safety of public facilities.","chinesePrompt":"同时，有关部门应加强日常管理、保持环境清洁并确保公共设施安全。","note":"","position":"建议与总结"},{"id":"big-essay-parks-p3-s3","type":"简单句","text":"Residents should also protect plants and public facilities and use parks properly.","chinesePrompt":"居民也应保护植物和公共设施，并合理使用公园。","note":"","position":"建议与总结"},{"id":"big-essay-parks-p3-s4","type":"复合句","text":"Only when the government and residents work together can urban parks play a greater role and bring more benefits to individuals, families, and society.","chinesePrompt":"只有政府和居民共同努力，城市公园才能发挥更大的作用，并给个人、家庭和社会带来更多益处。","note":"","position":"建议与总结"}]}]},{"id":"big-essay-dragon-boat","type":"图画作文","theme":"传统文化与文化传承","version":"最终确认稿","sourceNote":"按照最终确认版本保留。","title":"龙舟赛","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["如上图生动展示的那样，几艘龙舟正在河面上激烈比赛。","两位老人高兴地说：“龙舟赛越来越受欢迎了。”","总体而言，这幅图表明传统习俗越来越受欢迎，人们也更加关注传统文化。"],"sentences":[{"id":"big-essay-dragon-boat-p1-s1","type":"复合句","text":"As is vividly displayed in the picture above, the picture shows that several dragon boats are competing fiercely on the river.","chinesePrompt":"如上图生动展示的那样，几艘龙舟正在河面上激烈比赛。","note":"","position":"描述与总结"},{"id":"big-essay-dragon-boat-p1-s2","type":"简单句＋直接引语","text":"Two elderly people say happily, “The dragon boat race is becoming more and more popular.”","chinesePrompt":"两位老人高兴地说：“龙舟赛越来越受欢迎了。”","note":"引号外的`Two elderly people say happily`是简单句，引号内也是一个简单句。","position":"描述与总结"},{"id":"big-essay-dragon-boat-p1-s3","type":"复合句","text":"In general, this picture shows that traditional customs are becoming more and more popular, and that people are paying more attention to traditional culture.","chinesePrompt":"总体而言，这幅图表明传统习俗越来越受欢迎，人们也更加关注传统文化。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["总体而言，龙舟赛越来越受欢迎具有重要意义。","一方面，这项传统活动能够帮助人们了解许多节日。","它还能帮助人们感受传统文化的魅力，并增强文化认同感。","另一方面，龙舟赛也为交流和娱乐提供了机会。","邻里关系得到加强是有益的。","这也能使乡村生活更加令人满意。","此外，越来越多的人正在观看龙舟赛并参与其中。","这也有助于传统文化代代相传。","因此，传统习俗活动不仅丰富人们的生活，也促进传统文化的发展。"],"sentences":[{"id":"big-essay-dragon-boat-p2-s1","type":"复合句","text":"In general, it is significant that the dragon boat race has become more popular.","chinesePrompt":"总体而言，龙舟赛越来越受欢迎具有重要意义。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s2","type":"简单句","text":"On the one hand, the traditional activity can help people understand many festivals.","chinesePrompt":"一方面，这项传统活动能够帮助人们了解许多节日。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s3","type":"简单句","text":"This can also help people experience the charm of traditional culture and strengthen people’s sense of cultural identity.","chinesePrompt":"它还能帮助人们感受传统文化的魅力，并增强文化认同感。","note":"`experience`和`strengthen`是并列动作，共用主语`This`。","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s4","type":"简单句","text":"On the other hand, the dragon boat race also provides a chance for communication and entertainment.","chinesePrompt":"另一方面，龙舟赛也为交流和娱乐提供了机会。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s5","type":"复合句","text":"It is beneficial that neighborhood relationships are strengthened.","chinesePrompt":"邻里关系得到加强是有益的。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s6","type":"简单句","text":"This can also make countryside life more satisfying.","chinesePrompt":"这也能使乡村生活更加令人满意。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s7","type":"简单句","text":"In addition, more and more people are watching the dragon boat race and participating in it.","chinesePrompt":"此外，越来越多的人正在观看龙舟赛并参与其中。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s8","type":"简单句","text":"This can also help traditional culture be passed down from generation to generation.","chinesePrompt":"这也有助于传统文化代代相传。","note":"","position":"分析与论证"},{"id":"big-essay-dragon-boat-p2-s9","type":"简单句","text":"Therefore, the activity of traditional customs not only enriches people’s lives but also promotes the development of traditional culture.","chinesePrompt":"因此，传统习俗活动不仅丰富人们的生活，也促进传统文化的发展。","note":"","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，有关部门应加强对传统习俗活动的保护，并为龙舟赛提供支持。","同时，组织者还应做好安全管理并确保比赛顺利进行。","年轻人也应积极关注传统文化并参与相关活动。","只有政府、社会和个人共同努力，优秀传统文化才能传承下去。","这有益于个人、家庭和社会。"],"sentences":[{"id":"big-essay-dragon-boat-p3-s1","type":"简单句","text":"In my opinion, the relevant department should strengthen the protection of traditional custom activities and provide support for the dragon boat race.","chinesePrompt":"在我看来，有关部门应加强对传统习俗活动的保护，并为龙舟赛提供支持。","note":"","position":"建议与总结"},{"id":"big-essay-dragon-boat-p3-s2","type":"复合句","text":"At the same time, the organizer should also manage safety and ensure the race goes smoothly.","chinesePrompt":"同时，组织者还应做好安全管理并确保比赛顺利进行。","note":"这里`the race goes smoothly`是省略了`that`的从句：\n> ensure **that** the race goes smoothly","position":"建议与总结"},{"id":"big-essay-dragon-boat-p3-s3","type":"简单句","text":"Young people should also actively pay attention to traditional culture and participate in relevant activities.","chinesePrompt":"年轻人也应积极关注传统文化并参与相关活动。","note":"","position":"建议与总结"},{"id":"big-essay-dragon-boat-p3-s4","type":"复合句","text":"Excellent traditional culture can be passed down only when the government, society, and individuals work together.","chinesePrompt":"只有政府、社会和个人共同努力，优秀传统文化才能传承下去。","note":"","position":"建议与总结"},{"id":"big-essay-dragon-boat-p3-s5","type":"简单句","text":"It is beneficial to individuals, families, and society.","chinesePrompt":"这有益于个人、家庭和社会。","note":"","position":"建议与总结"}]}]},{"id":"big-essay-campus-lecture","type":"图画作文","theme":"校园教育、跨学科学习与视野拓展","version":"最终确认稿","sourceNote":"按照最终确认版本保留；最后一句保持用户最终确认版本。","title":"校园讲座","builtIn":true,"archived":false,"paragraphs":[{"number":1,"label":"第1段","outline":["如图生动展示的那样，两名学生正站在一张名为“校园讲座”的通知前。","一名学生认为讲座与自己的专业无关，所以没有必要听；另一名学生认为讲座对自己有益，因此需要听。","总体而言，这幅图告诉我们，学生面对专业之外的知识时持有不同态度。","此外，拓宽视野具有重要意义。"],"sentences":[{"id":"big-essay-campus-lecture-p1-s1","type":"复合句","text":"As is vividly displayed in the picture, the picture shows that two students are standing in front of a notice named “Campus Lecture.”","chinesePrompt":"如图生动展示的那样，两名学生正站在一张名为“校园讲座”的通知前。","note":"","position":"描述与总结"},{"id":"big-essay-campus-lecture-p1-s2","type":"复合句","text":"One student thinks, “The lecture is not related to my major, so I do not need to listen to it,” while another student thinks, “I need to listen to it because it is beneficial to me.”","chinesePrompt":"一名学生认为讲座与自己的专业无关，所以没有必要听；另一名学生认为讲座对自己有益，因此需要听。","note":"这句话中包含：\n* `while`连接两个学生的不同观点；\n* `because`引导原因从句。","position":"描述与总结"},{"id":"big-essay-campus-lecture-p1-s3","type":"复合句","text":"In general, the picture tells us that students have different attitudes when facing knowledge outside their majors.","chinesePrompt":"总体而言，这幅图告诉我们，学生面对专业之外的知识时持有不同态度。","note":"","position":"描述与总结"},{"id":"big-essay-campus-lecture-p1-s4","type":"复合句","text":"In addition, it is significant that we broaden our horizons.","chinesePrompt":"此外，拓宽视野具有重要意义。","note":"","position":"描述与总结"}]},{"number":2,"label":"第2段","outline":["综合考虑，参加不同领域的讲座具有重要意义。","一方面，学生不仅要学习本专业知识，也要了解其他领域的内容。","拓宽视野并丰富知识是有益的。","另一方面，不同学科之间存在联系。","当学生接触新知识时，产生新想法并提高解决问题的能力是有益的。","此外，校园讲座还为学生与教师及其他学生交流提供了机会。","因此，学生不应只关注一场讲座是否对自己的专业有益。","他们应以积极、开放的态度对待新知识。"],"sentences":[{"id":"big-essay-campus-lecture-p2-s1","type":"复合句","text":"All things considered, it is significant that we take part in lectures in different fields.","chinesePrompt":"综合考虑，参加不同领域的讲座具有重要意义。","note":"","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s2","type":"简单句","text":"On the one hand, students not only need to study knowledge in their majors but also need to know about content in other fields.","chinesePrompt":"一方面，学生不仅要学习本专业知识，也要了解其他领域的内容。","note":"`not only...but also...`连接两个谓语：\n> need to study\n> need to know\n所以仍是简单句。","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s3","type":"简单句","text":"It is beneficial to broaden our horizons and enrich our knowledge.","chinesePrompt":"拓宽视野并丰富知识是有益的。","note":"","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s4","type":"简单句","text":"On the other hand, different subjects have relationships with each other.","chinesePrompt":"另一方面，不同学科之间存在联系。","note":"","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s5","type":"复合句","text":"It is beneficial that students create new ideas and improve their ability to solve problems when they come into contact with new knowledge.","chinesePrompt":"当学生接触新知识时，产生新想法并提高解决问题的能力是有益的。","note":"这句话有两个从句：\n> that students create...\n> when they come into contact...","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s6","type":"简单句","text":"What’s more, campus lectures also provide students with chances for communication with teachers and other students.","chinesePrompt":"此外，校园讲座还为学生与教师及其他学生交流提供了机会。","note":"","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s7","type":"复合句","text":"Therefore, students should not just pay attention to whether a lecture is beneficial to their majors or not.","chinesePrompt":"因此，学生不应只关注一场讲座是否对自己的专业有益。","note":"`whether...or not`引导“是否……”从句。","position":"分析与论证"},{"id":"big-essay-campus-lecture-p2-s8","type":"简单句","text":"They should treat new knowledge positively and openly.","chinesePrompt":"他们应以积极、开放的态度对待新知识。","note":"","position":"分析与论证"}]},{"number":3,"label":"第3段","outline":["在我看来，学生应根据自己的时间安排积极参加有价值的校园讲座。","同时，学校可以邀请不同领域的专家并举办活动。","学生也应思考讲座的内容。","此外，我们应在学习中把实践与理论结合起来。","只有保持好奇心并积极学习，学生才能不断提升自己并为未来发展做好准备。"],"sentences":[{"id":"big-essay-campus-lecture-p3-s1","type":"简单句","text":"In my opinion, students should actively take part in valuable campus lectures with regard to their own schedules.","chinesePrompt":"在我看来，学生应根据自己的时间安排积极参加有价值的校园讲座。","note":"","position":"建议与总结"},{"id":"big-essay-campus-lecture-p3-s2","type":"简单句","text":"At the same time, schools can invite experts from different fields and hold activities.","chinesePrompt":"同时，学校可以邀请不同领域的专家并举办活动。","note":"","position":"建议与总结"},{"id":"big-essay-campus-lecture-p3-s3","type":"简单句","text":"Students also should think about the content of the lecture.","chinesePrompt":"学生也应思考讲座的内容。","note":"","position":"建议与总结"},{"id":"big-essay-campus-lecture-p3-s4","type":"简单句","text":"In addition, we should combine practice with theory in our studies.","chinesePrompt":"此外，我们应在学习中把实践与理论结合起来。","note":"","position":"建议与总结"},{"id":"big-essay-campus-lecture-p3-s5","type":"复合句","text":"Students can improve themselves continuously and prepare for future development only when they keep their curiosity and study actively.","chinesePrompt":"只有保持好奇心并积极学习，学生才能不断提升自己并为未来发展做好准备。","note":"这是你最终确认的最后一句，保留不变。","position":"建议与总结"}]}]}];
 
@@ -6965,10 +6967,14 @@
   }
 
 
-  /* ROBUST_LOCAL_SESSION_V21 */
-  function sessionTimestamp(value) {
-    const time = new Date(value?.updatedAt || 0).getTime();
+  /* ROBUST_LOCAL_SESSION_V39 */
+  function safeTimestamp(value) {
+    const time = new Date(value || 0).getTime();
     return Number.isFinite(time) ? time : 0;
+  }
+
+  function sessionTimestamp(value) {
+    return safeTimestamp(value?.updatedAt);
   }
 
   function newerSession(localValue, remoteValue, normalizer) {
@@ -6981,18 +6987,103 @@
       : remoteSession;
   }
 
+  function translationEntryTimestamp(entry) {
+    return Math.max(
+      safeTimestamp(entry?.updatedAt),
+      safeTimestamp(entry?.lastPracticedAt),
+      safeTimestamp(entry?.completedAt),
+      safeTimestamp(entry?.firstCompletedAt)
+    );
+  }
+
+  function translationEntryRichness(entry) {
+    if (!entry) return 0;
+    const checks = entry.checks || {};
+    const errors = entry.errors || {};
+    return String(entry.final || "").length
+      + (Array.isArray(entry.annotations) ? entry.annotations.length * 20 : 0)
+      + Math.max(0, Number(entry.stage) || 0) * 5
+      + Object.values(checks).reduce((sum, value) => sum + (Number(value) || 0), 0) * 3
+      + Object.values(errors).filter(Boolean).length * 2
+      + (entry.completed ? 60 : 0)
+      + Math.max(0, Number(entry.attempts) || 0) * 2;
+  }
+
+  function translationPracticeTimestamp(value) {
+    const practice = normalizeTranslationPractice(value);
+    let newest = safeTimestamp(practice.updatedAt);
+    Object.values(practice.entries || {}).forEach(entry => {
+      newest = Math.max(newest, translationEntryTimestamp(entry));
+    });
+    return newest;
+  }
+
+  function mergeTranslationPractice(localValue, remoteValue) {
+    const localPractice = normalizeTranslationPractice(localValue);
+    const remotePractice = normalizeTranslationPractice(remoteValue);
+    const entries = {};
+    const ids = new Set([
+      ...Object.keys(remotePractice.entries || {}),
+      ...Object.keys(localPractice.entries || {})
+    ]);
+
+    ids.forEach(id => {
+      const localEntry = localPractice.entries?.[id];
+      const remoteEntry = remotePractice.entries?.[id];
+      if (!localEntry) {
+        entries[id] = remoteEntry;
+        return;
+      }
+      if (!remoteEntry) {
+        entries[id] = localEntry;
+        return;
+      }
+      const localTime = translationEntryTimestamp(localEntry);
+      const remoteTime = translationEntryTimestamp(remoteEntry);
+      if (localTime > remoteTime) entries[id] = localEntry;
+      else if (remoteTime > localTime) entries[id] = remoteEntry;
+      else entries[id] = translationEntryRichness(localEntry) >= translationEntryRichness(remoteEntry)
+        ? localEntry
+        : remoteEntry;
+    });
+
+    const localTime = translationPracticeTimestamp(localPractice);
+    const remoteTime = translationPracticeTimestamp(remotePractice);
+    const preferred = localTime >= remoteTime ? localPractice : remotePractice;
+    const secondary = localTime >= remoteTime ? remotePractice : localPractice;
+    const daily = { ...(secondary.daily || {}), ...(preferred.daily || {}) };
+    const settings = { ...(secondary.settings || {}), ...(preferred.settings || {}) };
+    const newest = Math.max(localTime, remoteTime);
+
+    return normalizeTranslationPractice({
+      entries,
+      daily,
+      settings,
+      updatedAt: newest ? new Date(newest).toISOString() : ""
+    });
+  }
+
+  function hasTranslationBackup(value) {
+    const practice = normalizeTranslationPractice(value);
+    return Object.keys(practice.entries || {}).length > 0
+      || Object.keys(practice.daily || {}).length > 0;
+  }
+
   function loadLocalSessionBackup() {
     try {
       const raw = localStorage.getItem(SESSION_BACKUP_KEY);
-      if (!raw) return { reviewSession: null, quizSession: null };
+      if (!raw) return { reviewSession: null, quizSession: null, translationPractice: null };
       const parsed = JSON.parse(raw);
       return {
         reviewSession: normalizeReviewSession(parsed?.reviewSession),
-        quizSession: normalizeQuizSession(parsed?.quizSession)
+        quizSession: normalizeQuizSession(parsed?.quizSession),
+        translationPractice: parsed?.translationPractice
+          ? normalizeTranslationPractice(parsed.translationPractice)
+          : null
       };
     } catch (error) {
       console.warn("读取本地断点备份失败", error);
-      return { reviewSession: null, quizSession: null };
+      return { reviewSession: null, quizSession: null, translationPractice: null };
     }
   }
 
@@ -7000,14 +7091,17 @@
     try {
       const reviewSession = normalizeReviewSession(sourceState?.reviewSession);
       const quizSession = normalizeQuizSession(sourceState?.quizSession);
-      if (!reviewSession && !quizSession) {
+      const translationPractice = normalizeTranslationPractice(sourceState?.translationPractice);
+      const keepTranslation = hasTranslationBackup(translationPractice);
+      if (!reviewSession && !quizSession && !keepTranslation) {
         localStorage.removeItem(SESSION_BACKUP_KEY);
         return true;
       }
       localStorage.setItem(SESSION_BACKUP_KEY, JSON.stringify({
-        version: 21,
+        version: 39,
         reviewSession,
         quizSession,
+        translationPractice: keepTranslation ? translationPractice : null,
         savedAt: new Date().toISOString()
       }));
       return true;
@@ -7028,6 +7122,10 @@
       backup.quizSession,
       targetState.quizSession,
       normalizeQuizSession
+    );
+    targetState.translationPractice = mergeTranslationPractice(
+      backup.translationPractice,
+      targetState.translationPractice
     );
     return targetState;
   }
@@ -7110,7 +7208,7 @@
   }
 
   function saveState(options = {}) {
-    const { touch = true, sync = true } = options;
+    const { touch = true, sync = true, syncKey = "state" } = options;
     if (touch) state.updatedAt = new Date().toISOString();
 
     let localSaved = true;
@@ -7130,7 +7228,7 @@
     }
 
     // 只有真实用户改动才进入云端批次；初始化/恢复时的 touch:false 不触发上传。
-    if (sync && touch && !suppressCloudSave) queueCloudSave();
+    if (sync && touch && !suppressCloudSave) queueCloudSave(syncKey);
     return localSaved && sessionSaved;
   }
 
@@ -7507,12 +7605,38 @@
     );
   }
 
-  function pendingSyncText(prefix = "本题已保存") {
-    const count = Math.max(1, cloudPendingChanges || 0);
+  function refreshCloudPendingState() {
+    cloudPendingChanges = cloudDirtyKeys.size;
+    cloudPendingSave = cloudPendingChanges > 0;
+    if (!cloudPendingSave) cloudBatchStartedAt = 0;
+  }
+
+  function markCloudDirty(syncKey = "state") {
+    const key = String(syncKey || "state");
+    cloudDirtyKeys.add(key);
+    if (!cloudBatchStartedAt) cloudBatchStartedAt = Date.now();
+    refreshCloudPendingState();
+  }
+
+  function takeCloudDirtySnapshot() {
+    const keys = [...cloudDirtyKeys];
+    cloudDirtyKeys.clear();
+    refreshCloudPendingState();
+    return keys;
+  }
+
+  function restoreCloudDirtySnapshot(keys) {
+    (Array.isArray(keys) ? keys : []).forEach(key => cloudDirtyKeys.add(String(key || "state")));
+    if (cloudDirtyKeys.size && !cloudBatchStartedAt) cloudBatchStartedAt = Date.now();
+    refreshCloudPendingState();
+  }
+
+  function pendingSyncText(prefix = "本机已保存") {
+    const count = Math.max(1, cloudDirtyKeys.size || cloudPendingChanges || 0);
     return `${prefix} · 待同步${count}项`;
   }
 
-  function schedulePendingCloudSave(delay = CLOUD_BATCH_INTERVAL_MS, options = {}) {
+  function schedulePendingCloudSave(delay = CLOUD_IDLE_SYNC_MS, options = {}) {
     if (!supabaseClient || !cloudUser || navigator.onLine === false) return;
     const { replace = false } = options;
     if (replace && cloudSaveTimer) {
@@ -7526,32 +7650,31 @@
     }, Math.max(0, Number(delay) || 0));
   }
 
-  function queueCloudSave() {
+  function queueCloudSave(syncKey = "state") {
     if (!supabaseClient || !cloudUser) return;
-    cloudPendingSave = true;
-    cloudPendingChanges += 1;
-    if (!cloudBatchStartedAt) cloudBatchStartedAt = Date.now();
-
+    markCloudDirty(syncKey);
     setSyncStatus("busy", pendingSyncText());
 
     if (cloudSyncing || navigator.onLine === false) return;
 
-    if (cloudPendingChanges >= CLOUD_BATCH_MAX_CHANGES) {
+    const elapsed = Date.now() - cloudBatchStartedAt;
+    if (cloudDirtyKeys.size >= CLOUD_BATCH_MAX_CHANGES || elapsed >= CLOUD_BATCH_INTERVAL_MS) {
       schedulePendingCloudSave(0, { replace: true });
       return;
     }
 
-    const elapsed = Date.now() - cloudBatchStartedAt;
-    schedulePendingCloudSave(Math.max(0, CLOUD_BATCH_INTERVAL_MS - elapsed));
+    const remaining = Math.max(0, CLOUD_BATCH_INTERVAL_MS - elapsed);
+    schedulePendingCloudSave(Math.min(CLOUD_IDLE_SYNC_MS, remaining), { replace: true });
   }
 
   async function saveToCloud(options = {}) {
     const { force = false } = options;
     if (!supabaseClient || !cloudUser || navigator.onLine === false) return false;
+    refreshCloudPendingState();
     if (!force && !cloudPendingSave) return true;
 
     if (cloudSyncing) {
-      cloudPendingSave = true;
+      if (force && !cloudPendingSave) markCloudDirty("manual");
       setSyncStatus("busy", pendingSyncText("本机已保存"));
       return false;
     }
@@ -7561,18 +7684,17 @@
       cloudSaveTimer = null;
     }
 
-    const uploadingChanges = Math.max(1, cloudPendingChanges || 0);
-    cloudPendingChanges = 0;
-    cloudPendingSave = false;
-    cloudBatchStartedAt = 0;
+    if (force && !cloudDirtyKeys.size) markCloudDirty("manual");
+    const uploadingKeys = takeCloudDirtySnapshot();
     cloudSyncing = true;
-    setSyncStatus("busy", "本机已保存 · 正在集中同步");
+    setSyncStatus("busy", "本机已保存 · 正在后台同步最新状态");
 
     let ok = false;
     try {
       const { error } = await performCloudUpload();
       if (error) throw error;
       ok = true;
+      refreshCloudPendingState();
       setSyncStatus(
         cloudPendingSave ? "busy" : "ok",
         cloudPendingSave ? pendingSyncText("已同步一批") : "本地与云端已同步"
@@ -7580,9 +7702,7 @@
       setAuthMessage("");
     } catch (error) {
       console.error(error);
-      cloudPendingChanges += uploadingChanges;
-      cloudPendingSave = true;
-      if (!cloudBatchStartedAt) cloudBatchStartedAt = Date.now();
+      restoreCloudDirtySnapshot(uploadingKeys.length ? uploadingKeys : ["state"]);
       setSyncStatus("error", pendingSyncText("本机已保存 · 云端失败"));
       setAuthMessage(`云端上传失败，本机记录仍已保存：${error.message || error}`);
     } finally {
@@ -7591,7 +7711,7 @@
         cloudPullPending = false;
         setTimeout(() => syncFromCloud(), 0);
       } else if (cloudPendingSave && navigator.onLine !== false) {
-        schedulePendingCloudSave(ok ? CLOUD_BATCH_INTERVAL_MS : 90 * 1000);
+        schedulePendingCloudSave(ok ? CLOUD_IDLE_SYNC_MS : 30 * 1000, { replace: true });
       }
     }
     return ok;
@@ -7607,12 +7727,13 @@
       showToast("当前离线，本机记录不会丢失");
       return;
     }
+    // 手动同步前先强制抓取正在输入的翻译，避免最后几个字还停留在输入框里。
+    if (typeof flushTranslationSave === "function") flushTranslationSave(false);
     if (cloudSaveTimer) {
       clearTimeout(cloudSaveTimer);
       cloudSaveTimer = null;
     }
-    cloudPendingSave = true;
-    cloudPendingChanges = Math.max(1, cloudPendingChanges);
+    markCloudDirty("manual");
     await syncFromCloud();
   }
 
@@ -7626,7 +7747,7 @@
 
     cloudSyncing = true;
     cloudPullPending = false;
-    setSyncStatus("busy", "本地已保存 · 正在核对云端");
+    setSyncStatus("busy", "本机已保存 · 正在核对云端");
 
     try {
       const { data, error } = await withCloudTimeout(
@@ -7641,20 +7762,24 @@
       if (error) throw error;
 
       if (!data) {
-        const uploadResult = await performCloudUpload();
-        if (uploadResult.error) throw uploadResult.error;
-        cloudPendingSave = false;
-        cloudPendingChanges = 0;
-        cloudBatchStartedAt = 0;
-        setSyncStatus("ok", "本地与云端已同步");
+        const uploadingKeys = takeCloudDirtySnapshot();
+        try {
+          const uploadResult = await performCloudUpload();
+          if (uploadResult.error) throw uploadResult.error;
+        } catch (uploadError) {
+          restoreCloudDirtySnapshot(uploadingKeys.length ? uploadingKeys : ["state"]);
+          throw uploadError;
+        }
+        refreshCloudPendingState();
+        setSyncStatus(cloudPendingSave ? "busy" : "ok", cloudPendingSave ? pendingSyncText("云端已建立") : "本地与云端已同步");
         return;
       }
 
-      const cloudTime = new Date(data.updated_at || data.data?.updatedAt || 0).getTime();
-      const localTime = new Date(state.updatedAt || 0).getTime();
+      const cloudTime = safeTimestamp(data.updated_at || data.data?.updatedAt);
+      const localTime = safeTimestamp(state.updatedAt);
 
       if (cloudTime > localTime && data.data) {
-        // 关键：下载云端整份状态之前，先保住本机最新断点。
+        // 云端整份状态较新时，先保住本机独立断点；翻译按“每道题更新时间”合并，不能整块覆盖。
         const localBackup = loadLocalSessionBackup();
         const localReview = newerSession(
           state.reviewSession,
@@ -7666,12 +7791,23 @@
           localBackup.quizSession,
           normalizeQuizSession
         );
+        const localTranslation = mergeTranslationPractice(
+          localBackup.translationPractice,
+          state.translationPractice
+        );
 
         suppressCloudSave = true;
         const markGroups = loadMarkGroups(data.data.markGroups);
         const sessionLog = Array.isArray(data.data.sessionLog) ? data.data.sessionLog : [];
         const cloudReview = normalizeReviewSession(data.data.reviewSession);
         const cloudQuiz = normalizeQuizSession(data.data.quizSession);
+        const cloudTranslation = normalizeTranslationPractice(data.data.translationPractice);
+        const mergedReview = newerSession(localReview, cloudReview, normalizeReviewSession);
+        const mergedQuiz = newerSession(localQuiz, cloudQuiz, normalizeQuizSession);
+        const mergedTranslation = mergeTranslationPractice(localTranslation, cloudTranslation);
+        const reviewNeedsUpload = JSON.stringify(mergedReview) !== JSON.stringify(cloudReview);
+        const quizNeedsUpload = JSON.stringify(mergedQuiz) !== JSON.stringify(cloudQuiz);
+        const translationNeedsUpload = JSON.stringify(mergedTranslation) !== JSON.stringify(cloudTranslation);
 
         state = {
           cards: mergeCardsWithSeed(data.data.cards),
@@ -7686,27 +7822,31 @@
           coverage: normalizeCoverage(data.data.coverage, sessionLog),
           dailyModes: normalizeDailyModes(data.data.dailyModes),
           lastLearning: normalizeLastLearning(data.data.lastLearning),
-          reviewSession: newerSession(localReview, cloudReview, normalizeReviewSession),
-          quizSession: newerSession(localQuiz, cloudQuiz, normalizeQuizSession),
+          reviewSession: mergedReview,
+          quizSession: mergedQuiz,
           bigEssays: mergeBigEssaysWithSeed(data.data.bigEssays),
           bigEssayProgress: normalizeBigEssayProgress(data.data.bigEssayProgress),
           bigEssayPractice: normalizeBigEssayPractice(data.data.bigEssayPractice),
           smallEssays: mergeSmallEssaysMain(data.data.smallEssays),
           smallEssayProgress: data.data.smallEssayProgress && typeof data.data.smallEssayProgress === "object" ? data.data.smallEssayProgress : {},
           smallEssayPractice: data.data.smallEssayPractice && typeof data.data.smallEssayPractice === "object" ? data.data.smallEssayPractice : {},
-          translationPractice: normalizeTranslationPractice(data.data.translationPractice),
+          translationPractice: mergedTranslation,
           sessionLog,
           updatedAt: data.data.updatedAt || data.updated_at || new Date().toISOString()
         };
 
-        // 如果本机断点比云端断点新，整份状态也提升时间戳，稍后把断点补传上去。
-        const newestSessionTime = Math.max(
-          sessionTimestamp(state.reviewSession),
-          sessionTimestamp(state.quizSession)
-        );
-        if (newestSessionTime > cloudTime) {
-          state.updatedAt = new Date(newestSessionTime).toISOString();
-          cloudPendingSave = true;
+        if (reviewNeedsUpload) markCloudDirty("review-session");
+        if (quizNeedsUpload) markCloudDirty("quiz-session");
+        if (translationNeedsUpload) markCloudDirty("translation-merge");
+        if (reviewNeedsUpload || quizNeedsUpload || translationNeedsUpload) {
+          const newestProtectedTime = Math.max(
+            cloudTime + 1,
+            Date.now(),
+            sessionTimestamp(state.reviewSession),
+            sessionTimestamp(state.quizSession),
+            translationPracticeTimestamp(state.translationPractice)
+          );
+          state.updatedAt = new Date(newestProtectedTime).toISOString();
         }
 
         saveState({ touch: false, sync: false });
@@ -7728,6 +7868,7 @@
         }
         if (currentView === "bigEssay") renderBigEssay();
         if (currentView === "smallEssay" && typeof renderSmallEssay === "function") renderSmallEssay();
+        if (currentView === "translation" && typeof renderTranslationModule === "function") renderTranslationModule();
         if (currentView === "studyPlan") renderStudyPlanView();
         if (currentView === "search") renderGlobalSearch();
         if (currentView === "myMarks") renderMyMarks();
@@ -7736,45 +7877,65 @@
         if (currentView === "mistakes") renderMistakes();
         if (currentView === "stats") renderStats();
 
-        setSyncStatus("ok", cloudPendingSave ? "本地断点已保留 · 等待上传" : "已下载云端进度");
+        refreshCloudPendingState();
+        setSyncStatus(
+          cloudPendingSave ? "busy" : "ok",
+          cloudPendingSave ? pendingSyncText("已合并云端，本机较新的断点已保留") : "已下载并合并云端进度"
+        );
       } else if (localTime > cloudTime) {
-        const uploadResult = await performCloudUpload();
-        if (uploadResult.error) throw uploadResult.error;
-        cloudPendingSave = false;
-        cloudPendingChanges = 0;
-        cloudBatchStartedAt = 0;
-        setSyncStatus("ok", "本地与云端已同步");
+        // 本机较新：上传的是调用时的最新快照；上传过程中产生的新修改继续留在下一批，不会被清零。
+        const uploadingKeys = takeCloudDirtySnapshot();
+        try {
+          const uploadResult = await performCloudUpload();
+          if (uploadResult.error) throw uploadResult.error;
+        } catch (uploadError) {
+          restoreCloudDirtySnapshot(uploadingKeys.length ? uploadingKeys : ["state"]);
+          throw uploadError;
+        }
+        refreshCloudPendingState();
+        setSyncStatus(cloudPendingSave ? "busy" : "ok", cloudPendingSave ? pendingSyncText("已同步当前快照") : "本地与云端已同步");
       } else {
-        // 时间相同时也保留独立断点备份，绝不因为云端没有断点就清空本机。
+        // 时间相同时仍合并独立断点，翻译也按每题时间戳保留较新版本。
         const backup = loadLocalSessionBackup();
-        state.reviewSession = newerSession(
-          backup.reviewSession,
-          state.reviewSession,
-          normalizeReviewSession
-        );
-        state.quizSession = newerSession(
-          backup.quizSession,
-          state.quizSession,
-          normalizeQuizSession
-        );
+        const beforeReview = normalizeReviewSession(state.reviewSession);
+        const beforeQuiz = normalizeQuizSession(state.quizSession);
+        const beforeTranslation = normalizeTranslationPractice(state.translationPractice);
+        const mergedReview = newerSession(backup.reviewSession, beforeReview, normalizeReviewSession);
+        const mergedQuiz = newerSession(backup.quizSession, beforeQuiz, normalizeQuizSession);
+        const mergedTranslation = mergeTranslationPractice(backup.translationPractice, beforeTranslation);
+        const reviewNeedsUpload = JSON.stringify(mergedReview) !== JSON.stringify(beforeReview);
+        const quizNeedsUpload = JSON.stringify(mergedQuiz) !== JSON.stringify(beforeQuiz);
+        const translationNeedsUpload = JSON.stringify(mergedTranslation) !== JSON.stringify(beforeTranslation);
+        state.reviewSession = mergedReview;
+        state.quizSession = mergedQuiz;
+        state.translationPractice = mergedTranslation;
+        if (reviewNeedsUpload) markCloudDirty("review-session");
+        if (quizNeedsUpload) markCloudDirty("quiz-session");
+        if (translationNeedsUpload) markCloudDirty("translation-backup");
+        if (reviewNeedsUpload || quizNeedsUpload || translationNeedsUpload) {
+          state.updatedAt = new Date(Math.max(Date.now(), cloudTime + 1)).toISOString();
+        }
         saveState({ touch: false, sync: false });
-        setSyncStatus("ok", "本地与云端已同步");
+        refreshCloudPendingState();
+        setSyncStatus(cloudPendingSave ? "busy" : "ok", cloudPendingSave ? pendingSyncText("本机独立断点已恢复") : "本地与云端已同步");
       }
     } catch (error) {
       console.error(error);
-      setSyncStatus("error", "本地已保存 · 云端失败");
+      setSyncStatus("error", "本机已保存 · 云端失败");
       setAuthMessage(`云端同步失败，本地记录仍然安全：${error.message || error}`);
     } finally {
       suppressCloudSave = false;
       cloudSyncing = false;
       renderAccount();
+      refreshCloudPendingState();
 
       if (cloudPullPending) {
         cloudPullPending = false;
         setTimeout(() => syncFromCloud(), 250);
       } else if (cloudPendingSave && navigator.onLine !== false) {
         const elapsed = cloudBatchStartedAt ? Date.now() - cloudBatchStartedAt : 0;
-        schedulePendingCloudSave(Math.max(0, CLOUD_BATCH_INTERVAL_MS - elapsed));
+        const remaining = Math.max(0, CLOUD_BATCH_INTERVAL_MS - elapsed);
+        schedulePendingCloudSave(Math.min(CLOUD_IDLE_SYNC_MS, remaining), { replace: true });
       }
     }
   }
@@ -12766,11 +12927,9 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
 
   window.addEventListener("online", () => {
     if (!cloudUser) return;
-    setSyncStatus("busy", "网络已恢复 · 准备集中同步");
-    cloudPendingSave = true;
-    cloudPendingChanges = Math.max(1, cloudPendingChanges);
-    if (!cloudBatchStartedAt) cloudBatchStartedAt = Date.now();
-    schedulePendingCloudSave(1500, { replace: true });
+    setSyncStatus("busy", "网络已恢复 · 准备同步最新状态");
+    markCloudDirty("reconnect");
+    schedulePendingCloudSave(800, { replace: true });
   });
 
   // 切到后台时尝试提交当前批次；不阻塞答题，也不影响本机保存。
@@ -12780,7 +12939,9 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     schedulePendingCloudSave(0, { replace: true });
   });
 
-  window.addEventListener("pagehide", () => {
+  function captureActiveProgressBeforeExit() {
+    // 翻译输入框可能还处在短暂防抖期；退出前必须先抓进 state。
+    if (typeof flushTranslationSave === "function") flushTranslationSave(false);
     if (reviewQueue.length && reviewIndex < reviewQueue.length && reviewSessionKind) {
       if (state.reviewSession) {
         state.reviewSession.index = reviewIndex;
@@ -12794,10 +12955,12 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       state.quizSession.wrongIds = [...quizWrongIds];
       state.quizSession.updatedAt = new Date().toISOString();
     }
-    // pagehide阶段不等待网络：先把断点同步写进本机。
     persistLocalSessionBackup(state);
     saveState({ touch:false, sync:false });
-  });
+  }
+
+  window.addEventListener("pagehide", captureActiveProgressBeforeExit);
+  window.addEventListener("beforeunload", captureActiveProgressBeforeExit);
 
   async function init() {
     const now = new Date();
@@ -13725,10 +13888,10 @@ function bindSmallModule(){
   const trUndoStacks={};let trLastSelection=null;
   function trPushUndo(id,e){(trUndoStacks[id]||(trUndoStacks[id]=[])).push(JSON.stringify({annotations:e.annotations,stage:e.stage,feedback:e.feedback,hintStage:e.hintStage}));if(trUndoStacks[id].length>30)trUndoStacks[id].shift()}
   function trRestoreUndo(item,e){const stack=trUndoStacks[item.id]||[];if(!stack.length){showToast("没有可撤销的标记");return}const x=JSON.parse(stack.pop());e.annotations=x.annotations||[];e.stage=x.stage||1;e.feedback=x.feedback||{};e.hintStage=x.hintStage||0;trTouch(e,true);renderTranslationModule()}
-  function trTouch(e,queue=false){const now=new Date().toISOString();e.updatedAt=now;e.lastPracticedAt=now;translationState().updatedAt=now;saveState({sync:queue});translationLocalDirty=!queue}
+  function trTouch(e,queue=false){const now=new Date().toISOString();e.updatedAt=now;e.lastPracticedAt=now;translationState().updatedAt=now;const id=translationState().settings.currentId||"translation";saveState({sync:queue,syncKey:`translation:${id}`});translationLocalDirty=!queue}
   function trSelectionOffsets(){return trLastSelection}
   function trCaptureSelection(){const el=$("translationInteractiveSource"),sel=window.getSelection();if(!el||!sel||sel.rangeCount===0||sel.isCollapsed)return;const r=sel.getRangeAt(0);if(!el.contains(r.commonAncestorContainer))return;const pre=document.createRange();pre.selectNodeContents(el);pre.setEnd(r.startContainer,r.startOffset);const start=pre.toString().length;const text=r.toString();if(text.trim())trLastSelection={start,end:start+text.length,text}}
-  function trApplyMark(item,e,type){const x=trSelectionOffsets();if(!x||x.end<=x.start){showToast("先在英文原句里拖选一段文字");return}trPushUndo(item.id,e);e.annotations.push({type,start:x.start,end:x.end});trLastSelection=null;window.getSelection()?.removeAllRanges();trTouch(e,false);renderTranslationModule()}
+  function trApplyMark(item,e,type){const x=trSelectionOffsets();if(!x||x.end<=x.start){showToast("先在英文原句里拖选一段文字");return}trPushUndo(item.id,e);e.annotations.push({type,start:x.start,end:x.end});trLastSelection=null;window.getSelection()?.removeAllRanges();trTouch(e,true);renderTranslationModule()}
   function trHasType(e,t){return(e.annotations||[]).some(a=>a.type===t)}
   function trSelectionText(item,a){return item.source.slice(a.start,a.end).replace(/\s+/g," ").trim()}
   function trCheckStage(item,e){const st=e.stage,ref=trReferenceMeta(item);trPushUndo(item.id,e);let ok=true,msg="";if(st===1){const marks=e.annotations.filter(a=>a.type==="predicate");ok=marks.length>0;e.checks.predicate=(e.checks.predicate||0)+1;msg=ok?`你标了 ${marks.length} 处谓语。参考识别：${ref.predicates.join("；")||"请结合句子时态判断"}。`:`还没有标谓语。先拖选谓语，再点“谓语”。`}
@@ -13736,18 +13899,18 @@ function bindSmallModule(){
     else if(st===3){const marks=e.annotations.filter(a=>a.type==="clause");e.checks.clause=(e.checks.clause||0)+1;ok=marks.length>0||ref.clauses.length===0;msg=ok?`已保存你的从句边界。下一步先把修饰弱化，再找主干。`:`先至少括出一个你认为的从句，再检查。`}
     else if(st===4){e.checks.core=(e.checks.core||0)+1;ok=trHasType(e,"subject")&&trHasType(e,"predicate");msg=ok?`主语和谓语都已标出。现在进入“核对拆分”，再看参考。`:`这一步至少要标出一个“主语”和一个“谓语”；弱化/划掉是辅助工具。`}
     if(st<=4){e.feedback[st]={ok,msg};if(ok)e.stage=Math.min(5,st+1)}trTouch(e,true);renderTranslationModule()}
-  function trHint(item,e){e.hintStage=e.stage;const ref=trReferenceMeta(item);let text="";if(e.stage===1)text=`提示：这句参考可找到 ${Math.max(1,ref.predicates.length)} 组有时态谓语。先看时态，不要把所有 -ing / to do 都当谓语。`;else if(e.stage===2)text=ref.guides.length?`提示：重点扫这些引导词：${[...new Set(ref.guides)].join(" / ")}。`:`提示：这句不一定靠明显的 that/which 来切，注意并列和非谓语。`;else if(e.stage===3)text=`提示：先从引导词开始向后找完整的小句，别只括一个短语。`;else if(e.stage===4)text=`提示：把明显的从句、介词短语、非谓语先弱化，看看剩下什么“谁 + 做什么”。`;e.feedback.hint={msg:text};trTouch(e,false);renderTranslationModule()}
+  function trHint(item,e){e.hintStage=e.stage;const ref=trReferenceMeta(item);let text="";if(e.stage===1)text=`提示：这句参考可找到 ${Math.max(1,ref.predicates.length)} 组有时态谓语。先看时态，不要把所有 -ing / to do 都当谓语。`;else if(e.stage===2)text=ref.guides.length?`提示：重点扫这些引导词：${[...new Set(ref.guides)].join(" / ")}。`:`提示：这句不一定靠明显的 that/which 来切，注意并列和非谓语。`;else if(e.stage===3)text=`提示：先从引导词开始向后找完整的小句，别只括一个短语。`;else if(e.stage===4)text=`提示：把明显的从句、介词短语、非谓语先弱化，看看剩下什么“谁 + 做什么”。`;e.feedback.hint={msg:text};trTouch(e,true);renderTranslationModule()}
   function trReferenceBlock(item,e){if(e.stage<5)return"";const ref=trReferenceMeta(item);return `<div class="v38-feedback good"><strong>参考拆分现在才出现：</strong>只用来核对，不会覆盖你的标记。</div><div class="v38-reference-split">${trSegments(item).map(p=>`<div class="v38-reference-part">${escapeHtml(p)}</div>`).join("")}</div><div class="v38-core"><strong>参考主干：</strong> ${escapeHtml(ref.core)}</div><div class="v38-feedback"><strong>参考谓语：</strong>${escapeHtml(ref.predicates.join("；")||"结合时态判断")}<br><strong>常见引导词：</strong>${escapeHtml([...new Set(ref.guides)].join(" / ")||"无明显单独引导词")}</div>`}
   function trReviewHtml(item,e){if(!e.referenceRevealed)return"";return `<div class="v38-review"><h3 style="margin:0 0 10px">复盘</h3><div class="v38-review-grid"><div class="v38-review-card"><h4>标准拆分</h4>${trSegments(item).map((p,i)=>`<p>${i+1}. ${escapeHtml(p)}</p>`).join("")}</div><div class="v38-review-card"><h4>结构提醒</h4><p>${escapeHtml(item.structureHint||"先确认主干、从句边界与逻辑关系，再调整中文语序。")}</p></div></div><div class="v38-reference"><strong>训练参考译文：</strong>${escapeHtml(item.reference)}</div><div class="v38-errors"><label class="v38-error"><input type="checkbox" data-tr-error="structure" ${e.errors.structure?'checked':''}>结构</label><label class="v38-error"><input type="checkbox" data-tr-error="logic" ${e.errors.logic?'checked':''}>逻辑</label><label class="v38-error"><input type="checkbox" data-tr-error="vocab" ${e.errors.vocab?'checked':''}>词义</label><label class="v38-error"><input type="checkbox" data-tr-error="chinese" ${e.errors.chinese?'checked':''}>中文表达</label></div></div>`}
 
   function translationPracticeHtml(){const tr=translationState(),items=translationFilteredItems(),item=translationCurrentItem(),e=translationEntry(item.id),years=[...new Set(TRANSLATION_ITEMS.map(x=>x.year))].sort((a,b)=>a-b),status=translationItemStatus(item),info=trStageInfo(e.stage,item);return `<div class="v38-practice-layout"><aside class="v38-side"><div class="translation-filter-grid"><select id="translationYearFilter"><option value="all">全部年份</option>${years.map(y=>`<option value="${y}" ${tr.settings.filterYear===String(y)?'selected':''}>${y}年</option>`).join("")}</select><select id="translationStatusFilter"><option value="all">全部状态</option><option value="unfinished" ${tr.settings.filterStatus==='unfinished'?'selected':''}>未完成</option><option value="inprogress" ${tr.settings.filterStatus==='inprogress'?'selected':''}>进行中</option><option value="completed" ${tr.settings.filterStatus==='completed'?'selected':''}>已完成</option></select></div><div class="translation-mode-row"><button class="translation-mode-btn ${tr.settings.listMode==='today'?'active':''}" data-tr-mode="today">今日${tr.settings.dailyCount}句</button><button class="translation-mode-btn ${tr.settings.listMode==='all'?'active':''}" data-tr-mode="all">全部70句</button></div><div class="translation-question-list">${translationListHtml(items,item.id)}</div></aside><main class="v38-main"><div class="translation-question-head"><div><h3>${item.year}年 · 第${item.number}题</h3><div class="translation-topic">${escapeHtml(item.topic)}</div></div><span class="translation-status-pill ${status==='completed'?'done':''}">${status==='completed'?'已完成':status==='inprogress'?'进行中':'未开始'}</span></div><div class="v38-stagebar">${[1,2,3,4,5,6].map((n)=>`<span class="v38-stage ${e.stage===n?'active':e.stage>n?'done':''}">${n} ${['','谓语','引导词','括从句','找主干','核对','翻译'][n]}</span>`).join("")}</div><button class="translation-context-toggle" data-tr-action="toggle-context">${tr.settings.showContext?'隐藏上下文':'显示上下文'}</button>${tr.settings.showContext?`<div class="translation-context"><strong>前文：</strong>${escapeHtml(item.contextBefore||'—')}<br><strong>后文：</strong>${escapeHtml(item.contextAfter||'—')}</div>`:''}<div class="v38-source-wrap"><div class="v38-source-title"><strong>在原句上直接操作</strong><span class="v38-selection-tip">先拖选英文，再点工具按钮</span></div><div id="translationInteractiveSource" class="v38-source">${trAnnotatedSourceHtml(item,e)}</div><div class="v38-toolbar"><button class="v38-tool subject" data-tr-mark="subject">主语</button><button class="v38-tool predicate" data-tr-mark="predicate">谓语</button><button class="v38-tool guide" data-tr-mark="guide">引导词</button><button class="v38-tool clause" data-tr-mark="clause">[ ] 从句</button><button class="v38-tool" data-tr-mark="weak">弱化</button><button class="v38-tool" data-tr-mark="strike">划掉</button><button class="v38-tool" data-tr-action="undo-mark">撤销</button><button class="v38-tool danger" data-tr-action="clear-marks">清空</button></div></div><div class="v38-current-task"><strong>${info[0]}</strong><span>${info[1]}</span></div>${e.stage<=4?`<div class="v38-step-actions"><button class="primary-btn" data-tr-action="check-stage">检查这一步</button><button class="secondary-btn" data-tr-action="hint-stage">提示一步</button></div>`:''}${e.feedback[e.stage-1]?`<div class="v38-feedback ${e.feedback[e.stage-1].ok?'good':'warn'}">${escapeHtml(e.feedback[e.stage-1].msg)}</div>`:''}${e.feedback.hint&&e.hintStage===e.stage?`<div class="v38-feedback warn">${escapeHtml(e.feedback.hint.msg)}</div>`:''}${trReferenceBlock(item,e)}${e.stage>=5&&e.stage<6?`<div class="v38-step-actions"><button class="primary-btn" data-tr-action="start-translate">拆清楚了，开始翻译</button><button class="secondary-btn" data-tr-action="back-core">返回继续标记</button></div>`:''}${e.stage>=6?`<div class="v38-final"><label for="translationFinalInput">我的完整译文</label><textarea id="translationFinalInput" placeholder="现在再写整句中文。先保证意思完整、逻辑准确，再调整中文表达。">${escapeHtml(e.final)}</textarea><div id="translationSaveStatus" class="v38-save-status">输入内容会自动保存到本机</div><div class="v38-step-actions"><button class="primary-btn" data-tr-action="reveal">${e.referenceRevealed?'收起参考译文':'完成后看参考译文'}</button><button class="secondary-btn" data-tr-action="save">立即保存</button></div></div>`:`<div class="v38-locked">完成前面的拆句步骤后，才进入整句翻译。</div>`}${trReviewHtml(item,e)}<div class="v38-footer-actions"><div><button class="secondary-btn" data-tr-action="previous">上一题</button> <button class="secondary-btn" data-tr-action="next">下一题</button></div><div>${e.completed?'<button class="secondary-btn" data-tr-action="redo">重新练习</button>':'<button class="primary-btn" data-tr-action="complete">完成本题</button>'}</div></div></main></div>`}
   function translationProgressHtml(){const years=[...new Set(TRANSLATION_ITEMS.map(x=>x.year))].sort((a,b)=>a-b),stats=translationStats(),errorCounts={structure:0,logic:0,vocab:0,chinese:0};Object.values(translationState().entries).forEach(e=>Object.keys(errorCounts).forEach(k=>{if(e.errors?.[k])errorCounts[k]++}));return `<div class="translation-overview-grid"><div class="translation-plan-card"><h4>按年份完成情况</h4><div class="translation-progress-years">${years.map(y=>{const all=TRANSLATION_ITEMS.filter(x=>x.year===y),done=all.filter(x=>translationEntry(x.id).completed).length;return`<div class="translation-year-row"><div class="translation-year-head"><span>${y}年</span><span>${done}/${all.length}</span></div><div class="translation-progress-track"><div class="translation-progress-fill" style="width:${Math.round(done/all.length*100)}%"></div></div></div>`}).join("")}</div></div><div class="translation-plan-card"><h4>只保留真正有用的统计</h4><div class="v38-progress-stat"><div><strong>${errorCounts.structure}</strong><span>结构错误</span></div><div><strong>${errorCounts.logic}</strong><span>逻辑错误</span></div><div><strong>${errorCounts.vocab}</strong><span>词义错误</span></div><div><strong>${errorCounts.chinese}</strong><span>中文表达</span></div></div><p style="margin-top:15px;line-height:1.8"><strong>总进度：</strong>${stats.done}/70；进行中 ${stats.drafts} 句；今日 ${stats.todayDone}/${stats.todayTotal}。<br><strong>拆句检查次数：</strong>${stats.syntaxChecks} 次。</p></div></div>`}
   function renderTranslationModule(){if(!$("translationContent"))return;const tr=translationState();updateTranslationMetrics();$("translationContent").innerHTML=tr.settings.activeTab==="practice"?translationPracticeHtml():tr.settings.activeTab==="progress"?translationProgressHtml():translationOverviewHtml()}
-  function translationCaptureFields(queueCloud=false){if(currentView!=="translation"||translationState().settings.activeTab!=="practice")return;const item=translationCurrentItem(),e=translationEntry(item.id),finalInput=$("translationFinalInput");if(finalInput)e.final=finalInput.value;document.querySelectorAll("[data-tr-error]").forEach(input=>e.errors[input.dataset.trError]=input.checked);const now=new Date().toISOString();e.updatedAt=now;e.lastPracticedAt=now;translationState().updatedAt=now;saveState({sync:queueCloud});translationLocalDirty=!queueCloud;const status=$("translationSaveStatus");if(status)status.textContent=queueCloud?"已保存到本机，并加入云端集中同步批次":"已自动保存到本机 · 云端集中同步";updateTranslationMetrics()}
-  function scheduleTranslationLocalSave(){clearTimeout(translationSaveTimer);const s=$("translationSaveStatus");if(s)s.textContent="正在保存到本机……";translationSaveTimer=setTimeout(()=>translationCaptureFields(false),350)}
-  function flushTranslationSave(queueCloud=true){clearTimeout(translationSaveTimer);translationCaptureFields(queueCloud);translationLocalDirty=false}
+  function translationCaptureFields(queueCloud=false){if(currentView!=="translation"||translationState().settings.activeTab!=="practice")return false;const item=translationCurrentItem(),e=translationEntry(item.id),finalInput=$("translationFinalInput");if(finalInput)e.final=finalInput.value;document.querySelectorAll("[data-tr-error]").forEach(input=>e.errors[input.dataset.trError]=input.checked);const now=new Date().toISOString();e.updatedAt=now;e.lastPracticedAt=now;translationState().updatedAt=now;saveState({sync:queueCloud,syncKey:`translation:${item.id}`});translationLocalDirty=!queueCloud;const status=$("translationSaveStatus");if(status)status.textContent=queueCloud?"✓ 本机已保存 · 云端后台待同步":"✓ 已保存到本机";updateTranslationMetrics();return true}
+  function scheduleTranslationLocalSave(){clearTimeout(translationSaveTimer);translationLocalDirty=true;const s=$("translationSaveStatus");if(s)s.textContent="正在保存到本机……";translationSaveTimer=setTimeout(()=>translationCaptureFields(true),180)}
+  function flushTranslationSave(queueCloud=true){clearTimeout(translationSaveTimer);const captured=translationCaptureFields(queueCloud);if(captured)translationLocalDirty=!queueCloud;return captured}
   function translationMove(delta){flushTranslationSave(true);const items=translationFilteredItems(),current=translationCurrentItem(),idx=items.findIndex(x=>x.id===current.id),next=items[idx+delta];if(!next)return;translationState().settings.currentId=next.id;trLastSelection=null;saveState({touch:false,sync:false});renderTranslationModule()}
-  function initTranslationModule(){state.translationPractice=normalizeTranslationPractice(state.translationPractice);const view=$("translationView");if(!view)return;view.addEventListener("mouseup",event=>{if(event.target.closest("#translationInteractiveSource"))setTimeout(trCaptureSelection,0)});view.addEventListener("keyup",event=>{if(event.target.closest?.("#translationInteractiveSource"))setTimeout(trCaptureSelection,0)});view.addEventListener("input",event=>{if(event.target.id==="translationFinalInput")scheduleTranslationLocalSave();if(event.target.id==="translationDailyCount"){translationState().settings.dailyCount=Math.max(1,Math.min(10,Math.floor(Number(event.target.value)||2)));translationState().daily[translationDateKey()]=[];saveState();updateTranslationMetrics()}});view.addEventListener("change",event=>{if(event.target.matches("[data-tr-error]")){scheduleTranslationLocalSave();return}const map={translationYearFilter:"filterYear",translationStatusFilter:"filterStatus"};if(map[event.target.id]){flushTranslationSave(true);translationState().settings[map[event.target.id]]=event.target.value;saveState({touch:false,sync:false});renderTranslationModule()}});view.addEventListener("focusout",event=>{if(event.target.id==="translationFinalInput")flushTranslationSave(true)});view.addEventListener("click",event=>{const mark=event.target.closest("[data-tr-mark]");if(mark){const item=translationCurrentItem(),e=translationEntry(item.id);trApplyMark(item,e,mark.dataset.trMark);return}const tab=event.target.closest("[data-translation-tab]");if(tab){flushTranslationSave(true);translationState().settings.activeTab=tab.dataset.translationTab;saveState({touch:false,sync:false});renderTranslationModule();return}const mode=event.target.closest("[data-tr-mode]");if(mode){flushTranslationSave(true);translationState().settings.listMode=mode.dataset.trMode;saveState({touch:false,sync:false});renderTranslationModule();return}const open=event.target.closest("[data-tr-open]");if(open){flushTranslationSave(true);translationState().settings.currentId=open.dataset.trOpen;trLastSelection=null;saveState({touch:false,sync:false});renderTranslationModule();return}const btn=event.target.closest("[data-tr-action]");if(!btn)return;const action=btn.dataset.trAction;if(action==="start-today"){translationState().settings.activeTab="practice";translationState().settings.listMode="today";translationState().settings.currentId=translationTodayIds()[0]||TRANSLATION_ITEMS[0].id;saveState();renderTranslationModule();return}if(action==="open-all"){translationState().settings.activeTab="practice";translationState().settings.listMode="all";saveState();renderTranslationModule();return}if(action==="toggle-context"){translationState().settings.showContext=!translationState().settings.showContext;saveState({touch:false,sync:false});renderTranslationModule();return}if(action==="save"){flushTranslationSave(true);showToast("已保存到本机，云端集中同步");return}if(action==="previous"){translationMove(-1);return}if(action==="next"){translationMove(1);return}const item=translationCurrentItem(),e=translationEntry(item.id);if(action==="undo-mark"){trRestoreUndo(item,e);return}if(action==="clear-marks"){trPushUndo(item.id,e);e.annotations=[];e.stage=1;e.feedback={};e.hintStage=0;e.referenceRevealed=false;trTouch(e,true);renderTranslationModule();showToast("已清空本题拆句标记");return}if(action==="check-stage"){trCheckStage(item,e);return}if(action==="hint-stage"){trHint(item,e);return}if(action==="start-translate"){e.stage=6;trTouch(e,true);renderTranslationModule();return}if(action==="back-core"){e.stage=4;trTouch(e,false);renderTranslationModule();return}if(action==="reveal"){flushTranslationSave(true);if(!e.referenceRevealed&&!String(e.final||"").trim()){showToast("先写自己的完整译文，再看参考译文");return}e.referenceRevealed=!e.referenceRevealed;trTouch(e,true);renderTranslationModule();return}if(action==="complete"){flushTranslationSave(true);if(e.stage<6||!String(e.final||"").trim()){showToast("请先完成拆句步骤并写下完整译文");return}const now=new Date().toISOString();e.completed=true;e.attempts+=1;e.firstCompletedAt=e.firstCompletedAt||now;e.completedAt=now;e.updatedAt=now;saveState();renderTranslationModule();showToast("已完成本题，学习计划实际进度已更新");return}if(action==="redo"){e.completed=false;e.completedAt="";e.referenceRevealed=false;e.stage=1;e.annotations=[];e.feedback={};e.hintStage=0;trTouch(e,true);renderTranslationModule();showToast("已重新开始：从拆句第1步做起");return}});document.addEventListener("visibilitychange",()=>{if(document.hidden&&translationLocalDirty)flushTranslationSave(true)})}
+  function initTranslationModule(){state.translationPractice=normalizeTranslationPractice(state.translationPractice);const view=$("translationView");if(!view)return;view.addEventListener("mouseup",event=>{if(event.target.closest("#translationInteractiveSource"))setTimeout(trCaptureSelection,0)});view.addEventListener("keyup",event=>{if(event.target.closest?.("#translationInteractiveSource"))setTimeout(trCaptureSelection,0)});view.addEventListener("input",event=>{if(event.target.id==="translationFinalInput")scheduleTranslationLocalSave();if(event.target.id==="translationDailyCount"){translationState().settings.dailyCount=Math.max(1,Math.min(10,Math.floor(Number(event.target.value)||2)));translationState().daily[translationDateKey()]=[];translationState().updatedAt=new Date().toISOString();saveState({syncKey:"translation:settings"});updateTranslationMetrics()}});view.addEventListener("change",event=>{if(event.target.matches("[data-tr-error]")){scheduleTranslationLocalSave();return}const map={translationYearFilter:"filterYear",translationStatusFilter:"filterStatus"};if(map[event.target.id]){flushTranslationSave(true);translationState().settings[map[event.target.id]]=event.target.value;saveState({touch:false,sync:false});renderTranslationModule()}});view.addEventListener("focusout",event=>{if(event.target.id==="translationFinalInput")flushTranslationSave(true)});view.addEventListener("click",event=>{const mark=event.target.closest("[data-tr-mark]");if(mark){const item=translationCurrentItem(),e=translationEntry(item.id);trApplyMark(item,e,mark.dataset.trMark);return}const tab=event.target.closest("[data-translation-tab]");if(tab){flushTranslationSave(true);translationState().settings.activeTab=tab.dataset.translationTab;saveState({touch:false,sync:false});renderTranslationModule();return}const mode=event.target.closest("[data-tr-mode]");if(mode){flushTranslationSave(true);translationState().settings.listMode=mode.dataset.trMode;saveState({touch:false,sync:false});renderTranslationModule();return}const open=event.target.closest("[data-tr-open]");if(open){flushTranslationSave(true);translationState().settings.currentId=open.dataset.trOpen;trLastSelection=null;saveState({touch:false,sync:false});renderTranslationModule();return}const btn=event.target.closest("[data-tr-action]");if(!btn)return;const action=btn.dataset.trAction;if(action==="start-today"){translationState().settings.activeTab="practice";translationState().settings.listMode="today";translationState().settings.currentId=translationTodayIds()[0]||TRANSLATION_ITEMS[0].id;saveState();renderTranslationModule();return}if(action==="open-all"){translationState().settings.activeTab="practice";translationState().settings.listMode="all";saveState();renderTranslationModule();return}if(action==="toggle-context"){translationState().settings.showContext=!translationState().settings.showContext;saveState({touch:false,sync:false});renderTranslationModule();return}if(action==="save"){flushTranslationSave(true);showToast("已保存到本机，云端会在后台同步最新状态");return}if(action==="previous"){translationMove(-1);return}if(action==="next"){translationMove(1);return}const item=translationCurrentItem(),e=translationEntry(item.id);if(action==="undo-mark"){trRestoreUndo(item,e);return}if(action==="clear-marks"){trPushUndo(item.id,e);e.annotations=[];e.stage=1;e.feedback={};e.hintStage=0;e.referenceRevealed=false;trTouch(e,true);renderTranslationModule();showToast("已清空本题拆句标记");return}if(action==="check-stage"){trCheckStage(item,e);return}if(action==="hint-stage"){trHint(item,e);return}if(action==="start-translate"){e.stage=6;trTouch(e,true);renderTranslationModule();return}if(action==="back-core"){e.stage=4;trTouch(e,true);renderTranslationModule();return}if(action==="reveal"){flushTranslationSave(true);if(!e.referenceRevealed&&!String(e.final||"").trim()){showToast("先写自己的完整译文，再看参考译文");return}e.referenceRevealed=!e.referenceRevealed;trTouch(e,true);renderTranslationModule();return}if(action==="complete"){flushTranslationSave(true);if(e.stage<6||!String(e.final||"").trim()){showToast("请先完成拆句步骤并写下完整译文");return}const now=new Date().toISOString();e.completed=true;e.attempts+=1;e.firstCompletedAt=e.firstCompletedAt||now;e.completedAt=now;e.updatedAt=now;translationState().updatedAt=now;saveState({syncKey:`translation:${item.id}`});schedulePendingCloudSave(0,{replace:true});renderTranslationModule();showToast("已完成本题：本机已保存，云端后台同步");return}if(action==="redo"){e.completed=false;e.completedAt="";e.referenceRevealed=false;e.stage=1;e.annotations=[];e.feedback={};e.hintStage=0;trTouch(e,true);renderTranslationModule();showToast("已重新开始：从拆句第1步做起");return}});document.addEventListener("visibilitychange",()=>{if(document.hidden&&translationLocalDirty)flushTranslationSave(true)})}
 
 
   /* V37_SELECTED_DAY_PLAN_AND_REAL_HISTORY */
@@ -13838,7 +14001,7 @@ function bindSmallModule(){
     renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday);
   };
 
-  window.__KAOYAN_BUILD__ = "V38-interactive-sentence-parsing-2026-08-09";
+  window.__KAOYAN_BUILD__ = "V39-safe-progress-fast-sync-2026-08-09";
   init();
   initTranslationModule();
 })();

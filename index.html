@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="64x64" href="./icon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-  <title>V39 安全保存与快速同步版</title>
+  <title>V40 底层存储增强版</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -4342,8 +4342,8 @@
     @media(max-width:560px){.translation-hero{padding:18px}.translation-metrics{grid-template-columns:1fr 1fr}.translation-progress-years{grid-template-columns:1fr}.translation-main-card{padding:15px}.translation-source{font-size:17px}.translation-filter-grid{grid-template-columns:1fr}.translation-error-grid,.translation-error-checks{grid-template-columns:1fr}}
   </style>
 
-<style id="translationV39InteractiveStyles">
-  /* V39: 交互式拆句 + 安全保存/后台合并同步 */
+<style id="translationV40InteractiveStyles">
+  /* V40: 交互式拆句 + 逐项本机WAL/增量云同步 */
   .translation-overview-grid.v38-simple{grid-template-columns:1fr .85fr}
   .v38-flow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.v38-flow span{padding:8px 11px;border-radius:999px;background:#f2f5ff;border:1px solid #dfe6ff;font-size:12px;font-weight:850;color:#3047a9}
   .v38-clean-note{padding:13px 15px;border-radius:14px;background:#f8fafc;border:1px solid #e7ebf2;color:#52607a;line-height:1.8}
@@ -5079,7 +5079,7 @@
             <h3>考研英语（一）翻译真题70句</h3>
             <p>只使用你提供的14个年份。先自己在原句上找谓语、圈引导词、括从句、弱化修饰，再进入整句翻译；每一步自动保存到本机。</p>
           </div>
-          <span class="translation-badge">V39 安全保存增强</span>
+          <span class="translation-badge">V40 底层存储增强</span>
         </div>
         <div class="translation-badges">
           <span class="translation-badge">2004、2007、2012、2013、2016、2018—2026</span>
@@ -5732,6 +5732,12 @@
 
   const STORAGE_KEY = "kaoyan_phrase_trainer_v1";
   const SESSION_BACKUP_KEY = "kaoyan_phrase_trainer_session_v21";
+  const V40_ITEM_PREFIX = "kaoyan_phrase_v40_item:";
+  const V40_META_KEY = "kaoyan_phrase_v40_meta";
+  const V40_DEVICE_KEY = "kaoyan_phrase_v40_device";
+  const V40_MIGRATION_KEY = "kaoyan_phrase_v40_migrated";
+  const V40_CLOUD_TABLE = "study_progress_items";
+  const V40_CHECKPOINT_DELAY_MS = 10000;
   const SUPABASE_CONFIG_KEY = "kaoyan_phrase_supabase_config_v1";
   const EMBEDDED_SUPABASE_URL = "https://pjwbfugoqhtgriocchjf.supabase.co";
   const EMBEDDED_SUPABASE_KEY = "sb_publishable_5CfaOuSv7CQRqtYSmSNqHg_ed4012Ry";
@@ -5748,6 +5754,10 @@
   let cloudBatchStartedAt = 0;
   let cloudPullPending = false;
   let suppressCloudSave = false;
+  let v40CheckpointTimer = null;
+  let v40CheckpointInProgress = false;
+  let cloudGranularMode = "unknown";
+  let cloudGranularCheckedAt = 0;
   const CLOUD_BATCH_MAX_CHANGES = 5;
   const CLOUD_IDLE_SYNC_MS = 3 * 1000;
   const CLOUD_BATCH_INTERVAL_MS = 30 * 1000;
@@ -7098,7 +7108,7 @@
         return true;
       }
       localStorage.setItem(SESSION_BACKUP_KEY, JSON.stringify({
-        version: 39,
+        version: 40,
         reviewSession,
         quizSession,
         translationPractice: keepTranslation ? translationPractice : null,
@@ -7129,6 +7139,94 @@
     );
     return targetState;
   }
+
+
+  /* ========== V40: 逐项本机 WAL + 逐项云同步 ========== */
+  function v40Json(raw, fallback=null){try{return raw?JSON.parse(raw):fallback}catch(_){return fallback}}
+  function v40DeviceId(){let id="";try{id=localStorage.getItem(V40_DEVICE_KEY)||""}catch(_){}if(!id){id=`dev-${cryptoId()}`;try{localStorage.setItem(V40_DEVICE_KEY,id)}catch(_){}}return id}
+  function v40StorageKey(key){return V40_ITEM_PREFIX+String(key||"core")}
+  function v40Read(key){try{const x=v40Json(localStorage.getItem(v40StorageKey(key)),null);return x&&typeof x==="object"?x:null}catch(_){return null}}
+  function v40Write(key,env){try{localStorage.setItem(v40StorageKey(key),JSON.stringify(env));return true}catch(e){console.error("V40逐项本机保存失败",key,e);return false}}
+  function v40All(){const out=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!k||!k.startsWith(V40_ITEM_PREFIX))continue;const key=k.slice(V40_ITEM_PREFIX.length),env=v40Read(key);if(env)out.push([key,env])}}catch(e){console.warn("V40逐项读取失败",e)}return out}
+  function v40ResolveKey(syncKey="state"){
+    const raw=String(syncKey||"state");
+    if(raw!=="state"&&raw!=="manual"&&raw!=="reconnect")return raw;
+    let view="";try{view=String(currentView||"")}catch(_){}
+    if(view==="translation"){try{return `translation:${translationCurrentItem().id}`}catch(_){return "translation:meta"}}
+    if(view==="review"){try{const c=currentCard();if(c?.id)return `card:${c.id}`}catch(_){}return "review-session"}
+    if(view==="quiz")return "quiz-session";
+    if(view==="bigEssay")return "big-essay";
+    if(view==="smallEssay")return "small-essay";
+    if(view==="studyPlan")return "study-plan";
+    if(["marks","myMarks","library","search","mistakes"].includes(view))return "cards-meta";
+    return "core";
+  }
+  function v40Extract(key,src=state){
+    key=String(key||"core");
+    if(key.startsWith("translation:")){
+      const id=key.slice(12),tr=normalizeTranslationPractice(src.translationPractice);
+      if(["settings","meta","merge"].includes(id))return{settings:tr.settings,daily:tr.daily,updatedAt:tr.updatedAt};
+      return{id,entry:tr.entries?.[id]||null};
+    }
+    if(key.startsWith("card:")){const id=key.slice(5),c=(src.cards||[]).find(x=>x.id===id);return{id,card:c?compactCardForCloud(c):null}}
+    if(key==="review-session")return{value:normalizeReviewSession(src.reviewSession)};
+    if(key==="quiz-session")return{value:normalizeQuizSession(src.quizSession)};
+    if(key==="big-essay")return{essays:(src.bigEssays||[]).map(x=>({id:x.id,archived:Boolean(x.archived)})),progress:src.bigEssayProgress||{},practice:src.bigEssayPractice||{}};
+    if(key==="small-essay")return{essays:(src.smallEssays||[]).map(x=>({id:x.id,archived:Boolean(x.archived)})),progress:src.smallEssayProgress||{},practice:src.smallEssayPractice||{}};
+    if(key==="cards-meta")return{cards:(src.cards||[]).map(compactCardForCloud),markGroups:src.markGroups||[],customMarks:src.customMarks||[]};
+    if(key==="study-plan")return{dailyStudy:src.dailyStudy||{},planActivities:src.planActivities||{},planTaskCompletions:src.planTaskCompletions||{},manualTaskChecks:src.manualTaskChecks||{},manualCheckins:src.manualCheckins||{},coverage:src.coverage||{},dailyModes:src.dailyModes||{}};
+    if(key==="activity")return{dailyStudy:src.dailyStudy||{},planActivities:src.planActivities||{},dailyModes:src.dailyModes||{},lastLearning:src.lastLearning||null,sessionLog:Array.isArray(src.sessionLog)?src.sessionLog.slice(-3000):[]};
+    return{settings:src.settings||{},planTaskCompletions:src.planTaskCompletions||{},manualTaskChecks:src.manualTaskChecks||{},manualCheckins:src.manualCheckins||{},coverage:src.coverage||{},updatedAt:src.updatedAt||""};
+  }
+  function v40Apply(dst,key,data){
+    if(!dst||!data)return dst;key=String(key||"core");
+    if(key.startsWith("translation:")){
+      const id=key.slice(12),tr=normalizeTranslationPractice(dst.translationPractice);
+      if(["settings","meta","merge"].includes(id)){tr.settings={...tr.settings,...(data.settings||{})};tr.daily={...tr.daily,...(data.daily||{})};if(data.updatedAt)tr.updatedAt=data.updatedAt}
+      else if(data.entry){const one=normalizeTranslationPractice({entries:{[id]:data.entry}});if(one.entries[id])tr.entries[id]=one.entries[id]}
+      dst.translationPractice=tr;return dst;
+    }
+    if(key.startsWith("card:")){if(!data.card)return dst;const id=key.slice(5),i=(dst.cards||[]).findIndex(x=>x.id===id);if(i>=0)dst.cards[i]=normalizeCard({...dst.cards[i],...data.card});else dst.cards.push(normalizeCard(data.card));return dst}
+    if(key==="review-session"){dst.reviewSession=normalizeReviewSession(data.value);return dst}
+    if(key==="quiz-session"){dst.quizSession=normalizeQuizSession(data.value);return dst}
+    if(key==="big-essay"){dst.bigEssays=mergeBigEssaysWithSeed(data.essays||dst.bigEssays);dst.bigEssayProgress=normalizeBigEssayProgress(data.progress);dst.bigEssayPractice=normalizeBigEssayPractice(data.practice);return dst}
+    if(key==="small-essay"){dst.smallEssays=mergeSmallEssaysMain(data.essays||dst.smallEssays);dst.smallEssayProgress=data.progress&&typeof data.progress==="object"?data.progress:{};dst.smallEssayPractice=data.practice&&typeof data.practice==="object"?data.practice:{};return dst}
+    if(key==="cards-meta"){const mg=loadMarkGroups(data.markGroups);dst.cards=mergeCardsWithSeed(data.cards||dst.cards);dst.markGroups=mg;dst.customMarks=loadCustomMarks(data.customMarks,mg);return dst}
+    if(key==="study-plan"){dst.dailyStudy=normalizeDailyStudy(data.dailyStudy,dst.sessionLog||[]);dst.planActivities=normalizePlanActivities(data.planActivities);dst.planTaskCompletions=normalizePlanTaskCompletions(data.planTaskCompletions);dst.manualTaskChecks=normalizePlanTaskCompletions(data.manualTaskChecks);dst.manualCheckins=normalizeManualCheckins(data.manualCheckins);dst.coverage=normalizeCoverage(data.coverage,dst.sessionLog||[]);dst.dailyModes=normalizeDailyModes(data.dailyModes);return dst}
+    if(key==="activity"){dst.sessionLog=Array.isArray(data.sessionLog)?data.sessionLog.slice(-3000):dst.sessionLog||[];dst.dailyStudy=normalizeDailyStudy(data.dailyStudy,dst.sessionLog);dst.planActivities=normalizePlanActivities(data.planActivities);dst.dailyModes=normalizeDailyModes(data.dailyModes);dst.lastLearning=normalizeLastLearning(data.lastLearning);return dst}
+    dst.settings={...defaultSettings,...(data.settings||dst.settings||{}),taskTargets:{...defaultSettings.taskTargets,...(data.settings?.taskTargets||dst.settings?.taskTargets||{})}};
+    dst.planTaskCompletions=normalizePlanTaskCompletions(data.planTaskCompletions||dst.planTaskCompletions);dst.manualTaskChecks=normalizePlanTaskCompletions(data.manualTaskChecks||dst.manualTaskChecks);dst.manualCheckins=normalizeManualCheckins(data.manualCheckins||dst.manualCheckins);dst.coverage=normalizeCoverage(data.coverage||dst.coverage,dst.sessionLog||[]);if(data.updatedAt&&safeTimestamp(data.updatedAt)>safeTimestamp(dst.updatedAt))dst.updatedAt=data.updatedAt;return dst;
+  }
+  function v40PersistOne(key,src=state,stamp=""){
+    const old=v40Read(key),now=stamp||new Date().toISOString(),env={schema:40,itemKey:key,version:Math.max(0,Number(old?.version)||0)+1,deviceId:v40DeviceId(),updatedAt:now,deleted:false,data:v40Extract(key,src)};return v40Write(key,env)
+  }
+  function v40Related(primary){const out=new Set([primary,"core"]);if(primary.startsWith("card:")||["review-session","quiz-session","big-essay","small-essay","study-plan"].includes(primary))out.add("activity");if(primary.startsWith("translation:"))out.add("translation:meta");return[...out]}
+  function v40PersistForSave(syncKey,src=state){const primary=v40ResolveKey(syncKey),keys=v40Related(primary);let ok=true;keys.forEach(k=>{if(!v40PersistOne(k,src))ok=false});try{localStorage.setItem(V40_META_KEY,JSON.stringify({schema:40,lastWriteAt:new Date().toISOString(),deviceId:v40DeviceId()}))}catch(_){}return{ok,primary,keys}}
+  function v40Overlay(dst){v40All().sort((a,b)=>safeTimestamp(a[1]?.updatedAt)-safeTimestamp(b[1]?.updatedAt)).forEach(([k,e])=>{if(!e?.deleted&&e.data)v40Apply(dst,k,e.data)});return dst}
+  function v40MarkMigration(){try{if(!localStorage.getItem(V40_MIGRATION_KEY))localStorage.setItem(V40_MIGRATION_KEY,JSON.stringify({schema:40,migratedAt:new Date().toISOString(),legacySnapshotKept:true}))}catch(_){}}
+  function v40Checkpoint(){if(v40CheckpointInProgress)return true;v40CheckpointInProgress=true;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(buildLocalPayload()));localStorage.setItem(V40_META_KEY,JSON.stringify({schema:40,lastWriteAt:new Date().toISOString(),lastCheckpointAt:new Date().toISOString(),deviceId:v40DeviceId()}));return true}catch(e){console.error("V40兼容快照保存失败",e);return false}finally{v40CheckpointInProgress=false}}
+  function v40ScheduleCheckpoint(delay=V40_CHECKPOINT_DELAY_MS){if(v40CheckpointTimer)clearTimeout(v40CheckpointTimer);v40CheckpointTimer=setTimeout(()=>{v40CheckpointTimer=null;v40Checkpoint()},Math.max(500,Number(delay)||V40_CHECKPOINT_DELAY_MS))}
+  function v40Cmp(a,b){const at=safeTimestamp(a?.updatedAt),bt=safeTimestamp(b?.updatedAt);if(at!==bt)return at-bt;const av=Number(a?.version)||0,bv=Number(b?.version)||0;if(av!==bv)return av-bv;return String(a?.deviceId||"").localeCompare(String(b?.deviceId||""))}
+  function v40Remote(row){return{schema:40,itemKey:String(row?.item_key||""),version:Number(row?.version)||0,deviceId:String(row?.device_id||""),updatedAt:String(row?.updated_at||""),deleted:Boolean(row?.deleted),data:row?.data??null}}
+  async function v40DetectCloud(force=false){if(!supabaseClient||!cloudUser){cloudGranularMode=false;return false}if(!force&&cloudGranularMode!=="unknown"&&Date.now()-cloudGranularCheckedAt<60000)return cloudGranularMode===true;cloudGranularCheckedAt=Date.now();try{const{error}=await withCloudTimeout(supabaseClient.from(V40_CLOUD_TABLE).select("item_key").eq("user_id",cloudUser.id).limit(1),"检测V40逐项同步",8000);if(error)throw error;cloudGranularMode=true;return true}catch(e){cloudGranularMode=false;console.info("V40逐项云表未启用，自动回退兼容同步",e?.message||e);return false}}
+  function v40Bootstrap(remoteKeys=new Set()){
+    const keys=["core","activity","study-plan","review-session","quiz-session","big-essay","small-essay","cards-meta","translation:meta"],tr=normalizeTranslationPractice(state.translationPractice);Object.keys(tr.entries||{}).forEach(id=>keys.push(`translation:${id}`));
+    keys.forEach(k=>{if(remoteKeys.has(k)||v40Read(k))return;if(v40PersistOne(k,state))markCloudDirty(k)})
+  }
+  async function v40Upload(keys){const all=[...new Set((keys||[]).map(v40ResolveKey).flatMap(v40Related))],rows=[];all.forEach(k=>{let e=v40Read(k);if(!e){v40PersistOne(k);e=v40Read(k)}if(e)rows.push({user_id:cloudUser.id,item_key:k,data:e.data,updated_at:e.updatedAt,version:e.version,device_id:e.deviceId,deleted:Boolean(e.deleted)})});if(!rows.length)return{error:null};return withCloudTimeout(supabaseClient.from(V40_CLOUD_TABLE).upsert(rows,{onConflict:"user_id,item_key"}),"逐项上传",20000)}
+  function v40Refresh(){populateYearSelects();populateCustomMarkSelects();renderDashboard();try{if(currentView==="quiz"){quizQueue=[];quizIndex=0;if(!restoreQuizSession())renderQuizSetup()}else if(currentView==="review"){reviewQueue=[];reviewIndex=0;resumeAnyReviewSession()}else if(currentView==="bigEssay")renderBigEssay();else if(currentView==="smallEssay"&&typeof renderSmallEssay==="function")renderSmallEssay();else if(currentView==="translation"&&typeof renderTranslationModule==="function")renderTranslationModule();else if(currentView==="studyPlan")renderStudyPlanView();else if(currentView==="search")renderGlobalSearch();else if(currentView==="myMarks")renderMyMarks();else if(currentView==="marks")renderMarkManager();else if(currentView==="library")renderLibrary();else if(currentView==="mistakes")renderMistakes();else if(currentView==="stats")renderStats()}catch(e){console.warn("V40同步后刷新失败",e)}}
+  async function v40SyncCloud(){
+    if(!supabaseClient||!cloudUser)return false;if(cloudSyncing){cloudPullPending=true;return false}cloudSyncing=true;cloudPullPending=false;setSyncStatus("busy","本机已保存 · 正在逐项核对云端");
+    try{const{data,error}=await withCloudTimeout(supabaseClient.from(V40_CLOUD_TABLE).select("item_key,data,updated_at,version,device_id,deleted").eq("user_id",cloudUser.id),"逐项下载",20000);if(error)throw error;
+      const rows=[...(data||[])].sort((a,b)=>safeTimestamp(a?.updated_at)-safeTimestamp(b?.updated_at)),remoteKeys=new Set(rows.map(r=>String(r?.item_key||"")).filter(Boolean));let applied=0;
+      for(const row of rows){const r=v40Remote(row),k=r.itemKey;if(!k)continue;const l=v40Read(k);if(!l||v40Cmp(r,l)>0){v40Write(k,r);if(!r.deleted&&r.data)v40Apply(state,k,r.data);applied++}else if(v40Cmp(l,r)>0)markCloudDirty(k)}
+      if(applied){persistLocalSessionBackup(state);v40Checkpoint();v40Refresh()}v40Bootstrap(remoteKeys);refreshCloudPendingState();
+      if(cloudPendingSave){const keys=takeCloudDirtySnapshot(),res=await v40Upload(keys);if(res?.error){restoreCloudDirtySnapshot(keys);throw res.error}}
+      refreshCloudPendingState();setSyncStatus(cloudPendingSave?"busy":"ok",cloudPendingSave?pendingSyncText("已合并逐项云端"):"本地与云端已逐项同步");setAuthMessage("");return true
+    }catch(e){console.error(e);setSyncStatus("error",pendingSyncText("本机已保存 · 云端失败"));setAuthMessage(`云端同步失败，本地记录仍然安全：${e.message||e}`);return false}
+    finally{cloudSyncing=false;renderAccount();refreshCloudPendingState();if(cloudPullPending){cloudPullPending=false;setTimeout(()=>syncFromCloud(),250)}else if(cloudPendingSave&&navigator.onLine!==false)schedulePendingCloudSave(CLOUD_IDLE_SYNC_MS,{replace:true})}
+  }
+  /* ========== V40 end ========== */
 
   function initialState() {
     return {
@@ -7161,11 +7259,11 @@
   function loadState() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return mergeLocalSessionBackup(initialState());
+      if (!raw) { const fresh=mergeLocalSessionBackup(initialState()); v40MarkMigration(); return v40Overlay(fresh); }
       const parsed = JSON.parse(raw);
       const markGroups = loadMarkGroups(parsed.markGroups);
       const sessionLog = Array.isArray(parsed.sessionLog) ? parsed.sessionLog : [];
-      return mergeLocalSessionBackup({
+      const restored = mergeLocalSessionBackup({
         cards: mergeCardsWithSeed(parsed.cards),
         markGroups,
         customMarks: loadCustomMarks(parsed.customMarks, markGroups),
@@ -7190,6 +7288,8 @@
         sessionLog,
         updatedAt: parsed.updatedAt || new Date().toISOString()
       });
+      v40MarkMigration();
+      return v40Overlay(restored);
     } catch (error) {
       console.error(error);
       return initialState();
@@ -7210,26 +7310,13 @@
   function saveState(options = {}) {
     const { touch = true, sync = true, syncKey = "state" } = options;
     if (touch) state.updatedAt = new Date().toISOString();
-
-    let localSaved = true;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(buildLocalPayload()));
-    } catch (error) {
-      localSaved = false;
-      console.error("本地学习记录保存失败", error);
-      setSyncStatus("error", "本地保存失败");
-      setAuthMessage(`本地保存失败：${error.message || error}`);
-    }
-
-    // 断点使用独立小文件再次保存。即使整份状态较大，当前做到第几题也不会丢。
+    const granular = v40PersistForSave(syncKey, state);
     const sessionSaved = persistLocalSessionBackup(state);
-    if (!sessionSaved && localSaved) {
-      setSyncStatus("error", "断点保存失败");
-    }
-
-    // 只有真实用户改动才进入云端批次；初始化/恢复时的 touch:false 不触发上传。
-    if (sync && touch && !suppressCloudSave) queueCloudSave(syncKey);
-    return localSaved && sessionSaved;
+    v40ScheduleCheckpoint();
+    if (!granular.ok) { setSyncStatus("error", "本地保存失败"); setAuthMessage("本地逐项保存失败；当前页面请先不要关闭。 "); }
+    if (!sessionSaved && granular.ok) setSyncStatus("error", "断点保存失败");
+    if (sync && touch && !suppressCloudSave) queueCloudSave(granular.primary);
+    return granular.ok && sessionSaved;
   }
 
   function cryptoId() {
@@ -7382,8 +7469,9 @@
 
         if (cloudUser) {
           setSyncStatus("busy", "本地已保存 · 准备同步");
+          cloudGranularMode = "unknown";
           // Supabase建议不要在auth回调内部直接await新的Supabase请求。
-          setTimeout(() => syncFromCloud(), 0);
+          setTimeout(async () => { await v40DetectCloud(true); syncFromCloud(); }, 0);
         } else {
           setSyncStatus("", "已退出云端");
         }
@@ -7392,6 +7480,7 @@
 
       if (cloudUser) {
         setSyncStatus("busy", "本地已保存 · 准备同步");
+        await v40DetectCloud(true);
         await syncFromCloud();
       } else {
         setSyncStatus("", "未登录");
@@ -7590,18 +7679,12 @@
     ]).finally(() => clearTimeout(timer));
   }
 
-  async function performCloudUpload() {
+  async function performCloudUpload(keys = []) {
+    if (await v40DetectCloud()) return v40Upload(keys);
     const payload = buildCloudPayload();
     return withCloudTimeout(
-      supabaseClient
-        .from("study_state")
-        .upsert({
-          user_id: cloudUser.id,
-          data: payload,
-          updated_at: state.updatedAt || new Date().toISOString()
-        }, { onConflict: "user_id" }),
-      "上传",
-      20000
+      supabaseClient.from("study_state").upsert({user_id:cloudUser.id,data:payload,updated_at:state.updatedAt||new Date().toISOString()},{onConflict:"user_id"}),
+      "上传",20000
     );
   }
 
@@ -7691,7 +7774,7 @@
 
     let ok = false;
     try {
-      const { error } = await performCloudUpload();
+      const { error } = await performCloudUpload(uploadingKeys);
       if (error) throw error;
       ok = true;
       refreshCloudPendingState();
@@ -7739,6 +7822,7 @@
 
   async function syncFromCloud() {
     if (!supabaseClient || !cloudUser) return;
+    if (await v40DetectCloud()) return v40SyncCloud();
 
     if (cloudSyncing) {
       cloudPullPending = true;
@@ -7764,7 +7848,7 @@
       if (!data) {
         const uploadingKeys = takeCloudDirtySnapshot();
         try {
-          const uploadResult = await performCloudUpload();
+          const uploadResult = await performCloudUpload(uploadingKeys);
           if (uploadResult.error) throw uploadResult.error;
         } catch (uploadError) {
           restoreCloudDirtySnapshot(uploadingKeys.length ? uploadingKeys : ["state"]);
@@ -7886,7 +7970,7 @@
         // 本机较新：上传的是调用时的最新快照；上传过程中产生的新修改继续留在下一批，不会被清零。
         const uploadingKeys = takeCloudDirtySnapshot();
         try {
-          const uploadResult = await performCloudUpload();
+          const uploadResult = await performCloudUpload(uploadingKeys);
           if (uploadResult.error) throw uploadResult.error;
         } catch (uploadError) {
           restoreCloudDirtySnapshot(uploadingKeys.length ? uploadingKeys : ["state"]);
@@ -9795,7 +9879,7 @@
       .map(input => input.value);
     card.userMarkIds = [...new Set(selected)];
     card.userNote = $("cardUserNote").value.trim();
-    saveState();
+    saveState({syncKey:`card:${card.id}`});
     closeMarkDialog();
     showToast("标记已保存");
     if (currentView === "library") renderLibrary();
@@ -11345,7 +11429,7 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
       time: new Date().toISOString()
     });
     if (state.sessionLog.length > 3000) state.sessionLog = state.sessionLog.slice(-3000);
-    saveState();
+    saveState({syncKey:`card:${card.id}`});
   }
 
   function gradeCurrent(grade) {
@@ -12957,6 +13041,8 @@ $("categoryGrid").innerHTML = CATEGORY_ORDER.map(category => {
     }
     persistLocalSessionBackup(state);
     saveState({ touch:false, sync:false });
+    if (v40CheckpointTimer) { clearTimeout(v40CheckpointTimer); v40CheckpointTimer = null; }
+    v40Checkpoint();
   }
 
   window.addEventListener("pagehide", captureActiveProgressBeforeExit);
@@ -14001,7 +14087,8 @@ function bindSmallModule(){
     renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday);
   };
 
-  window.__KAOYAN_BUILD__ = "V39-safe-progress-fast-sync-2026-08-09";
+  window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
+  window.__KAOYAN_BUILD__ = "V40-granular-storage-sync-2026-08-09";
   init();
   initTranslationModule();
 })();

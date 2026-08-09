@@ -1,4 +1,4 @@
-const CACHE_VERSION = "kaoyan-phrase-pwa-v39-safe-progress-fast-sync";
+const CACHE_VERSION = "kaoyan-phrase-pwa-v40-granular-storage-sync";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 

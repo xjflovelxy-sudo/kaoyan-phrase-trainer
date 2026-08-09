@@ -4341,6 +4341,30 @@
     @media(max-width:900px){.translation-metrics{grid-template-columns:repeat(2,1fr)}.translation-overview-grid,.translation-practice-layout,.translation-analysis-grid{grid-template-columns:1fr}.translation-side{position:static}.translation-question-list{max-height:280px}.translation-write-grid{grid-template-columns:1fr}.translation-error-grid,.translation-error-checks{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:560px){.translation-hero{padding:18px}.translation-metrics{grid-template-columns:1fr 1fr}.translation-progress-years{grid-template-columns:1fr}.translation-main-card{padding:15px}.translation-source{font-size:17px}.translation-filter-grid{grid-template-columns:1fr}.translation-error-grid,.translation-error-checks{grid-template-columns:1fr}}
   </style>
+
+<style id="translationV38InteractiveStyles">
+  /* V38: 翻译模块从“答案型页面”改成“自己拆句的交互训练器” */
+  .translation-overview-grid.v38-simple{grid-template-columns:1fr .85fr}
+  .v38-flow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.v38-flow span{padding:8px 11px;border-radius:999px;background:#f2f5ff;border:1px solid #dfe6ff;font-size:12px;font-weight:850;color:#3047a9}
+  .v38-clean-note{padding:13px 15px;border-radius:14px;background:#f8fafc;border:1px solid #e7ebf2;color:#52607a;line-height:1.8}
+  .v38-practice-layout{display:grid;grid-template-columns:288px minmax(0,1fr);gap:16px;align-items:start}.v38-side{position:sticky;top:92px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px;box-shadow:var(--shadow)}
+  .v38-main{background:#fff;border:1px solid var(--border);border-radius:22px;padding:22px;box-shadow:var(--shadow)}
+  .v38-stagebar{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 16px}.v38-stage{padding:7px 10px;border-radius:999px;background:#f4f6fa;border:1px solid #e4e8ef;color:#6a7386;font-size:11px;font-weight:850}.v38-stage.active{background:#3559e0;color:#fff;border-color:#3559e0}.v38-stage.done{background:#eaf7ef;color:#167247;border-color:#ccebd7}
+  .v38-source-wrap{border:1px solid #dbe2f1;border-radius:18px;background:#fbfcff;padding:18px;margin-top:12px}.v38-source-title{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.v38-source-title strong{font-size:15px}.v38-selection-tip{font-size:11px;color:#75809a}
+  .v38-source{font-family:Georgia,'Times New Roman',serif;font-size:21px;line-height:2.05;color:#182033;user-select:text;cursor:text;padding:4px 2px;word-break:normal}.v38-source::selection{background:#c9d9ff}
+  .v38-mark-subject{background:#dff5e8;border-radius:4px;padding:1px 0;box-shadow:inset 0 -2px 0 #2d9b62}.v38-mark-predicate{background:#fff0c9;border-radius:4px;padding:1px 0;box-shadow:inset 0 -2px 0 #c98900}.v38-mark-guide{background:#e8e0ff;border-radius:4px;padding:1px 0;box-shadow:inset 0 -2px 0 #7251c7}.v38-mark-weak{opacity:.30}.v38-mark-strike{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:#9aa2b2;color:#8a93a5}.v38-bracket{font-family:Georgia,'Times New Roman',serif;font-weight:900;color:#3559e0;margin:0 2px;font-size:22px}
+  .v38-toolbar{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0 8px}.v38-tool{border:1px solid #d7ddea;background:#fff;border-radius:10px;padding:8px 11px;font-weight:850;color:#38445f;cursor:pointer}.v38-tool:hover{border-color:#9fb1ef}.v38-tool.subject{background:#eefaf3}.v38-tool.predicate{background:#fff8e7}.v38-tool.guide{background:#f4f0ff}.v38-tool.clause{color:#2743a2}.v38-tool.danger{color:#a33a35}.v38-tool:disabled{opacity:.42;cursor:not-allowed}
+  .v38-current-task{margin:12px 0;padding:13px 15px;border-radius:14px;background:#f3f6ff;border:1px solid #dbe3ff}.v38-current-task strong{display:block;color:#243e9c;margin-bottom:5px}.v38-current-task span{display:block;color:#53617b;line-height:1.65}
+  .v38-step-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.v38-feedback{margin-top:9px;padding:11px 13px;border-radius:12px;background:#f8fafc;border:1px solid #e5eaf2;color:#52607a;font-size:12px;line-height:1.75}.v38-feedback.good{background:#effaf4;border-color:#cfead9;color:#176b45}.v38-feedback.warn{background:#fff9ea;border-color:#f1ddb1;color:#7a5610}
+  .v38-reference-split{margin-top:12px;display:flex;flex-direction:column;gap:7px}.v38-reference-part{padding:9px 11px;border-left:3px solid #6c8cff;background:#f7f9ff;border-radius:0 10px 10px 0;font-family:Georgia,'Times New Roman',serif;line-height:1.6}.v38-core{padding:11px 13px;border-radius:12px;background:#eef8f2;border:1px solid #d4ebdd;font-family:Georgia,'Times New Roman',serif;line-height:1.7;margin-top:9px}
+  .v38-final{margin-top:18px;padding:16px;border:1px solid #cfd9f2;border-radius:16px;background:#f8faff}.v38-final label{display:block;font-weight:900;margin-bottom:8px}.v38-final textarea{width:100%;min-height:145px;resize:vertical}.v38-locked{padding:17px;border:1px dashed #cfd6e5;border-radius:14px;color:#748097;text-align:center;margin-top:16px;background:#fafbfc}
+  .v38-review{margin-top:18px;border-top:1px solid #e5e9f1;padding-top:18px}.v38-review-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.v38-review-card{padding:14px;border:1px solid #e1e6ef;border-radius:14px;background:#fbfcff}.v38-review-card h4{margin:0 0 8px}.v38-review-card p{line-height:1.8;margin:0}.v38-reference{font-size:17px;line-height:1.9;background:#effaf4;border:1px solid #cfead9;border-radius:15px;padding:16px;margin-top:12px}
+  .v38-errors{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.v38-error{display:flex;align-items:center;gap:6px;padding:8px 10px;border:1px solid #dfe4ed;border-radius:999px;background:#fff;font-size:12px;font-weight:800}.v38-error input{width:auto}
+  .v38-footer-actions{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid #edf0f4}.v38-save-status{font-size:11px;color:#7a8498;margin-top:7px;min-height:17px}
+  .v38-progress-stat{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.v38-progress-stat div{padding:12px;border:1px solid #e2e6ee;border-radius:13px;background:#fafbfe}.v38-progress-stat strong{display:block;font-size:21px}.v38-progress-stat span{font-size:11px;color:#6a7488}
+  @media(max-width:900px){.translation-overview-grid.v38-simple,.v38-practice-layout,.v38-review-grid{grid-template-columns:1fr}.v38-side{position:static}.v38-progress-stat{grid-template-columns:repeat(2,1fr)}.v38-source{font-size:18px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -5053,9 +5077,9 @@
         <div class="essay-reading-header">
           <div>
             <h3>考研英语（一）翻译真题70句</h3>
-            <p>只使用你提供的14个年份。每题先自动保存到本机；云端沿用V32的10次改动或60秒集中同步，不会在答题时等待上传。</p>
+            <p>只使用你提供的14个年份。先自己在原句上找谓语、圈引导词、括从句、弱化修饰，再进入整句翻译；每一步自动保存到本机。</p>
           </div>
-          <span class="translation-badge">V37 拆句训练</span>
+          <span class="translation-badge">V38 交互式拆句训练</span>
         </div>
         <div class="translation-badges">
           <span class="translation-badge">2004、2007、2012、2013、2016、2018—2026</span>
@@ -6171,7 +6195,7 @@
     smallFormat:{label:"复习小作文格式",unit:"次",category:"small",icon:"格",view:"smallEssay",tab:"functions",description:"进入格式页自动记录。",method:"不看答案说出标题/称呼、三段职责、结束语和署名。"},
     mistakes:{label:"回看错词本",unit:"次",category:"review",icon:"错",view:"mistakes",description:"进入错词本记录一次。",method:"只处理连续错2次以上、介词错误和熟词新义。"},
     marks:{label:"整理我的标记",unit:"次",category:"review",icon:"标",view:"myMarks",description:"进入我的标记记录一次。",method:"重点回看作文可用、重点背诵和易混淆。"},
-    translation:{label:"翻译真题训练",unit:"句",category:"translation",icon:"译",view:"translation",description:"每日句数读取翻译训练首页的设置；完成译文并标记完成后自动更新实际进度，任务完成仍由你手动勾选。",method:"先读上下文、找主干、切意群，再写直译稿和中文润色稿，最后记录具体错因。"},
+    translation:{label:"翻译真题训练",unit:"句",category:"translation",icon:"译",view:"translation",description:"每日句数读取翻译训练首页的设置；完成译文并标记完成后自动更新实际进度，任务完成仍由你手动勾选。",method:"先找有时态谓语，再找引导词、括从句、弱化修饰并抓主干；完成拆句后再写整句译文。"},
     quizWrong:{label:"今日选择题错题",unit:"题",category:"bonus",icon:"错",view:"quiz"},
     quizWrongRedo:{label:"重做今日全部选择题错题",unit:"题",category:"bonus",icon:"重",view:"quiz"},
     errorReview:{label:"回看错误词组",unit:"条",category:"bonus",icon:"查",view:"mistakes"}
@@ -13635,319 +13659,95 @@ function bindSmallModule(){
   let translationSaveTimer = null;
   let translationLocalDirty = false;
 
+
   function normalizeTranslationPractice(value) {
-    const source = value && typeof value === "object" ? value : {};
-    const entries = {};
-    Object.entries(source.entries || {}).forEach(([id,item]) => {
-      if (!/^tr-\d{4}-\d{2}$/.test(id) || !item || typeof item !== "object") return;
-      const errors = item.errors && typeof item.errors === "object" ? item.errors : {};
-      const segmentDrafts = Array.isArray(item.segmentDrafts) ? item.segmentDrafts.map(x=>String(x||"")) : [];
-      const finalText = String(item.final || item.polished || item.draft || "");
-      entries[id] = {
-        segmentDrafts,
-        final: finalText,
-        draft: String(item.draft || ""),
-        polished: String(item.polished || ""),
-        note: String(item.note || ""),
-        errors: {structure:Boolean(errors.structure),logic:Boolean(errors.logic),vocab:Boolean(errors.vocab),chinese:Boolean(errors.chinese)},
-        completed: Boolean(item.completed),
-        attempts: Math.max(0, Number(item.attempts) || 0),
-        referenceRevealed: Boolean(item.referenceRevealed),
-        updatedAt: String(item.updatedAt || ""),
-        firstCompletedAt: String(item.firstCompletedAt || ""),
-        completedAt: String(item.completedAt || item.firstCompletedAt || ""),
-        lastPracticedAt: String(item.lastPracticedAt || "")
+    const source=value&&typeof value==="object"?value:{};const entries={};
+    Object.entries(source.entries||{}).forEach(([id,item])=>{
+      if(!/^tr-\d{4}-\d{2}$/.test(id)||!item||typeof item!=="object")return;
+      const errors=item.errors&&typeof item.errors==="object"?item.errors:{};
+      const finalText=String(item.final||item.polished||item.draft||"");
+      const annotations=Array.isArray(item.annotations)?item.annotations.filter(a=>a&&["subject","predicate","guide","clause","weak","strike"].includes(a.type)&&Number.isFinite(Number(a.start))&&Number.isFinite(Number(a.end))).map(a=>({type:a.type,start:Math.max(0,Number(a.start)),end:Math.max(0,Number(a.end))})):[];
+      const checks=item.checks&&typeof item.checks==="object"?item.checks:{};
+      entries[id]={
+        final:finalText,annotations,stage:Math.max(1,Math.min(6,Number(item.stage)||1)),
+        checks:{predicate:Number(checks.predicate)||0,guide:Number(checks.guide)||0,clause:Number(checks.clause)||0,core:Number(checks.core)||0},
+        hintStage:Math.max(0,Math.min(5,Number(item.hintStage)||0)),feedback:item.feedback&&typeof item.feedback==="object"?item.feedback:{},
+        errors:{structure:Boolean(errors.structure),logic:Boolean(errors.logic),vocab:Boolean(errors.vocab),chinese:Boolean(errors.chinese)},
+        completed:Boolean(item.completed),attempts:Math.max(0,Number(item.attempts)||0),referenceRevealed:Boolean(item.referenceRevealed),
+        updatedAt:String(item.updatedAt||""),firstCompletedAt:String(item.firstCompletedAt||""),completedAt:String(item.completedAt||item.firstCompletedAt||""),lastPracticedAt:String(item.lastPracticedAt||"")
       };
     });
-    const daily = {};
-    Object.entries(source.daily || {}).forEach(([key,ids]) => {
-      if (!Array.isArray(ids)) return;
-      daily[key] = [...new Set(ids.filter(id => /^tr-\d{4}-\d{2}$/.test(id)))].slice(0,10);
-    });
-    const settings = source.settings && typeof source.settings === "object" ? source.settings : {};
-    const dailyCount = Math.max(1, Math.min(10, Math.floor(Number(settings.dailyCount) || 2)));
-    const currentId = /^tr-\d{4}-\d{2}$/.test(String(settings.currentId || "")) ? String(settings.currentId) : "tr-2024-46";
-    let filterStatus=String(settings.filterStatus||"all"); if(filterStatus==="draft")filterStatus="inprogress";
-    return {
-      entries,
-      daily,
-      settings: {
-        dailyCount,
-        activeTab: ["overview","practice","progress"].includes(settings.activeTab) ? settings.activeTab : "overview",
-        currentId,
-        listMode: ["today","all"].includes(settings.listMode) ? settings.listMode : "today",
-        filterYear: String(settings.filterYear || "all"),
-        filterTag: String(settings.filterTag || "all"),
-        filterStatus: ["all","unfinished","inprogress","completed","errors"].includes(filterStatus) ? filterStatus : "all",
-        showContext: settings.showContext !== false,
-        stemMode: Boolean(settings.stemMode)
-      },
-      updatedAt: String(source.updatedAt || "")
-    };
+    const daily={};Object.entries(source.daily||{}).forEach(([key,ids])=>{if(Array.isArray(ids))daily[key]=[...new Set(ids.filter(id=>/^tr-\d{4}-\d{2}$/.test(id)))].slice(0,10)});
+    const settings=source.settings&&typeof source.settings==="object"?source.settings:{};const dailyCount=Math.max(1,Math.min(10,Math.floor(Number(settings.dailyCount)||2)));const currentId=/^tr-\d{4}-\d{2}$/.test(String(settings.currentId||""))?String(settings.currentId):"tr-2024-46";let filterStatus=String(settings.filterStatus||"all");if(filterStatus==="draft"||filterStatus==="errors")filterStatus="inprogress";
+    return {entries,daily,settings:{dailyCount,activeTab:["overview","practice","progress"].includes(settings.activeTab)?settings.activeTab:"overview",currentId,listMode:["today","all"].includes(settings.listMode)?settings.listMode:"today",filterYear:String(settings.filterYear||"all"),filterStatus:["all","unfinished","inprogress","completed"].includes(filterStatus)?filterStatus:"all",showContext:settings.showContext!==false},updatedAt:String(source.updatedAt||"")};
   }
+  function translationState(){if(!state.translationPractice||typeof state.translationPractice!=="object"||!state.translationPractice.entries||!state.translationPractice.settings)state.translationPractice=normalizeTranslationPractice(state.translationPractice);return state.translationPractice}
+  function translationEntry(id){const tr=translationState();if(!tr.entries[id])tr.entries[id]={final:"",annotations:[],stage:1,checks:{predicate:0,guide:0,clause:0,core:0},hintStage:0,feedback:{},errors:{structure:false,logic:false,vocab:false,chinese:false},completed:false,attempts:0,referenceRevealed:false,updatedAt:"",firstCompletedAt:"",completedAt:"",lastPracticedAt:""};const e=tr.entries[id];if(!Array.isArray(e.annotations))e.annotations=[];if(!e.checks)e.checks={predicate:0,guide:0,clause:0,core:0};if(!e.feedback)e.feedback={};return e}
+  function translationDateKey(){return localDateKey()}
+  function translationOrderedItems(){return [...TRANSLATION_ITEMS].sort((a,b)=>TRANSLATION_YEAR_ORDER.indexOf(a.year)-TRANSLATION_YEAR_ORDER.indexOf(b.year)||a.number-b.number)}
+  function translationTodayIds(){const tr=translationState(),key=translationDateKey(),count=tr.settings.dailyCount,existing=Array.isArray(tr.daily[key])?tr.daily[key].filter(id=>TRANSLATION_VALID_IDS.has(id)):[];if(existing.length===count)return existing;const ordered=translationOrderedItems(),unfinished=ordered.filter(item=>!translationEntry(item.id).completed),pool=unfinished.length?unfinished:ordered,ids=pool.slice(0,count).map(x=>x.id);tr.daily[key]=ids;saveState({touch:false,sync:false});return ids}
+  function translationCompletedCountForDate(dateKey){let count=0;Object.values(translationState().entries).forEach(e=>{if(!e?.completed)return;const d=new Date(e.completedAt||e.firstCompletedAt||"");if(!Number.isNaN(d.getTime())&&localDateKey(d)===dateKey)count++});return count}
+  const v34BasePlanActivityCount=planActivityCount;planActivityCount=function(dateKey,activity){if(activity==="translation")return translationCompletedCountForDate(dateKey);return v34BasePlanActivityCount(dateKey,activity)};
+  function translationStats(){let done=0,drafts=0,errors=0,syntaxChecks=0;TRANSLATION_ITEMS.forEach(item=>{const e=translationState().entries[item.id];if(!e)return;if(e.completed)done++;if(String(e.final||"").trim()||e.annotations?.length)drafts++;if(Object.values(e.errors||{}).some(Boolean))errors++;syntaxChecks+=Object.values(e.checks||{}).reduce((a,b)=>a+(Number(b)||0),0)});const todayIds=translationTodayIds(),todayDone=todayIds.filter(id=>translationEntry(id).completed).length;return{done,drafts,errors,syntaxChecks,todayDone,todayTotal:todayIds.length}}
+  function updateTranslationMetrics(){const x=translationStats();if($("translationTotalMetric"))$("translationTotalMetric").textContent=TRANSLATION_ITEMS.length;if($("translationDoneMetric"))$("translationDoneMetric").textContent=x.done;if($("translationDraftMetric"))$("translationDraftMetric").textContent=x.drafts;if($("translationTodayMetric"))$("translationTodayMetric").textContent=`${x.todayDone}/${x.todayTotal}`;document.querySelectorAll("[data-translation-tab]").forEach(btn=>btn.classList.toggle("active",btn.dataset.translationTab===translationState().settings.activeTab))}
+  function translationItemStatus(item){const e=translationEntry(item.id);if(e.completed)return"completed";if(String(e.final||"").trim()||e.annotations?.length||e.stage>1)return"inprogress";return"unfinished"}
+  function translationFilteredItems(){const tr=translationState(),s=tr.settings;let items=s.listMode==="today"?translationTodayIds().map(id=>TRANSLATION_ITEMS.find(x=>x.id===id)).filter(Boolean):translationOrderedItems();if(s.filterYear!=="all")items=items.filter(x=>String(x.year)===s.filterYear);if(s.filterStatus!=="all")items=items.filter(x=>translationItemStatus(x)===s.filterStatus||(s.filterStatus==="unfinished"&&translationItemStatus(x)!=="completed"));return items}
+  function translationCurrentItem(){const tr=translationState(),items=translationFilteredItems();let item=items.find(x=>x.id===tr.settings.currentId);if(!item)item=items[0]||TRANSLATION_ITEMS.find(x=>x.id===tr.settings.currentId)||TRANSLATION_ITEMS[0];tr.settings.currentId=item.id;return item}
 
-  function translationState() {
-    if (!state.translationPractice || typeof state.translationPractice !== "object" || !state.translationPractice.entries || !state.translationPractice.settings) {
-      state.translationPractice = normalizeTranslationPractice(state.translationPractice);
+  const TR_GUIDE_RE=/\b(that|which|who|whom|whose|where|when|while|if|because|since|although|though|whereas|until|before|after)\b/gi;
+  const TR_FINITE_WORDS=new Set(`am is are was were be been being have has had do does did can could may might must shall should will would travel know found showed pool collaborate think find came rose extended doubled define increased weakened took looks strikes speak introduce give blame feel vanish justifies takes seeks see seems share arose guides predicts made broke listed tell provided worked believe rests forge cover comment allow grew focused needs advanced assumed realized died became lost determines states imprisons links prospered established generates applying encourage shifted comes`.split(/\s+/));
+  const TR_IRREGULAR=new Set(`thought used tried saw knew gave spoke became lost found rose came took made broke told felt grew brought sought taught caught left held meant kept built sent spent heard read led paid met sat stood understood won wrote ran`.split(/\s+/));
+  function trCleanWord(x){return String(x||"").toLowerCase().replace(/^[^a-z]+|[^a-z]+$/g,"")}
+  function trPredicateReference(item){
+    if(item.id==="tr-2021-47")return ["rose（从句）","extended（主句）","had not thought（从句）"];
+    const s=item.source,tokens=s.match(/[A-Za-z]+(?:['’][A-Za-z]+)?|\S/g)||[],out=[];
+    for(let i=0;i<tokens.length;i++){
+      const w=trCleanWord(tokens[i]),next=trCleanWord(tokens[i+1]),next2=trCleanWord(tokens[i+2]);if(!w)continue;
+      if(["have","has","had"].includes(w)){let p=tokens[i];if(next==="not"){p+=" "+tokens[++i];}if(tokens[i+1])p+=" "+tokens[++i];if(trCleanWord(tokens[i+1])==="been")p+=" "+tokens[++i];if(tokens[i+1]&&(/ed$/.test(trCleanWord(tokens[i+1]))||TR_IRREGULAR.has(trCleanWord(tokens[i+1]))))p+=" "+tokens[++i];out.push(p);continue}
+      if(["am","is","are","was","were","can","could","may","might","must","shall","should","will","would","do","does","did"].includes(w)){let p=tokens[i];if(next==="not"||next==="n't"){p+=" "+tokens[++i];}if(tokens[i+1]&&["be","have"].includes(trCleanWord(tokens[i+1])))p+=" "+tokens[++i];if(tokens[i+1]&&(/ed$/.test(trCleanWord(tokens[i+1]))||/ing$/.test(trCleanWord(tokens[i+1]))||TR_IRREGULAR.has(trCleanWord(tokens[i+1]))))p+=" "+tokens[++i];out.push(p);continue}
+      if(TR_FINITE_WORDS.has(w)||TR_IRREGULAR.has(w)||(/ed$/.test(w)&&!/^created$/.test(w))){out.push(tokens[i])}
     }
-    return state.translationPractice;
+    return [...new Set(out)].slice(0,8);
   }
+  function trGuideReference(item){const out=[];let m;TR_GUIDE_RE.lastIndex=0;while((m=TR_GUIDE_RE.exec(item.source))){out.push(m[1])}return out}
+  function trSegments(item){const a=Array.isArray(item.segmentParts)&&item.segmentParts.length?item.segmentParts:String(item.segments||"").split("/").map(x=>x.trim()).filter(Boolean);return a.length?a:[item.source]}
+  function trIsSubPart(p){return /^(that|which|who|whom|whose|where|when|while|if|because|since|although|though|whereas|until|before|after|despite|with\b|by\b|to\b|as\b)/i.test(String(p).trim())}
+  function trMainCore(item){if(item.id==="tr-2021-47")return"And the demand extended to groups and social classes.";const parts=trSegments(item),kept=parts.filter(p=>!trIsSubPart(p));return kept.length?kept.join(" "):parts[0]}
+  function trClauseReference(item){const parts=trSegments(item);return parts.filter((p,i)=>trIsSubPart(p)||(/\b(that|which|who|where|when|if|because|although|while|whereas)\b/i.test(p)&&i>0)).slice(0,6)}
+  function trReferenceMeta(item){return{predicates:trPredicateReference(item),guides:trGuideReference(item),clauses:trClauseReference(item),core:trMainCore(item)}}
 
-  function translationEntry(id) {
-    const tr = translationState();
-    if (!tr.entries[id]) tr.entries[id] = {segmentDrafts:[],final:"",draft:"",polished:"",note:"",errors:{structure:false,logic:false,vocab:false,chinese:false},completed:false,attempts:0,referenceRevealed:false,updatedAt:"",firstCompletedAt:"",completedAt:"",lastPracticedAt:""};
-    if(!Array.isArray(tr.entries[id].segmentDrafts))tr.entries[id].segmentDrafts=[];
-    if(typeof tr.entries[id].final!=="string")tr.entries[id].final=String(tr.entries[id].polished||tr.entries[id].draft||"");
-    return tr.entries[id];
-  }
+  function translationOverviewHtml(){return `<div class="translation-overview-grid v38-simple"><div class="translation-plan-card"><h4>训练范围</h4><p><strong>只练你提供的14个年份、70个真题句。</strong>2018重复文件只计一次，不补其他年份。</p><div class="field" style="max-width:260px;margin-top:12px"><label>每天训练句数</label><input id="translationDailyCount" type="number" min="1" max="10" value="${translationState().settings.dailyCount}"></div><div class="button-row"><button class="primary-btn" data-tr-action="start-today">开始今日训练</button><button class="secondary-btn" data-tr-action="open-all">全部70句</button></div></div><div class="translation-plan-card"><h4>新的唯一流程</h4><div class="v38-flow"><span>① 找谓语</span><span>② 找引导词</span><span>③ [ ] 括从句</span><span>④ 弱化修饰找主干</span><span>⑤ 核对拆分</span><span>⑥ 整句翻译</span><span>⑦ 参考译文</span><span>⑧ 错因复盘</span></div><div class="v38-clean-note">旧版“系统提前切分、每块中文输入、主干模式、结构标签、重点词组、得分点、易错点大卡片”已经从训练界面移除。现在先自己拆，做完后才看参考。</div></div></div>`}
+  function translationListHtml(items,currentId){if(!items.length)return`<div class="translation-empty">当前筛选条件下没有题目。</div>`;return items.map(item=>{const status=translationItemStatus(item);return`<button class="translation-list-item ${item.id===currentId?'active':''} ${status==='completed'?'done':status==='inprogress'?'draft':''}" data-tr-open="${item.id}"><span class="translation-list-num">${item.year}·${item.number}</span><span class="translation-list-title">${escapeHtml(item.topic)}</span><span class="translation-list-state">${status==='completed'?'已完成':status==='inprogress'?'进行中':'未开始'}</span></button>`}).join("")}
 
-  function translationDateKey() { return localDateKey(); }
-  function translationOrderedItems() { return [...TRANSLATION_ITEMS].sort((a,b) => TRANSLATION_YEAR_ORDER.indexOf(a.year)-TRANSLATION_YEAR_ORDER.indexOf(b.year) || a.number-b.number); }
-  function translationTodayIds() {
-    const tr = translationState(), key = translationDateKey(), count = tr.settings.dailyCount;
-    const existing = Array.isArray(tr.daily[key]) ? tr.daily[key].filter(id => TRANSLATION_VALID_IDS.has(id)) : [];
-    if (existing.length === count) return existing;
-    const ordered = translationOrderedItems();
-    const unfinished = ordered.filter(item => !translationEntry(item.id).completed);
-    const pool = unfinished.length ? unfinished : ordered;
-    const ids = pool.slice(0,count).map(item => item.id);
-    tr.daily[key] = ids;
-    saveState({touch:false,sync:false});
-    return ids;
-  }
+  function trNormalizeAnnotations(e,len){e.annotations=(e.annotations||[]).map(a=>({type:a.type,start:Math.max(0,Math.min(len,Number(a.start)||0)),end:Math.max(0,Math.min(len,Number(a.end)||0))})).filter(a=>a.end>a.start)}
+  function trAnnotatedSourceHtml(item,e){const s=item.source;trNormalizeAnnotations(e,s.length);const anns=e.annotations,bounds=new Set([0,s.length]);anns.forEach(a=>{bounds.add(a.start);bounds.add(a.end)});const points=[...bounds].sort((a,b)=>a-b),starts={},ends={};anns.filter(a=>a.type==="clause").forEach(a=>{(starts[a.start]||(starts[a.start]=[])).push(a);(ends[a.end]||(ends[a.end]=[])).push(a)});let out="";for(let i=0;i<points.length-1;i++){const a=points[i],b=points[i+1];if(starts[a])out+=starts[a].map(()=>`<span class="v38-bracket">[</span>`).join("");const active=anns.filter(x=>x.type!=="clause"&&x.start<=a&&x.end>=b).map(x=>`v38-mark-${x.type}`).join(" ");out+=`<span class="${active}">${escapeHtml(s.slice(a,b))}</span>`;if(ends[b])out+=ends[b].map(()=>`<span class="v38-bracket">]</span>`).join("")}return out}
+  function trStageInfo(stage,item){const refs=trReferenceMeta(item);const steps={1:["第1步 · 找有时态的谓语","只标真正有时态、能承担句子谓语功能的动词或动词短语。先不要翻译。"],2:["第2步 · 找引导词","看看谓语前有没有 that / which / who / when / if / because 等把从句引进来的词。"],3:["第3步 · 用 [ ] 括出从句","拖选完整从句，再点“[ ] 从句”。括号边界先按你的理解来。"],4:["第4步 · 弱化修饰，找主干","标出主语和主句谓语；把暂时不看的修饰成分点“弱化”或“划掉”。"],5:["第5步 · 核对拆分","现在才看参考拆分和主干，比较自己哪里划错。"],6:["第6步 · 整句翻译","拆清楚以后，再把整句组织成自然中文。"]};return steps[stage]||steps[6]}
+  const trUndoStacks={};let trLastSelection=null;
+  function trPushUndo(id,e){(trUndoStacks[id]||(trUndoStacks[id]=[])).push(JSON.stringify({annotations:e.annotations,stage:e.stage,feedback:e.feedback,hintStage:e.hintStage}));if(trUndoStacks[id].length>30)trUndoStacks[id].shift()}
+  function trRestoreUndo(item,e){const stack=trUndoStacks[item.id]||[];if(!stack.length){showToast("没有可撤销的标记");return}const x=JSON.parse(stack.pop());e.annotations=x.annotations||[];e.stage=x.stage||1;e.feedback=x.feedback||{};e.hintStage=x.hintStage||0;trTouch(e,true);renderTranslationModule()}
+  function trTouch(e,queue=false){const now=new Date().toISOString();e.updatedAt=now;e.lastPracticedAt=now;translationState().updatedAt=now;saveState({sync:queue});translationLocalDirty=!queue}
+  function trSelectionOffsets(){return trLastSelection}
+  function trCaptureSelection(){const el=$("translationInteractiveSource"),sel=window.getSelection();if(!el||!sel||sel.rangeCount===0||sel.isCollapsed)return;const r=sel.getRangeAt(0);if(!el.contains(r.commonAncestorContainer))return;const pre=document.createRange();pre.selectNodeContents(el);pre.setEnd(r.startContainer,r.startOffset);const start=pre.toString().length;const text=r.toString();if(text.trim())trLastSelection={start,end:start+text.length,text}}
+  function trApplyMark(item,e,type){const x=trSelectionOffsets();if(!x||x.end<=x.start){showToast("先在英文原句里拖选一段文字");return}trPushUndo(item.id,e);e.annotations.push({type,start:x.start,end:x.end});trLastSelection=null;window.getSelection()?.removeAllRanges();trTouch(e,false);renderTranslationModule()}
+  function trHasType(e,t){return(e.annotations||[]).some(a=>a.type===t)}
+  function trSelectionText(item,a){return item.source.slice(a.start,a.end).replace(/\s+/g," ").trim()}
+  function trCheckStage(item,e){const st=e.stage,ref=trReferenceMeta(item);trPushUndo(item.id,e);let ok=true,msg="";if(st===1){const marks=e.annotations.filter(a=>a.type==="predicate");ok=marks.length>0;e.checks.predicate=(e.checks.predicate||0)+1;msg=ok?`你标了 ${marks.length} 处谓语。参考识别：${ref.predicates.join("；")||"请结合句子时态判断"}。`:`还没有标谓语。先拖选谓语，再点“谓语”。`}
+    else if(st===2){const marks=e.annotations.filter(a=>a.type==="guide");e.checks.guide=(e.checks.guide||0)+1;ok=marks.length>0||ref.guides.length===0;msg=ref.guides.length?`你标了 ${marks.length} 处引导词。参考可重点检查：${[...new Set(ref.guides)].join(" / ")}。`:`这句没有明显必须单独标出的从属引导词；可以继续看从句或并列关系。`}
+    else if(st===3){const marks=e.annotations.filter(a=>a.type==="clause");e.checks.clause=(e.checks.clause||0)+1;ok=marks.length>0||ref.clauses.length===0;msg=ok?`已保存你的从句边界。下一步先把修饰弱化，再找主干。`:`先至少括出一个你认为的从句，再检查。`}
+    else if(st===4){e.checks.core=(e.checks.core||0)+1;ok=trHasType(e,"subject")&&trHasType(e,"predicate");msg=ok?`主语和谓语都已标出。现在进入“核对拆分”，再看参考。`:`这一步至少要标出一个“主语”和一个“谓语”；弱化/划掉是辅助工具。`}
+    if(st<=4){e.feedback[st]={ok,msg};if(ok)e.stage=Math.min(5,st+1)}trTouch(e,true);renderTranslationModule()}
+  function trHint(item,e){e.hintStage=e.stage;const ref=trReferenceMeta(item);let text="";if(e.stage===1)text=`提示：这句参考可找到 ${Math.max(1,ref.predicates.length)} 组有时态谓语。先看时态，不要把所有 -ing / to do 都当谓语。`;else if(e.stage===2)text=ref.guides.length?`提示：重点扫这些引导词：${[...new Set(ref.guides)].join(" / ")}。`:`提示：这句不一定靠明显的 that/which 来切，注意并列和非谓语。`;else if(e.stage===3)text=`提示：先从引导词开始向后找完整的小句，别只括一个短语。`;else if(e.stage===4)text=`提示：把明显的从句、介词短语、非谓语先弱化，看看剩下什么“谁 + 做什么”。`;e.feedback.hint={msg:text};trTouch(e,false);renderTranslationModule()}
+  function trReferenceBlock(item,e){if(e.stage<5)return"";const ref=trReferenceMeta(item);return `<div class="v38-feedback good"><strong>参考拆分现在才出现：</strong>只用来核对，不会覆盖你的标记。</div><div class="v38-reference-split">${trSegments(item).map(p=>`<div class="v38-reference-part">${escapeHtml(p)}</div>`).join("")}</div><div class="v38-core"><strong>参考主干：</strong> ${escapeHtml(ref.core)}</div><div class="v38-feedback"><strong>参考谓语：</strong>${escapeHtml(ref.predicates.join("；")||"结合时态判断")}<br><strong>常见引导词：</strong>${escapeHtml([...new Set(ref.guides)].join(" / ")||"无明显单独引导词")}</div>`}
+  function trReviewHtml(item,e){if(!e.referenceRevealed)return"";return `<div class="v38-review"><h3 style="margin:0 0 10px">复盘</h3><div class="v38-review-grid"><div class="v38-review-card"><h4>标准拆分</h4>${trSegments(item).map((p,i)=>`<p>${i+1}. ${escapeHtml(p)}</p>`).join("")}</div><div class="v38-review-card"><h4>结构提醒</h4><p>${escapeHtml(item.structureHint||"先确认主干、从句边界与逻辑关系，再调整中文语序。")}</p></div></div><div class="v38-reference"><strong>训练参考译文：</strong>${escapeHtml(item.reference)}</div><div class="v38-errors"><label class="v38-error"><input type="checkbox" data-tr-error="structure" ${e.errors.structure?'checked':''}>结构</label><label class="v38-error"><input type="checkbox" data-tr-error="logic" ${e.errors.logic?'checked':''}>逻辑</label><label class="v38-error"><input type="checkbox" data-tr-error="vocab" ${e.errors.vocab?'checked':''}>词义</label><label class="v38-error"><input type="checkbox" data-tr-error="chinese" ${e.errors.chinese?'checked':''}>中文表达</label></div></div>`}
 
-  function translationCompletedCountForDate(dateKey) {
-    let count=0;
-    Object.values(translationState().entries).forEach(e=>{
-      if(!e?.completed)return;
-      const stamp=e.completedAt||e.firstCompletedAt||"";
-      const d=new Date(stamp);
-      if(!Number.isNaN(d.getTime())&&localDateKey(d)===dateKey)count++;
-    });
-    return count;
-  }
-
-  const v34BasePlanActivityCount = planActivityCount;
-  planActivityCount = function(dateKey,activity){
-    if(activity==="translation")return translationCompletedCountForDate(dateKey);
-    return v34BasePlanActivityCount(dateKey,activity);
-  };
-
-  function translationStats() {
-    const entries = translationState().entries;
-    let done=0,drafts=0,errors=0;
-    TRANSLATION_ITEMS.forEach(item => {
-      const e=entries[item.id]; if(!e)return;
-      if(e.completed)done++;
-      if(String(e.final||"").trim()||e.segmentDrafts?.some(x=>String(x||"").trim()))drafts++;
-      if(Object.values(e.errors||{}).some(Boolean))errors++;
-    });
-    const todayIds=translationTodayIds(),todayDone=todayIds.filter(id=>translationEntry(id).completed).length;
-    return {done,drafts,errors,todayDone,todayTotal:todayIds.length};
-  }
-
-  function updateTranslationMetrics() {
-    const x=translationStats();
-    if($("translationTotalMetric"))$("translationTotalMetric").textContent=TRANSLATION_ITEMS.length;
-    if($("translationDoneMetric"))$("translationDoneMetric").textContent=x.done;
-    if($("translationDraftMetric"))$("translationDraftMetric").textContent=x.drafts;
-    if($("translationTodayMetric"))$("translationTodayMetric").textContent=`${x.todayDone}/${x.todayTotal}`;
-    document.querySelectorAll("[data-translation-tab]").forEach(btn=>btn.classList.toggle("active",btn.dataset.translationTab===translationState().settings.activeTab));
-  }
-
-  function translationItemStatus(item) {
-    const e=translationEntry(item.id);
-    if(e.completed)return "completed";
-    if(Object.values(e.errors||{}).some(Boolean))return "errors";
-    if(String(e.final||"").trim()||e.segmentDrafts?.some(x=>String(x||"").trim()))return "inprogress";
-    return "unfinished";
-  }
-
-  function translationFilteredItems() {
-    const tr=translationState(),s=tr.settings;
-    let items=s.listMode==="today"?translationTodayIds().map(id=>TRANSLATION_ITEMS.find(x=>x.id===id)).filter(Boolean):translationOrderedItems();
-    if(s.filterYear!=="all")items=items.filter(x=>String(x.year)===s.filterYear);
-    if(s.filterTag!=="all")items=items.filter(x=>x.tags.includes(s.filterTag));
-    if(s.filterStatus!=="all")items=items.filter(x=>translationItemStatus(x)===s.filterStatus || (s.filterStatus==="unfinished"&&translationItemStatus(x)!=="completed"));
-    return items;
-  }
-
-  function translationCurrentItem() {
-    const tr=translationState(),items=translationFilteredItems();
-    let item=items.find(x=>x.id===tr.settings.currentId);
-    if(!item)item=items[0]||TRANSLATION_ITEMS.find(x=>x.id===tr.settings.currentId)||TRANSLATION_ITEMS[0];
-    tr.settings.currentId=item.id;
-    return item;
-  }
-
-  function translationOverviewHtml() {
-    return `<div class="translation-overview-grid">
-      <div class="translation-plan-card">
-        <h4>训练范围已经锁定</h4>
-        <p><strong>14个年份、70个翻译句：</strong>2004、2007、2012、2013、2016、2018、2019、2020、2021、2022、2023、2024、2025、2026。2018重复上传的试卷只计算一次，不补入其他年份。</p>
-        <div class="translation-phase"><strong>第一轮 · 建立拆句习惯</strong><span>2024 → 2025 → 2021。先练结构相对清楚的近期题，重点练“看到长句先切开”，而不是直接硬翻。</span></div>
-        <div class="translation-phase"><strong>第二轮 · 处理抽象长句</strong><span>2020 → 2013 → 2012 → 2022 → 2023。重点练抽象名词、复杂逻辑、长定语、多层从句和指代。</span></div>
-        <div class="translation-phase"><strong>第三轮 · 补齐其余年份</strong><span>2004 → 2007 → 2016 → 2018 → 2019 → 2026。完成后将70句打乱，进行结构辨认和限时翻译。</span></div>
-        <div class="field" style="max-width:260px;margin-top:15px"><label>每天精练句数</label><input id="translationDailyCount" type="number" min="1" max="10" value="${translationState().settings.dailyCount}"></div>
-        <div class="button-row"><button class="primary-btn" data-tr-action="start-today">开始今日训练</button><button class="secondary-btn" data-tr-action="open-all">查看全部70句</button></div>
-      </div>
-      <div class="translation-plan-card">
-        <h4>每句话按这个顺序做</h4>
-        <ol><li><strong>先看切分：</strong>网页把长句按语法和语义拆成若干块。</li><li><strong>逐块理解：</strong>每一块先写一句短中文，只求看懂，不求漂亮。</li><li><strong>整句重组：</strong>把小块重新组织成一版完整、自然的中文。</li><li><strong>再看解析：</strong>最后才展开主干、结构、词组、得分点和参考译文。</li><li><strong>记录错因：</strong>只记结构、逻辑、词义、中文表达中的真实问题，再重译。</li></ol>
-        <h4 style="margin-top:18px">核心原则</h4>
-        <p>训练目标不是背参考答案，而是形成固定动作：<strong>切开 → 看懂每块 → 找主干 → 重组中文</strong>。页面中的参考译文是训练参考，不标成“官方答案”。</p>
-      </div>
-    </div>`;
-  }
-
-  function translationListHtml(items,currentId) {
-    if(!items.length)return `<div class="translation-empty">当前筛选条件下没有题目。</div>`;
-    return items.map(item=>{const status=translationItemStatus(item);return `<button class="translation-list-item ${item.id===currentId?'active':''} ${status==='completed'?'done':status==='inprogress'?'draft':''}" data-tr-open="${item.id}"><span class="translation-list-num">${item.year}·${item.number}</span><span class="translation-list-title">${escapeHtml(item.topic)}</span><span class="translation-list-state">${status==='completed'?'已完成':status==='inprogress'?'进行中':'未开始'}</span></button>`}).join("");
-  }
-
-  function translationSegments(item){
-    const parts=Array.isArray(item.segmentParts)&&item.segmentParts.length?item.segmentParts:String(item.segments||item.source).split("/").map(x=>x.trim()).filter(Boolean);
-    return parts.length?parts:[item.source];
-  }
-
-  function translationSegmentMeta(text,index,total){
-    const t=String(text||"").trim(),l=t.toLowerCase();
-    let role="主干",hint="先找这块的主语和谓语，确定它在说什么。",core=true;
-    if(/^(although|while|if|when|before|after|despite|since|because|as |with |by |to |tracing |being )/.test(l)){role=/^(to |by |with |tracing |being )/.test(l)?"非谓语/状语":"状语从句";hint="先判断这块和主句的时间、条件、让步、原因或方式关系，再决定中文语序。";core=false;}
-    if(/^that\b/.test(l)){role="内容从句";hint="这是主干动作的具体内容，先把这一小句完整看懂，再接回主句。";core=true;}
-    if(/^(what|how|where)\b/.test(l)){role="从句内容";hint="先看它在上一级句子里充当什么成分，再翻成一整块意思。";core=true;}
-    if(/^(which|who|whose|whom)\b/.test(l)){role="定语从句";hint="先确认它修饰前面的哪个名词；中文可以前置，也可以拆成独立小句。";core=false;}
-    if(/^(such as|including|for example|not least|as opposed to|in its|during |only |about |of )/.test(l)){role="补充/修饰";hint="这块是补充说明，不要抢主干，但信息不能漏。";core=false;}
-    if(/^(and|but|or|yet|whereas|so\b)/.test(l)){role=/^but/.test(l)?"转折主干":"并列主干";hint="确认它和前面哪一层并列或转折，尤其注意共用的主语、谓语或宾语。";core=true;}
-    if(index>0&&core&&/^(is|are|was|were|has|have|had|can|could|may|might|must|should|would|will)\b/.test(l)){role="主干延续";}
-    return {role,hint,core};
-  }
-
-  function translationSegmentCardsHtml(item,e){
-    const parts=translationSegments(item); while(e.segmentDrafts.length<parts.length)e.segmentDrafts.push("");
-    return parts.map((part,i)=>{const m=translationSegmentMeta(part,i,parts.length),value=e.segmentDrafts[i]||"";return `<div class="translation-segment-card ${m.core?'':'secondary'} ${translationState().settings.stemMode&&!m.core?'stem-muted':''}"><div class="translation-segment-top"><span class="translation-segment-no">${i+1}</span><div class="translation-segment-en">${escapeHtml(part)}</div><span class="translation-segment-role">${escapeHtml(m.role)}</span></div><textarea data-tr-segment="${i}" placeholder="这小块先怎么理解？写短中文即可。">${escapeHtml(value)}</textarea><div class="translation-segment-hint">${escapeHtml(m.hint)}</div></div>`}).join("");
-  }
-
-  function translationAnalysisHtml(item,e) {
-    if(!e.referenceRevealed)return `<div class="translation-analysis"><div class="all-writing-notice">先完成分块理解和自己的完整译文，再展开解析。解析不会自动覆盖你的答案。</div></div>`;
-    return `<div class="translation-analysis">
-      <h3 class="translation-analysis-title">第3步 · 对照解析</h3>
-      <div class="translation-analysis-grid">
-        <div class="translation-analysis-block"><h4>结构提示</h4><p>${escapeHtml(item.structureHint)}</p><div class="translation-tag-row">${item.tags.map(x=>`<span class="translation-tag">${escapeHtml(x)}</span>`).join("")}</div></div>
-        <div class="translation-analysis-block"><h4>重点词组</h4>${item.keyPhrases.length?`<ul>${item.keyPhrases.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul>`:'<p>本句重点在整体结构和逻辑关系，不必为每个普通词单独建立固定译法。</p>'}</div>
-        <div class="translation-analysis-block"><h4>主要得分点</h4><ul>${item.scoringPoints.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
-        <div class="translation-analysis-block"><h4>常见失分位置</h4><ul>${item.pitfalls.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
-      </div>
-      <h4 style="margin:16px 0 8px">训练参考译文</h4><div class="translation-reference">${escapeHtml(item.reference)}</div>
-      <div class="translation-review-tools"><h4>第4步 · 记录真实错因</h4><div class="translation-error-checks"><label class="translation-error-check"><input type="checkbox" data-tr-error="structure" ${e.errors.structure?'checked':''}>结构错误</label><label class="translation-error-check"><input type="checkbox" data-tr-error="logic" ${e.errors.logic?'checked':''}>逻辑错误</label><label class="translation-error-check"><input type="checkbox" data-tr-error="vocab" ${e.errors.vocab?'checked':''}>词义错误</label><label class="translation-error-check"><input type="checkbox" data-tr-error="chinese" ${e.errors.chinese?'checked':''}>中文表达</label></div><div class="translation-note"><label for="translationNoteInput">复盘备注</label><textarea id="translationNoteInput" placeholder="只记具体错误：例如which指代判断错、as漏译、work out误译等。">${escapeHtml(e.note)}</textarea></div></div>
-    </div>`;
-  }
-
-  function translationPracticeHtml() {
-    const tr=translationState(),items=translationFilteredItems(),item=translationCurrentItem(),e=translationEntry(item.id);
-    const years=[...new Set(TRANSLATION_ITEMS.map(x=>x.year))].sort((a,b)=>a-b),tags=[...new Set(TRANSLATION_ITEMS.flatMap(x=>x.tags))].sort();
-    const idx=items.findIndex(x=>x.id===item.id),status=translationItemStatus(item),parts=translationSegments(item),filled=e.segmentDrafts.filter(x=>String(x||"").trim()).length;
-    return `<div class="translation-practice-layout">
-      <aside class="translation-side">
-        <div class="translation-filter-grid"><select id="translationYearFilter"><option value="all">全部年份</option>${years.map(y=>`<option value="${y}" ${tr.settings.filterYear===String(y)?'selected':''}>${y}年</option>`).join("")}</select><select id="translationStatusFilter"><option value="all">全部状态</option><option value="unfinished" ${tr.settings.filterStatus==='unfinished'?'selected':''}>未完成</option><option value="inprogress" ${tr.settings.filterStatus==='inprogress'?'selected':''}>进行中</option><option value="completed" ${tr.settings.filterStatus==='completed'?'selected':''}>已完成</option><option value="errors" ${tr.settings.filterStatus==='errors'?'selected':''}>有错因</option></select></div>
-        <div class="field" style="margin:8px 0"><select id="translationTagFilter"><option value="all">全部结构类型</option>${tags.map(x=>`<option value="${escapeHtml(x)}" ${tr.settings.filterTag===x?'selected':''}>${escapeHtml(x)}</option>`).join("")}</select></div>
-        <div class="translation-mode-row"><button class="translation-mode-btn ${tr.settings.listMode==='today'?'active':''}" data-tr-mode="today">今日${tr.settings.dailyCount}句</button><button class="translation-mode-btn ${tr.settings.listMode==='all'?'active':''}" data-tr-mode="all">全部70句</button></div>
-        <div class="translation-question-list">${translationListHtml(items,item.id)}</div>
-      </aside>
-      <main class="translation-main-card">
-        <div class="translation-question-head"><div><h3>${item.year}年 · 第${item.number}题</h3><div class="translation-topic">${escapeHtml(item.topic)} · ${escapeHtml(item.phaseLabel)}</div></div><span class="translation-status-pill ${status==='completed'?'done':''}">${status==='completed'?'已完成':status==='inprogress'?'进行中':'未开始'}</span></div>
-        <div class="translation-steps"><span class="translation-step active"><b>1</b>切分理解</span><span class="translation-step ${String(e.final||'').trim()?'active':''}"><b>2</b>整句重组</span><span class="translation-step ${e.referenceRevealed?'active':''}"><b>3</b>对照解析</span><span class="translation-step ${Object.values(e.errors||{}).some(Boolean)||e.note?'active':''}"><b>4</b>错因复盘</span></div>
-        <button class="translation-context-toggle" data-tr-action="toggle-context">${tr.settings.showContext?'隐藏上下文':'显示上下文'}</button>
-        ${tr.settings.showContext?`<div class="translation-context"><strong>前文：</strong>${escapeHtml(item.contextBefore||'本题为文章开头附近，直接结合主题理解。')}<br><strong>后文：</strong>${escapeHtml(item.contextAfter||'后文进入下一部分。')}</div>`:''}
-        <div class="translation-source-compact"><strong>完整原句：</strong> ${escapeHtml(item.source)}</div>
-        <div class="translation-guided-head"><h4>第1步 · 我先帮你把句子切开</h4><button class="translation-stem-btn ${tr.settings.stemMode?'active':''}" data-tr-action="stem-mode">${tr.settings.stemMode?'退出主干模式':'主干模式'}</button></div>
-        <div class="translation-segment-list">${translationSegmentCardsHtml(item,e)}</div>
-        <div class="translation-comprehension-progress">分块理解：${filled}/${parts.length} 块。这里允许很粗糙，只要你确认每块是什么意思。</div>
-        <div class="translation-final-box"><label for="translationFinalInput">第2步 · 我的完整译文</label><textarea id="translationFinalInput" placeholder="把上面的几块重新组织成自然中文。不要照英文顺序硬拼。">${escapeHtml(e.final)}</textarea><div class="translation-save-line" id="translationSaveStatus">${e.updatedAt?'上次本机保存：'+new Date(e.updatedAt).toLocaleString():'输入后自动保存到本机'}</div></div>
-        <div class="button-row" style="margin-top:14px"><button class="secondary-btn" data-tr-action="previous" ${idx<=0?'disabled':''}>上一题</button><button class="primary-btn" data-tr-action="save">保存本题</button><button class="secondary-btn" data-tr-action="reveal">${e.referenceRevealed?'隐藏解析':'查看解析与参考译文'}</button>${e.completed?'<button class="secondary-btn" data-tr-action="redo">重新练习</button>':'<button class="primary-btn" data-tr-action="complete">标记完成</button>'}<button class="secondary-btn" data-tr-action="next" ${idx<0||idx>=items.length-1?'disabled':''}>下一题</button></div>
-        ${translationAnalysisHtml(item,e)}
-      </main>
-    </div>`;
-  }
-
-  function translationProgressHtml() {
-    const stats=translationStats();
-    const years=[...new Set(TRANSLATION_ITEMS.map(x=>x.year))].sort((a,b)=>a-b);
-    const errorCounts={structure:0,logic:0,vocab:0,chinese:0};
-    Object.values(translationState().entries).forEach(e=>Object.keys(errorCounts).forEach(k=>{if(e.errors?.[k])errorCounts[k]++}));
-    const problemItems=TRANSLATION_ITEMS.map(item=>({item,e:translationEntry(item.id),count:Object.values(translationEntry(item.id).errors||{}).filter(Boolean).length})).filter(x=>x.count||x.e.note).sort((a,b)=>b.count-a.count||String(b.e.updatedAt).localeCompare(String(a.e.updatedAt))).slice(0,12);
-    return `<div class="translation-overview-grid"><div class="translation-plan-card"><h4>按年份完成情况</h4><div class="translation-progress-years">${years.map(y=>{const all=TRANSLATION_ITEMS.filter(x=>x.year===y),done=all.filter(x=>translationEntry(x.id).completed).length;return `<div class="translation-year-row"><div class="translation-year-head"><span>${y}年</span><span>${done}/${all.length}</span></div><div class="translation-progress-track"><div class="translation-progress-fill" style="width:${Math.round(done/all.length*100)}%"></div></div></div>`}).join("")}</div></div><div class="translation-plan-card"><h4>错因统计</h4><div class="translation-error-grid"><div class="translation-error-card"><strong>${errorCounts.structure}</strong><span>结构错误</span></div><div class="translation-error-card"><strong>${errorCounts.logic}</strong><span>逻辑错误</span></div><div class="translation-error-card"><strong>${errorCounts.vocab}</strong><span>词义错误</span></div><div class="translation-error-card"><strong>${errorCounts.chinese}</strong><span>中文表达</span></div></div><p style="margin-top:15px"><strong>总进度：</strong>${stats.done} / 70；进行中 ${stats.drafts} 句；今日完成 ${stats.todayDone} / ${stats.todayTotal}。</p><h4 style="margin-top:18px">优先重译</h4>${problemItems.length?problemItems.map(x=>`<button class="translation-list-item" style="margin-top:7px" data-tr-open-progress="${x.item.id}"><span class="translation-list-num">${x.item.year}·${x.item.number}</span><span class="translation-list-title">${escapeHtml(x.e.note||x.item.topic)}</span><span class="translation-list-state">${x.count}类错因</span></button>`).join(""):'<div class="translation-empty">还没有记录错因。完成题目后，在四类错因中勾选并写下具体原因。</div>'}</div></div>`;
-  }
-
-  function renderTranslationModule() {
-    if(!$("translationContent"))return;
-    const tr=translationState();
-    updateTranslationMetrics();
-    $("translationContent").innerHTML=tr.settings.activeTab==="practice"?translationPracticeHtml():tr.settings.activeTab==="progress"?translationProgressHtml():translationOverviewHtml();
-  }
-
-  function translationCaptureFields(queueCloud=false) {
-    if(currentView!=="translation"||translationState().settings.activeTab!=="practice")return;
-    const item=translationCurrentItem(),e=translationEntry(item.id),finalInput=$("translationFinalInput"),note=$("translationNoteInput");
-    document.querySelectorAll("[data-tr-segment]").forEach(input=>{e.segmentDrafts[Number(input.dataset.trSegment)]=input.value;});
-    if(finalInput)e.final=finalInput.value;
-    if(note)e.note=note.value;
-    document.querySelectorAll("[data-tr-error]").forEach(input=>e.errors[input.dataset.trError]=input.checked);
-    e.updatedAt=new Date().toISOString();e.lastPracticedAt=e.updatedAt;translationState().updatedAt=e.updatedAt;
-    saveState({sync:queueCloud});
-    translationLocalDirty=!queueCloud;
-    const status=$("translationSaveStatus");if(status)status.textContent=queueCloud?"已保存到本机，并加入云端集中同步批次":"已自动保存到本机 · 云端将在本题结束或切换页面时集中同步";
-    updateTranslationMetrics();
-  }
-
-  function scheduleTranslationLocalSave() {
-    clearTimeout(translationSaveTimer);
-    const status=$("translationSaveStatus");if(status)status.textContent="正在保存到本机……";
-    translationSaveTimer=setTimeout(()=>translationCaptureFields(false),450);
-  }
-
-  function flushTranslationSave(queueCloud=true) {
-    clearTimeout(translationSaveTimer);translationCaptureFields(queueCloud);translationLocalDirty=false;
-  }
-
-  function translationMove(delta) {
-    flushTranslationSave(true);
-    const items=translationFilteredItems(),current=translationCurrentItem(),idx=items.findIndex(x=>x.id===current.id),next=items[idx+delta];if(!next)return;
-    translationState().settings.currentId=next.id;saveState({touch:false,sync:false});renderTranslationModule();
-  }
-
-  function initTranslationModule() {
-    state.translationPractice=normalizeTranslationPractice(state.translationPractice);
-    const view=$("translationView");if(!view)return;
-    view.addEventListener("input",event=>{
-      if(event.target.id==="translationFinalInput"||event.target.id==="translationNoteInput"||event.target.matches("[data-tr-segment]"))scheduleTranslationLocalSave();
-      if(event.target.id==="translationDailyCount"){translationState().settings.dailyCount=Math.max(1,Math.min(10,Math.floor(Number(event.target.value)||2)));translationState().daily[translationDateKey()]=[];saveState();updateTranslationMetrics();}
-    });
-    view.addEventListener("change",event=>{
-      if(event.target.matches("[data-tr-error]")){scheduleTranslationLocalSave();return;}
-      const map={translationYearFilter:"filterYear",translationTagFilter:"filterTag",translationStatusFilter:"filterStatus"};
-      if(map[event.target.id]){flushTranslationSave(true);translationState().settings[map[event.target.id]]=event.target.value;saveState({touch:false,sync:false});renderTranslationModule();}
-    });
-    view.addEventListener("focusout",event=>{if(event.target.id==="translationFinalInput"||event.target.id==="translationNoteInput"||event.target.matches("[data-tr-segment]"))flushTranslationSave(true);});
-    view.addEventListener("click",event=>{
-      const tab=event.target.closest("[data-translation-tab]");if(tab){flushTranslationSave(true);translationState().settings.activeTab=tab.dataset.translationTab;saveState({touch:false,sync:false});renderTranslationModule();return;}
-      const mode=event.target.closest("[data-tr-mode]");if(mode){flushTranslationSave(true);translationState().settings.listMode=mode.dataset.trMode;saveState({touch:false,sync:false});renderTranslationModule();return;}
-      const open=event.target.closest("[data-tr-open]");if(open){flushTranslationSave(true);translationState().settings.currentId=open.dataset.trOpen;saveState({touch:false,sync:false});renderTranslationModule();return;}
-      const openProgress=event.target.closest("[data-tr-open-progress]");if(openProgress){translationState().settings.activeTab="practice";translationState().settings.listMode="all";translationState().settings.filterYear="all";translationState().settings.filterTag="all";translationState().settings.filterStatus="all";translationState().settings.currentId=openProgress.dataset.trOpenProgress;saveState({touch:false,sync:false});renderTranslationModule();return;}
-      const btn=event.target.closest("[data-tr-action]");if(!btn)return;const action=btn.dataset.trAction;
-      if(action==="start-today"){translationState().settings.activeTab="practice";translationState().settings.listMode="today";translationState().settings.currentId=translationTodayIds()[0]||TRANSLATION_ITEMS[0].id;saveState();renderTranslationModule();return;}
-      if(action==="open-all"){translationState().settings.activeTab="practice";translationState().settings.listMode="all";saveState();renderTranslationModule();return;}
-      if(action==="toggle-context"){translationState().settings.showContext=!translationState().settings.showContext;saveState({touch:false,sync:false});renderTranslationModule();return;}
-      if(action==="stem-mode"){flushTranslationSave(false);translationState().settings.stemMode=!translationState().settings.stemMode;saveState({touch:false,sync:false});renderTranslationModule();return;}
-      if(action==="save"){flushTranslationSave(true);showToast("本题已保存到本机，云端将集中同步");return;}
-      if(action==="previous"){translationMove(-1);return;}if(action==="next"){translationMove(1);return;}
-      const item=translationCurrentItem(),e=translationEntry(item.id);
-      if(action==="reveal"){flushTranslationSave(true);if(!e.referenceRevealed&&!String(e.final||"").trim()){showToast("先完成自己的完整译文，再看解析");return;}e.referenceRevealed=!e.referenceRevealed;e.updatedAt=new Date().toISOString();saveState();renderTranslationModule();return;}
-      if(action==="complete"){flushTranslationSave(true);if(!String(e.final||"").trim()){showToast("请先写下自己的完整译文");return;}{const now=new Date().toISOString();e.completed=true;e.attempts+=1;e.firstCompletedAt=e.firstCompletedAt||now;e.completedAt=now;e.updatedAt=now;}saveState();renderTranslationModule();showToast("已标记完成，学习计划实际进度已更新");return;}
-      if(action==="redo"){flushTranslationSave(true);e.completed=false;e.completedAt="";e.updatedAt=new Date().toISOString();saveState();renderTranslationModule();showToast("已加入重新练习，学习计划进度已同步调整");return;}
-    });
-    document.addEventListener("visibilitychange",()=>{if(document.hidden&&translationLocalDirty)flushTranslationSave(true);});
-  }
+  function translationPracticeHtml(){const tr=translationState(),items=translationFilteredItems(),item=translationCurrentItem(),e=translationEntry(item.id),years=[...new Set(TRANSLATION_ITEMS.map(x=>x.year))].sort((a,b)=>a-b),status=translationItemStatus(item),info=trStageInfo(e.stage,item);return `<div class="v38-practice-layout"><aside class="v38-side"><div class="translation-filter-grid"><select id="translationYearFilter"><option value="all">全部年份</option>${years.map(y=>`<option value="${y}" ${tr.settings.filterYear===String(y)?'selected':''}>${y}年</option>`).join("")}</select><select id="translationStatusFilter"><option value="all">全部状态</option><option value="unfinished" ${tr.settings.filterStatus==='unfinished'?'selected':''}>未完成</option><option value="inprogress" ${tr.settings.filterStatus==='inprogress'?'selected':''}>进行中</option><option value="completed" ${tr.settings.filterStatus==='completed'?'selected':''}>已完成</option></select></div><div class="translation-mode-row"><button class="translation-mode-btn ${tr.settings.listMode==='today'?'active':''}" data-tr-mode="today">今日${tr.settings.dailyCount}句</button><button class="translation-mode-btn ${tr.settings.listMode==='all'?'active':''}" data-tr-mode="all">全部70句</button></div><div class="translation-question-list">${translationListHtml(items,item.id)}</div></aside><main class="v38-main"><div class="translation-question-head"><div><h3>${item.year}年 · 第${item.number}题</h3><div class="translation-topic">${escapeHtml(item.topic)}</div></div><span class="translation-status-pill ${status==='completed'?'done':''}">${status==='completed'?'已完成':status==='inprogress'?'进行中':'未开始'}</span></div><div class="v38-stagebar">${[1,2,3,4,5,6].map((n)=>`<span class="v38-stage ${e.stage===n?'active':e.stage>n?'done':''}">${n} ${['','谓语','引导词','括从句','找主干','核对','翻译'][n]}</span>`).join("")}</div><button class="translation-context-toggle" data-tr-action="toggle-context">${tr.settings.showContext?'隐藏上下文':'显示上下文'}</button>${tr.settings.showContext?`<div class="translation-context"><strong>前文：</strong>${escapeHtml(item.contextBefore||'—')}<br><strong>后文：</strong>${escapeHtml(item.contextAfter||'—')}</div>`:''}<div class="v38-source-wrap"><div class="v38-source-title"><strong>在原句上直接操作</strong><span class="v38-selection-tip">先拖选英文，再点工具按钮</span></div><div id="translationInteractiveSource" class="v38-source">${trAnnotatedSourceHtml(item,e)}</div><div class="v38-toolbar"><button class="v38-tool subject" data-tr-mark="subject">主语</button><button class="v38-tool predicate" data-tr-mark="predicate">谓语</button><button class="v38-tool guide" data-tr-mark="guide">引导词</button><button class="v38-tool clause" data-tr-mark="clause">[ ] 从句</button><button class="v38-tool" data-tr-mark="weak">弱化</button><button class="v38-tool" data-tr-mark="strike">划掉</button><button class="v38-tool" data-tr-action="undo-mark">撤销</button><button class="v38-tool danger" data-tr-action="clear-marks">清空</button></div></div><div class="v38-current-task"><strong>${info[0]}</strong><span>${info[1]}</span></div>${e.stage<=4?`<div class="v38-step-actions"><button class="primary-btn" data-tr-action="check-stage">检查这一步</button><button class="secondary-btn" data-tr-action="hint-stage">提示一步</button></div>`:''}${e.feedback[e.stage-1]?`<div class="v38-feedback ${e.feedback[e.stage-1].ok?'good':'warn'}">${escapeHtml(e.feedback[e.stage-1].msg)}</div>`:''}${e.feedback.hint&&e.hintStage===e.stage?`<div class="v38-feedback warn">${escapeHtml(e.feedback.hint.msg)}</div>`:''}${trReferenceBlock(item,e)}${e.stage>=5&&e.stage<6?`<div class="v38-step-actions"><button class="primary-btn" data-tr-action="start-translate">拆清楚了，开始翻译</button><button class="secondary-btn" data-tr-action="back-core">返回继续标记</button></div>`:''}${e.stage>=6?`<div class="v38-final"><label for="translationFinalInput">我的完整译文</label><textarea id="translationFinalInput" placeholder="现在再写整句中文。先保证意思完整、逻辑准确，再调整中文表达。">${escapeHtml(e.final)}</textarea><div id="translationSaveStatus" class="v38-save-status">输入内容会自动保存到本机</div><div class="v38-step-actions"><button class="primary-btn" data-tr-action="reveal">${e.referenceRevealed?'收起参考译文':'完成后看参考译文'}</button><button class="secondary-btn" data-tr-action="save">立即保存</button></div></div>`:`<div class="v38-locked">完成前面的拆句步骤后，才进入整句翻译。</div>`}${trReviewHtml(item,e)}<div class="v38-footer-actions"><div><button class="secondary-btn" data-tr-action="previous">上一题</button> <button class="secondary-btn" data-tr-action="next">下一题</button></div><div>${e.completed?'<button class="secondary-btn" data-tr-action="redo">重新练习</button>':'<button class="primary-btn" data-tr-action="complete">完成本题</button>'}</div></div></main></div>`}
+  function translationProgressHtml(){const years=[...new Set(TRANSLATION_ITEMS.map(x=>x.year))].sort((a,b)=>a-b),stats=translationStats(),errorCounts={structure:0,logic:0,vocab:0,chinese:0};Object.values(translationState().entries).forEach(e=>Object.keys(errorCounts).forEach(k=>{if(e.errors?.[k])errorCounts[k]++}));return `<div class="translation-overview-grid"><div class="translation-plan-card"><h4>按年份完成情况</h4><div class="translation-progress-years">${years.map(y=>{const all=TRANSLATION_ITEMS.filter(x=>x.year===y),done=all.filter(x=>translationEntry(x.id).completed).length;return`<div class="translation-year-row"><div class="translation-year-head"><span>${y}年</span><span>${done}/${all.length}</span></div><div class="translation-progress-track"><div class="translation-progress-fill" style="width:${Math.round(done/all.length*100)}%"></div></div></div>`}).join("")}</div></div><div class="translation-plan-card"><h4>只保留真正有用的统计</h4><div class="v38-progress-stat"><div><strong>${errorCounts.structure}</strong><span>结构错误</span></div><div><strong>${errorCounts.logic}</strong><span>逻辑错误</span></div><div><strong>${errorCounts.vocab}</strong><span>词义错误</span></div><div><strong>${errorCounts.chinese}</strong><span>中文表达</span></div></div><p style="margin-top:15px;line-height:1.8"><strong>总进度：</strong>${stats.done}/70；进行中 ${stats.drafts} 句；今日 ${stats.todayDone}/${stats.todayTotal}。<br><strong>拆句检查次数：</strong>${stats.syntaxChecks} 次。</p></div></div>`}
+  function renderTranslationModule(){if(!$("translationContent"))return;const tr=translationState();updateTranslationMetrics();$("translationContent").innerHTML=tr.settings.activeTab==="practice"?translationPracticeHtml():tr.settings.activeTab==="progress"?translationProgressHtml():translationOverviewHtml()}
+  function translationCaptureFields(queueCloud=false){if(currentView!=="translation"||translationState().settings.activeTab!=="practice")return;const item=translationCurrentItem(),e=translationEntry(item.id),finalInput=$("translationFinalInput");if(finalInput)e.final=finalInput.value;document.querySelectorAll("[data-tr-error]").forEach(input=>e.errors[input.dataset.trError]=input.checked);const now=new Date().toISOString();e.updatedAt=now;e.lastPracticedAt=now;translationState().updatedAt=now;saveState({sync:queueCloud});translationLocalDirty=!queueCloud;const status=$("translationSaveStatus");if(status)status.textContent=queueCloud?"已保存到本机，并加入云端集中同步批次":"已自动保存到本机 · 云端集中同步";updateTranslationMetrics()}
+  function scheduleTranslationLocalSave(){clearTimeout(translationSaveTimer);const s=$("translationSaveStatus");if(s)s.textContent="正在保存到本机……";translationSaveTimer=setTimeout(()=>translationCaptureFields(false),350)}
+  function flushTranslationSave(queueCloud=true){clearTimeout(translationSaveTimer);translationCaptureFields(queueCloud);translationLocalDirty=false}
+  function translationMove(delta){flushTranslationSave(true);const items=translationFilteredItems(),current=translationCurrentItem(),idx=items.findIndex(x=>x.id===current.id),next=items[idx+delta];if(!next)return;translationState().settings.currentId=next.id;trLastSelection=null;saveState({touch:false,sync:false});renderTranslationModule()}
+  function initTranslationModule(){state.translationPractice=normalizeTranslationPractice(state.translationPractice);const view=$("translationView");if(!view)return;view.addEventListener("mouseup",event=>{if(event.target.closest("#translationInteractiveSource"))setTimeout(trCaptureSelection,0)});view.addEventListener("keyup",event=>{if(event.target.closest?.("#translationInteractiveSource"))setTimeout(trCaptureSelection,0)});view.addEventListener("input",event=>{if(event.target.id==="translationFinalInput")scheduleTranslationLocalSave();if(event.target.id==="translationDailyCount"){translationState().settings.dailyCount=Math.max(1,Math.min(10,Math.floor(Number(event.target.value)||2)));translationState().daily[translationDateKey()]=[];saveState();updateTranslationMetrics()}});view.addEventListener("change",event=>{if(event.target.matches("[data-tr-error]")){scheduleTranslationLocalSave();return}const map={translationYearFilter:"filterYear",translationStatusFilter:"filterStatus"};if(map[event.target.id]){flushTranslationSave(true);translationState().settings[map[event.target.id]]=event.target.value;saveState({touch:false,sync:false});renderTranslationModule()}});view.addEventListener("focusout",event=>{if(event.target.id==="translationFinalInput")flushTranslationSave(true)});view.addEventListener("click",event=>{const mark=event.target.closest("[data-tr-mark]");if(mark){const item=translationCurrentItem(),e=translationEntry(item.id);trApplyMark(item,e,mark.dataset.trMark);return}const tab=event.target.closest("[data-translation-tab]");if(tab){flushTranslationSave(true);translationState().settings.activeTab=tab.dataset.translationTab;saveState({touch:false,sync:false});renderTranslationModule();return}const mode=event.target.closest("[data-tr-mode]");if(mode){flushTranslationSave(true);translationState().settings.listMode=mode.dataset.trMode;saveState({touch:false,sync:false});renderTranslationModule();return}const open=event.target.closest("[data-tr-open]");if(open){flushTranslationSave(true);translationState().settings.currentId=open.dataset.trOpen;trLastSelection=null;saveState({touch:false,sync:false});renderTranslationModule();return}const btn=event.target.closest("[data-tr-action]");if(!btn)return;const action=btn.dataset.trAction;if(action==="start-today"){translationState().settings.activeTab="practice";translationState().settings.listMode="today";translationState().settings.currentId=translationTodayIds()[0]||TRANSLATION_ITEMS[0].id;saveState();renderTranslationModule();return}if(action==="open-all"){translationState().settings.activeTab="practice";translationState().settings.listMode="all";saveState();renderTranslationModule();return}if(action==="toggle-context"){translationState().settings.showContext=!translationState().settings.showContext;saveState({touch:false,sync:false});renderTranslationModule();return}if(action==="save"){flushTranslationSave(true);showToast("已保存到本机，云端集中同步");return}if(action==="previous"){translationMove(-1);return}if(action==="next"){translationMove(1);return}const item=translationCurrentItem(),e=translationEntry(item.id);if(action==="undo-mark"){trRestoreUndo(item,e);return}if(action==="clear-marks"){trPushUndo(item.id,e);e.annotations=[];e.stage=1;e.feedback={};e.hintStage=0;e.referenceRevealed=false;trTouch(e,true);renderTranslationModule();showToast("已清空本题拆句标记");return}if(action==="check-stage"){trCheckStage(item,e);return}if(action==="hint-stage"){trHint(item,e);return}if(action==="start-translate"){e.stage=6;trTouch(e,true);renderTranslationModule();return}if(action==="back-core"){e.stage=4;trTouch(e,false);renderTranslationModule();return}if(action==="reveal"){flushTranslationSave(true);if(!e.referenceRevealed&&!String(e.final||"").trim()){showToast("先写自己的完整译文，再看参考译文");return}e.referenceRevealed=!e.referenceRevealed;trTouch(e,true);renderTranslationModule();return}if(action==="complete"){flushTranslationSave(true);if(e.stage<6||!String(e.final||"").trim()){showToast("请先完成拆句步骤并写下完整译文");return}const now=new Date().toISOString();e.completed=true;e.attempts+=1;e.firstCompletedAt=e.firstCompletedAt||now;e.completedAt=now;e.updatedAt=now;saveState();renderTranslationModule();showToast("已完成本题，学习计划实际进度已更新");return}if(action==="redo"){e.completed=false;e.completedAt="";e.referenceRevealed=false;e.stage=1;e.annotations=[];e.feedback={};e.hintStage=0;trTouch(e,true);renderTranslationModule();showToast("已重新开始：从拆句第1步做起");return}});document.addEventListener("visibilitychange",()=>{if(document.hidden&&translationLocalDirty)flushTranslationSave(true)})}
 
 
   /* V37_SELECTED_DAY_PLAN_AND_REAL_HISTORY */
@@ -14038,7 +13838,7 @@ function bindSmallModule(){
     renderBonusTaskList("selectedBonusTasks","selectedBonusPanel","selectedBonusStatus",date,isToday);
   };
 
-  window.__KAOYAN_BUILD__ = "V37-study-plan-real-history-separated-2026-08-09";
+  window.__KAOYAN_BUILD__ = "V38-interactive-sentence-parsing-2026-08-09";
   init();
   initTranslationModule();
 })();

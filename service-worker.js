@@ -1,4 +1,4 @@
-const CACHE_VERSION = "kaoyan-phrase-pwa-v31-exam-small-essays-template";
+const CACHE_VERSION = "kaoyan-phrase-pwa-v34-translation-study-plan";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -14,7 +14,8 @@ const APP_SHELL = [
   "./big_essay_data_5_confirmed.json",
   "./small_essay_data_13_exam_template.json",
   "./small_essay_module.css",
-  "./small_essay_module.js"
+  "./small_essay_module.js",
+  "./translation_data_14years_70.json"
 ];
 
 self.addEventListener("install", event => {

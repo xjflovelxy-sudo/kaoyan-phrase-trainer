@@ -15436,9 +15436,86 @@ function bindSmallModule(){
   /* ========== V43 小作文统一轻量视觉 end ========== */
 
 
+
+
+  /* ========== V43 学习计划点击兜底修复：只修导航/点击，不改任务逻辑 ========== */
+  function v43OpenTranslationFromPlan(){
+    try{
+      const tr=translationState();
+      if(!tr?.settings) throw new Error("翻译训练状态尚未初始化");
+      tr.settings.activeTab="practice";
+      tr.settings.listMode="today";
+      tr.settings.filterYear="all";
+      tr.settings.filterStatus="all";
+      const todayIds=typeof translationTodayIds==="function"?translationTodayIds():[];
+      const fallback=Array.isArray(TRANSLATION_ITEMS)&&TRANSLATION_ITEMS.length?TRANSLATION_ITEMS[0].id:"";
+      tr.settings.currentId=todayIds[0]||tr.settings.currentId||fallback;
+      saveState({touch:false,sync:false});
+      switchView("translation");
+      renderTranslationModule();
+      requestAnimationFrame(()=>window.scrollTo({top:0,behavior:"smooth"}));
+      return true;
+    }catch(error){
+      console.error("翻译训练跳转失败：",error);
+      showToast(`翻译训练跳转失败：${error?.message||error}`);
+      return false;
+    }
+  }
+
+  function v43HandlePlanClickFallback(event){
+    const target=event.target?.closest?.("[data-plan-go],[data-plan-date],[data-v42-tab],[data-plan-check-task]");
+    if(!target)return;
+
+    // 这一层专门接管学习计划动态按钮，避免旧的委托链失效或重复执行。
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    try{
+      if(target.matches("[data-plan-go]")){
+        const activity=String(target.dataset.planGo||"");
+        if(!activity)return;
+        if(activity==="translation"){
+          v43OpenTranslationFromPlan();
+          return;
+        }
+        goToPlanActivity(activity);
+        return;
+      }
+
+      if(target.matches("[data-plan-date]")){
+        const key=String(target.dataset.planDate||"");
+        if(key)setStudyPlanSelectedDate(key,false);
+        return;
+      }
+
+      if(target.matches("[data-v42-tab]")){
+        const shell=target.closest("#selectedPlanTasks");
+        if(!shell)return;
+        v42ActiveDetailTab=target.dataset.v42Tab==="archive"?"archive":"plan";
+        shell.querySelectorAll("[data-v42-tab]").forEach(x=>x.classList.toggle("active",x===target));
+        shell.querySelectorAll("[data-v42-panel]").forEach(x=>x.classList.toggle("active",x.dataset.v42Panel===v42ActiveDetailTab));
+        return;
+      }
+
+      if(target.matches("[data-plan-check-task]")){
+        togglePlanTaskCompletion(target.dataset.planCheckDate,target.dataset.planCheckTask);
+      }
+    }catch(error){
+      console.error("学习计划按钮执行失败：",error);
+      showToast(`按钮执行失败：${error?.message||error}`);
+    }
+  }
+  document.addEventListener("click",v43HandlePlanClickFallback,true);
+  window.__KAOYAN_PLAN_CLICK_FIX__={
+    openTranslation:v43OpenTranslationFromPlan,
+    go:activity=>activity==="translation"?v43OpenTranslationFromPlan():goToPlanActivity(activity),
+    selectDate:key=>setStudyPlanSelectedDate(key,false)
+  };
+  /* ========== V43 学习计划点击兜底修复 end ========== */
+
   window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
   window.__KAOYAN_V43_ACCOUNTS__={owner:()=>activeLocalOwner,knownUsers:()=>v43KnownUsers(),scopedKey:(k)=>v43ScopedKey(k),hasData:(u)=>v43HasScopedData(u)};
-  window.__KAOYAN_BUILD__ = "V43-all-essay-light-2026-08-10";
+  window.__KAOYAN_BUILD__ = "V43-plan-click-fix-2026-08-10";
   init();
   initTranslationModule();
 })();

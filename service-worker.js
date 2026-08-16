@@ -1,4 +1,4 @@
-const CACHE_VERSION = "kaoyan-phrase-pwa-v43-function-restored-20260810";
+const CACHE_VERSION = "kaoyan-phrase-pwa-v43-three-fixes-20260816";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 

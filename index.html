@@ -15015,7 +15015,7 @@ function bindSmallModule(){
           <div>
             <h3 class="section-title">${escapeHtml(essay.title)}</h3>
             <div class="essay-meta-row"><span class="essay-chip">${escapeHtml(essay.type)}</span><span class="essay-chip">${escapeHtml(essay.theme)}</span><span class="essay-chip confirmed">${escapeHtml(essay.version)}</span></div>
-            <div class="all-writing-notice">原文保留阅读；练习时默认只展开<strong>当前一句</strong>。批改后该句收起并自动进入下一句，详细批改、备注和历史需要时再展开。</div>
+            <div class="all-writing-notice">原文保留阅读；练习时默认只展开<strong>当前一句</strong>。批改后停留在当前句查看结果；只有你主动点“下一句”或选择其他句子才切换。详细批改、备注和历史需要时再展开。</div>
           </div>
           <div class="v43-essay-toolbar-small"><span>显示：</span><label class="v43-essay-toggle"><input type="checkbox" data-essay-toggle="types" ${essayShowTypes?"checked":""}>句型</label><label class="v43-essay-toggle"><input type="checkbox" data-essay-toggle="notes" ${essayShowNotes?"checked":""}>语法</label></div>
         </div>
@@ -15027,7 +15027,7 @@ function bindSmallModule(){
               if(!isOpen){
                 return `<div class="essay-sentence v43-light-sentence ${checked?"is-done":""}" data-v43-inline-row="${escapeHtml(sentence.id)}"><div class="essay-sentence-number">${index+1}</div><button class="v43-light-collapsed" data-v43-inline-open="${escapeHtml(sentence.id)}"><span class="v43-light-collapsed-main"><span class="essay-sentence-text">${essayShowTypes?`<span class="sentence-type">${escapeHtml(sentence.type)}</span>`:""}${escapeHtml(sentence.text)}</span><span class="v43-light-collapsed-meta">${checked?`${escapeHtml(analysis?.level||"已批改")} · 点击查看或修改`:"未完成 · 点击继续"}</span></span><span class="v43-light-collapsed-status ${checked?"done":""}">${checked?"✓ 已批改":"继续"}</span></button></div>`;
               }
-              return `<div class="essay-sentence v43-light-sentence is-open ${checked?"is-done":""}" data-v43-inline-row="${escapeHtml(sentence.id)}"><div class="essay-sentence-number">${index+1}</div><div class="v43-inline-active"><div class="essay-sentence-text">${essayShowTypes?`<span class="sentence-type">${escapeHtml(sentence.type)}</span>`:""}${escapeHtml(sentence.text)}</div>${essayShowNotes&&sentence.note?`<div class="sentence-note">${formatEssayNote(sentence.note)}</div>`:""}<div class="v43-inline-task"><div class="training-label">仿写</div>${escapeHtml(task?.prompt||sentence.chinesePrompt)}</div><textarea class="sentence-writing-input" id="${escapeHtml(context.inputId)}" data-v43-inline-draft="${escapeHtml(sentence.id)}" spellcheck="true" placeholder="根据上面的中文写出英文……">${escapeHtml(v43InlineDrafts.has(sentence.id)?v43InlineDrafts.get(sentence.id):String(entry.answer||""))}</textarea><div class="v43-inline-actions"><button class="primary-btn" data-big-essay-action="check-writing" data-writing-kind="inline" data-writing-id="${escapeHtml(sentence.id)}">批改本句</button><button class="secondary-btn" data-big-essay-action="adopt-writing-correction" data-writing-kind="inline" data-writing-id="${escapeHtml(sentence.id)}">使用修正版</button></div>${checked?v43InlineSummary(context,entry):""}${checked?v43InlineDetails(context,entry):""}${v43InlineMemoryDetails(context)}</div></div>`;
+              return `<div class="essay-sentence v43-light-sentence is-open ${checked?"is-done":""}" data-v43-inline-row="${escapeHtml(sentence.id)}"><div class="essay-sentence-number">${index+1}</div><div class="v43-inline-active"><div class="essay-sentence-text">${essayShowTypes?`<span class="sentence-type">${escapeHtml(sentence.type)}</span>`:""}${escapeHtml(sentence.text)}</div>${essayShowNotes&&sentence.note?`<div class="sentence-note">${formatEssayNote(sentence.note)}</div>`:""}<div class="v43-inline-task"><div class="training-label">仿写</div>${escapeHtml(task?.prompt||sentence.chinesePrompt)}</div><textarea class="sentence-writing-input" id="${escapeHtml(context.inputId)}" data-v43-inline-draft="${escapeHtml(sentence.id)}" spellcheck="true" placeholder="根据上面的中文写出英文……">${escapeHtml(v43InlineDrafts.has(sentence.id)?v43InlineDrafts.get(sentence.id):String(entry.answer||""))}</textarea><div class="v43-inline-actions"><button class="primary-btn" data-big-essay-action="check-writing" data-writing-kind="inline" data-writing-id="${escapeHtml(sentence.id)}">批改本句</button><button class="secondary-btn" data-big-essay-action="adopt-writing-correction" data-writing-kind="inline" data-writing-id="${escapeHtml(sentence.id)}">使用修正版</button></div>${checked?v43InlineSummary(context,entry):""}${checked?v43InlineDetails(context,entry):""}${v43InlineMemoryDetails(context)}${v43UManualNav("inline",sentence.id,"上一句","下一句")}</div></div>`;
             }).join("")}</section>`).join("")}
         </div>
       </div>
@@ -15039,10 +15039,10 @@ function bindSmallModule(){
     const result=v43BaseRunWritingCorrection(kind,id);
     if(kind==="inline"&&result){
       v43InlineDrafts.delete(id);
-      const essay=getBigEssayById(currentEssayId);
-      v43InlineFocusId=v43InlineNextTodo(essay,id);
+      // 所有作文批改统一：批改后停留当前题，只有用户主动切换才进入下一题。
+      v43InlineFocusId=id;
       renderBigEssay();
-      setTimeout(()=>document.querySelector(`[data-v43-inline-row="${CSS.escape(v43InlineFocusId)}"]`)?.scrollIntoView({behavior:"smooth",block:"center"}),30);
+      setTimeout(()=>document.querySelector(`[data-v43-inline-row="${CSS.escape(id)}"] .v43-correction-summary`)?.scrollIntoView({behavior:"smooth",block:"nearest"}),30);
     }
     return result;
   };
@@ -15122,6 +15122,9 @@ function bindSmallModule(){
     if(!context||!v43UChecked(kind,id))return"";
     return `${v43InlineSummary(context,entry)}${v43InlineDetails(context,entry)}${v43InlineMemoryDetails(context)}`;
   }
+  function v43UManualNav(kind,id,prevLabel="上一题",nextLabel="下一题"){
+    return `<div class="button-row v43-manual-next-row" style="margin-top:10px;justify-content:flex-end"><button class="ghost-btn" data-v43-u-manual-step="-1" data-v43-u-manual-kind="${escapeHtml(kind)}" data-v43-u-manual-id="${escapeHtml(id)}">${escapeHtml(prevLabel)}</button><button class="secondary-btn" data-v43-u-manual-step="1" data-v43-u-manual-kind="${escapeHtml(kind)}" data-v43-u-manual-id="${escapeHtml(id)}">${escapeHtml(nextLabel)}</button></div>`;
+  }
   function v43UMemory(kind,id){
     const {context}=v43UContextEntry(kind,id);
     return context?v43InlineMemoryDetails(context):"";
@@ -15154,6 +15157,7 @@ function bindSmallModule(){
           <button class="secondary-btn" data-big-essay-action="adopt-writing-correction" data-writing-kind="${escapeHtml(kind)}" data-writing-id="${escapeHtml(id)}">使用修正版</button>
         </div>
         ${checked?v43UResult(kind,id):v43UMemory(kind,id)}
+        ${v43UManualNav(kind,id)}
       </div>
     </div>`;
   }
@@ -15258,7 +15262,7 @@ function bindSmallModule(){
     v43UDictationFocus=v43UEnsureFocus(sentences,v43UDictationFocus,"dictation",idOf);
     const done=sentences.filter(item=>v43UChecked("dictation",idOf(item))).length;
     return `<div class="card v43-u-shell">
-      <div class="v43-u-head"><div class="v43-u-head-main"><h3 class="section-title">分段默写 · ${escapeHtml(essay.title)}</h3><div class="v43-u-mode-note">一次只展开当前1句。完成后收起并进入下一句；原来的逐句默写与批改规则不变。</div></div><div class="v43-u-controls"><div class="field"><label>选择段落</label><select data-essay-select="dictation-paragraph">${essay.paragraphs.map(item=>`<option value="${item.number}" ${item.number===paragraph.number?"selected":""}>第${item.number}段</option>`).join("")}</select></div></div></div>
+      <div class="v43-u-head"><div class="v43-u-head-main"><h3 class="section-title">分段默写 · ${escapeHtml(essay.title)}</h3><div class="v43-u-mode-note">一次只展开当前1句。批改后停留在当前句查看结果；只有你主动点“下一句”才切换。</div></div><div class="v43-u-controls"><div class="field"><label>选择段落</label><select data-essay-select="dictation-paragraph">${essay.paragraphs.map(item=>`<option value="${item.number}" ${item.number===paragraph.number?"selected":""}>第${item.number}段</option>`).join("")}</select></div></div></div>
       ${v43UProgress(done,sentences.length,`第${paragraph.number}段已批改`)}
       <div class="v43-u-list" id="dictationSentenceWork">${sentences.map((sentence,index)=>v43URow({kind:"dictation",id:`${essay.id}::${paragraph.number}::${index}`,index:index+1,prompt:sentence.prompt,focus:v43UDictationFocus})).join("")}</div>
     </div>`;
@@ -15275,7 +15279,7 @@ function bindSmallModule(){
         const context=resolveWritingContext("pattern",pattern.id),practice=patternPracticeTask(pattern.id),checked=v43UChecked("pattern",pattern.id),open=pattern.id===v43UPatternFocus,status=v43UStatus("pattern",pattern.id);
         const searchText=[pattern.structure,pattern.meaning,pattern.position,...pattern.examples].join(" ").toLowerCase();
         if(!open)return`<article class="pattern-card v43-u-pattern-card" data-pattern-search="${escapeHtml(searchText)}"><div class="v43-u-row" style="border:0;padding:0"><div class="v43-u-row-index">${index+1}</div><button class="v43-u-row-button" data-v43-u-open-kind="pattern" data-v43-u-open-id="${escapeHtml(pattern.id)}"><span class="v43-u-row-main"><span class="v43-u-row-text"><strong>${escapeHtml(pattern.structure)}</strong></span><span class="v43-u-row-meta">${escapeHtml(pattern.position)} · ${escapeHtml(pattern.meaning)}</span></span><span class="v43-u-status ${status.cls}">${status.label}</span></button></div></article>`;
-        return`<article class="pattern-card v43-u-pattern-card is-open" data-pattern-search="${escapeHtml(searchText)}"><div class="v43-u-pattern-open"><div class="v43-u-current-title"><div><span class="essay-chip">${escapeHtml(pattern.position)}</span> <strong>${escapeHtml(pattern.structure)}</strong></div><span class="v43-u-status ${status.cls}">${status.label}</span></div><div class="muted">${escapeHtml(pattern.meaning)}</div><details class="v43-u-examples"><summary>查看句型示例</summary><div class="v43-u-examples-body">${pattern.examples.map(example=>`<div class="pattern-example">${escapeHtml(example)}</div>`).join("")}</div></details><div class="v43-u-task"><div class="training-label">中文仿写任务</div>${escapeHtml(practice?.prompt||"使用这个句型仿写一个新句子。")}</div><textarea class="sentence-writing-input" id="${escapeHtml(context.inputId)}" data-v43-u-draft="${escapeHtml(v43UKey("pattern",pattern.id))}" spellcheck="true" placeholder="根据中文，并使用上面的句型写英文……">${escapeHtml(v43UAnswer("pattern",pattern.id))}</textarea><div class="v43-u-actions"><button class="primary-btn" data-big-essay-action="check-writing" data-writing-kind="pattern" data-writing-id="${escapeHtml(pattern.id)}">批改本题</button><button class="secondary-btn" data-big-essay-action="adopt-writing-correction" data-writing-kind="pattern" data-writing-id="${escapeHtml(pattern.id)}">使用修正版</button></div>${checked?v43UResult("pattern",pattern.id):v43UMemory("pattern",pattern.id)}</div></article>`;
+        return`<article class="pattern-card v43-u-pattern-card is-open" data-pattern-search="${escapeHtml(searchText)}"><div class="v43-u-pattern-open"><div class="v43-u-current-title"><div><span class="essay-chip">${escapeHtml(pattern.position)}</span> <strong>${escapeHtml(pattern.structure)}</strong></div><span class="v43-u-status ${status.cls}">${status.label}</span></div><div class="muted">${escapeHtml(pattern.meaning)}</div><details class="v43-u-examples"><summary>查看句型示例</summary><div class="v43-u-examples-body">${pattern.examples.map(example=>`<div class="pattern-example">${escapeHtml(example)}</div>`).join("")}</div></details><div class="v43-u-task"><div class="training-label">中文仿写任务</div>${escapeHtml(practice?.prompt||"使用这个句型仿写一个新句子。")}</div><textarea class="sentence-writing-input" id="${escapeHtml(context.inputId)}" data-v43-u-draft="${escapeHtml(v43UKey("pattern",pattern.id))}" spellcheck="true" placeholder="根据中文，并使用上面的句型写英文……">${escapeHtml(v43UAnswer("pattern",pattern.id))}</textarea><div class="v43-u-actions"><button class="primary-btn" data-big-essay-action="check-writing" data-writing-kind="pattern" data-writing-id="${escapeHtml(pattern.id)}">批改本题</button><button class="secondary-btn" data-big-essay-action="adopt-writing-correction" data-writing-kind="pattern" data-writing-id="${escapeHtml(pattern.id)}">使用修正版</button></div>${checked?v43UResult("pattern",pattern.id):v43UMemory("pattern",pattern.id)}${v43UManualNav("pattern",pattern.id)}</div></article>`;
       }).join("")}</div>
     </div>`;
   };
@@ -15286,30 +15290,13 @@ function bindSmallModule(){
     if(!result)return result;
     v43UDrafts.delete(v43UKey(kind,id));
     if(kind==="inline")return result;
-    if(kind==="sentence300"){
-      renderBigEssay();
-      setTimeout(()=>document.querySelector("#bigEssayContent .v43-u-current .v43-correction-summary")?.scrollIntoView({behavior:"smooth",block:"nearest"}),30);
-      return result;
-    }
-    if(kind==="paragraph"){
-      const task=PARAGRAPH_IMITATION_TASKS.find(item=>item.id===currentParagraphImitationId)||PARAGRAPH_IMITATION_TASKS[0],items=paragraphImitationSentenceSet(task);
-      const idOf=item=>`${task.id}::${items.indexOf(item)}`;
-      v43UParagraphFocus=v43UNextFocus(items,id,"paragraph",idOf);
-      renderBigEssay();
-    }else if(kind==="whole"){
-      const task=WHOLE_IMITATION_TASKS.find(item=>item.id===currentWholeImitationId)||WHOLE_IMITATION_TASKS[0],items=wholeImitationSentenceSet(task);
-      const idOf=item=>`${task.id}::${item.id}`;
-      v43UWholeFocus=v43UNextFocus(items,id,"whole",idOf);
-      renderBigEssay();
-    }else if(kind==="dictation"){
-      const essay=getBigEssayById(currentEssayId),paragraph=essay.paragraphs[currentDictationParagraph-1]||essay.paragraphs[0],items=dictationSentenceSet(essay,paragraph);
-      const idOf=item=>`${essay.id}::${paragraph.number}::${items.indexOf(item)}`;
-      v43UDictationFocus=v43UNextFocus(items,id,"dictation",idOf);
-      renderBigEssay();
-    }else if(kind==="pattern"){
-      v43UPatternFocus=v43UNextFocus(BIG_ESSAY_PATTERNS,id,"pattern",item=>item.id);
-      renderBigEssay();
-    }
+    // 所有大作文批改统一停留在当前题；下一题只由用户主动点击触发。
+    if(kind==="paragraph")v43UParagraphFocus=id;
+    else if(kind==="whole")v43UWholeFocus=id;
+    else if(kind==="dictation")v43UDictationFocus=id;
+    else if(kind==="pattern")v43UPatternFocus=id;
+    renderBigEssay();
+    setTimeout(()=>document.querySelector("#bigEssayContent .v43-u-current .v43-correction-summary, #bigEssayContent .v43-u-pattern-card.is-open .v43-correction-summary")?.scrollIntoView({behavior:"smooth",block:"nearest"}),30);
     return result;
   };
 
@@ -15406,6 +15393,9 @@ function bindSmallModule(){
     return `<details class="v43-details v43-memory-details"><summary>📝 备注与历史 ${history.length+noteCount}条</summary><div class="v43-details-body">${panel}</div></details>`;
   }
   function v43SResult(kind,id){ return `${v43SSummary(kind,id)}${v43SDetails(kind,id)}${v43SMemory(kind,id)}`; }
+  function v43SManualNav(kind,id,prevLabel="上一题",nextLabel="下一题"){
+    return `<div class="button-row v43-manual-next-row" style="margin-top:10px;justify-content:flex-end"><button class="ghost-btn" data-v43-s-manual-step="-1" data-v43-s-manual-kind="${escapeHtml(kind)}" data-v43-s-manual-id="${escapeHtml(id)}">${escapeHtml(prevLabel)}</button><button class="secondary-btn" data-v43-s-manual-step="1" data-v43-s-manual-kind="${escapeHtml(kind)}" data-v43-s-manual-id="${escapeHtml(id)}">${escapeHtml(nextLabel)}</button></div>`;
+  }
   function v43SRow({kind,id,index,prompt,focus,statusPrefix="",helperHtml="",buttonLabel="批改本题",adoptLabel="使用修正版"}){
     const {context}=v43SContextEntry(kind,id);if(!context)return"";
     const open=id===focus,status=v43SStatus(kind,id),checked=v43SChecked(kind,id);
@@ -15413,7 +15403,7 @@ function bindSmallModule(){
       const analysis=v43SAnalysis(kind,id),meta=checked?`${analysis?.level||"已批改"} · 点击查看或修改`:v43SHasDraft(kind,id)?"已有内容 · 点击继续":"未完成 · 点击继续";
       return `<div class="v43-u-row" data-v43-s-row="${escapeHtml(v43SKey(kind,id))}"><div class="v43-u-row-index">${index}</div><button class="v43-u-row-button" data-v43-s-open-kind="${escapeHtml(kind)}" data-v43-s-open-id="${escapeHtml(id)}"><span class="v43-u-row-main"><span class="v43-u-row-text">${escapeHtml(prompt)}</span><span class="v43-u-row-meta">${escapeHtml(statusPrefix)}${escapeHtml(meta)}</span></span><span class="v43-u-status ${status.cls}">${status.label}</span></button></div>`;
     }
-    return `<div class="v43-u-row" data-v43-s-row="${escapeHtml(v43SKey(kind,id))}"><div class="v43-u-row-index">${index}</div><div class="v43-u-current"><div class="v43-u-current-title"><strong>当前第${index}项</strong><span class="v43-u-status ${status.cls}">${status.label}</span></div>${helperHtml||""}<div class="v43-u-task"><div class="training-label">任务</div>${escapeHtml(prompt)}</div><textarea class="sentence-writing-input" id="${escapeHtml(context.inputId)}" data-v43-s-draft="${escapeHtml(v43SKey(kind,id))}" spellcheck="true" placeholder="在这里完成英文……">${escapeHtml(v43SAnswer(kind,id))}</textarea><div class="v43-u-actions"><button class="primary-btn" data-small-action="check" data-kind="${escapeHtml(kind)}" data-id="${escapeHtml(id)}">${escapeHtml(buttonLabel)}</button><button class="secondary-btn" data-small-action="adopt" data-kind="${escapeHtml(kind)}" data-id="${escapeHtml(id)}">${escapeHtml(adoptLabel)}</button></div>${checked?v43SResult(kind,id):v43SMemory(kind,id)}</div></div>`;
+    return `<div class="v43-u-row" data-v43-s-row="${escapeHtml(v43SKey(kind,id))}"><div class="v43-u-row-index">${index}</div><div class="v43-u-current"><div class="v43-u-current-title"><strong>当前第${index}项</strong><span class="v43-u-status ${status.cls}">${status.label}</span></div>${helperHtml||""}<div class="v43-u-task"><div class="training-label">任务</div>${escapeHtml(prompt)}</div><textarea class="sentence-writing-input" id="${escapeHtml(context.inputId)}" data-v43-s-draft="${escapeHtml(v43SKey(kind,id))}" spellcheck="true" placeholder="在这里完成英文……">${escapeHtml(v43SAnswer(kind,id))}</textarea><div class="v43-u-actions"><button class="primary-btn" data-small-action="check" data-kind="${escapeHtml(kind)}" data-id="${escapeHtml(id)}">${escapeHtml(buttonLabel)}</button><button class="secondary-btn" data-small-action="adopt" data-kind="${escapeHtml(kind)}" data-id="${escapeHtml(id)}">${escapeHtml(adoptLabel)}</button></div>${checked?v43SResult(kind,id):v43SMemory(kind,id)}${v43SManualNav(kind,id,kind==="whole"?"上一项":"上一题",kind==="whole"?"下一项":"下一题")}</div></div>`;
   }
   function v43SEssayPracticedCount(essay){
     return smallRefs(essay.id).filter(ref=>smallProgress(ref.sentence.id).attempts>0||v43SHasDraft("original",ref.sentence.id)||v43SHasDraft("study",ref.sentence.id)).length;
@@ -15428,7 +15418,7 @@ function bindSmallModule(){
     const e=getSmallEssay(currentSmallEssayId),refs=smallRefs(e.id),idOf=ref=>ref.sentence.id;
     v43SReadingFocus=v43SEnsureFocus(refs,v43SReadingFocus,"original",idOf);
     const done=refs.filter(ref=>v43SChecked("original",ref.sentence.id)).length;
-    return `<div class="card v43-s-shell"><div class="v43-u-head"><div class="v43-u-head-main"><h3 class="section-title">${e.number}. ${escapeHtml(e.title)}</h3><div class="essay-meta-row"><span class="essay-chip">${escapeHtml(e.type)}</span><span class="essay-chip">${escapeHtml(e.subtype)}</span><span class="essay-chip confirmed">真题修订稿</span></div><div class="v43-u-mode-note">当前模式：一次只展开1句。批改后收起并进入下一句；详细批改、备注和历史按需展开。</div></div></div>${v43SProgress(done,refs.length,"随文已批改")}<details class="v43-s-source-details"><summary>查看确认全文与完整格式</summary><div class="v43-s-source-body"><div class="small-document">${docHeader(e)}${e.paragraphs.map(p=>`<div class="small-document-paragraph">${p.map(s=>`<span>${escapeHtml(s.text)} </span>`).join("")}</div>`).join("")}${docFooter(e)}</div></div></details>${e.paragraphs.map((p,pi)=>`<section class="v43-u-paragraph"><div class="v43-u-paragraph-head"><strong>第${pi+1}段</strong><span>按真题修订稿逐句练习</span></div><div class="v43-u-list">${p.map((s,si)=>v43SRow({kind:"original",id:s.id,index:si+1,prompt:s.chinesePrompt,focus:v43SReadingFocus,statusPrefix:`${s.role} · `,buttonLabel:"批改本句",adoptLabel:"应用修订原句"})).join("")}</div></section>`).join("")}</div>`;
+    return `<div class="card v43-s-shell"><div class="v43-u-head"><div class="v43-u-head-main"><h3 class="section-title">${e.number}. ${escapeHtml(e.title)}</h3><div class="essay-meta-row"><span class="essay-chip">${escapeHtml(e.type)}</span><span class="essay-chip">${escapeHtml(e.subtype)}</span><span class="essay-chip confirmed">真题修订稿</span></div><div class="v43-u-mode-note">当前模式：一次只展开1句。批改后停留当前句查看结果；只有你主动点“下一句”才切换。详细批改、备注和历史按需展开。</div></div></div>${v43SProgress(done,refs.length,"随文已批改")}<details class="v43-s-source-details"><summary>查看确认全文与完整格式</summary><div class="v43-s-source-body"><div class="small-document">${docHeader(e)}${e.paragraphs.map(p=>`<div class="small-document-paragraph">${p.map(s=>`<span>${escapeHtml(s.text)} </span>`).join("")}</div>`).join("")}${docFooter(e)}</div></div></details>${e.paragraphs.map((p,pi)=>`<section class="v43-u-paragraph"><div class="v43-u-paragraph-head"><strong>第${pi+1}段</strong><span>按真题修订稿逐句练习</span></div><div class="v43-u-list">${p.map((s,si)=>v43SRow({kind:"original",id:s.id,index:si+1,prompt:s.chinesePrompt,focus:v43SReadingFocus,statusPrefix:`${s.role} · `,buttonLabel:"批改本句",adoptLabel:"应用修订原句"})).join("")}</div></section>`).join("")}</div>`;
   };
 
   renderSmallStudy=function(){
@@ -15456,7 +15446,7 @@ function bindSmallModule(){
     const e=getSmallEssay(currentSmallEssayId),p=e.paragraphs[currentSmallDictationParagraph-1]||e.paragraphs[0],idOf=s=>s.id;
     v43SDictationFocus=v43SEnsureFocus(p,v43SDictationFocus,"dictation",idOf);
     const done=p.filter(s=>v43SChecked("dictation",s.id)).length;
-    return `<div class="card v43-s-shell"><div class="v43-u-head"><div class="v43-u-head-main"><h3 class="section-title">分段默写 · ${escapeHtml(e.title)}</h3><div class="v43-u-mode-note">一次只展开当前1句；批改后收起进入下一句，详细错误和历史按需展开。</div></div><div class="v43-u-controls"><div class="field"><label>选择段落</label><select data-small-select="dictation">${e.paragraphs.map((x,i)=>`<option value="${i+1}" ${i+1===currentSmallDictationParagraph?"selected":""}>第${i+1}段（${x.length}句）</option>`).join("")}</select></div></div></div>${v43SProgress(done,p.length,`第${currentSmallDictationParagraph}段已批改`)}<div class="v43-u-list">${p.map((s,i)=>v43SRow({kind:"dictation",id:s.id,index:i+1,prompt:s.chinesePrompt,focus:v43SDictationFocus,statusPrefix:`${s.role} · `,buttonLabel:"批改本句",adoptLabel:"应用修订原句"})).join("")}</div></div>`;
+    return `<div class="card v43-s-shell"><div class="v43-u-head"><div class="v43-u-head-main"><h3 class="section-title">分段默写 · ${escapeHtml(e.title)}</h3><div class="v43-u-mode-note">一次只展开当前1句；批改后停留当前句查看结果，只有你主动点“下一句”才切换。详细错误和历史按需展开。</div></div><div class="v43-u-controls"><div class="field"><label>选择段落</label><select data-small-select="dictation">${e.paragraphs.map((x,i)=>`<option value="${i+1}" ${i+1===currentSmallDictationParagraph?"selected":""}>第${i+1}段（${x.length}句）</option>`).join("")}</select></div></div></div>${v43SProgress(done,p.length,`第${currentSmallDictationParagraph}段已批改`)}<div class="v43-u-list">${p.map((s,i)=>v43SRow({kind:"dictation",id:s.id,index:i+1,prompt:s.chinesePrompt,focus:v43SDictationFocus,statusPrefix:`${s.role} · `,buttonLabel:"批改本句",adoptLabel:"应用修订原句"})).join("")}</div></div>`;
   };
 
   renderSmallFunctions=function(){
@@ -15469,22 +15459,13 @@ function bindSmallModule(){
   runSmallCorrection=function(kind,id){
     const result=v43SBaseRunSmallCorrection(kind,id);if(!result)return result;
     v43SDrafts.delete(v43SKey(kind,id));
-    if(kind==="imitation"){renderSmallEssay();setTimeout(()=>document.querySelector("#smallEssayContent .v43-u-current .v43-correction-summary")?.scrollIntoView({behavior:"smooth",block:"nearest"}),30);return result;}
-    if(kind==="original"){
-      const e=getSmallEssay(currentSmallEssayId),items=smallRefs(e.id),idOf=ref=>ref.sentence.id;
-      v43SReadingFocus=v43SNextFocus(items,id,"original",idOf);
-    }else if(kind==="whole"){
-      const t=SMALL_WHOLE.find(x=>x.id===currentSmallWholeId)||SMALL_WHOLE[0],idOf=u=>`${t.id}::${u.id}`;
-      v43SWholeFocus=v43SNextFocus(t.units,id,"whole",idOf);
-    }else if(kind==="dictation"){
-      const e=getSmallEssay(currentSmallEssayId),items=e.paragraphs[currentSmallDictationParagraph-1]||e.paragraphs[0],idOf=s=>s.id;
-      v43SDictationFocus=v43SNextFocus(items,id,"dictation",idOf);
-    }else if(kind==="function"){
-      v43SFunctionFocus=v43SNextFocus(SMALL_FUNCTIONS,id,"function",t=>t.id);
-    }
+    // 所有小作文批改统一停留在当前题；下一题/下一项由用户手动选择。
+    if(kind==="original")v43SReadingFocus=id;
+    else if(kind==="whole")v43SWholeFocus=id;
+    else if(kind==="dictation")v43SDictationFocus=id;
+    else if(kind==="function")v43SFunctionFocus=id;
     renderSmallEssay();
-    const focus=kind==="original"?v43SReadingFocus:kind==="whole"?v43SWholeFocus:kind==="dictation"?v43SDictationFocus:kind==="function"?v43SFunctionFocus:"";
-    if(focus)setTimeout(()=>document.querySelector(`[data-v43-s-row="${CSS.escape(v43SKey(kind,focus))}"]`)?.scrollIntoView({behavior:"smooth",block:"center"}),25);
+    setTimeout(()=>document.querySelector("#smallEssayContent .v43-u-current .v43-correction-summary")?.scrollIntoView({behavior:"smooth",block:"nearest"}),30);
     return result;
   };
 
@@ -15502,6 +15483,77 @@ function bindSmallModule(){
     if(kind==="function")v43SFunctionFocus=id;
     renderSmallEssay();
     setTimeout(()=>document.querySelector(`[data-v43-s-row="${CSS.escape(v43SKey(kind,id))}"]`)?.scrollIntoView({behavior:"smooth",block:"center"}),20);
+  });
+
+  function v43UManualIds(kind){
+    if(kind==="inline")return v43InlineFlatSentences(getBigEssayById(currentEssayId)).map(item=>item.id);
+    if(kind==="paragraph"){
+      const task=PARAGRAPH_IMITATION_TASKS.find(item=>item.id===currentParagraphImitationId)||PARAGRAPH_IMITATION_TASKS[0],items=paragraphImitationSentenceSet(task);
+      return items.map((item,index)=>`${task.id}::${index}`);
+    }
+    if(kind==="whole"){
+      const task=WHOLE_IMITATION_TASKS.find(item=>item.id===currentWholeImitationId)||WHOLE_IMITATION_TASKS[0];
+      return wholeImitationSentenceSet(task).map(item=>`${task.id}::${item.id}`);
+    }
+    if(kind==="dictation"){
+      const essay=getBigEssayById(currentEssayId),paragraph=essay.paragraphs[currentDictationParagraph-1]||essay.paragraphs[0],items=dictationSentenceSet(essay,paragraph);
+      return items.map((item,index)=>`${essay.id}::${paragraph.number}::${index}`);
+    }
+    if(kind==="pattern")return BIG_ESSAY_PATTERNS.map(item=>item.id);
+    return[];
+  }
+  function v43USetManualFocus(kind,id){
+    if(kind==="inline")v43InlineFocusId=id;
+    else if(kind==="paragraph")v43UParagraphFocus=id;
+    else if(kind==="whole")v43UWholeFocus=id;
+    else if(kind==="dictation")v43UDictationFocus=id;
+    else if(kind==="pattern")v43UPatternFocus=id;
+  }
+  function v43SManualIds(kind){
+    if(kind==="original")return smallRefs(currentSmallEssayId).map(ref=>ref.sentence.id);
+    if(kind==="whole"){
+      const task=SMALL_WHOLE.find(item=>item.id===currentSmallWholeId)||SMALL_WHOLE[0];
+      return task.units.map(item=>`${task.id}::${item.id}`);
+    }
+    if(kind==="dictation"){
+      const essay=getSmallEssay(currentSmallEssayId),items=essay.paragraphs[currentSmallDictationParagraph-1]||essay.paragraphs[0];
+      return items.map(item=>item.id);
+    }
+    if(kind==="function")return SMALL_FUNCTIONS.map(item=>item.id);
+    return[];
+  }
+  function v43SSetManualFocus(kind,id){
+    if(kind==="original")v43SReadingFocus=id;
+    else if(kind==="whole")v43SWholeFocus=id;
+    else if(kind==="dictation")v43SDictationFocus=id;
+    else if(kind==="function")v43SFunctionFocus=id;
+  }
+  function v43ManualAdjacent(ids,current,delta){
+    const index=ids.indexOf(current);
+    if(index<0||!ids.length)return"";
+    const next=index+delta;
+    return next>=0&&next<ids.length?ids[next]:"";
+  }
+  document.addEventListener("click",event=>{
+    const big=event.target.closest?.("[data-v43-u-manual-step]");
+    if(big){
+      v43CaptureInlineDrafts();v43UCaptureDrafts();
+      const kind=big.dataset.v43UManualKind,id=big.dataset.v43UManualId,delta=Number(big.dataset.v43UManualStep)||0;
+      const next=v43ManualAdjacent(v43UManualIds(kind),id,delta);
+      if(!next){showToast(delta>0?"已经是最后一题":"已经是第一题");return;}
+      v43USetManualFocus(kind,next);renderBigEssay();
+      setTimeout(()=>document.querySelector(`[data-v43-inline-row="${CSS.escape(next)}"],[data-v43-u-row="${CSS.escape(v43UKey(kind,next))}"],.v43-u-pattern-card.is-open`)?.scrollIntoView({behavior:"smooth",block:"center"}),20);
+      return;
+    }
+    const small=event.target.closest?.("[data-v43-s-manual-step]");
+    if(small){
+      v43SCaptureDrafts();
+      const kind=small.dataset.v43SManualKind,id=small.dataset.v43SManualId,delta=Number(small.dataset.v43SManualStep)||0;
+      const next=v43ManualAdjacent(v43SManualIds(kind),id,delta);
+      if(!next){showToast(delta>0?"已经是最后一题":"已经是第一题");return;}
+      v43SSetManualFocus(kind,next);renderSmallEssay();
+      setTimeout(()=>document.querySelector(`[data-v43-s-row="${CSS.escape(v43SKey(kind,next))}"]`)?.scrollIntoView({behavior:"smooth",block:"center"}),20);
+    }
   });
   /* ========== V43 小作文统一轻量视觉 end ========== */
 
@@ -15586,7 +15638,7 @@ function bindSmallModule(){
 
   window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
   window.__KAOYAN_V43_ACCOUNTS__={owner:()=>activeLocalOwner,knownUsers:()=>v43KnownUsers(),scopedKey:(k)=>v43ScopedKey(k),hasData:(u)=>v43HasScopedData(u)};
-  window.__KAOYAN_BUILD__ = "V43-imitation-feedback-progress-check-fix-2026-08-17";
+  window.__KAOYAN_BUILD__ = "V43-all-essay-manual-next-2026-08-17";
   window.__KAOYAN_TRANSLATION_ENTRY__={open:openTranslationModule,years:[...TRANSLATION_YEAR_ORDER]};
   init();
 })();

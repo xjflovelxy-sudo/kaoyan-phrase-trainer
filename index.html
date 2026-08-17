@@ -859,11 +859,30 @@
       gap: 14px;
     }
 
+    .manual-knowledge-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .manual-knowledge-title {
+      font-weight: 800;
+      color: #182238;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+
     .manual-knowledge-content {
       white-space: pre-wrap;
       line-height: 1.75;
       color: #243047;
       overflow-wrap: anywhere;
+      margin-top: 9px;
+      padding-top: 9px;
+      border-top: 1px dashed #dfe5ef;
+    }
+
+    .manual-knowledge-content[hidden] {
+      display: none;
     }
 
     .manual-knowledge-meta {
@@ -10714,6 +10733,20 @@
   }
 
   let manualKnowledgeTrainingIndex = 0;
+  const manualKnowledgeExpandedIds = new Set();
+
+  function manualKnowledgePreviewTitle(content) {
+    const lines = String(content || "").split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    if (!lines.length) return "未命名知识点";
+    const first = lines[0];
+    return first.length > 70 ? `${first.slice(0, 70)}…` : first;
+  }
+
+  function toggleManualKnowledgeExpanded(id) {
+    if (manualKnowledgeExpandedIds.has(id)) manualKnowledgeExpandedIds.delete(id);
+    else manualKnowledgeExpandedIds.add(id);
+    renderManualKnowledge();
+  }
 
   function manualKnowledgePool() {
     state.manualKnowledge = normalizeManualKnowledge(state.manualKnowledge);
@@ -10825,13 +10858,17 @@
     listEl.innerHTML = items.length ? items.map(item => {
       const created = new Date(item.createdAt);
       const dateText = Number.isNaN(created.getTime()) ? "" : created.toLocaleDateString("zh-CN");
+      const expanded = manualKnowledgeExpandedIds.has(item.id);
+      const title = manualKnowledgePreviewTitle(item.content);
       return `<div class="manual-knowledge-item">
-        <div style="min-width:0;flex:1;">
-          <div class="manual-knowledge-content">${escapeHtml(item.content)}</div>
+        <div class="manual-knowledge-main">
+          <div class="manual-knowledge-title">${escapeHtml(title)}</div>
           <div class="manual-knowledge-meta">${dateText ? `保存于 ${escapeHtml(dateText)} · ` : ""}已复习 ${item.reviewCount} 次${item.inTraining ? " · 已加入训练" : ""}</div>
+          <div class="manual-knowledge-content" ${expanded ? "" : "hidden"}>${escapeHtml(item.content)}</div>
         </div>
         <div class="button-row" style="flex:0 0 auto;">
           <button class="mini-btn" data-manual-knowledge-action="toggle-training" data-id="${escapeHtml(item.id)}">${item.inTraining ? "移出训练" : "加入训练"}</button>
+          <button class="mini-btn" data-manual-knowledge-action="toggle-expand" data-id="${escapeHtml(item.id)}">${expanded ? "收起" : "展开"}</button>
           <button class="mini-btn" data-manual-knowledge-action="delete" data-id="${escapeHtml(item.id)}">删除</button>
         </div>
       </div>`;
@@ -13870,6 +13907,7 @@ const categorizedUniqueCards = state.cards.filter(card =>
       if (!button) return;
       const id = button.dataset.id;
       if (button.dataset.manualKnowledgeAction === "toggle-training") toggleManualKnowledgeTraining(id);
+      if (button.dataset.manualKnowledgeAction === "toggle-expand") toggleManualKnowledgeExpanded(id);
       if (button.dataset.manualKnowledgeAction === "delete") deleteManualKnowledge(id);
     });
     $("manualKnowledgeTrainingCard").addEventListener("click", event => {
@@ -15903,7 +15941,7 @@ function bindSmallModule(){
 
   window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
   window.__KAOYAN_V43_ACCOUNTS__={owner:()=>activeLocalOwner,knownUsers:()=>v43KnownUsers(),scopedKey:(k)=>v43ScopedKey(k),hasData:(u)=>v43HasScopedData(u)};
-  window.__KAOYAN_BUILD__ = "V43-manual-knowledge-training-2026-08-17";
+  window.__KAOYAN_BUILD__ = "V43-manual-knowledge-fold-2026-08-17";
   window.__KAOYAN_TRANSLATION_ENTRY__={open:openTranslationModule,years:[...TRANSLATION_YEAR_ORDER]};
   init();
 })();

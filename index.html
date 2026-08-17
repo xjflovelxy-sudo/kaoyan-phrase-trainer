@@ -829,6 +829,61 @@
       box-shadow: 0 3px 9px rgba(53,89,224,.25);
     }
 
+    .manual-knowledge-add {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+      margin-top: 14px;
+    }
+
+    .manual-knowledge-add textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    .manual-knowledge-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .manual-knowledge-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fbfcff;
+      padding: 13px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .manual-knowledge-content {
+      white-space: pre-wrap;
+      line-height: 1.75;
+      color: #243047;
+      overflow-wrap: anywhere;
+    }
+
+    .manual-knowledge-meta {
+      margin-top: 5px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .manual-knowledge-training-content {
+      white-space: pre-wrap;
+      font-size: 20px;
+      line-height: 1.9;
+      padding: 22px;
+      border: 1px solid #dbe3f1;
+      border-radius: 14px;
+      background: #f8faff;
+      margin: 14px 0;
+      overflow-wrap: anywhere;
+    }
+
     .marked-summary-grid {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
@@ -932,6 +987,8 @@
       .checkin-card { grid-template-columns: 1fr; }
       .checkin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .marked-layout { grid-template-columns: 1fr; }
+      .manual-knowledge-add { grid-template-columns: 1fr; }
+      .manual-knowledge-item { flex-direction: column; }
       .mark-browser {
         position: static;
         max-height: none;
@@ -5445,6 +5502,40 @@
       <div class="card" style="margin-top:16px;">
         <div class="checkin-head">
           <div>
+            <h3 class="section-title">手动知识点</h3>
+            <div class="muted" style="line-height:1.8;">
+              不做题也可以直接把知识点记进来。默认只保存到这里；只有你主动点“加入训练”，才进入独立的“我的知识点训练”，不会混入词组复习、选择题或今日计划。
+            </div>
+          </div>
+          <button class="secondary-btn" id="manualKnowledgeTrainBtn">我的知识点训练（0）</button>
+        </div>
+        <div class="manual-knowledge-add">
+          <textarea id="manualKnowledgeInput" placeholder="直接输入一个知识点，例如：be obliged to = 对……负有义务；because 引导原因状语从句；play a vital role in... 可用于作文。"></textarea>
+          <button class="primary-btn" id="addManualKnowledgeBtn">添加知识点</button>
+        </div>
+        <div class="search-summary" id="manualKnowledgeSummary" style="margin-top:12px;">还没有手动知识点。</div>
+        <div class="manual-knowledge-list" id="manualKnowledgeList"></div>
+      </div>
+
+      <div class="card" id="manualKnowledgeTrainingCard" style="margin-top:16px;" hidden>
+        <div class="checkin-head">
+          <div>
+            <h3 class="section-title">我的知识点训练</h3>
+            <div class="muted" id="manualKnowledgeTrainingMeta">独立训练池，不影响其他学习模块。</div>
+          </div>
+          <button class="secondary-btn" id="closeManualKnowledgeTrainingBtn">退出训练</button>
+        </div>
+        <div class="manual-knowledge-training-content" id="manualKnowledgeTrainingContent"></div>
+        <div class="button-row">
+          <button class="secondary-btn" data-manual-training-action="previous">上一条</button>
+          <button class="primary-btn" data-manual-training-action="reviewed">已复习，下一条</button>
+          <button class="secondary-btn" data-manual-training-action="next">下一条</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="checkin-head">
+          <div>
             <h3 class="section-title">我的标记词组</h3>
             <div class="muted" style="line-height:1.8;">
               这里专门显示你已经标记过的词组。“标记管理”只负责创建和修改标记名称。
@@ -6211,6 +6302,22 @@
       name: String(mark?.name || "未命名标记").trim() || "未命名标记",
       color: /^#[0-9a-f]{6}$/i.test(String(mark?.color || "")) ? String(mark.color) : "#3559e0"
     };
+  }
+
+  function normalizeManualKnowledge(value) {
+    const source = Array.isArray(value) ? value : [];
+    return source.map((item, index) => {
+      const createdAt = String(item?.createdAt || new Date(Date.now() + index).toISOString());
+      return {
+        id: String(item?.id || `manual-knowledge-${index}-${Date.now()}`),
+        content: String(item?.content || "").trim(),
+        inTraining: Boolean(item?.inTraining),
+        reviewCount: Math.max(0, Math.floor(Number(item?.reviewCount) || 0)),
+        lastReviewedAt: String(item?.lastReviewedAt || ""),
+        createdAt,
+        updatedAt: String(item?.updatedAt || createdAt)
+      };
+    }).filter(item => item.content);
   }
 
   function loadMarkGroups(value) {
@@ -7630,7 +7737,7 @@
     if(key==="quiz-session")return{value:normalizeQuizSession(src.quizSession)};
     if(key==="big-essay")return{essays:(src.bigEssays||[]).map(x=>({id:x.id,archived:Boolean(x.archived)})),progress:src.bigEssayProgress||{},practice:src.bigEssayPractice||{}};
     if(key==="small-essay")return{essays:(src.smallEssays||[]).map(x=>({id:x.id,archived:Boolean(x.archived)})),progress:src.smallEssayProgress||{},practice:src.smallEssayPractice||{}};
-    if(key==="cards-meta")return{cards:(src.cards||[]).map(compactCardForCloud),markGroups:src.markGroups||[],customMarks:src.customMarks||[]};
+    if(key==="cards-meta")return{cards:(src.cards||[]).map(compactCardForCloud),markGroups:src.markGroups||[],customMarks:src.customMarks||[],manualKnowledge:normalizeManualKnowledge(src.manualKnowledge)};
     if(key==="study-plan")return{dailyStudy:src.dailyStudy||{},planActivities:src.planActivities||{},planTaskCompletions:src.planTaskCompletions||{},manualTaskChecks:src.manualTaskChecks||{},manualCheckins:src.manualCheckins||{},coverage:src.coverage||{},dailyModes:src.dailyModes||{}};
     if(key==="activity")return{dailyStudy:src.dailyStudy||{},planActivities:src.planActivities||{},dailyModes:src.dailyModes||{},lastLearning:src.lastLearning||null,sessionLog:Array.isArray(src.sessionLog)?src.sessionLog.slice(-3000):[]};
     return{settings:src.settings||{},planTaskCompletions:src.planTaskCompletions||{},manualTaskChecks:src.manualTaskChecks||{},manualCheckins:src.manualCheckins||{},coverage:src.coverage||{},updatedAt:src.updatedAt||""};
@@ -7648,7 +7755,7 @@
     if(key==="quiz-session"){dst.quizSession=normalizeQuizSession(data.value);return dst}
     if(key==="big-essay"){dst.bigEssays=mergeBigEssaysWithSeed(data.essays||dst.bigEssays);dst.bigEssayProgress=normalizeBigEssayProgress(data.progress);dst.bigEssayPractice=normalizeBigEssayPractice(data.practice);return dst}
     if(key==="small-essay"){dst.smallEssays=mergeSmallEssaysMain(data.essays||dst.smallEssays);dst.smallEssayProgress=data.progress&&typeof data.progress==="object"?data.progress:{};dst.smallEssayPractice=data.practice&&typeof data.practice==="object"?data.practice:{};return dst}
-    if(key==="cards-meta"){const mg=loadMarkGroups(data.markGroups);dst.cards=mergeCardsWithSeed(data.cards||dst.cards);dst.markGroups=mg;dst.customMarks=loadCustomMarks(data.customMarks,mg);return dst}
+    if(key==="cards-meta"){const mg=loadMarkGroups(data.markGroups);dst.cards=mergeCardsWithSeed(data.cards||dst.cards);dst.markGroups=mg;dst.customMarks=loadCustomMarks(data.customMarks,mg);dst.manualKnowledge=normalizeManualKnowledge(data.manualKnowledge ?? dst.manualKnowledge);return dst}
     if(key==="study-plan"){dst.dailyStudy=normalizeDailyStudy(data.dailyStudy,dst.sessionLog||[]);dst.planActivities=normalizePlanActivities(data.planActivities);dst.planTaskCompletions=normalizePlanTaskCompletions(data.planTaskCompletions);dst.manualTaskChecks=normalizePlanTaskCompletions(data.manualTaskChecks);dst.manualCheckins=normalizeManualCheckins(data.manualCheckins);dst.coverage=normalizeCoverage(data.coverage,dst.sessionLog||[]);dst.dailyModes=normalizeDailyModes(data.dailyModes);return dst}
     if(key==="activity"){dst.sessionLog=Array.isArray(data.sessionLog)?data.sessionLog.slice(-3000):dst.sessionLog||[];dst.dailyStudy=normalizeDailyStudy(data.dailyStudy,dst.sessionLog);dst.planActivities=normalizePlanActivities(data.planActivities);dst.dailyModes=normalizeDailyModes(data.dailyModes);dst.lastLearning=normalizeLastLearning(data.lastLearning);return dst}
     dst.settings={...defaultSettings,...(data.settings||dst.settings||{}),taskTargets:{...defaultSettings.taskTargets,...(data.settings?.taskTargets||dst.settings?.taskTargets||{})}};
@@ -7690,6 +7797,7 @@
       cards: SEED_CARDS.map(normalizeCard),
       markGroups: DEFAULT_MARK_GROUPS.map(normalizeMarkGroup),
       customMarks: DEFAULT_CUSTOM_MARKS.map(normalizeCustomMark),
+      manualKnowledge: [],
       settings: { ...defaultSettings },
       dailyStudy: {},
       planActivities: {},
@@ -7731,6 +7839,7 @@
         cards: mergeCardsWithSeed(parsed.cards),
         markGroups,
         customMarks: loadCustomMarks(parsed.customMarks, markGroups),
+        manualKnowledge: normalizeManualKnowledge(parsed.manualKnowledge),
         settings: { ...defaultSettings, ...(parsed.settings || {}), taskTargets:{...defaultSettings.taskTargets,...(parsed.settings?.taskTargets||{})} },
         dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
         planActivities: normalizePlanActivities(parsed.planActivities),
@@ -8124,6 +8233,7 @@
       cards: state.cards.map(compactCardForCloud),
       markGroups: state.markGroups,
       customMarks: state.customMarks,
+      manualKnowledge: normalizeManualKnowledge(state.manualKnowledge),
       settings: state.settings,
       dailyStudy: state.dailyStudy,
       planActivities: state.planActivities,
@@ -8390,6 +8500,7 @@
           cards: mergeCardsWithSeed(data.data.cards),
           markGroups,
           customMarks: loadCustomMarks(data.data.customMarks, markGroups),
+          manualKnowledge: normalizeManualKnowledge(data.data.manualKnowledge ?? state.manualKnowledge),
           settings: { ...defaultSettings, ...(data.data.settings || {}), taskTargets:{...defaultSettings.taskTargets,...(data.data.settings?.taskTargets||{})} },
           dailyStudy: normalizeDailyStudy(data.data.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(data.data.planActivities),
@@ -10602,6 +10713,132 @@
     showToast("标记已删除");
   }
 
+  let manualKnowledgeTrainingIndex = 0;
+
+  function manualKnowledgePool() {
+    state.manualKnowledge = normalizeManualKnowledge(state.manualKnowledge);
+    return state.manualKnowledge.filter(item => item.inTraining);
+  }
+
+  function addManualKnowledge() {
+    const input = $("manualKnowledgeInput");
+    const content = String(input?.value || "").trim();
+    if (!content) return showToast("先输入一个知识点");
+    state.manualKnowledge = normalizeManualKnowledge(state.manualKnowledge);
+    if (state.manualKnowledge.some(item => item.content.toLowerCase() === content.toLowerCase())) {
+      return showToast("这条知识点已经保存过了");
+    }
+    const now = new Date().toISOString();
+    state.manualKnowledge.unshift({
+      id: cryptoId(), content, inTraining: false, reviewCount: 0,
+      lastReviewedAt: "", createdAt: now, updatedAt: now
+    });
+    input.value = "";
+    saveState({syncKey:"cards-meta"});
+    renderManualKnowledge();
+    showToast("知识点已保存；需要刷它时再点“加入训练”");
+  }
+
+  function toggleManualKnowledgeTraining(id) {
+    state.manualKnowledge = normalizeManualKnowledge(state.manualKnowledge);
+    const item = state.manualKnowledge.find(entry => entry.id === id);
+    if (!item) return;
+    item.inTraining = !item.inTraining;
+    item.updatedAt = new Date().toISOString();
+    saveState({syncKey:"cards-meta"});
+    const pool = manualKnowledgePool();
+    if (manualKnowledgeTrainingIndex >= pool.length) manualKnowledgeTrainingIndex = Math.max(0, pool.length - 1);
+    renderManualKnowledge();
+    showToast(item.inTraining ? "已加入独立知识点训练" : "已移出训练；知识点仍保留在库中");
+  }
+
+  function deleteManualKnowledge(id) {
+    state.manualKnowledge = normalizeManualKnowledge(state.manualKnowledge);
+    const item = state.manualKnowledge.find(entry => entry.id === id);
+    if (!item) return;
+    if (!confirm("删除这条手动知识点吗？不会影响任何原有题库。")) return;
+    state.manualKnowledge = state.manualKnowledge.filter(entry => entry.id !== id);
+    const pool = manualKnowledgePool();
+    if (manualKnowledgeTrainingIndex >= pool.length) manualKnowledgeTrainingIndex = Math.max(0, pool.length - 1);
+    saveState({syncKey:"cards-meta"});
+    renderManualKnowledge();
+    showToast("手动知识点已删除");
+  }
+
+  function renderManualKnowledgeTraining() {
+    const card = $("manualKnowledgeTrainingCard");
+    if (!card || card.hidden) return;
+    const pool = manualKnowledgePool();
+    if (!pool.length) {
+      card.hidden = true;
+      return;
+    }
+    manualKnowledgeTrainingIndex = Math.max(0, Math.min(manualKnowledgeTrainingIndex, pool.length - 1));
+    const item = pool[manualKnowledgeTrainingIndex];
+    $("manualKnowledgeTrainingMeta").textContent = `第 ${manualKnowledgeTrainingIndex + 1}/${pool.length} 条 · 已复习 ${item.reviewCount} 次 · 独立训练池，不影响其他学习模块。`;
+    $("manualKnowledgeTrainingContent").innerHTML = escapeHtml(item.content).replace(/\n/g, "<br>");
+  }
+
+  function openManualKnowledgeTraining() {
+    const pool = manualKnowledgePool();
+    if (!pool.length) return showToast("训练池还是空的，先给知识点点“加入训练”");
+    manualKnowledgeTrainingIndex = Math.max(0, Math.min(manualKnowledgeTrainingIndex, pool.length - 1));
+    const card = $("manualKnowledgeTrainingCard");
+    card.hidden = false;
+    renderManualKnowledgeTraining();
+    card.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+
+  function moveManualKnowledgeTraining(delta) {
+    const pool = manualKnowledgePool();
+    if (!pool.length) return;
+    manualKnowledgeTrainingIndex = (manualKnowledgeTrainingIndex + delta + pool.length) % pool.length;
+    renderManualKnowledgeTraining();
+  }
+
+  function reviewManualKnowledgeCurrent() {
+    const pool = manualKnowledgePool();
+    if (!pool.length) return;
+    const item = pool[Math.max(0, Math.min(manualKnowledgeTrainingIndex, pool.length - 1))];
+    const target = state.manualKnowledge.find(entry => entry.id === item.id);
+    if (!target) return;
+    target.reviewCount = Math.max(0, Number(target.reviewCount) || 0) + 1;
+    target.lastReviewedAt = new Date().toISOString();
+    target.updatedAt = target.lastReviewedAt;
+    saveState({syncKey:"cards-meta"});
+    moveManualKnowledgeTraining(1);
+    renderManualKnowledge();
+  }
+
+  function renderManualKnowledge() {
+    const listEl = $("manualKnowledgeList");
+    if (!listEl) return;
+    state.manualKnowledge = normalizeManualKnowledge(state.manualKnowledge);
+    const items = state.manualKnowledge;
+    const pool = manualKnowledgePool();
+    const summary = $("manualKnowledgeSummary");
+    if (summary) summary.innerHTML = items.length
+      ? `手动知识点 <strong>${items.length}</strong> 条 · 已加入训练 <strong>${pool.length}</strong> 条。`
+      : "还没有手动知识点。直接在上面的框里输入即可，不需要先做题。";
+    const trainBtn = $("manualKnowledgeTrainBtn");
+    if (trainBtn) trainBtn.textContent = `我的知识点训练（${pool.length}）`;
+    listEl.innerHTML = items.length ? items.map(item => {
+      const created = new Date(item.createdAt);
+      const dateText = Number.isNaN(created.getTime()) ? "" : created.toLocaleDateString("zh-CN");
+      return `<div class="manual-knowledge-item">
+        <div style="min-width:0;flex:1;">
+          <div class="manual-knowledge-content">${escapeHtml(item.content)}</div>
+          <div class="manual-knowledge-meta">${dateText ? `保存于 ${escapeHtml(dateText)} · ` : ""}已复习 ${item.reviewCount} 次${item.inTraining ? " · 已加入训练" : ""}</div>
+        </div>
+        <div class="button-row" style="flex:0 0 auto;">
+          <button class="mini-btn" data-manual-knowledge-action="toggle-training" data-id="${escapeHtml(item.id)}">${item.inTraining ? "移出训练" : "加入训练"}</button>
+          <button class="mini-btn" data-manual-knowledge-action="delete" data-id="${escapeHtml(item.id)}">删除</button>
+        </div>
+      </div>`;
+    }).join("") : "";
+    renderManualKnowledgeTraining();
+  }
+
   function populateMyMarksFilters() {
     const groupSelect = $("myMarksGroup");
     const markSelect = $("myMarksMark");
@@ -10646,6 +10883,7 @@
 
   function renderMyMarks() {
     populateMyMarksFilters();
+    renderManualKnowledge();
 
     const allMarked = state.cards.filter(card => getCardMarks(card).length > 0);
     const markUses = allMarked.reduce((sum, card) => sum + getCardMarks(card).length, 0);
@@ -13143,6 +13381,7 @@ const categorizedUniqueCards = state.cards.filter(card =>
           cards: mergeCardsWithSeed(parsed.cards),
           markGroups,
           customMarks: loadCustomMarks(parsed.customMarks, markGroups),
+          manualKnowledge: normalizeManualKnowledge(parsed.manualKnowledge ?? state.manualKnowledge),
           settings: {...defaultSettings, ...(parsed.settings || {}), taskTargets:{...defaultSettings.taskTargets,...(parsed.settings?.taskTargets||{})}},
           dailyStudy: normalizeDailyStudy(parsed.dailyStudy, sessionLog),
           planActivities: normalizePlanActivities(parsed.planActivities),
@@ -13614,6 +13853,32 @@ const categorizedUniqueCards = state.cards.filter(card =>
     });
 
     $("goMarkManagerBtn").addEventListener("click", () => switchView("marks"));
+
+    $("addManualKnowledgeBtn").addEventListener("click", addManualKnowledge);
+    $("manualKnowledgeInput").addEventListener("keydown", event => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+        event.preventDefault();
+        addManualKnowledge();
+      }
+    });
+    $("manualKnowledgeTrainBtn").addEventListener("click", openManualKnowledgeTraining);
+    $("closeManualKnowledgeTrainingBtn").addEventListener("click", () => {
+      $("manualKnowledgeTrainingCard").hidden = true;
+    });
+    $("manualKnowledgeList").addEventListener("click", event => {
+      const button = event.target.closest("button[data-manual-knowledge-action]");
+      if (!button) return;
+      const id = button.dataset.id;
+      if (button.dataset.manualKnowledgeAction === "toggle-training") toggleManualKnowledgeTraining(id);
+      if (button.dataset.manualKnowledgeAction === "delete") deleteManualKnowledge(id);
+    });
+    $("manualKnowledgeTrainingCard").addEventListener("click", event => {
+      const button = event.target.closest("button[data-manual-training-action]");
+      if (!button) return;
+      if (button.dataset.manualTrainingAction === "previous") moveManualKnowledgeTraining(-1);
+      if (button.dataset.manualTrainingAction === "next") moveManualKnowledgeTraining(1);
+      if (button.dataset.manualTrainingAction === "reviewed") reviewManualKnowledgeCurrent();
+    });
 
     $("myMarksNavigator").addEventListener("click", event => {
       const button = event.target.closest("button[data-my-mark-filter]");
@@ -15638,7 +15903,7 @@ function bindSmallModule(){
 
   window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
   window.__KAOYAN_V43_ACCOUNTS__={owner:()=>activeLocalOwner,knownUsers:()=>v43KnownUsers(),scopedKey:(k)=>v43ScopedKey(k),hasData:(u)=>v43HasScopedData(u)};
-  window.__KAOYAN_BUILD__ = "V43-all-essay-manual-next-2026-08-17";
+  window.__KAOYAN_BUILD__ = "V43-manual-knowledge-training-2026-08-17";
   window.__KAOYAN_TRANSLATION_ENTRY__={open:openTranslationModule,years:[...TRANSLATION_YEAR_ORDER]};
   init();
 })();

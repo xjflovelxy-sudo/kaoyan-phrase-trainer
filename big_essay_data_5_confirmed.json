@@ -1,13 +1,14 @@
 {
-  "source": "用户确认的5篇考研英语大作文",
-  "note": "5篇大作文确认英文保持不变；300道句子仿写题平均分配为每篇60道。完整作文中的随文仿写、逐句写译和句型仿写答案均由用户个人账号保存。",
+  "source": "用户最终确认的2021—2026 Part B大作文",
+  "note": "6篇大作文按用户最终确认版本录入；仅替换大作文正文数据，原有300道句子仿写、段落仿写、整篇仿写和句型库保持不变。",
   "essays": [
     {
       "id": "big-essay-elderly-robots",
+      "year": 2026,
       "type": "图表作文",
       "theme": "科技、养老与产品接受度",
-      "version": "整理确认稿",
-      "sourceNote": "较早作文，根据当时已经确定的中文内容和句型整理为统一版本。",
+      "version": "用户最终确认稿",
+      "sourceNote": "2026 Part B｜按用户最终确认版本录入，英文原文保持不变。",
       "title": "养老机器人",
       "builtIn": true,
       "archived": false,
@@ -16,41 +17,41 @@
           "number": 1,
           "label": "第1段",
           "outline": [
-            "图表清楚显示，消费者对养老机器人持有不同的态度。",
-            "39.3%的受访者完全接受，32.8%部分接受，27.9%不接受。",
-            "在主要关注点方面，46.3%关注安全，24.9%关注价格，10.7%关注便利性。",
-            "总体而言，超过70%的受访者至少部分接受养老机器人，而安全是他们最关心的问题。"
+            "如上面的图表生动显示，它们展示了消费者对养老机器人的接受程度及其主要关注点。",
+            "根据第一张图表，39.3%的受访者完全接受养老机器人，32.8%部分接受，27.9%不接受。",
+            "与此同时，第二张图表显示，人们最关注安全，其次是价格和便利性。",
+            "总体而言，大多数人都在一定程度上接受养老机器人，但安全仍是他们最主要的关注点。"
           ],
           "sentences": [
             {
               "id": "big-essay-elderly-robots-p1-s1",
               "type": "复合句",
-              "text": "As is clearly shown in the charts, consumers have different attitudes toward elderly-care robots.",
-              "chinesePrompt": "图表清楚显示，消费者对养老机器人持有不同的态度。",
+              "text": "As is vividly displayed in the charts above, they show consumers' acceptance of elderly-care robots and their major concerns.",
+              "chinesePrompt": "如上面的图表生动显示，它们展示了消费者对养老机器人的接受程度及其主要关注点。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-elderly-robots-p1-s2",
-              "type": "并列句",
-              "text": "39.3% of the respondents fully accept them, 32.8% partly accept them, and 27.9% do not accept them.",
-              "chinesePrompt": "39.3%的受访者完全接受，32.8%部分接受，27.9%不接受。",
+              "type": "复合句",
+              "text": "According to the first chart, 39.3% of the interviewees fully accept elderly-care robots, while 32.8% partly accept them and 27.9% do not.",
+              "chinesePrompt": "根据第一张图表，39.3%的受访者完全接受养老机器人，32.8%部分接受，27.9%不接受。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-elderly-robots-p1-s3",
-              "type": "并列句",
-              "text": "As for their main concerns, 46.3% pay attention to safety, 24.9% focus on price, and 10.7% care about convenience.",
-              "chinesePrompt": "在主要关注点方面，46.3%关注安全，24.9%关注价格，10.7%关注便利性。",
+              "type": "复合句",
+              "text": "At the same time, the second chart shows that people pay the most attention to safety, followed by price and convenience.",
+              "chinesePrompt": "与此同时，第二张图表显示，人们最关注安全，其次是价格和便利性。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-elderly-robots-p1-s4",
               "type": "并列句",
-              "text": "In general, more than 70% of the respondents at least partly accept elderly-care robots, and safety is their greatest concern.",
-              "chinesePrompt": "总体而言，超过70%的受访者至少部分接受养老机器人，而安全是他们最关心的问题。",
+              "text": "Overall, most people accept elderly-care robots to some degree, but safety remains their major concern.",
+              "chinesePrompt": "总体而言，大多数人都在一定程度上接受养老机器人，但安全仍是他们最主要的关注点。",
               "note": "",
               "position": "描述与总结"
             }
@@ -60,41 +61,41 @@
           "number": 2,
           "label": "第2段",
           "outline": [
-            "养老机器人受到欢迎有几个原因。",
-            "一方面，人口老龄化增加了养老需求，机器人能够帮助减轻家庭和社会的压力。",
-            "另一方面，技术进步使这些机器人更加智能和便利。",
-            "然而，人们仍可能担心安全、隐私和价格，而这些因素会直接影响他们使用此类产品的意愿。"
+            "在我看来，这些数据表明，人们对养老机器人持积极但谨慎的态度。",
+            "一方面，超过70%的受访者完全或部分接受它们，这表明越来越多的人开始认识到它们的价值。",
+            "另一方面，人们仍然担心安全问题，如果这一问题得不到解决，他们可能不会完全接受养老机器人。",
+            "因此，安全是决定养老机器人能否进一步发展的关键因素。"
           ],
           "sentences": [
             {
               "id": "big-essay-elderly-robots-p2-s1",
-              "type": "简单句",
-              "text": "The popularity of elderly-care robots has several reasons.",
-              "chinesePrompt": "养老机器人受到欢迎有几个原因。",
+              "type": "复合句",
+              "text": "From my perspective, these data reveal that people have a positive but cautious attitude toward elderly-care robots.",
+              "chinesePrompt": "在我看来，这些数据表明，人们对养老机器人持积极但谨慎的态度。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-elderly-robots-p2-s2",
-              "type": "并列句",
-              "text": "On the one hand, population aging has increased the demand for elderly care, and robots can help relieve the pressure on families and society.",
-              "chinesePrompt": "一方面，人口老龄化增加了养老需求，机器人能够帮助减轻家庭和社会的压力。",
+              "type": "复合句",
+              "text": "On the one hand, more than seventy percent of the interviewees fully or partly accept them, which indicates that more and more people are beginning to realize their value.",
+              "chinesePrompt": "一方面，超过70%的受访者完全或部分接受它们，这表明越来越多的人开始认识到它们的价值。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-elderly-robots-p2-s3",
-              "type": "简单句",
-              "text": "On the other hand, advances in technology have made these robots more intelligent and convenient.",
-              "chinesePrompt": "另一方面，技术进步使这些机器人更加智能和便利。",
+              "type": "复合句",
+              "text": "On the other hand, people are still concerned about safety, and they may not fully accept elderly-care robots if this problem is not resolved.",
+              "chinesePrompt": "另一方面，人们仍然担心安全问题，如果这一问题得不到解决，他们可能不会完全接受养老机器人。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-elderly-robots-p2-s4",
               "type": "复合句",
-              "text": "However, people may still worry about safety, privacy, and price, which directly influence their willingness to use such products.",
-              "chinesePrompt": "然而，人们仍可能担心安全、隐私和价格，而这些因素会直接影响他们使用此类产品的意愿。",
+              "text": "Therefore, safety is a decisive factor in determining whether elderly-care robots can develop further.",
+              "chinesePrompt": "因此，安全是决定养老机器人能否进一步发展的关键因素。",
               "note": "",
               "position": "分析与论证"
             }
@@ -104,41 +105,32 @@
           "number": 3,
           "label": "第3段",
           "outline": [
-            "在我看来，制造商应提高产品质量，并更加重视安全和隐私保护。",
-            "政府也应制定明确的标准并提供适当支持。",
-            "消费者应理性认识这些产品，而不是盲目拒绝或接受。",
-            "只有制造商、政府和消费者共同努力，养老机器人才能在社会中发挥更大的作用。"
+            "在我看来，制造商应提高产品安全性，并采取有效措施解决技术问题。",
+            "此外，政府可以制定明确的标准，而公众应对养老机器人形成正确认识。",
+            "只有当这些问题得到解决时，人们才会广泛接受它们，而它们随后也能给家庭和社会带来更多益处。"
           ],
           "sentences": [
             {
               "id": "big-essay-elderly-robots-p3-s1",
               "type": "简单句",
-              "text": "In my opinion, manufacturers should improve product quality and pay more attention to safety and privacy protection.",
-              "chinesePrompt": "在我看来，制造商应提高产品质量，并更加重视安全和隐私保护。",
-              "note": "虽然有`improve`和`pay attention to`两个动作，但共用一个主语`manufacturers`，所以仍然是简单句。",
+              "text": "In my opinion, manufacturers should improve product safety and take effective measures to solve technical problems.",
+              "chinesePrompt": "在我看来，制造商应提高产品安全性，并采取有效措施解决技术问题。",
+              "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-elderly-robots-p3-s2",
-              "type": "简单句",
-              "text": "The government should also establish clear standards and provide proper support.",
-              "chinesePrompt": "政府也应制定明确的标准并提供适当支持。",
+              "type": "复合句",
+              "text": "In addition, the government can set clear standards, while the public should develop a proper understanding of elderly-care robots.",
+              "chinesePrompt": "此外，政府可以制定明确的标准，而公众应对养老机器人形成正确认识。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-elderly-robots-p3-s3",
-              "type": "简单句",
-              "text": "Consumers should understand these products rationally instead of rejecting or accepting them blindly.",
-              "chinesePrompt": "消费者应理性认识这些产品，而不是盲目拒绝或接受。",
-              "note": "",
-              "position": "建议与总结"
-            },
-            {
-              "id": "big-essay-elderly-robots-p3-s4",
               "type": "复合句",
-              "text": "Only when manufacturers, the government, and consumers work together can elderly-care robots play a greater role in society.",
-              "chinesePrompt": "只有制造商、政府和消费者共同努力，养老机器人才能在社会中发挥更大的作用。",
+              "text": "People will widely accept them only when these problems are resolved, and they can then bring more benefits to families and society.",
+              "chinesePrompt": "只有当这些问题得到解决时，人们才会广泛接受它们，而它们随后也能给家庭和社会带来更多益处。",
               "note": "",
               "position": "建议与总结"
             }
@@ -148,10 +140,11 @@
     },
     {
       "id": "big-essay-appliances",
+      "year": 2025,
       "type": "图表作文",
-      "theme": "消费升级与家用电器",
-      "version": "整理确认稿",
-      "sourceNote": "较早作文，根据当时已经确定的中文内容和句型整理为统一版本。",
+      "theme": "生活水平与家用电器",
+      "version": "用户最终确认稿",
+      "sourceNote": "2025 Part B｜按用户最终确认版本录入，英文原文保持不变。",
       "title": "家用电器拥有量变化",
       "builtIn": true,
       "archived": false,
@@ -160,50 +153,41 @@
           "number": 1,
           "label": "第1段",
           "outline": [
-            "如图表所示，2014年至2023年三类家用电器的拥有量均有所增加。",
-            "2014年，每百户拥有的空调、洗衣机和冰箱数量分别为75.2、83.7和85.5。",
-            "到2023年，这些数字分别增加到145.9、98.2和103.4。",
-            "空调拥有量增长最快。",
-            "总体而言，三类家用电器都呈上升趋势，这反映了人们生活条件的改善。"
+            "如上表生动显示，该表展示了2014年至2023年家用电器数量的变化。",
+            "2014年，空调、洗衣机和冰箱的数量分别为75.2、83.7和85.5。",
+            "到2023年，这三个数字分别增长到145.9、98.2和103.4。",
+            "总体而言，三类家用电器的数量都呈上升趋势，其中空调增长最多。"
           ],
           "sentences": [
             {
               "id": "big-essay-appliances-p1-s1",
               "type": "复合句",
-              "text": "As is shown in the chart, the ownership of three types of household appliances increased from 2014 to 2023.",
-              "chinesePrompt": "如图表所示，2014年至2023年三类家用电器的拥有量均有所增加。",
+              "text": "As is vividly displayed in the table above, the table shows the changes in the numbers of household appliances from 2014 to 2023.",
+              "chinesePrompt": "如上表生动显示，该表展示了2014年至2023年家用电器数量的变化。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-appliances-p1-s2",
               "type": "简单句",
-              "text": "In 2014, the numbers of air conditioners, washing machines, and refrigerators owned per one hundred households were 75.2, 83.7, and 85.5 respectively.",
-              "chinesePrompt": "2014年，每百户拥有的空调、洗衣机和冰箱数量分别为75.2、83.7和85.5。",
+              "text": "In 2014, the numbers of air conditioners, washing machines, and refrigerators were 75.2, 83.7, and 85.5, respectively.",
+              "chinesePrompt": "2014年，空调、洗衣机和冰箱的数量分别为75.2、83.7和85.5。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-appliances-p1-s3",
               "type": "简单句",
-              "text": "By 2023, these figures had increased to 145.9, 98.2, and 103.4 respectively.",
-              "chinesePrompt": "到2023年，这些数字分别增加到145.9、98.2和103.4。",
+              "text": "By 2023, these three figures had increased to 145.9, 98.2, and 103.4, respectively.",
+              "chinesePrompt": "到2023年，这三个数字分别增长到145.9、98.2和103.4。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-appliances-p1-s4",
-              "type": "简单句",
-              "text": "The ownership of air conditioners increased the fastest.",
-              "chinesePrompt": "空调拥有量增长最快。",
-              "note": "",
-              "position": "描述与总结"
-            },
-            {
-              "id": "big-essay-appliances-p1-s5",
-              "type": "复合句",
-              "text": "Overall, all three types of household appliances showed an upward trend, which reflects an improvement in people’s living conditions.",
-              "chinesePrompt": "总体而言，三类家用电器都呈上升趋势，这反映了人们生活条件的改善。",
+              "type": "并列句",
+              "text": "In general, the numbers of the three different household appliances showed an upward trend, and air conditioners increased the most.",
+              "chinesePrompt": "总体而言，三类家用电器的数量都呈上升趋势，其中空调增长最多。",
               "note": "",
               "position": "描述与总结"
             }
@@ -213,41 +197,59 @@
           "number": 2,
           "label": "第2段",
           "outline": [
-            "这一变化主要由生活水平和消费能力的提高造成。",
-            "随着收入提高，更多家庭能够购买家用电器，并更加关注舒适度和使用体验。",
-            "洗衣机和冰箱增长较慢，因为这些产品已在许多家庭中广泛使用。",
-            "相比之下，空调需求仍在持续增长。"
+            "在我看来，这些数据表明，人们的生活水平正在稳步提高。",
+            "一方面，越来越多的家庭拥有家用电器，这说明人们更加关注自身的生活水平。",
+            "此外，这些家用电器能给人们带来便利，因此它们在日常生活中发挥着重要作用。",
+            "另一方面，洗衣机和冰箱的数量增长得较慢。",
+            "这可能是因为许多家庭已经拥有这些家用电器。",
+            "因此，人们现在不仅关注家用电器的数量，也关注产品质量和使用体验。"
           ],
           "sentences": [
             {
               "id": "big-essay-appliances-p2-s1",
-              "type": "简单句",
-              "text": "This change is mainly caused by improvements in living standards and consumer purchasing power.",
-              "chinesePrompt": "这一变化主要由生活水平和消费能力的提高造成。",
+              "type": "复合句",
+              "text": "From my perspective, these data reveal that people's living standards are steadily improving.",
+              "chinesePrompt": "在我看来，这些数据表明，人们的生活水平正在稳步提高。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-appliances-p2-s2",
               "type": "复合句",
-              "text": "As people’s incomes rise, more families can afford household appliances and pay greater attention to comfort and user experience.",
-              "chinesePrompt": "随着收入提高，更多家庭能够购买家用电器，并更加关注舒适度和使用体验。",
+              "text": "On the one hand, more and more families own household appliances, which shows that people are paying closer attention to their living standards.",
+              "chinesePrompt": "一方面，越来越多的家庭拥有家用电器，这说明人们更加关注自身的生活水平。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-appliances-p2-s3",
-              "type": "复合句",
-              "text": "The growth rates of washing machines and refrigerators are relatively slow because these products are already widely used in many households.",
-              "chinesePrompt": "洗衣机和冰箱增长较慢，因为这些产品已在许多家庭中广泛使用。",
+              "type": "并列句",
+              "text": "In addition, these appliances can bring convenience to people, so they play a vital role in daily life.",
+              "chinesePrompt": "此外，这些家用电器能给人们带来便利，因此它们在日常生活中发挥着重要作用。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-appliances-p2-s4",
               "type": "简单句",
-              "text": "By contrast, the demand for air conditioners has continued to grow.",
-              "chinesePrompt": "相比之下，空调需求仍在持续增长。",
+              "text": "On the other hand, the numbers of washing machines and refrigerators increased more slowly.",
+              "chinesePrompt": "另一方面，洗衣机和冰箱的数量增长得较慢。",
+              "note": "",
+              "position": "分析与论证"
+            },
+            {
+              "id": "big-essay-appliances-p2-s5",
+              "type": "复合句",
+              "text": "This may be because many families already own these appliances.",
+              "chinesePrompt": "这可能是因为许多家庭已经拥有这些家用电器。",
+              "note": "",
+              "position": "分析与论证"
+            },
+            {
+              "id": "big-essay-appliances-p2-s6",
+              "type": "简单句",
+              "text": "Therefore, people now pay attention not only to the number of appliances, but also to product quality and user experience.",
+              "chinesePrompt": "因此，人们现在不仅关注家用电器的数量，也关注产品质量和使用体验。",
               "note": "",
               "position": "分析与论证"
             }
@@ -257,41 +259,41 @@
           "number": 3,
           "label": "第3段",
           "outline": [
-            "在我看来，制造商应提高产品质量，并开发节能、环保和智能的产品。",
-            "政府可以提供适当补贴并完善相关政策。",
-            "消费者应根据实际需要理性选择产品。",
-            "只有制造商、政府和消费者共同努力，家用电器才能给人们的生活带来更大便利。"
+            "在我看来，制造商应着重提高产品质量，并生产更多节能、环保和智能的家用电器。",
+            "与此同时，政府补贴可以帮助降低价格。",
+            "消费者也应理性购买家用电器。",
+            "最终，制造商、政府和消费者应共同努力，为家庭和社会带来更多益处。"
           ],
           "sentences": [
             {
               "id": "big-essay-appliances-p3-s1",
               "type": "简单句",
-              "text": "In my opinion, manufacturers should improve product quality and develop energy-saving, environmentally friendly, and intelligent products.",
-              "chinesePrompt": "在我看来，制造商应提高产品质量，并开发节能、环保和智能的产品。",
+              "text": "In my opinion, manufacturers should focus on improving product quality and making more energy-saving, environmentally friendly, and intelligent appliances.",
+              "chinesePrompt": "在我看来，制造商应着重提高产品质量，并生产更多节能、环保和智能的家用电器。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-appliances-p3-s2",
               "type": "简单句",
-              "text": "The government can provide appropriate subsidies and improve relevant policies.",
-              "chinesePrompt": "政府可以提供适当补贴并完善相关政策。",
+              "text": "At the same time, government subsidies can help lower prices.",
+              "chinesePrompt": "与此同时，政府补贴可以帮助降低价格。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-appliances-p3-s3",
               "type": "简单句",
-              "text": "Consumers should choose products rationally according to their actual needs.",
-              "chinesePrompt": "消费者应根据实际需要理性选择产品。",
+              "text": "Consumers should also buy household appliances rationally.",
+              "chinesePrompt": "消费者也应理性购买家用电器。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-appliances-p3-s4",
-              "type": "复合句",
-              "text": "Only when manufacturers, the government, and consumers work together can household appliances bring greater convenience to people’s lives.",
-              "chinesePrompt": "只有制造商、政府和消费者共同努力，家用电器才能给人们的生活带来更大便利。",
+              "type": "简单句",
+              "text": "Ultimately, manufacturers, the government, and consumers should work together to bring more benefits to families and society.",
+              "chinesePrompt": "最终，制造商、政府和消费者应共同努力，为家庭和社会带来更多益处。",
               "note": "",
               "position": "建议与总结"
             }
@@ -301,10 +303,11 @@
     },
     {
       "id": "big-essay-parks",
+      "year": 2024,
       "type": "图画＋图表作文",
-      "theme": "公共服务、城市环境与居民幸福感",
-      "version": "整理确认稿",
-      "sourceNote": "较早作文，根据当时已经确定的中文内容和句型整理为统一版本。",
+      "theme": "公共服务与城市生活",
+      "version": "用户最终确认稿",
+      "sourceNote": "2024 Part B｜按用户最终确认版本录入，英文原文保持不变。",
       "title": "城市公园",
       "builtIn": true,
       "archived": false,
@@ -313,50 +316,41 @@
           "number": 1,
           "label": "第1段",
           "outline": [
-            "如图所示，几位居民正在一座新建公园里休息和锻炼。",
-            "一个男孩说，他家附近的新公园非常好。",
-            "图表显示，该市公园数量从2020年至2022年持续增加。",
-            "2020年有406座公园，2021年有532座，2022年有670座。",
-            "总体而言，公园数量显著增加，居民也能更方便地享受公共绿色空间。"
+            "如上面的图画和图表生动显示，它们展示了一座城市公共公园的发展情况。",
+            "在图画中，居民正在享受家附近一座新建的公园。",
+            "根据图表，公园数量从2020年的406座增加到2021年的532座，随后又增加到2022年的670座。",
+            "总体而言，越来越多的公共公园正在建设，并且当地居民使用起来也更加方便。"
           ],
           "sentences": [
             {
               "id": "big-essay-parks-p1-s1",
               "type": "复合句",
-              "text": "As is shown in the picture, several residents are resting and exercising in a newly built park.",
-              "chinesePrompt": "如图所示，几位居民正在一座新建公园里休息和锻炼。",
+              "text": "As is vividly displayed in the picture and chart above, they show the development of public parks in a city.",
+              "chinesePrompt": "如上面的图画和图表生动显示，它们展示了一座城市公共公园的发展情况。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-parks-p1-s2",
-              "type": "复合句",
-              "text": "A boy says that the new park near his home is very good.",
-              "chinesePrompt": "一个男孩说，他家附近的新公园非常好。",
+              "type": "简单句",
+              "text": "In the picture, residents are enjoying a newly built park near their homes.",
+              "chinesePrompt": "在图画中，居民正在享受家附近一座新建的公园。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-parks-p1-s3",
-              "type": "复合句",
-              "text": "The chart shows that the number of parks in the city increased continuously from 2020 to 2022.",
-              "chinesePrompt": "图表显示，该市公园数量从2020年至2022年持续增加。",
+              "type": "简单句",
+              "text": "According to the chart, the number of parks increased from 406 in 2020 to 532 in 2021 and then to 670 in 2022.",
+              "chinesePrompt": "根据图表，公园数量从2020年的406座增加到2021年的532座，随后又增加到2022年的670座。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-parks-p1-s4",
               "type": "简单句",
-              "text": "There were 406 parks in 2020, 532 in 2021, and 670 in 2022.",
-              "chinesePrompt": "2020年有406座公园，2021年有532座，2022年有670座。",
-              "note": "",
-              "position": "描述与总结"
-            },
-            {
-              "id": "big-essay-parks-p1-s5",
-              "type": "并列句",
-              "text": "Overall, the number of parks increased significantly, and residents can enjoy public green spaces more conveniently.",
-              "chinesePrompt": "总体而言，公园数量显著增加，居民也能更方便地享受公共绿色空间。",
+              "text": "Overall, more public parks are being built and becoming more accessible to local residents.",
+              "chinesePrompt": "总体而言，越来越多的公共公园正在建设，并且当地居民使用起来也更加方便。",
               "note": "",
               "position": "描述与总结"
             }
@@ -366,51 +360,42 @@
           "number": 2,
           "label": "第2段",
           "outline": [
-            "总体而言，图画和图表反映了城市公共服务和生活环境正在不断改善。",
-            "一方面，更多公园能够为居民提供锻炼、散步和休息的场所，并改善身体健康和生活质量。",
-            "另一方面，公园是交流和放松的重要空间，能够使城市生活更加舒适。",
-            "此外，公园数量增加说明政府越来越重视居民的实际需要。",
-            "因此，这一变化不仅改善了城市环境，也增强了居民的幸福感。"
+            "综合来看，这些数据表明，人们越来越重视城市生活质量。",
+            "一方面，可供使用的公共公园越来越多，这说明城市更加重视居民的生活环境。",
+            "此外，公共公园可以提供锻炼、放松和社交活动的场所，因此它们在日常生活中发挥着重要作用。",
+            "另一方面，公园的质量和可达性与其数量同样重要。"
           ],
           "sentences": [
             {
               "id": "big-essay-parks-p2-s1",
               "type": "复合句",
-              "text": "In general, the picture and the chart reflect that urban public services and living environments are continuously improving.",
-              "chinesePrompt": "总体而言，图画和图表反映了城市公共服务和生活环境正在不断改善。",
+              "text": "All things considered, these data reveal that people are paying growing attention to the quality of urban life.",
+              "chinesePrompt": "综合来看，这些数据表明，人们越来越重视城市生活质量。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-parks-p2-s2",
-              "type": "简单句",
-              "text": "On the one hand, more parks can provide residents with places for exercise, walking, and rest and improve their physical health and quality of life.",
-              "chinesePrompt": "一方面，更多公园能够为居民提供锻炼、散步和休息的场所，并改善身体健康和生活质量。",
-              "note": "虽然有两个动作`provide`和`improve`，但共用一个主语`more parks`，仍是简单句。",
+              "type": "复合句",
+              "text": "On the one hand, more and more public parks are available, which shows that cities are placing greater emphasis on residents' living environment.",
+              "chinesePrompt": "一方面，可供使用的公共公园越来越多，这说明城市更加重视居民的生活环境。",
+              "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-parks-p2-s3",
               "type": "并列句",
-              "text": "On the other hand, parks are important spaces for communication and relaxation, and they can make urban life more comfortable.",
-              "chinesePrompt": "另一方面，公园是交流和放松的重要空间，能够使城市生活更加舒适。",
+              "text": "In addition, public parks can provide places for exercise, relaxation, and social activities, so they play a vital role in daily life.",
+              "chinesePrompt": "此外，公共公园可以提供锻炼、放松和社交活动的场所，因此它们在日常生活中发挥着重要作用。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-parks-p2-s4",
-              "type": "复合句",
-              "text": "In addition, the increase in the number of parks shows that the government is paying greater attention to residents’ actual needs.",
-              "chinesePrompt": "此外，公园数量增加说明政府越来越重视居民的实际需要。",
-              "note": "",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-parks-p2-s5",
               "type": "简单句",
-              "text": "Therefore, this change not only improves the urban environment but also increases residents’ sense of happiness.",
-              "chinesePrompt": "因此，这一变化不仅改善了城市环境，也增强了居民的幸福感。",
-              "note": "`not only...but also...`连接两个谓语，不是从句。",
+              "text": "On the other hand, the quality and accessibility of parks matter just as much as their number.",
+              "chinesePrompt": "另一方面，公园的质量和可达性与其数量同样重要。",
+              "note": "",
               "position": "分析与论证"
             }
           ]
@@ -419,41 +404,32 @@
           "number": 3,
           "label": "第3段",
           "outline": [
-            "在我看来，政府应继续合理建设公园，尤其是居民区附近的小型公园。",
-            "同时，有关部门应加强日常管理、保持环境清洁并确保公共设施安全。",
-            "居民也应保护植物和公共设施，并合理使用公园。",
-            "只有政府和居民共同努力，城市公园才能发挥更大的作用，并给个人、家庭和社会带来更多益处。"
+            "在我看来，城市政府应着重提高公共公园的质量，使其更加安全、绿色和便利。",
+            "与此同时，公众应合理使用并保护这些空间。",
+            "最终，政府和市民应共同努力，这能给家庭和社会带来更多益处。"
           ],
           "sentences": [
             {
               "id": "big-essay-parks-p3-s1",
               "type": "简单句",
-              "text": "In my opinion, the government should continue to build parks reasonably, especially small parks near residential areas.",
-              "chinesePrompt": "在我看来，政府应继续合理建设公园，尤其是居民区附近的小型公园。",
+              "text": "In my opinion, city governments should focus on improving the quality of public parks and making them safer, greener, and more convenient.",
+              "chinesePrompt": "在我看来，城市政府应着重提高公共公园的质量，使其更加安全、绿色和便利。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-parks-p3-s2",
               "type": "简单句",
-              "text": "At the same time, relevant departments should strengthen daily management, keep the environment clean, and ensure the safety of public facilities.",
-              "chinesePrompt": "同时，有关部门应加强日常管理、保持环境清洁并确保公共设施安全。",
+              "text": "At the same time, the public should use and protect these spaces properly.",
+              "chinesePrompt": "与此同时，公众应合理使用并保护这些空间。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-parks-p3-s3",
-              "type": "简单句",
-              "text": "Residents should also protect plants and public facilities and use parks properly.",
-              "chinesePrompt": "居民也应保护植物和公共设施，并合理使用公园。",
-              "note": "",
-              "position": "建议与总结"
-            },
-            {
-              "id": "big-essay-parks-p3-s4",
               "type": "复合句",
-              "text": "Only when the government and residents work together can urban parks play a greater role and bring more benefits to individuals, families, and society.",
-              "chinesePrompt": "只有政府和居民共同努力，城市公园才能发挥更大的作用，并给个人、家庭和社会带来更多益处。",
+              "text": "Ultimately, the government and citizens should work together, which can bring more benefits to families and society.",
+              "chinesePrompt": "最终，政府和市民应共同努力，这能给家庭和社会带来更多益处。",
               "note": "",
               "position": "建议与总结"
             }
@@ -463,10 +439,11 @@
     },
     {
       "id": "big-essay-dragon-boat",
+      "year": 2023,
       "type": "图画作文",
       "theme": "传统文化与文化传承",
-      "version": "最终确认稿",
-      "sourceNote": "按照最终确认版本保留。",
+      "version": "用户最终确认稿",
+      "sourceNote": "2023 Part B｜按用户最终确认版本录入，英文原文保持不变。",
       "title": "龙舟赛",
       "builtIn": true,
       "archived": false,
@@ -475,32 +452,41 @@
           "number": 1,
           "label": "第1段",
           "outline": [
-            "如上图生动展示的那样，几艘龙舟正在河面上激烈比赛。",
-            "两位老人高兴地说：“龙舟赛越来越受欢迎了。”",
-            "总体而言，这幅图表明传统习俗越来越受欢迎，人们也更加关注传统文化。"
+            "如上图生动展示的那样，图中呈现了一场热闹的乡村龙舟赛。",
+            "许多村民正在观看比赛，而两位老人高兴地说，村里的龙舟赛正变得越来越受欢迎。",
+            "这幅简单的图画体现了中华传统文化持久的吸引力。",
+            "总体而言，这幅图告诉我们，传统文化在现代生活中仍发挥着重要作用。"
           ],
           "sentences": [
             {
               "id": "big-essay-dragon-boat-p1-s1",
               "type": "复合句",
-              "text": "As is vividly displayed in the picture above, the picture shows that several dragon boats are competing fiercely on the river.",
-              "chinesePrompt": "如上图生动展示的那样，几艘龙舟正在河面上激烈比赛。",
+              "text": "As is vividly shown in the picture above, the picture shows a lively dragon boat race in a village.",
+              "chinesePrompt": "如上图生动展示的那样，图中呈现了一场热闹的乡村龙舟赛。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-dragon-boat-p1-s2",
-              "type": "简单句＋直接引语",
-              "text": "Two elderly people say happily, “The dragon boat race is becoming more and more popular.”",
-              "chinesePrompt": "两位老人高兴地说：“龙舟赛越来越受欢迎了。”",
-              "note": "引号外的`Two elderly people say happily`是简单句，引号内也是一个简单句。",
+              "type": "复合句",
+              "text": "Many villagers are watching the competition, while two elderly people happily say that the village dragon boat race is becoming more and more popular.",
+              "chinesePrompt": "许多村民正在观看比赛，而两位老人高兴地说，村里的龙舟赛正变得越来越受欢迎。",
+              "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-dragon-boat-p1-s3",
+              "type": "简单句",
+              "text": "This simple picture reflects the enduring appeal of traditional Chinese culture.",
+              "chinesePrompt": "这幅简单的图画体现了中华传统文化持久的吸引力。",
+              "note": "",
+              "position": "描述与总结"
+            },
+            {
+              "id": "big-essay-dragon-boat-p1-s4",
               "type": "复合句",
-              "text": "In general, this picture shows that traditional customs are becoming more and more popular, and that people are paying more attention to traditional culture.",
-              "chinesePrompt": "总体而言，这幅图表明传统习俗越来越受欢迎，人们也更加关注传统文化。",
+              "text": "Overall, the picture tells us that traditional culture still plays a significant role in modern life.",
+              "chinesePrompt": "总体而言，这幅图告诉我们，传统文化在现代生活中仍发挥着重要作用。",
               "note": "",
               "position": "描述与总结"
             }
@@ -510,86 +496,32 @@
           "number": 2,
           "label": "第2段",
           "outline": [
-            "总体而言，龙舟赛越来越受欢迎具有重要意义。",
-            "一方面，这项传统活动能够帮助人们了解许多节日。",
-            "它还能帮助人们感受传统文化的魅力，并增强文化认同感。",
-            "另一方面，龙舟赛也为交流和娱乐提供了机会。",
-            "邻里关系得到加强是有益的。",
-            "这也能使乡村生活更加令人满意。",
-            "此外，越来越多的人正在观看龙舟赛并参与其中。",
-            "这也有助于传统文化代代相传。",
-            "因此，传统习俗活动不仅丰富人们的生活，也促进传统文化的发展。"
+            "一方面，龙舟赛等传统活动能够帮助人们了解当地习俗，并增强文化认同感。",
+            "此外，这些活动能够把不同代际的人聚在一起，并丰富人们的日常生活。",
+            "另一方面，如果传统习俗被忽视，一些宝贵的文化实践可能会逐渐消失。"
           ],
           "sentences": [
             {
               "id": "big-essay-dragon-boat-p2-s1",
-              "type": "复合句",
-              "text": "In general, it is significant that the dragon boat race has become more popular.",
-              "chinesePrompt": "总体而言，龙舟赛越来越受欢迎具有重要意义。",
+              "type": "简单句",
+              "text": "On the one hand, traditional activities such as dragon boat racing can help people understand local customs and strengthen their cultural identity.",
+              "chinesePrompt": "一方面，龙舟赛等传统活动能够帮助人们了解当地习俗，并增强文化认同感。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-dragon-boat-p2-s2",
               "type": "简单句",
-              "text": "On the one hand, the traditional activity can help people understand many festivals.",
-              "chinesePrompt": "一方面，这项传统活动能够帮助人们了解许多节日。",
+              "text": "In addition, these activities can bring different generations together and enrich people's daily lives.",
+              "chinesePrompt": "此外，这些活动能够把不同代际的人聚在一起，并丰富人们的日常生活。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-dragon-boat-p2-s3",
-              "type": "简单句",
-              "text": "This can also help people experience the charm of traditional culture and strengthen people’s sense of cultural identity.",
-              "chinesePrompt": "它还能帮助人们感受传统文化的魅力，并增强文化认同感。",
-              "note": "`experience`和`strengthen`是并列动作，共用主语`This`。",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-dragon-boat-p2-s4",
-              "type": "简单句",
-              "text": "On the other hand, the dragon boat race also provides a chance for communication and entertainment.",
-              "chinesePrompt": "另一方面，龙舟赛也为交流和娱乐提供了机会。",
-              "note": "",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-dragon-boat-p2-s5",
               "type": "复合句",
-              "text": "It is beneficial that neighborhood relationships are strengthened.",
-              "chinesePrompt": "邻里关系得到加强是有益的。",
-              "note": "",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-dragon-boat-p2-s6",
-              "type": "简单句",
-              "text": "This can also make countryside life more satisfying.",
-              "chinesePrompt": "这也能使乡村生活更加令人满意。",
-              "note": "",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-dragon-boat-p2-s7",
-              "type": "简单句",
-              "text": "In addition, more and more people are watching the dragon boat race and participating in it.",
-              "chinesePrompt": "此外，越来越多的人正在观看龙舟赛并参与其中。",
-              "note": "",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-dragon-boat-p2-s8",
-              "type": "简单句",
-              "text": "This can also help traditional culture be passed down from generation to generation.",
-              "chinesePrompt": "这也有助于传统文化代代相传。",
-              "note": "",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-dragon-boat-p2-s9",
-              "type": "简单句",
-              "text": "Therefore, the activity of traditional customs not only enriches people’s lives but also promotes the development of traditional culture.",
-              "chinesePrompt": "因此，传统习俗活动不仅丰富人们的生活，也促进传统文化的发展。",
+              "text": "On the other hand, if traditional customs are ignored, some valuable cultural practices may gradually disappear.",
+              "chinesePrompt": "另一方面，如果传统习俗被忽视，一些宝贵的文化实践可能会逐渐消失。",
               "note": "",
               "position": "分析与论证"
             }
@@ -599,50 +531,41 @@
           "number": 3,
           "label": "第3段",
           "outline": [
-            "在我看来，有关部门应加强对传统习俗活动的保护，并为龙舟赛提供支持。",
-            "同时，组织者还应做好安全管理并确保比赛顺利进行。",
-            "年轻人也应积极关注传统文化并参与相关活动。",
-            "只有政府、社会和个人共同努力，优秀传统文化才能传承下去。",
-            "这有益于个人、家庭和社会。"
+            "在我看来，每个人都应更加关注传统文化。",
+            "此外，学校和社区可以组织更多文化活动，而年轻人应积极参与其中。",
+            "我们应尊重并传承传统文化，而不是将其遗忘。",
+            "只有这样，传统文化才能保持活力并在现代社会中得到发展。"
           ],
           "sentences": [
             {
               "id": "big-essay-dragon-boat-p3-s1",
               "type": "简单句",
-              "text": "In my opinion, the relevant department should strengthen the protection of traditional custom activities and provide support for the dragon boat race.",
-              "chinesePrompt": "在我看来，有关部门应加强对传统习俗活动的保护，并为龙舟赛提供支持。",
+              "text": "In my opinion, everyone should pay more attention to traditional culture.",
+              "chinesePrompt": "在我看来，每个人都应更加关注传统文化。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-dragon-boat-p3-s2",
               "type": "复合句",
-              "text": "At the same time, the organizer should also manage safety and ensure the race goes smoothly.",
-              "chinesePrompt": "同时，组织者还应做好安全管理并确保比赛顺利进行。",
-              "note": "这里`the race goes smoothly`是省略了`that`的从句：\n> ensure **that** the race goes smoothly",
+              "text": "In addition, schools and communities can organize more cultural activities, while young people should take an active part in them.",
+              "chinesePrompt": "此外，学校和社区可以组织更多文化活动，而年轻人应积极参与其中。",
+              "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-dragon-boat-p3-s3",
               "type": "简单句",
-              "text": "Young people should also actively pay attention to traditional culture and participate in relevant activities.",
-              "chinesePrompt": "年轻人也应积极关注传统文化并参与相关活动。",
+              "text": "We should respect and inherit traditional culture instead of forgetting it.",
+              "chinesePrompt": "我们应尊重并传承传统文化，而不是将其遗忘。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-dragon-boat-p3-s4",
-              "type": "复合句",
-              "text": "Excellent traditional culture can be passed down only when the government, society, and individuals work together.",
-              "chinesePrompt": "只有政府、社会和个人共同努力，优秀传统文化才能传承下去。",
-              "note": "",
-              "position": "建议与总结"
-            },
-            {
-              "id": "big-essay-dragon-boat-p3-s5",
-              "type": "简单句",
-              "text": "It is beneficial to individuals, families, and society.",
-              "chinesePrompt": "这有益于个人、家庭和社会。",
+              "type": "倒装句",
+              "text": "Only in this way can traditional culture remain alive and develop in modern society.",
+              "chinesePrompt": "只有这样，传统文化才能保持活力并在现代社会中得到发展。",
               "note": "",
               "position": "建议与总结"
             }
@@ -652,10 +575,11 @@
     },
     {
       "id": "big-essay-campus-lecture",
+      "year": 2022,
       "type": "图画作文",
-      "theme": "校园教育、跨学科学习与视野拓展",
-      "version": "最终确认稿",
-      "sourceNote": "按照最终确认版本保留；最后一句保持用户最终确认版本。",
+      "theme": "开放学习与跨学科视野",
+      "version": "用户最终确认稿",
+      "sourceNote": "2022 Part B｜按用户最终确认版本录入，英文原文保持不变。",
       "title": "校园讲座",
       "builtIn": true,
       "archived": false,
@@ -664,41 +588,41 @@
           "number": 1,
           "label": "第1段",
           "outline": [
-            "如图生动展示的那样，两名学生正站在一张名为“校园讲座”的通知前。",
-            "一名学生认为讲座与自己的专业无关，所以没有必要听；另一名学生认为讲座对自己有益，因此需要听。",
-            "总体而言，这幅图告诉我们，学生面对专业之外的知识时持有不同态度。",
-            "此外，拓宽视野具有重要意义。"
+            "如上图生动展示的那样，两名学生正站在一张校园讲座通知前。",
+            "一名学生认为这场讲座与她的专业无关，因此没有用；另一名学生则认为参加讲座肯定会有所帮助。",
+            "这幅简单的图画体现了学习自身领域之外知识的价值。",
+            "总体而言，这幅图告诉我们，开放的学习态度对个人成长至关重要。"
           ],
           "sentences": [
             {
               "id": "big-essay-campus-lecture-p1-s1",
               "type": "复合句",
-              "text": "As is vividly displayed in the picture, the picture shows that two students are standing in front of a notice named “Campus Lecture.”",
-              "chinesePrompt": "如图生动展示的那样，两名学生正站在一张名为“校园讲座”的通知前。",
+              "text": "As is vividly shown in the picture above, two students are standing in front of a notice for a campus lecture.",
+              "chinesePrompt": "如上图生动展示的那样，两名学生正站在一张校园讲座通知前。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-campus-lecture-p1-s2",
               "type": "复合句",
-              "text": "One student thinks, “The lecture is not related to my major, so I do not need to listen to it,” while another student thinks, “I need to listen to it because it is beneficial to me.”",
-              "chinesePrompt": "一名学生认为讲座与自己的专业无关，所以没有必要听；另一名学生认为讲座对自己有益，因此需要听。",
-              "note": "这句话中包含：\n* `while`连接两个学生的不同观点；\n* `because`引导原因从句。",
+              "text": "One student thinks that the lecture is useless because it is outside her major, while the other believes that attending it will certainly be helpful.",
+              "chinesePrompt": "一名学生认为这场讲座与她的专业无关，因此没有用；另一名学生则认为参加讲座肯定会有所帮助。",
+              "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-campus-lecture-p1-s3",
-              "type": "复合句",
-              "text": "In general, the picture tells us that students have different attitudes when facing knowledge outside their majors.",
-              "chinesePrompt": "总体而言，这幅图告诉我们，学生面对专业之外的知识时持有不同态度。",
+              "type": "简单句",
+              "text": "This simple picture reflects the value of learning beyond one's own field.",
+              "chinesePrompt": "这幅简单的图画体现了学习自身领域之外知识的价值。",
               "note": "",
               "position": "描述与总结"
             },
             {
               "id": "big-essay-campus-lecture-p1-s4",
               "type": "复合句",
-              "text": "In addition, it is significant that we broaden our horizons.",
-              "chinesePrompt": "此外，拓宽视野具有重要意义。",
+              "text": "Overall, the picture tells us that an open attitude toward learning is essential for personal growth.",
+              "chinesePrompt": "总体而言，这幅图告诉我们，开放的学习态度对个人成长至关重要。",
               "note": "",
               "position": "描述与总结"
             }
@@ -708,77 +632,32 @@
           "number": 2,
           "label": "第2段",
           "outline": [
-            "综合考虑，参加不同领域的讲座具有重要意义。",
-            "一方面，学生不仅要学习本专业知识，也要了解其他领域的内容。",
-            "拓宽视野并丰富知识是有益的。",
-            "另一方面，不同学科之间存在联系。",
-            "当学生接触新知识时，产生新想法并提高解决问题的能力是有益的。",
-            "此外，校园讲座还为学生与教师及其他学生交流提供了机会。",
-            "因此，学生不应只关注一场讲座是否对自己的专业有益。",
-            "他们应以积极、开放的态度对待新知识。"
+            "一方面，持开放态度的学生能够学习不同种类的知识并拓宽视野。",
+            "显然，学习本专业之外的知识有助于我们积累经验、改善思维，并从不同角度解决问题。",
+            "另一方面，拒绝陌生知识的人很容易错失宝贵机会。"
           ],
           "sentences": [
             {
               "id": "big-essay-campus-lecture-p2-s1",
-              "type": "复合句",
-              "text": "All things considered, it is significant that we take part in lectures in different fields.",
-              "chinesePrompt": "综合考虑，参加不同领域的讲座具有重要意义。",
+              "type": "简单句",
+              "text": "On the one hand, students with an open attitude can learn different kinds of knowledge and broaden their horizons.",
+              "chinesePrompt": "一方面，持开放态度的学生能够学习不同种类的知识并拓宽视野。",
               "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-campus-lecture-p2-s2",
-              "type": "简单句",
-              "text": "On the one hand, students not only need to study knowledge in their majors but also need to know about content in other fields.",
-              "chinesePrompt": "一方面，学生不仅要学习本专业知识，也要了解其他领域的内容。",
-              "note": "`not only...but also...`连接两个谓语：\n> need to study\n> need to know\n所以仍是简单句。",
+              "type": "复合句",
+              "text": "It is obvious that learning beyond one's major is beneficial in helping us gain experience, improve our thinking, and solve problems from different angles.",
+              "chinesePrompt": "显然，学习本专业之外的知识有助于我们积累经验、改善思维，并从不同角度解决问题。",
+              "note": "",
               "position": "分析与论证"
             },
             {
               "id": "big-essay-campus-lecture-p2-s3",
-              "type": "简单句",
-              "text": "It is beneficial to broaden our horizons and enrich our knowledge.",
-              "chinesePrompt": "拓宽视野并丰富知识是有益的。",
-              "note": "",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-campus-lecture-p2-s4",
-              "type": "简单句",
-              "text": "On the other hand, different subjects have relationships with each other.",
-              "chinesePrompt": "另一方面，不同学科之间存在联系。",
-              "note": "",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-campus-lecture-p2-s5",
               "type": "复合句",
-              "text": "It is beneficial that students create new ideas and improve their ability to solve problems when they come into contact with new knowledge.",
-              "chinesePrompt": "当学生接触新知识时，产生新想法并提高解决问题的能力是有益的。",
-              "note": "这句话有两个从句：\n> that students create...\n> when they come into contact...",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-campus-lecture-p2-s6",
-              "type": "简单句",
-              "text": "What’s more, campus lectures also provide students with chances for communication with teachers and other students.",
-              "chinesePrompt": "此外，校园讲座还为学生与教师及其他学生交流提供了机会。",
-              "note": "",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-campus-lecture-p2-s7",
-              "type": "复合句",
-              "text": "Therefore, students should not just pay attention to whether a lecture is beneficial to their majors or not.",
-              "chinesePrompt": "因此，学生不应只关注一场讲座是否对自己的专业有益。",
-              "note": "`whether...or not`引导“是否……”从句。",
-              "position": "分析与论证"
-            },
-            {
-              "id": "big-essay-campus-lecture-p2-s8",
-              "type": "简单句",
-              "text": "They should treat new knowledge positively and openly.",
-              "chinesePrompt": "他们应以积极、开放的态度对待新知识。",
+              "text": "On the other hand, people who refuse unfamiliar knowledge may easily miss valuable opportunities.",
+              "chinesePrompt": "另一方面，拒绝陌生知识的人很容易错失宝贵机会。",
               "note": "",
               "position": "分析与论证"
             }
@@ -788,51 +667,178 @@
           "number": 3,
           "label": "第3段",
           "outline": [
-            "在我看来，学生应根据自己的时间安排积极参加有价值的校园讲座。",
-            "同时，学校可以邀请不同领域的专家并举办活动。",
-            "学生也应思考讲座的内容。",
-            "此外，我们应在学习中把实践与理论结合起来。",
-            "只有保持好奇心并积极学习，学生才能不断提升自己并为未来发展做好准备。"
+            "在我看来，每个人都应培养开放的学习态度，并将其运用到学习和日常生活中。",
+            "此外，大学可以为学生提供更多讲座和学习资源。",
+            "我们应广泛学习，而不是把自己局限在本专业之内。",
+            "只有这样，我们才能稳步进步并实现自己的潜能。"
           ],
           "sentences": [
             {
               "id": "big-essay-campus-lecture-p3-s1",
               "type": "简单句",
-              "text": "In my opinion, students should actively take part in valuable campus lectures with regard to their own schedules.",
-              "chinesePrompt": "在我看来，学生应根据自己的时间安排积极参加有价值的校园讲座。",
+              "text": "In my opinion, everyone should develop an open attitude toward learning and apply it to study and daily life.",
+              "chinesePrompt": "在我看来，每个人都应培养开放的学习态度，并将其运用到学习和日常生活中。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-campus-lecture-p3-s2",
               "type": "简单句",
-              "text": "At the same time, schools can invite experts from different fields and hold activities.",
-              "chinesePrompt": "同时，学校可以邀请不同领域的专家并举办活动。",
+              "text": "In addition, universities can provide students with more lectures and learning resources.",
+              "chinesePrompt": "此外，大学可以为学生提供更多讲座和学习资源。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-campus-lecture-p3-s3",
               "type": "简单句",
-              "text": "Students also should think about the content of the lecture.",
-              "chinesePrompt": "学生也应思考讲座的内容。",
+              "text": "We should learn widely instead of limiting ourselves to our own majors.",
+              "chinesePrompt": "我们应广泛学习，而不是把自己局限在本专业之内。",
               "note": "",
               "position": "建议与总结"
             },
             {
               "id": "big-essay-campus-lecture-p3-s4",
+              "type": "倒装句",
+              "text": "Only in this way can we make steady progress and realize our potential.",
+              "chinesePrompt": "只有这样，我们才能稳步进步并实现自己的潜能。",
+              "note": "",
+              "position": "建议与总结"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "big-essay-chinese-opera",
+      "year": 2021,
+      "type": "图画作文",
+      "theme": "个人兴趣与独立选择",
+      "version": "用户最终确认稿",
+      "sourceNote": "2021 Part B｜按用户最终确认版本录入，英文原文保持不变。",
+      "title": "学习京剧与个人兴趣",
+      "builtIn": true,
+      "archived": false,
+      "paragraphs": [
+        {
+          "number": 1,
+          "label": "第1段",
+          "outline": [
+            "如上图生动展示的那样，图中一个孩子正在和父亲谈论学习中国戏曲。",
+            "孩子说许多同学认为学戏曲没有意思，而父亲告诉他，只要自己感兴趣就足够了。",
+            "这幅简单的图画体现了遵从自己真实兴趣的价值。",
+            "总体而言，这幅图告诉我们，独立选择对个人成长非常重要。"
+          ],
+          "sentences": [
+            {
+              "id": "big-essay-chinese-opera-p1-s1",
+              "type": "复合句",
+              "text": "As is vividly shown in the picture above, the picture shows a child talking with his father about learning Chinese opera.",
+              "chinesePrompt": "如上图生动展示的那样，图中一个孩子正在和父亲谈论学习中国戏曲。",
+              "note": "",
+              "position": "描述与总结"
+            },
+            {
+              "id": "big-essay-chinese-opera-p1-s2",
+              "type": "复合句",
+              "text": "The child says that many classmates think learning opera is not interesting, while his father tells him that his own interest is enough.",
+              "chinesePrompt": "孩子说许多同学认为学戏曲没有意思，而父亲告诉他，只要自己感兴趣就足够了。",
+              "note": "",
+              "position": "描述与总结"
+            },
+            {
+              "id": "big-essay-chinese-opera-p1-s3",
               "type": "简单句",
-              "text": "In addition, we should combine practice with theory in our studies.",
-              "chinesePrompt": "此外，我们应在学习中把实践与理论结合起来。",
+              "text": "This simple picture reflects the value of following our true interests.",
+              "chinesePrompt": "这幅简单的图画体现了遵从自己真实兴趣的价值。",
+              "note": "",
+              "position": "描述与总结"
+            },
+            {
+              "id": "big-essay-chinese-opera-p1-s4",
+              "type": "复合句",
+              "text": "Overall, the picture tells us that independent choice matters greatly for personal growth.",
+              "chinesePrompt": "总体而言，这幅图告诉我们，独立选择对个人成长非常重要。",
+              "note": "",
+              "position": "描述与总结"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "第2段",
+          "outline": [
+            "一方面，知道自己真正喜欢什么的人，即使别人不赞同，也能继续向前。",
+            "显然，真正的兴趣能够帮助我们克服困难、积累经验并发展能力。",
+            "另一方面，总是随大流的人很容易失去自己的方向。"
+          ],
+          "sentences": [
+            {
+              "id": "big-essay-chinese-opera-p2-s1",
+              "type": "复合句",
+              "text": "On the one hand, people who know what they truly like can keep moving forward even when others disagree.",
+              "chinesePrompt": "一方面，知道自己真正喜欢什么的人，即使别人不赞同，也能继续向前。",
+              "note": "",
+              "position": "分析与论证"
+            },
+            {
+              "id": "big-essay-chinese-opera-p2-s2",
+              "type": "复合句",
+              "text": "It is obvious that real interest can help us overcome difficulties, gain experience, and develop our abilities.",
+              "chinesePrompt": "显然，真正的兴趣能够帮助我们克服困难、积累经验并发展能力。",
+              "note": "",
+              "position": "分析与论证"
+            },
+            {
+              "id": "big-essay-chinese-opera-p2-s3",
+              "type": "复合句",
+              "text": "On the other hand, people who always follow others may easily lose their own direction.",
+              "chinesePrompt": "另一方面，总是随大流的人很容易失去自己的方向。",
+              "note": "",
+              "position": "分析与论证"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "第3段",
+          "outline": [
+            "在我看来，每个人都应尊重个人兴趣并独立作出选择。",
+            "此外，学校和家庭可以帮助年轻人发现自己真正喜欢的事物。",
+            "我们应遵从自己的兴趣，而不是轻易放弃它们。",
+            "只有这样，我们才能稳步进步并实现自己的潜能。"
+          ],
+          "sentences": [
+            {
+              "id": "big-essay-chinese-opera-p3-s1",
+              "type": "简单句",
+              "text": "In my opinion, everyone should respect personal interests and make choices independently.",
+              "chinesePrompt": "在我看来，每个人都应尊重个人兴趣并独立作出选择。",
               "note": "",
               "position": "建议与总结"
             },
             {
-              "id": "big-essay-campus-lecture-p3-s5",
+              "id": "big-essay-chinese-opera-p3-s2",
               "type": "复合句",
-              "text": "Students can improve themselves continuously and prepare for future development only when they keep their curiosity and study actively.",
-              "chinesePrompt": "只有保持好奇心并积极学习，学生才能不断提升自己并为未来发展做好准备。",
-              "note": "这是你最终确认的最后一句，保留不变。",
+              "text": "In addition, schools and families can help young people discover what they really enjoy.",
+              "chinesePrompt": "此外，学校和家庭可以帮助年轻人发现自己真正喜欢的事物。",
+              "note": "",
+              "position": "建议与总结"
+            },
+            {
+              "id": "big-essay-chinese-opera-p3-s3",
+              "type": "简单句",
+              "text": "We should follow our interests instead of giving them up easily.",
+              "chinesePrompt": "我们应遵从自己的兴趣，而不是轻易放弃它们。",
+              "note": "",
+              "position": "建议与总结"
+            },
+            {
+              "id": "big-essay-chinese-opera-p3-s4",
+              "type": "倒装句",
+              "text": "Only in this way can we make steady progress and realize our potential.",
+              "chinesePrompt": "只有这样，我们才能稳步进步并实现自己的潜能。",
+              "note": "",
               "position": "建议与总结"
             }
           ]

@@ -4723,6 +4723,42 @@
   }
 </style>
 
+
+<style id="simple-checkin-v44-style">
+  #dashboardView .simple-checkin-card > .auto-plan-head,
+  #dashboardView .simple-checkin-card > .auto-plan-summary,
+  #dashboardView .simple-checkin-card > .plan-section-heading,
+  #dashboardView .simple-checkin-card > .plan-dual-summary,
+  #dashboardView .simple-checkin-card > .manual-task-target-row,
+  #dashboardView .simple-checkin-card > .auto-plan-scrollbox,
+  #dashboardView .simple-checkin-card > .plan-bonus-panel,
+  #dashboardView .simple-checkin-card > .unit-rule-note,
+  #dashboardView .simple-checkin-card > .plan-auto-note,
+  #dashboardView .simple-checkin-card > .button-row { display:none !important; }
+  #dashboardView .simple-checkin-card { padding:18px 20px; }
+  .simple-checkin { display:grid; gap:14px; }
+  .simple-checkin-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .simple-checkin-head h3 { margin:0; font-size:20px; line-height:1.25; color:#202b41; }
+  .simple-checkin-head span:not(.simple-checkin-state) { display:block; margin-top:4px; font-size:12px; color:#7b8597; }
+  .simple-checkin-state { padding:5px 10px; border-radius:999px; background:#f1f4f8; color:#667085; font-size:12px; font-weight:750; white-space:nowrap; }
+  .simple-checkin-state.saved { background:#eaf7ef; color:#237447; }
+  .simple-checkin-prompt { font-size:13px; color:#6c778b; }
+  .simple-checkin-list { display:grid; gap:0; border-top:1px solid #edf0f5; }
+  .simple-checkin-row { min-height:52px; display:flex; align-items:center; justify-content:space-between; gap:18px; border-bottom:1px solid #edf0f5; font-size:15px; font-weight:700; color:#263249; }
+  .simple-checkin-input { display:flex; align-items:center; gap:7px; color:#768196; font-weight:500; }
+  .simple-checkin-input input { width:72px; height:36px; padding:0 8px; border:1px solid #d8deea; border-radius:9px; background:#fff; color:#202b41; font-size:16px; font-weight:750; text-align:center; outline:none; }
+  .simple-checkin-input input:focus { border-color:#6f89ea; box-shadow:0 0 0 3px rgba(75,104,232,.10); }
+  .simple-checkin-input em { font-style:normal; min-width:14px; font-size:13px; }
+  .simple-checkin-save { justify-self:end; min-height:38px; padding:8px 16px; border-radius:10px; }
+  @media(max-width:650px){
+    #dashboardView .simple-checkin-card { padding:15px 16px; }
+    .simple-checkin-head h3 { font-size:18px; }
+    .simple-checkin { gap:11px; }
+    .simple-checkin-row { min-height:48px; }
+    .simple-checkin-input input { width:66px; height:34px; }
+    .simple-checkin-save { width:100%; justify-self:stretch; }
+  }
+</style>
 </head>
 <body>
 <div class="app">
@@ -4766,7 +4802,25 @@
         <button class="primary-btn" id="resumeLearningBtn">继续</button>
       </div>
 
-      <div class="card auto-plan-card">
+      <div class="card auto-plan-card simple-checkin-card">
+        <div class="simple-checkin" id="simpleTodayCheckin">
+          <div class="simple-checkin-head">
+            <div>
+              <h3>今日打卡</h3>
+              <span id="simpleCheckinDate"></span>
+            </div>
+            <span class="simple-checkin-state" id="simpleCheckinState">未记录</span>
+          </div>
+          <div class="simple-checkin-prompt">今天完成了多少？</div>
+          <div class="simple-checkin-list">
+            <label class="simple-checkin-row"><span>小作文</span><span class="simple-checkin-input"><input id="simpleCheckinSmall" type="number" min="0" max="999" inputmode="numeric" value="0"><em>句</em></span></label>
+            <label class="simple-checkin-row"><span>大作文</span><span class="simple-checkin-input"><input id="simpleCheckinBig" type="number" min="0" max="999" inputmode="numeric" value="0"><em>句</em></span></label>
+            <label class="simple-checkin-row"><span>翻译</span><span class="simple-checkin-input"><input id="simpleCheckinTranslation" type="number" min="0" max="999" inputmode="numeric" value="0"><em>句</em></span></label>
+            <label class="simple-checkin-row"><span>词组</span><span class="simple-checkin-input"><input id="simpleCheckinWords" type="number" min="0" max="999" inputmode="numeric" value="0"><em>个</em></span></label>
+            <label class="simple-checkin-row"><span>选择题</span><span class="simple-checkin-input"><input id="simpleCheckinQuiz" type="number" min="0" max="999" inputmode="numeric" value="0"><em>题</em></span></label>
+          </div>
+          <button class="primary-btn simple-checkin-save" id="saveSimpleTodayCheckinBtn">保存今日记录</button>
+        </div>
         <div class="auto-plan-head">
           <div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
@@ -6536,10 +6590,19 @@
     if (!value || typeof value !== "object" || Array.isArray(value)) return result;
     Object.entries(value).forEach(([key, item]) => {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(key) || !item || typeof item !== "object") return;
+      const simpleRaw = item.simple && typeof item.simple === "object" && !Array.isArray(item.simple) ? item.simple : {};
       result[key] = {
         count: Math.max(0, Math.floor(Number(item.count) || 0)),
         target: Math.max(1, Math.min(999, Math.floor(Number(item.target) || 1))),
-        updatedAt: String(item.updatedAt || "")
+        updatedAt: String(item.updatedAt || ""),
+        simple: {
+          small: Math.max(0, Math.min(999, Math.floor(Number(simpleRaw.small) || 0))),
+          big: Math.max(0, Math.min(999, Math.floor(Number(simpleRaw.big) || 0))),
+          translation: Math.max(0, Math.min(999, Math.floor(Number(simpleRaw.translation) || 0))),
+          words: Math.max(0, Math.min(999, Math.floor(Number(simpleRaw.words) || 0))),
+          quiz: Math.max(0, Math.min(999, Math.floor(Number(simpleRaw.quiz) || 0)))
+        },
+        simpleUpdatedAt: String(item.simpleUpdatedAt || "")
       };
     });
     return result;
@@ -15942,10 +16005,40 @@ function bindSmallModule(){
 
   window.__KAOYAN_V40_STORAGE__={schema:40,deviceId:()=>v40DeviceId(),localItems:()=>v40All().map(([key,e])=>({key,version:e.version,updatedAt:e.updatedAt,deviceId:e.deviceId})),cloudMode:()=>cloudGranularMode,checkpoint:()=>v40Checkpoint()};
   window.__KAOYAN_V43_ACCOUNTS__={owner:()=>activeLocalOwner,knownUsers:()=>v43KnownUsers(),scopedKey:(k)=>v43ScopedKey(k),hasData:(u)=>v43HasScopedData(u)};
-  window.__KAOYAN_BUILD__ = "V43-two-changes-only-2026-08-18";
+  /* ========== V43 首页极简今日打卡：只记录完成数量 ========== */
+  function v43SimpleCount(value){return Math.max(0,Math.min(999,Math.floor(Number(value)||0)))}
+  function v43SimpleCheckinRecord(key=localDateKey()){
+    const raw=state.manualCheckins?.[key]||{},simple=raw.simple&&typeof raw.simple==="object"?raw.simple:{};
+    return{small:v43SimpleCount(simple.small),big:v43SimpleCount(simple.big),translation:v43SimpleCount(simple.translation),words:v43SimpleCount(simple.words),quiz:v43SimpleCount(simple.quiz),updatedAt:String(raw.simpleUpdatedAt||"")};
+  }
+  function v43SetSimpleCheckinInput(id,value){const el=$(id);if(el&&document.activeElement!==el)el.value=String(value)}
+  function v43RenderSimpleTodayCheckin(){
+    const key=localDateKey(),r=v43SimpleCheckinRecord(key),date=dateFromKey(key);
+    if($("simpleCheckinDate"))$("simpleCheckinDate").textContent=`${date.getMonth()+1}月${date.getDate()}日`;
+    v43SetSimpleCheckinInput("simpleCheckinSmall",r.small);
+    v43SetSimpleCheckinInput("simpleCheckinBig",r.big);
+    v43SetSimpleCheckinInput("simpleCheckinTranslation",r.translation);
+    v43SetSimpleCheckinInput("simpleCheckinWords",r.words);
+    v43SetSimpleCheckinInput("simpleCheckinQuiz",r.quiz);
+    const badge=$("simpleCheckinState");if(badge){badge.textContent=r.updatedAt?"✓ 已记录":"未记录";badge.classList.toggle("saved",Boolean(r.updatedAt))}
+  }
+  function v43SaveSimpleTodayCheckin(){
+    const key=localDateKey();if(!state.manualCheckins||typeof state.manualCheckins!=="object")state.manualCheckins={};
+    const old=state.manualCheckins[key]||{};
+    state.manualCheckins[key]={...old,simple:{small:v43SimpleCount($("simpleCheckinSmall")?.value),big:v43SimpleCount($("simpleCheckinBig")?.value),translation:v43SimpleCount($("simpleCheckinTranslation")?.value),words:v43SimpleCount($("simpleCheckinWords")?.value),quiz:v43SimpleCount($("simpleCheckinQuiz")?.value)},simpleUpdatedAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
+    saveState({syncKey:"study-plan"});v43RenderSimpleTodayCheckin();showToast("今日记录已保存");
+  }
+  const v43BaseRenderTodayAutoPlan=renderTodayAutoPlan;
+  renderTodayAutoPlan=function(){v43BaseRenderTodayAutoPlan();v43RenderSimpleTodayCheckin()};
+  document.addEventListener("click",event=>{if(event.target.closest?.("#saveSimpleTodayCheckinBtn"))v43SaveSimpleTodayCheckin()});
+  /* ========== V43 首页极简今日打卡 end ========== */
+
+  window.__KAOYAN_BUILD__ = "V43-simple-checkin-2026-08-19";
   window.__KAOYAN_TRANSLATION_ENTRY__={open:openTranslationModule,years:[...TRANSLATION_YEAR_ORDER]};
   init();
 })();
 </script>
+
+
 </body>
 </html>
